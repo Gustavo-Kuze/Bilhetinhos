@@ -1,2 +1,1 @@
-# Bilhetinhos
 Anotações online compartilháveis
