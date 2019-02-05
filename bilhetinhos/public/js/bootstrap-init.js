@@ -1,9 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     $(function () {
-        $('[data-toggle="popover"]').popover({
+        $('#popover-notification').popover({
             html: true,
             content: function () {
-                return $('#popover-content').html();
+                return $('#popover-notification-content').html();
+            }
+        });
+        $('#popover-user').popover({
+            html: true,
+            content: function () {
+                return $('#popover-user-content').html();
             }
         });
     });
