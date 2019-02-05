@@ -13,10 +13,10 @@ export default function Navbar() {
                         <a className="nav-link btn btn-lg btn-primary" href="/bilhetes/novo">Criar bilhete <span className=""><i className="fas fa-plus"></i></span></a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link btn btn-lg btn-primary" href="#">Meu quadro</a>
+                        <a className="nav-link btn btn-lg btn-primary" href="/quadro">Meu quadro</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link btn btn-lg btn-primary" href="#">Colegas</a>
+                        <a className="nav-link btn btn-lg btn-primary" href="/colegas">Colegas</a>
                     </li>
                 </ul>
                 {/* far fa-bell é o sino fechado, que deve ficar vibrando em caso de notificação ativa */}

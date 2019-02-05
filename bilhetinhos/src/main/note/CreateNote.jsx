@@ -6,8 +6,18 @@ export default class CreateNote extends Component {
         return (
             <Skeleton>
                 <section className="container-fluid">
-                    <h1>Criar uma nota</h1>
-                    <h2>Essa aqui é a página de criação de notas</h2>
+                    <div className="row ">
+                        <div className="col-10 offset-1">
+                            <h1>Criar uma nota</h1>
+                            <form>
+                                <div className="form-group ">
+                                    <textarea id="ta-note-message" className="form-control" name="note-message" rows="10"></textarea>
+                                    <button className="btn btn-primary btn-lg mt-3">Criar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </section>
             </Skeleton>
         )

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 export default function Footer() {
     return (
-        <footer className="footer navbar-fixed-bottom border-top">
+        <footer className="footer navbar-fixed-bottom border-top p-5 ">
             <div className="container">
                 <div className="row">
                     <div className="col">
