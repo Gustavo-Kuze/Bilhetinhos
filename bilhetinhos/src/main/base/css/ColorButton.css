@@ -1,0 +1,10 @@
+.color-button {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.color-button:hover {
+    transform: scale(1.1);
+}

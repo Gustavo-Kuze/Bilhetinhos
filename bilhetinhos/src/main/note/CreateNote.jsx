@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton'
+import ColorPicker from '../base/ColorPicker'
 
 export default class CreateNote extends Component {
     state = {
@@ -20,6 +21,7 @@ export default class CreateNote extends Component {
                             <form>
                                 <div className="form-group ">
                                     <p>Selecione uma cor:</p>
+                                    <ColorPicker />
                                     <input type="color" name="color" value={this.state.color} onChange={this.handleColorChange} />
                                     <p>Digite sua mensagem aqui:</p>
                                     <textarea id="ta-note-message" className="form-control" name="note-message" rows="10" style={{backgroundColor: this.state.color}}></textarea>
