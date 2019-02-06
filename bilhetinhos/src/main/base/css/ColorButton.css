@@ -1,10 +1,44 @@
-.color-button {
-    height: 40px;
-    width: 40px;
+.color-button-container {
     border-radius: 50%;
     cursor: pointer;
 }
 
-.color-button:hover {
+.color-button-radio {
+    display: none;
+}
+
+.color-button-span {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: -1px 4px 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    line-height: 44px;
+}
+
+.color-button-span img {
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+.color-button-radio:checked + label span img {
+    opacity: 1;
+}
+
+input[type="radio"]+label {
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.color-button-container:hover {
     transform: scale(1.1);
+    transition: all .3s ease;
 }
