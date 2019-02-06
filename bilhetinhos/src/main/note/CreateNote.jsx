@@ -11,6 +11,10 @@ export default class CreateNote extends Component {
         this.setState({...this.state, color: e.target.value})
     }
 
+    colorChanged = color => {
+        this.setState({...this.state, color})
+    }
+
     render() {
         return (
             <Skeleton>
@@ -21,7 +25,7 @@ export default class CreateNote extends Component {
                             <form>
                                 <div className="form-group ">
                                     <p>Selecione uma cor:</p>
-                                    <ColorPicker />
+                                    <ColorPicker colorChanged={this.colorChanged} />
                                     <input type="color" name="color" value={this.state.color} onChange={this.handleColorChange} />
                                     <p>Digite sua mensagem aqui:</p>
                                     <textarea id="ta-note-message" className="form-control" name="note-message" rows="10" style={{backgroundColor: this.state.color}}></textarea>
