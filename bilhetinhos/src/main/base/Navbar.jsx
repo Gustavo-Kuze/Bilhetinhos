@@ -20,8 +20,8 @@ export default function Navbar() {
                     </li>
                 </ul>
                 {/* far fa-bell é o sino fechado, que deve ficar vibrando em caso de notificação ativa */}
-                <a id="popover-notification" tabIndex="0" className="nav-link btn btn-lg btn-primary" href="#" role="button" data-toggle="popover" data-placement="left" data-trigger="focus" title="Notificações" ><i className="far fa-bell"><span className="badge badge-primary badge-pill">2</span></i></a>
-                <a id="popover-user" tabIndex="0" className="nav-link btn btn-lg btn-primary" href="#" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title="[NOME_USUARIO]" ><i className="fas fa-user-alt "></i></a>
+                <a id="popover-notification" tabIndex="0" className="nav-link btn btn-lg btn-primary" href="javascript:;" role="button" data-toggle="popover" data-placement="left" data-trigger="focus" title="Notificações" ><i className="far fa-bell"><span className="badge badge-primary badge-pill">2</span></i></a>
+                <a id="popover-user" tabIndex="0" className="nav-link btn btn-lg btn-primary" href="javascript:;" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title="[NOME_USUARIO]" ><i className="fas fa-user-alt "></i></a>
             </div>
         </nav>
     )
