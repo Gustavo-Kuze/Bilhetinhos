@@ -1,6 +1,5 @@
 import './css/ColorButton.css'
 import React, { Component } from 'react'
-import materialColors from './js/NoteColors'
 
 
 export default class ColorPicker extends Component {
@@ -12,7 +11,7 @@ export default class ColorPicker extends Component {
         this.props.colorChanged(e.target.value)
     }
 
-    colorButtons = Object.entries(materialColors).map(c => (
+    colorButtons = Object.entries(this.props.colors).map(c => (
         <div key={c[0]} className='col-2-xs color-button-container' >
             <input className="color-button-radio" id={`color-button-${this.props.name}-${c[0]}`} type="radio" value={c[1]} name={this.props.name} onChange={this.handleChange} />
             <label className=" color-button-label" htmlFor={`color-button-${this.props.name}-${c[0]}`}>

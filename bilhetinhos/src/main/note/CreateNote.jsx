@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Skeleton from "../base/Skeleton"
 import ColorPicker from "../base/ColorPicker"
+import {backgroundColors, fontColors} from '../base/js/MaterialColors'
 
 export default class CreateNote extends Component {
     state = {
@@ -14,14 +15,6 @@ export default class CreateNote extends Component {
         this.setState({ ...this.state, color: e.target.value })
     }
 
-    noteColorChanged = noteColor => {
-        this.setState({ ...this.state, noteColor })
-    }
-
-    fontColorChanged = fontColor => {
-        this.setState({ ...this.state, fontColor })
-    }
-
     handleFontSizeChange = (e) => {
         this.setState({ ...this.state, fontSize: parseInt(e.target.value) })
     }
@@ -30,13 +23,21 @@ export default class CreateNote extends Component {
         this.setState({ ...this.state, message: e.target.value })
     }
 
+    noteColorChanged = noteColor => {
+        this.setState({ ...this.state, noteColor })
+    }
+
+    fontColorChanged = fontColor => {
+        this.setState({ ...this.state, fontColor })
+    }
+
     render() {
         return (
             <Skeleton>
                 <section className="container-fluid">
                     <div className="row ">
                         <div className="col-10 offset-1">
-                            <h1>Criar uma nota</h1>
+                            <h1>Criar novo bilhete</h1>
                             <form>
                                 <div className="form-group ">
                                     <div className="accordion" id="note-options-accordion">
@@ -51,7 +52,7 @@ export default class CreateNote extends Component {
 
                                             <div id="collapse-note-color" className="collapse" aria-labelledby="accordion-heading-note-color" data-parent="#note-options-accordion">
                                                 <div className="card-body">
-                                                    <ColorPicker name="note-color" colorChanged={this.noteColorChanged} />
+                                                    <ColorPicker name="note-color" colors={backgroundColors} colorChanged={this.noteColorChanged} />
                                                 </div>
                                             </div>
                                         </div>
@@ -65,7 +66,7 @@ export default class CreateNote extends Component {
                                             </div>
                                             <div id="collapse-font-color" className="collapse" aria-labelledby="accordion-heading-font-color" data-parent="#note-options-accordion">
                                                 <div className="card-body">
-                                                    <ColorPicker name="font-color" colorChanged={this.fontColorChanged} />
+                                                    <ColorPicker name="font-color" colors={fontColors} colorChanged={this.fontColorChanged} />
                                                 </div>
                                             </div>
                                         </div>
@@ -79,7 +80,8 @@ export default class CreateNote extends Component {
                                             </div>
                                             <div id="collapse-font-size" className="collapse" aria-labelledby="accordion-heading-font-size" data-parent="#note-options-accordion">
                                                 <div className="card-body">
-                                                    <input className="form-control" type="number" value={this.state.fontSize} onChange={this.handleFontSizeChange} />
+                                                <p>{this.state.fontSize}</p>
+                                                    <input className="custom-range" type="range" min="20" max="40" value={this.state.fontSize} onChange={this.handleFontSizeChange} />
                                                 </div>
                                             </div>
                                         </div>
