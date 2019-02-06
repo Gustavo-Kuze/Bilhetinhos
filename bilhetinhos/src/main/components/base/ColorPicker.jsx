@@ -1,7 +1,6 @@
 import './css/ColorButton.css'
 import React, { Component } from 'react'
 
-
 export default class ColorPicker extends Component {
     state = {
         buttonsCheckState: []
@@ -27,7 +26,7 @@ export default class ColorPicker extends Component {
         return (
             <div className='container'>
                 <div className='row'>
-                    <div className="col-md-6">
+                    <div className="col-lg-6">
                         <div className="row">
                             {this.colorButtons}
                         </div>

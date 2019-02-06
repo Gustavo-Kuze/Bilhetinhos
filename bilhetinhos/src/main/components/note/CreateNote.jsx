@@ -1,3 +1,4 @@
+import './css/Note.css'
 import React, { Component } from "react"
 import Skeleton from "../base/Skeleton"
 import ColorPicker from "../base/ColorPicker"
@@ -5,9 +6,9 @@ import {backgroundColors, fontColors} from '../base/js/MaterialColors'
 
 export default class CreateNote extends Component {
     state = {
-        noteColor: "#fffde7",
-        fontColor: "#333",
-        fontSize: 14,
+        noteColor: "#fff9c4",
+        fontColor: "#424242",
+        fontSize: 20,
         message: ''
     }
 
@@ -36,7 +37,7 @@ export default class CreateNote extends Component {
             <Skeleton>
                 <section className="container-fluid">
                     <div className="row ">
-                        <div className="col-10 offset-1">
+                        <div className="col-md-6 col-sm-10 offset-sm-1 offset-md-3">
                             <h1>Criar novo bilhete</h1>
                             <form>
                                 <div className="form-group ">
@@ -85,15 +86,14 @@ export default class CreateNote extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div><p>Digite sua mensagem aqui:</p>
-                                    <textarea id="ta-note-message" className="form-control" name="note-message" rows="10" onChange={this.handleMessageChange} style={{ backgroundColor: this.state.noteColor, color: this.state.fontColor, fontSize: this.state.fontSize }}></textarea>
+                                    </div>
+                                    <p className="mt-3">Digite sua mensagem aqui:</p>
+                                    <textarea id="ta-note-message" className="form-control note-message" name="note-message" rows="10" onChange={this.handleMessageChange} style={{ backgroundColor: this.state.noteColor, color: this.state.fontColor, fontSize: this.state.fontSize }}></textarea>
                                     <button className="btn btn-primary btn-lg mt-3">Criar</button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
-
                 </section>
             </Skeleton>
         )

@@ -8,11 +8,9 @@ export default class UserNoteboard extends Component {
                 <section className="container-fluid">
                     <div className="row ">
                         <div className="col-10 offset-1">
-                            <h1>Meu quadro</h1>
-                            
+                            <h1>Meu quadro</h1>  
                         </div>
                     </div>
-
                 </section>
             </Skeleton>
         )

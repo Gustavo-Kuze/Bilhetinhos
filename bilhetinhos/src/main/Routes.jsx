@@ -1,9 +1,9 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
-import Home from './home/Home'
-import CreateNote from './note/CreateNote'
-import UserNoteboard from './noteboard/UserNoteboard'
+import Home from './components/home/Home'
+import CreateNote from './components/note/CreateNote'
+import UserNoteboard from './components/noteboard/UserNoteboard'
 
 export default props =>
     <BrowserRouter>
