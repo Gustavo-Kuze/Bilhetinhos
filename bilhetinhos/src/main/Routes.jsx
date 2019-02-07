@@ -5,6 +5,7 @@ import Home from './components/home/Home'
 import CreateNote from './components/note/CreateNote'
 import UserNoteboard from './components/noteboard/UserNoteboard'
 import Login from './components/user/Login'
+import SignUp from './components/user/SignUp'
 
 export default props =>
     <BrowserRouter>
@@ -12,6 +13,7 @@ export default props =>
             <Route exact path='/' component={Home} />
             <Route exact path='/bilhetes/novo' component={CreateNote} />
             <Route exact path='/user/login' component={Login} />
+            <Route exact path='/user/signup' component={SignUp} />
             <Route exact path='/quadro' component={UserNoteboard} />
             <Redirect from='*' to='/' />
         </Switch>

@@ -32,8 +32,8 @@ class CreateNote extends Component {
             <Skeleton>
                 <section className="container-fluid">
                     <div className="row ">
-                        <div className="col-md-6 col-sm-10 offset-sm-1 offset-md-3">
-                            <h1>Criar novo bilhete</h1>
+                        <div className="col-md-6 col-sm-10 offset-sm-1 offset-md-3 ">
+                            <h1 className="h3">Criar novo bilhete</h1>
                             <form onSubmit={this.callCreate}>
                                 <div className="form-group ">
                                     <div className="accordion" id="note-options-accordion">

@@ -36,8 +36,10 @@ export default class Login extends Component {
             <Skeleton>
                 <section className="container-fluid">
                     <div className="row ">
-                        <div className="col-10 offset-1">
+                        <div className="col-10 offset-1 d-flex justify-content-center align-items-center flex-column">
                             <div id="firebaseui-auth-container"></div>
+                            <p>Ainda não tem uma conta?</p>
+                            <a href="/user/signup" className="text-decoration-none text-center text-light firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-password firebaseui-id-idp-button d-flex justify-content-center align-items-center"><span>Criar</span></a>
                         </div>
                     </div>
                 </section>
