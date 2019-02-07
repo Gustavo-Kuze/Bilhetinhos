@@ -10,7 +10,7 @@ import {
     handleFontColorChanged, handleFontSizeChanged,
     handleMessageChanged, handleNoteColorChanged, handleTitleChanged,
     create
-} from './createNoteActions'
+} from '../../redux/actions/createNoteActions'
 
 
 class CreateNote extends Component {

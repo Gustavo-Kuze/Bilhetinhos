@@ -1,15 +1,15 @@
+import './main/components/base/css/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import Routes from './main/Routes'
+import Routes from './main/routes/Routes'
 import * as serviceWorker from './serviceWorker';
 
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import reducers from './main/redux/reducers'
+
+import store from './main/redux/store'
 
 ReactDOM.render(
-    <Provider store={createStore(reducers)}>
+    <Provider store={store}>
         <Routes />
     </Provider>
     , document.getElementById('root'));
