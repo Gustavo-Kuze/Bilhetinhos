@@ -1,7 +1,7 @@
 import './css/Note.css'
 import React, { Component } from "react"
 import Skeleton from "../base/Skeleton"
-import ColorPicker from "../base/ColorPicker"
+import ColorPicker from "../utils/ColorPicker"
 import {backgroundColors, fontColors} from '../base/js/MaterialColors'
 
 export default class CreateNote extends Component {

@@ -1,4 +1,4 @@
-import './css/ColorButton.css'
+import './css/ColorButtons.css'
 import React, { Component } from 'react'
 
 export default class ColorPicker extends Component {
