@@ -9,13 +9,13 @@ export const handleMessageChanged = (event) => {
     payload: event.target.value
 }}
 
-export const handleNoteColorChanged = (event) => ({
+export const handleNoteColorChanged = (color) => ({
     type: "NOTE_COLOR_CHANGED",
-    payload: event.target.value
+    payload: color
 })
 
-export const handleFontColorChanged = (event) => ({
+export const handleFontColorChanged = (color) => ({
     type: "FONT_COLOR_CHANGED",
-    payload: event.target.value
+    payload: color
 })
 

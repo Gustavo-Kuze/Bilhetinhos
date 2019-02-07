@@ -2,12 +2,9 @@ import './css/ColorButtons.css'
 import React, { Component } from 'react'
 
 export default class ColorPicker extends Component {
-    state = {
-        buttonsCheckState: []
-    }
-
+  
     handleChange = e => {
-        this.props.colorChanged(e)
+        this.props.colorChanged(e.target.value)
     }
 
     colorButtons = Object.entries(this.props.colors).map(c => (
