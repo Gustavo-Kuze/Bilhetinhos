@@ -7,7 +7,7 @@ export default function UserMenu() {
                 <a href="#" target="_blank" className="list-group-item">Perfil</a>
                 <a href="#" target="_blank" className="list-group-item">Configurações</a>
             </ul>
-            <a href="#" className="text-danger">Sair</a>
+            <a href="/user/signout" className="text-danger">Sair</a>
         </div>
     )
 }
