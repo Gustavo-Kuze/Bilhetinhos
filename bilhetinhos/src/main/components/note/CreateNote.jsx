@@ -8,11 +8,24 @@ import { bindActionCreators } from 'redux'
 
 import {
     handleFontColorChanged, handleFontSizeChanged,
-    handleMessageChanged, handleNoteColorChanged
+    handleMessageChanged, handleNoteColorChanged, handleTitleChanged,
+    create
 } from './createNoteActions'
 
 
 class CreateNote extends Component {
+
+    callCreate = (e) => {
+        e.preventDefault()
+        this.props.create({
+            title: this.props.title,
+            message: this.props.message,
+            noteColor: this.props.noteColor,
+            fontColor: this.props.fontColor,
+            fontSize: this.props.fontSize
+        })
+        return false
+    }
 
     render() {
         return (
@@ -21,7 +34,7 @@ class CreateNote extends Component {
                     <div className="row ">
                         <div className="col-md-6 col-sm-10 offset-sm-1 offset-md-3">
                             <h1>Criar novo bilhete</h1>
-                            <form>
+                            <form onSubmit={this.callCreate}>
                                 <div className="form-group ">
                                     <div className="accordion" id="note-options-accordion">
                                         <div className="card">
@@ -69,8 +82,8 @@ class CreateNote extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <p className="mt-3">Digite sua mensagem aqui:</p>
-                                    <textarea id="ta-note-message" className="form-control note-message" name="note-message" rows="10" value={this.props.message} onChange={this.props.handleMessageChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, fontSize: this.props.fontSize }}></textarea>
+                                    <input className="my-3 form-control" type="text" name="note-title" placeholder="O título do bilhete vai aqui" value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />
+                                    <textarea id="ta-note-message" className="form-control note-message" placeholder="Digite sua mensagem aqui!" name="note-message" rows="10" value={this.props.message} onChange={this.props.handleMessageChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, fontSize: this.props.fontSize }}></textarea>
                                     <button className="btn btn-primary btn-lg mt-3">Criar</button>
                                 </div>
                             </form>
@@ -86,9 +99,13 @@ const mapStateToProps = state => ({
     noteColor: state.createNote.noteColor,
     fontColor: state.createNote.fontColor,
     fontSize: state.createNote.fontSize,
-    message: state.createNote.message
+    message: state.createNote.message,
+    title: state.createNote.title
 })
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ handleFontColorChanged, handleFontSizeChanged, handleMessageChanged, handleNoteColorChanged }, dispatch)
+    bindActionCreators({
+        handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
+        handleNoteColorChanged, handleTitleChanged, create
+    }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(CreateNote)

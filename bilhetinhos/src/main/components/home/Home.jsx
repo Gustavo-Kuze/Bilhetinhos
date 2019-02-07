@@ -1,13 +1,7 @@
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton'
-import {getDinos} from '../../api/dinos'
-
 
 export default class Home extends Component {
-
-    componentDidMount() {
-        getDinos()
-    }
 
     render() {
         return (

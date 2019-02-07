@@ -14,10 +14,7 @@ var config = {
     messagingSenderId: "957489901010"
 };
 
-console.log('loading firebase')
-
 firebase.initializeApp(config);
 
-console.log(firebase)
 
 export default firebase
