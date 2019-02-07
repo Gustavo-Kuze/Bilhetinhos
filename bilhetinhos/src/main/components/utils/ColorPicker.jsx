@@ -7,7 +7,7 @@ export default class ColorPicker extends Component {
     }
 
     handleChange = e => {
-        this.props.colorChanged(e.target.value)
+        this.props.colorChanged(e)
     }
 
     colorButtons = Object.entries(this.props.colors).map(c => (

@@ -8,11 +8,10 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducers from './main/redux/reducers'
 
-
 ReactDOM.render(
-        <Provider store={createStore(reducers)}>
-            <Routes />
-        </Provider>
+    <Provider store={createStore(reducers)}>
+        <Routes />
+    </Provider>
     , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

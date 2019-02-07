@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
+import createNoteReducer from '../components/note/createNoteReducer'
 
-const rootReducer = combineReducers({
-    test: () => {return {payload: 'asasd'}}
+const reducers = combineReducers({
+    createNote: createNoteReducer
 })
 
-
-export default rootReducer
+export default reducers
