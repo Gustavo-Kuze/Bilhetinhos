@@ -17,28 +17,18 @@ class SignUp extends Component {
     e.preventDefault()
 
     firebase.auth().onAuthStateChanged(
-      function(user) {
-        console.log('usuário: ')
-          console.log(user)
+      user => {
         if (user) {
-          
-          var displayName = user.displayName
-          var email = user.email
-          var uid = user.uid
-          var providerData = user.providerData
-          user.getIdToken().then(function(accessToken) {
-          debugger
+          user.getIdToken().then(accessToken => {
             this.props.login({
-              displayName,
-              email,
-              uid,
-              providerData,
+              email: user.email,
+              uid: user.uid,
               accessToken
             })
           })
         }
       },
-      function(error) {
+      error => {
         console.log(error)
       }
     )
@@ -49,9 +39,9 @@ class SignUp extends Component {
       .then(() => {
         window.location.pathname = "/"
       })
-      .catch(function(error) {
-        var errorCode = error.code
-        var errorMessage = error.message
+      .catch(error => {
+        let errorCode = error.code
+        let errorMessage = error.message
         console.log("Ocorreu um erro ao tentar criar um usuário: ")
         console.log(errorCode)
         console.log(errorMessage)
@@ -112,9 +102,15 @@ class SignUp extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  email: state.email,
+  uid: state.uid,
+  accessToken: state.accessToken
+})
+
 const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch)
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SignUp)

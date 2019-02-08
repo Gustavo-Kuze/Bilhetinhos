@@ -5,8 +5,14 @@ import Routes from './main/routes/Routes'
 import * as serviceWorker from './serviceWorker';
 import './main/api/firebaseBoot'
 import { Provider } from 'react-redux'
-
+import { saveState } from './main/redux/localStorage/'
 import store from './main/redux/store'
+
+store.subscribe(() => {
+    saveState({
+        login: store.getState().login
+    })
+})
 
 ReactDOM.render(
     <Provider store={store}>

@@ -1,13 +1,16 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
+import firebase from 'firebase/app'
+import 'firebase/auth'
+// import 'firebase/database'
 
 import 'firebaseui/dist/firebaseui.css'
 import * as firebaseui from 'firebaseui'
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton'
+import { login } from "../../redux/actions/loginActions"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
 
-export default class Login extends Component {
+class Login extends Component {
     componentDidMount() {
         var uiConfig = {
             signInSuccessUrl: '/',
@@ -21,16 +24,33 @@ export default class Login extends Component {
             // tosUrl: '<your-tos-url>',
             // Privacy policy url/callback.
             // privacyPolicyUrl: function () {
-            //     window.location.assign('<your-privacy-policy-url>');
+            //     window.location.assign('<your-privacy-policy-url>')
             // }
-        };
-        
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        
+        }
+
+        var ui = new firebaseui.auth.AuthUI(firebase.auth())
+
         // The start method will wait until the DOM is loaded.
-        ui.start('#firebaseui-auth-container', uiConfig); 
+        ui.start('#firebaseui-auth-container', uiConfig)
+
+        firebase.auth().onAuthStateChanged(
+            user => {
+                if (user) {
+                    user.getIdToken().then(accessToken => {
+                        this.props.login({
+                            email: user.email,
+                            uid: user.uid,
+                            accessToken
+                        })
+                    })
+                }
+            },
+            error => {
+                console.log(error)
+            }
+        )
     }
-    
+
     render() {
         return (
             <Skeleton>
@@ -50,3 +70,9 @@ export default class Login extends Component {
 
 
 
+const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch)
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Login)
