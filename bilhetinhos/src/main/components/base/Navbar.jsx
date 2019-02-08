@@ -32,11 +32,11 @@ const Navbar = props => {
 
 
 const mapStateToProps = state => ({
-    displayName: state.login.displayName,
-    email: state.login.email,
-    uid: state.login.uid,
-    accessToken: state.login.accessToken,
-    providerData: state.login.providerData
+    displayName: state.user.displayName,
+    email: state.user.email,
+    uid: state.user.uid,
+    accessToken: state.user.accessToken,
+    providerData: state.user.providerData
 })
 
 export default connect(mapStateToProps)(Navbar)

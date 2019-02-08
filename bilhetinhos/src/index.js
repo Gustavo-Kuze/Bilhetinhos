@@ -10,7 +10,7 @@ import store from './main/redux/store'
 
 store.subscribe(() => {
     saveState({
-        login: store.getState().login
+        user: store.getState().user
     })
 })
 

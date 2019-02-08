@@ -3,7 +3,7 @@ import 'firebase/auth'
 import React, { Component } from "react"
 import Skeleton from "../base/Skeleton"
 
-import { login } from "../../redux/actions/userActions"
+import { changeUserLogState } from "../../redux/actions/userActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
@@ -21,7 +21,7 @@ class SignUp extends Component {
       user => {
         if (user) {
           user.getIdToken().then(accessToken => {
-            this.props.login({
+            this.props.changeUserLogState({
               email: user.email,
               uid: user.uid,
               accessToken
@@ -109,7 +109,7 @@ class SignUp extends Component {
 //   accessToken: state.accessToken
 // })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ changeUserLogState }, dispatch)
 
 export default connect(
   null,

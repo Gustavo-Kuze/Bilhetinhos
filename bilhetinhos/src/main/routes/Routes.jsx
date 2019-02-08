@@ -8,17 +8,18 @@ import Profile from '../components/user/Profile'
 import Login from '../components/user/Login'
 import SignUp from '../components/user/SignUp'
 import SignOut from '../components/user/SignOut'
+import ProtectedRoute from './ProtectedRoute'
 
 export default () =>
     <BrowserRouter>
         <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/bilhetes/novo' component={CreateNote} />
             <Route exact path='/user/login' component={Login} />
             <Route exact path='/user/signup' component={SignUp} />
-            <Route exact path='/user/signout' component={SignOut} />
-            <Route exact path='/user/profile' component={Profile} />
-            <Route exact path='/quadro' component={UserNoteboard} />
+            <ProtectedRoute exact path='/user/signout' component={SignOut} />
+            <ProtectedRoute exact path='/user/profile' component={Profile} />
+            <ProtectedRoute exact path='/bilhetes/novo' component={CreateNote} />
+            <ProtectedRoute exact path='/quadro' component={UserNoteboard} />
             <Redirect from='*' to='/' />
         </Switch>
     </BrowserRouter>

@@ -13,6 +13,7 @@ var config = {
 };
 
 firebase.initializeApp(config);
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 
 // const initApp = function () {
 //     firebase.auth().onAuthStateChanged(function (user) {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as firebase from "firebase";
 import "firebase/auth";
-import { login } from "../../redux/actions/userActions"
+import { changeUserLogState } from "../../redux/actions/userActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
@@ -11,7 +11,7 @@ class SignOut extends Component {
       .auth()
       .signOut()
       .then(() => {
-        this.props.login({
+        this.props.changeUserLogState({
           email: '',
           uid: '',
           accessToken: ''
@@ -32,7 +32,7 @@ class SignOut extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ changeUserLogState }, dispatch)
 
 export default connect(
   null,

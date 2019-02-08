@@ -10,21 +10,21 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'USER_LOGIN':
+        case 'USER_LOG_STATE_CHANGED':
             return {
                 ...state,
                 email: action.payload.email,
                 uid: action.payload.uid,
                 accessToken: action.payload.accessToken
             }
-        case 'USER_PROFILE_UPDATE':
+        case 'USER_PROFILE_UPDATED':
             return {
                 ...state,
                 name: action.payload.name,
                 bio: action.payload.bio,
                 phone: action.payload.phone
             }
-        case 'USER_PICTURE_UPDATE':
+        case 'USER_PICTURE_UPDATED':
             return {
                 ...state,
                 profilePic: action.payload

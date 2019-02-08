@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import createNoteReducer from './reducers/createNoteReducer'
-import loginReducer from './reducers/userReducer'
+import userReducer from './reducers/userReducer'
 
 const combinedReducers = combineReducers({
     createNote: createNoteReducer,
-    login: loginReducer
+    user: userReducer
 })
 
 export default combinedReducers
