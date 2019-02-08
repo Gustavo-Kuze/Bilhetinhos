@@ -4,3 +4,10 @@ export const login = userCredentials => {
         payload: userCredentials
     }
 }
+
+export const updateUserProfile = profileCredentials => {
+    return {
+        type: "USER_PROFILE_UPDATE",
+        payload: profileCredentials
+    }
+}
