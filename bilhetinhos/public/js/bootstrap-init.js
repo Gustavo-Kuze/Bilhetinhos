@@ -13,4 +13,5 @@ document.addEventListener('DOMContentLoaded', () => {
             return $('#popover-user-content').html();
         }
     });
+    $('#inp-user-phone').mask('(00) 00000-0000');
 })

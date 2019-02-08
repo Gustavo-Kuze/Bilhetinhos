@@ -3,11 +3,12 @@ import 'firebase/auth'
 import React, { Component } from "react"
 import Skeleton from "../base/Skeleton"
 
-import { login } from "../../redux/actions/loginActions"
+import { login } from "../../redux/actions/userActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
 class SignUp extends Component {
+  
   state = {
     email: "",
     password: ""
@@ -102,15 +103,15 @@ class SignUp extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  email: state.email,
-  uid: state.uid,
-  accessToken: state.accessToken
-})
+// const mapStateToProps = state => ({
+//   email: state.email,
+//   uid: state.uid,
+//   accessToken: state.accessToken
+// })
 
 const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch)
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(SignUp)

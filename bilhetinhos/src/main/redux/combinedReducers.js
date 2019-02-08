@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import createNoteReducer from './reducers/createNoteReducer'
-import loginReducer from './reducers/loginReducer'
+import loginReducer from './reducers/userReducer'
 
 const combinedReducers = combineReducers({
     createNote: createNoteReducer,

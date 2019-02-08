@@ -5,7 +5,7 @@ import 'firebaseui/dist/firebaseui.css'
 import * as firebaseui from 'firebaseui'
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton'
-import { login } from "../../redux/actions/loginActions"
+import { login } from "../../redux/actions/userActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
@@ -72,6 +72,6 @@ class Login extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch)
 
 export default connect(
-  null,
-  mapDispatchToProps
+    null,
+    mapDispatchToProps
 )(Login)
