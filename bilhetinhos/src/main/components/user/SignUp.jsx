@@ -1,40 +1,72 @@
-import firebase from "firebase";
-import React, { Component } from "react";
-import Skeleton from "../base/Skeleton";
+import firebase from "firebase/app"
+import 'firebase/auth'
+import React, { Component } from "react"
+import Skeleton from "../base/Skeleton"
 
-export default class SignUp extends Component {
+import { login } from "../../redux/actions/loginActions"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+
+class SignUp extends Component {
   state = {
     email: "",
     password: ""
-  };
+  }
 
   signUp = e => {
-    e.preventDefault();
+    e.preventDefault()
+
+    firebase.auth().onAuthStateChanged(
+      function(user) {
+        console.log('usuário: ')
+          console.log(user)
+        if (user) {
+          
+          var displayName = user.displayName
+          var email = user.email
+          var uid = user.uid
+          var providerData = user.providerData
+          user.getIdToken().then(function(accessToken) {
+          debugger
+            this.props.login({
+              displayName,
+              email,
+              uid,
+              providerData,
+              accessToken
+            })
+          })
+        }
+      },
+      function(error) {
+        console.log(error)
+      }
+    )
 
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-          window.location.pathname = '/'
+        window.location.pathname = "/"
       })
       .catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log('Ocorreu um erro ao tentar criar um usuário: ')
+        var errorCode = error.code
+        var errorMessage = error.message
+        console.log("Ocorreu um erro ao tentar criar um usuário: ")
         console.log(errorCode)
         console.log(errorMessage)
-      });
+      })
 
-    return false;
-  };
+    return false
+  }
 
   handleEmailChanged = e => {
-    this.setState({ ...this.state, email: e.target.value });
-  };
+    this.setState({ ...this.state, email: e.target.value })
+  }
 
   handlePasswordChanged = e => {
-    this.setState({ ...this.state, password: e.target.value });
-  };
+    this.setState({ ...this.state, password: e.target.value })
+  }
 
   render() {
     return (
@@ -76,6 +108,13 @@ export default class SignUp extends Component {
           </div>
         </section>
       </Skeleton>
-    );
+    )
   }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch)
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignUp)

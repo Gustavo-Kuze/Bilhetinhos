@@ -1,4 +1,3 @@
-import './firebaseBoot'
 
 // This import loads the firebase namespace.
 import firebase from 'firebase/app';
