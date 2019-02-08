@@ -11,3 +11,10 @@ export const updateUserProfile = profileCredentials => {
         payload: profileCredentials
     }
 }
+
+export const updateUserPicture = profilePic => {
+    return {
+        type: "USER_PROFILE_UPDATE",
+        payload: profilePic
+    }
+}

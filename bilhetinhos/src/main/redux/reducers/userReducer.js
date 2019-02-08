@@ -21,9 +21,13 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 name: action.payload.name,
-                profilePic: action.payload.profilePic,
                 bio: action.payload.bio,
                 phone: action.payload.phone
+            }
+        case 'USER_PICTURE_UPDATE':
+            return {
+                ...state,
+                profilePic: action.payload
             }
         default:
             return state
