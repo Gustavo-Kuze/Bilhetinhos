@@ -11,6 +11,7 @@ const backgroundColors = {
     orange: "#ffe0b2",
     brown: "#d7ccc8",
     grey:"#e0e0e0",
+    darkerGrey: "#bdbdbd",
     black: "#212121",
     white: "#f5f5f5"
 }
