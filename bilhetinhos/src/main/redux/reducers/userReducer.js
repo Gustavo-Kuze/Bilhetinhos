@@ -33,7 +33,7 @@ export default (state = INITIAL_STATE, action) => {
         case 'MATE_ADDED':
             return {
                 ...state,
-                mates: state.mates.push(action.payload)
+                mates: (state.mates) ? state.mates.concat(action.payload) : [action.payload]
             }
         default:
             return state

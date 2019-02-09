@@ -1,28 +1,28 @@
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton/Skeleton'
 import Modal from '../base/Modal'
-// import firebase from '../../api/firebase'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import firebase from '../../api/firebase'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { addMate } from '../../redux/actions/userActions'
 
-export default class Mates extends Component {
+class Mates extends Component {
 
     state = {
         mateEmail: ''
     }
 
     handleEmailChange = e => {
-        this.setState({mateEmail: e.target.value})
+        this.setState({ mateEmail: e.target.value })
     }
 
-    addMate = async (e) => {
+    verifyAndAddMate = async (e) => {
         e.preventDefault()
         let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
         if (emailProviders.length > 0) {
-            alert('O email está cadastrado')
+            this.props.addMate(this.state.mateEmail)
         } else {
-
-            alert('O email não está cadastrado')
+            alert('Nenhum colega foi encontrado com este E-mail!')
         }
         return false
     }
@@ -38,9 +38,9 @@ export default class Mates extends Component {
                                 modalId="add-mate-modal"
                                 title="Adicionar um colega" >
 
-                                <form onSubmit={this.addMate}>
+                                <form onSubmit={this.verifyAndAddMate}>
                                     <div className="form-group">
-                                        <input type="email" className="form-control" placeholder="Digite o email de um colega aqui" value={this.state.mateEmail} onChange={this.handleEmailChange}/>
+                                        <input type="email" className="form-control" placeholder="Digite o email de um colega aqui" value={this.state.mateEmail} onChange={this.handleEmailChange} />
                                     </div>
                                     <button className="btn btn-primary">Adicionar</button>
                                 </form>
@@ -55,3 +55,6 @@ export default class Mates extends Component {
         )
     }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({ addMate }, dispatch)
+export default connect(null, mapDispatchToProps)(Mates)
