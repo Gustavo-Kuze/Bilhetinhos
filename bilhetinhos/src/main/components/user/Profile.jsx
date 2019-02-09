@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Skeleton from '../base/Skeleton'
+import Skeleton from '../base/Skeleton/Skeleton'
 import { updateUserProfile, updateUserPicture } from '../../redux/actions/userActions'
 import firebase from 'firebase/app'
 import 'firebase/storage'
@@ -77,7 +77,7 @@ class Profile extends Component {
                                     <textarea name="user-bio" id="ta-user-bio" className="form-control" cols="30" rows="10" value={this.props.bio} onChange={this.handleBioChange} placeholder="Biografia"></textarea>
                                 </div>
                                 <div className="form-group">
-                                    <input name="user-phone" id="inp-user-phone" className="form-control" value={this.props.phone} onChange={this.handlePhoneChange} placeholder="Telefone" />
+                                    <input name="user-phone" id="inp-user-phone" className="form-control phone-mask" value={this.props.phone} onChange={this.handlePhoneChange} placeholder="Telefone" />
                                 </div>
                                 <button className="btn btn-primary">Salvar</button>
                             </form>

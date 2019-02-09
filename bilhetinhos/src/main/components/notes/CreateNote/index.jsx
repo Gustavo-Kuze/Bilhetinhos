@@ -1,6 +1,6 @@
 import './css/Note.css'
 import React, { Component } from "react"
-import Skeleton from "../../base/Skeleton"
+import Skeleton from "../../base/Skeleton/Skeleton"
 import ColorPicker from "../../utils/ColorPicker"
 import { backgroundColors, fontColors } from '../../base/js/MaterialColors'
 import { connect } from 'react-redux'

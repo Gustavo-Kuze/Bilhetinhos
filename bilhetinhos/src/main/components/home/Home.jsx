@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Skeleton from '../base/Skeleton'
+import Skeleton from '../base/Skeleton/Skeleton'
 export default class Home extends Component {
     render() {
         return (

@@ -1,7 +1,7 @@
 import firebase from "firebase/app"
 import 'firebase/auth'
 import React, { Component } from "react"
-import Skeleton from "../base/Skeleton"
+import Skeleton from "../base/Skeleton/Skeleton"
 
 import { changeUserLogState } from "../../redux/actions/userActions"
 import { connect } from "react-redux"

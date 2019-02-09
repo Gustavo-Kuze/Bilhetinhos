@@ -2,7 +2,7 @@ import firebase from '../../api/firebase'
 import 'firebaseui/dist/firebaseui.css'
 import * as firebaseui from 'firebaseui'
 import React, { Component } from 'react'
-import Skeleton from '../base/Skeleton'
+import Skeleton from '../base/Skeleton/Skeleton'
 import { changeUserLogState } from "../../redux/actions/userActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
