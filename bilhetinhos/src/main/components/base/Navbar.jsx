@@ -1,9 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
-
+import { connect } from 'react-redux'
+import PopoverButton from './PopoverButton'
 
 const Navbar = props => {
-    
+
     return (
         <nav className="navbar navbar-expand-md fixed-top bg-primary navbar-dark">
             <a className="navbar-brand" href="/">NKDJHSJUEHS</a>
@@ -23,8 +23,17 @@ const Navbar = props => {
                     </li>
                 </ul>
                 {/* far fa-bell é o sino fechado, que deve ficar vibrando em caso de notificação ativa */}
-                <a id="popover-notification" tabIndex="0" className="nav-link btn btn-lg btn-primary" href="javascript:;" role="button" data-toggle="popover" data-placement="left" data-trigger="focus" title="Notificações" ><i className="far fa-bell"><span className="badge badge-primary badge-pill">2</span></i></a>
-                <a id="popover-user" tabIndex="0" className="nav-link btn btn-lg btn-primary" href="javascript:;" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title={props.email} ><i className="fas fa-user-alt "></i></a>
+                {/* <a id="popover-notification" tabIndex="0" className="nav-link btn btn-lg btn-primary" href="javascript:;" role="button" data-toggle="popover" data-placement="left" data-trigger="focus" title="Notificações" ><i className="far fa-bell"><span className="badge badge-primary badge-pill">2</span></i></a> */}
+                {/* <a id="popover-user" tabIndex="0" className="nav-link btn btn-lg btn-primary" href="javascript:;" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title={props.email} ><i className="fas fa-user-alt "></i></a> */}
+                <PopoverButton
+                    iconClassName="far fa-bell" popoverTitle={"Notificações"}
+                    buttonContent={<span className="badge badge-primary badge-pill">2</span>} >
+                    <div><p>Aqui vão as notificações</p></div>
+                </PopoverButton>
+                <PopoverButton
+                    iconClassName="fas fa-user-alt" popoverTitle={props.email || "Menu do Usuário"}>
+                    <div><p>Aqui vai o menu do usuário</p></div>
+                </PopoverButton>
             </div>
         </nav>
     )

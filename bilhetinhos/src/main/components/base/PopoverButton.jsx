@@ -5,16 +5,17 @@ import { fontColors, backgroundColors } from './js/MaterialColors'
 class PopoverButton extends React.Component {
 
     state = {
-        isPopoverOpen: true
+        isPopoverOpen: false
     }
 
     render() {
         return (
             <Popover
                 isOpen={this.state.isPopoverOpen}
-                position={['left', 'bottom', 'top', 'right']}
-                padding={10}
+                position={['bottom', 'left', 'top', 'right']}
+                padding={5}
                 onClickOutside={() => this.setState({ isPopoverOpen: false })}
+                containerStyle={{ zIndex: 9999999 }}
                 content={({ position, targetRect, popoverRect }) => (
                     <ArrowContainer
                         position={position}
@@ -22,7 +23,7 @@ class PopoverButton extends React.Component {
                         popoverRect={popoverRect}
                         arrowColor={backgroundColors.grey}
                         arrowSize={11}
-                        arrowStyle={{ opacity: 0.7 }} >
+                        arrowStyle={{ zIndex: 9999999 }} >
                         <div
                             style={{ backgroundColor: fontColors.white, border: `1px solid ${backgroundColors.darkerGrey}` }}
                             onClick={() => { this.setState({ isPopoverOpen: !this.state.isPopoverOpen }) }} >
@@ -35,7 +36,11 @@ class PopoverButton extends React.Component {
                         </div>
                     </ArrowContainer>
                 )} >
-                <button className="nav-link btn btn-lg btn-primary" onClick={() => { this.setState({ isPopoverOpen: !this.state.isPopoverOpen }) }} ><i className={this.props.iconClassName}></i></button>
+                <a href="javascript:;" role="button" className="nav-link btn btn-lg btn-primary" onClick={() => { this.setState({ isPopoverOpen: !this.state.isPopoverOpen }) }} >
+                    <i className={this.props.iconClassName}>
+                        {this.props.buttonContent}
+                    </i>
+                </a>
             </Popover>
         )
     }
