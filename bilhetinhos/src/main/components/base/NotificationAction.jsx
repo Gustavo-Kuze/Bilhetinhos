@@ -8,4 +8,12 @@ const NotificationButton = props => {
     )
 }
 
-export default NotificationButton
+const NotificationLink = props => {
+    return (
+        <a href={props.href} className={`list-group-item list-group-item-action ${props.read ? '' : 'active'}`}>
+            {props.children}
+        </a>
+    )
+}
+
+export {NotificationButton, NotificationLink}
