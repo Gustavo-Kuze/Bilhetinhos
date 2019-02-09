@@ -27,9 +27,8 @@ export const handleFontColorChanged = (color) => ({
     payload: color
 })
 
-export const create = (note) => {
-    console.log(note)
-    setNote(note)
+export const create = (uid, note) => {
+    setNote(uid, note)
     return {
     type: "CREATE_NOTE"
 }}

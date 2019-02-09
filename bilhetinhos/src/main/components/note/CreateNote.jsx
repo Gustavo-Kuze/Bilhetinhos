@@ -17,7 +17,7 @@ class CreateNote extends Component {
 
     callCreate = (e) => {
         e.preventDefault()
-        this.props.create({
+        this.props.create(this.props.uid, {
             title: this.props.title,
             message: this.props.message,
             noteColor: this.props.noteColor,
@@ -100,7 +100,8 @@ const mapStateToProps = state => ({
     fontColor: state.createNote.fontColor,
     fontSize: state.createNote.fontSize,
     message: state.createNote.message,
-    title: state.createNote.title
+    title: state.createNote.title,
+    uid: state.user.uid
 })
 
 const mapDispatchToProps = dispatch =>

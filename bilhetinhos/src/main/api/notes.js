@@ -6,8 +6,8 @@ import firebase from 'firebase/app';
 // import 'firebase/auth';
 import 'firebase/database';
 
-const getNotes = () => {
-    return firebase.database().ref('message/')
+const getNotes = (uid) => {
+    return firebase.database().ref('notes/').child(uid)
     // dinos.on('value', (snapshot) => {
         // const tBody = document.getElementById('t-body')
         // tBody.innerHTML = ''
@@ -26,8 +26,8 @@ const getNotes = () => {
     // })
 }
 
-const setNote = (note) => {
-    firebase.database().ref(`notas/`).child('nota').set(note)
+const setNote = (uid, note) => {
+    firebase.database().ref(`notes/`).child(uid).child(note.title).set(note)
     return false;
 }
 
