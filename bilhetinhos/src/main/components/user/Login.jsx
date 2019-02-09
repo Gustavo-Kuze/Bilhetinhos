@@ -1,6 +1,4 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-
+import firebase from '../../api/firebase'
 import 'firebaseui/dist/firebaseui.css'
 import * as firebaseui from 'firebaseui'
 import React, { Component } from 'react'

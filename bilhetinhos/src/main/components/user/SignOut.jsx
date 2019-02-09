@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import * as firebase from "firebase";
-import "firebase/auth";
+import firebase from '../../api/firebase'
 import { changeUserLogState } from "../../redux/actions/userActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import Spinner from '../utils/Spinner'
-
 
 class SignOut extends Component {
   componentDidMount() {
@@ -25,7 +23,7 @@ class SignOut extends Component {
   render() {
     return (
       <div className="mt-5 d-flex justify-content-center align-items-center">
-        <p>Saindo...</p>
+        <p className="mt-3 mr-3">Saindo...</p>
         <Spinner sr="Saindo..."/>
       </div>
     );

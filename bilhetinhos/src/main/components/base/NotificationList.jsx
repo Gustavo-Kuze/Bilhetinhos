@@ -81,11 +81,10 @@ export default class NotificationList extends Component {
         ]
     }
 
-
     render() {
         return (
             <div id="popover-notification-content" >
-                <div className="overflow-auto" style={{ height: '500px' }}>
+                <div >
                     <div className="list-group">
                         {this.state.notifications.map((n, i) => {
                             if (n.href) {

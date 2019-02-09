@@ -1,7 +1,4 @@
-import firebase from 'firebase/app';
- 
-import 'firebase/database';
-
+import firebase from './firebase'
 const getNotes = (uid) => {
     return firebase.database().ref('notes/').child(uid)
 }

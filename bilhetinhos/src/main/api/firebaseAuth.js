@@ -1,6 +1,6 @@
 // import firebase from 'firebase/app'
 // import 'firebase/auth'
-import firebase from './firebaseBoot'
+import firebase from './firebase'
 
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 

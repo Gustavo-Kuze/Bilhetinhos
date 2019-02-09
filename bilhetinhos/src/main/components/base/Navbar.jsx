@@ -12,7 +12,8 @@ const Navbar = props => {
 
             <PopoverButton
                 iconClassName="far fa-bell" popoverTitle={"Notificações"}
-                buttonContent={<span className="badge badge-primary badge-pill">2</span>} >
+                buttonContent={<span className="badge badge-primary badge-pill">2</span>} 
+                extraStyle={{height: "300px", overflow: "auto"}}>
                 <NotificationList />
             </PopoverButton>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
