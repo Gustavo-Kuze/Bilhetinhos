@@ -36,10 +36,11 @@ export default class NotificationList extends Component {
 
     render() {
         return (
-            <div id="popover-notification-content" style={{ display: 'none' }}>
+            <div id="popover-notification-content" >
                 <div className="overflow-auto" style={{ height: '500px' }}>
                     <div className="list-group">
                         {this.state.notifications.map(n => {
+                            console.log('ta iterando')
                             if (n.href) {
                                 return (
                                     <NotificationLink

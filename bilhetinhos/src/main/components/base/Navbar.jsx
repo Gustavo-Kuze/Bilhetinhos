@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PopoverButton from './PopoverButton'
+import UserMenu from './UserMenu'
+import NotificationList from './NotificationList'
 
 const Navbar = props => {
 
@@ -28,11 +30,11 @@ const Navbar = props => {
                 <PopoverButton
                     iconClassName="far fa-bell" popoverTitle={"Notificações"}
                     buttonContent={<span className="badge badge-primary badge-pill">2</span>} >
-                    <div><p>Aqui vão as notificações</p></div>
+                    <NotificationList />
                 </PopoverButton>
                 <PopoverButton
                     iconClassName="fas fa-user-alt" popoverTitle={props.email || "Menu do Usuário"}>
-                    <div><p>Aqui vai o menu do usuário</p></div>
+                    <UserMenu />
                 </PopoverButton>
             </div>
         </nav>
