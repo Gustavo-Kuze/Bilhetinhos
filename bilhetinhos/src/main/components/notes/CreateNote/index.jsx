@@ -1,8 +1,8 @@
 import './css/Note.css'
 import React, { Component } from "react"
-import Skeleton from "../base/Skeleton"
-import ColorPicker from "../utils/ColorPicker"
-import { backgroundColors, fontColors } from '../base/js/MaterialColors'
+import Skeleton from "../../base/Skeleton"
+import ColorPicker from "../../utils/ColorPicker"
+import { backgroundColors, fontColors } from '../../base/js/MaterialColors'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -10,7 +10,7 @@ import {
     handleFontColorChanged, handleFontSizeChanged,
     handleMessageChanged, handleNoteColorChanged, handleTitleChanged,
     create
-} from '../../redux/actions/createNoteActions'
+} from '../../../redux/actions/createNoteActions'
 
 
 class CreateNote extends Component {

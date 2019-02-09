@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import Skeleton from "../base/Skeleton"
+import Skeleton from "../../base/Skeleton"
 import { connect } from "react-redux"
-import {getNotes} from '../../api/notes'
+import {getNotes} from '../../../api/notes'
 
 
 class UserNoteboard extends Component {
