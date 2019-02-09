@@ -1,4 +1,3 @@
-
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -13,40 +12,6 @@ var config = {
 };
 
 firebase.initializeApp(config);
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-
-// const initApp = function () {
-//     firebase.auth().onAuthStateChanged(function (user) {
-//         if (user) {
-//             var displayName = user.displayName;
-//             var email = user.email;
-//             var uid = user.uid;
-//             var providerData = user.providerData;
-//             user.getIdToken().then(function (accessToken) {
-//                 store.dispatch(login({
-//                     displayName,
-//                     email,
-//                     uid,
-//                     providerData,
-//                     accessToken
-//                 }))
-//                 debugger
-//             });
-//         } else {
-//             // User is signed out.
-//             // document.getElementById('sign-in-status').textContent = 'Signed out';
-//             // document.getElementById('sign-in').textContent = 'Sign in';
-//             // document.getElementById('account-details').textContent = 'null';
-//         }
-//     }, function (error) {
-//         console.log(error);
-//     });
-// };
-
-
-// window.addEventListener('load', function () {
-//     initApp()
-// });
 
 
 export default firebase

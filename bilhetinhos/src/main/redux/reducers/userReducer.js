@@ -5,7 +5,8 @@ const INITIAL_STATE = {
     name: '',
     profilePic: '',
     bio: '',
-    phone: ''
+    phone: '',
+    mates: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -28,6 +29,11 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 profilePic: action.payload
+            }
+        case 'MATE_ADDED':
+            return {
+                ...state,
+                mates: state.mates.push(action.payload)
             }
         default:
             return state

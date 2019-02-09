@@ -6,6 +6,7 @@ import { updateUserProfile, updateUserPicture } from '../../redux/actions/userAc
 import firebase from 'firebase/app'
 import 'firebase/storage'
 import If from '../utils/If'
+import Spinner from '../utils/Spinner'
 
 
 class Profile extends Component {
@@ -66,9 +67,7 @@ class Profile extends Component {
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" value={this.props.profilePic} onChange={this.handlePicChange} type="file" />
                             <If condition={this.state.profilePic === ''}>
                                 <br />
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="sr-only">Carregando...</span>
-                                </div>
+                               <Spinner />
                             </If>
                             <form onSubmit={this.callUpdateUserProfile}>
                                 <div className="form-group">

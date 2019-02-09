@@ -29,6 +29,54 @@ export default class NotificationList extends Component {
                 sender: 'Fulano da Silva',
                 read: true,
                 onClick: () => { alert('Alerta de bilhete!') }
+            },
+            {
+                title: 'Minha linda notificação',
+                receivedDate: '30/02/2019',
+                description: 'Fulano da Silva quer ser seu amigo',
+                sender: 'Bilhetinhos',
+                read: false,
+                href: '/'
+            },
+            {
+                title: 'Há um problema em sua conta',
+                receivedDate: '12/02/2019',
+                description: 'Ops... Tem algumas coisas que tu precisa verificar, tche',
+                sender: 'Bilhetinhos',
+                read: true,
+                onClick: () => { alert('PAH!') }
+            },
+            {
+                title: 'Alerta de bilhete!',
+                receivedDate: '11/02/2019',
+                description: 'Não esquece do nosso trabalho de ciências!',
+                sender: 'Fulano da Silva',
+                read: true,
+                onClick: () => { alert('Alerta de bilhete!') }
+            },
+            {
+                title: 'Minha linda notificação',
+                receivedDate: '30/02/2019',
+                description: 'Fulano da Silva quer ser seu amigo',
+                sender: 'Bilhetinhos',
+                read: false,
+                href: '/'
+            },
+            {
+                title: 'Há um problema em sua conta',
+                receivedDate: '12/02/2019',
+                description: 'Ops... Tem algumas coisas que tu precisa verificar, tche',
+                sender: 'Bilhetinhos',
+                read: true,
+                onClick: () => { alert('PAH!') }
+            },
+            {
+                title: 'Alerta de bilhete!',
+                receivedDate: '11/02/2019',
+                description: 'Não esquece do nosso trabalho de ciências!',
+                sender: 'Fulano da Silva',
+                read: true,
+                onClick: () => { alert('Alerta de bilhete!') }
             }
         ]
     }
@@ -39,12 +87,11 @@ export default class NotificationList extends Component {
             <div id="popover-notification-content" >
                 <div className="overflow-auto" style={{ height: '500px' }}>
                     <div className="list-group">
-                        {this.state.notifications.map(n => {
-                            console.log('ta iterando')
+                        {this.state.notifications.map((n, i) => {
                             if (n.href) {
                                 return (
                                     <NotificationLink
-                                        key={n.title}
+                                        key={`${n.title}[${i}]`}
                                         href={n.href}
                                         read={n.read} >
                                         <NotificationContent

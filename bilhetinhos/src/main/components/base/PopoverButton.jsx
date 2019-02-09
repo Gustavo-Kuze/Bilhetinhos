@@ -12,8 +12,8 @@ class PopoverButton extends React.Component {
         return (
             <Popover
                 isOpen={this.state.isPopoverOpen}
-                position={['bottom', 'left', 'top', 'right']}
-                padding={5}
+                position={['bottom', 'top', 'left', 'right']}
+                padding={20}
                 onClickOutside={() => this.setState({ isPopoverOpen: false })}
                 containerStyle={{ zIndex: 9999999 }}
                 content={({ position, targetRect, popoverRect }) => (

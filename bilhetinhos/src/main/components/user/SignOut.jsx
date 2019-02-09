@@ -4,6 +4,8 @@ import "firebase/auth";
 import { changeUserLogState } from "../../redux/actions/userActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
+import Spinner from '../utils/Spinner'
+
 
 class SignOut extends Component {
   componentDidMount() {
@@ -24,9 +26,7 @@ class SignOut extends Component {
     return (
       <div className="mt-5 d-flex justify-content-center align-items-center">
         <p>Saindo...</p>
-        <div class="spinner-border text-primary" role="status">
-          <span class="sr-only">Saindo...</span>
-        </div>
+        <Spinner sr="Saindo..."/>
       </div>
     );
   }

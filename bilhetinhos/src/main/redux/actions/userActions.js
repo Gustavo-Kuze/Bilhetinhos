@@ -18,3 +18,10 @@ export const updateUserPicture = profilePic => {
         payload: profilePic
     }
 }
+
+export const addMate = mate => {
+    return {
+        type: "MATE_ADDED",
+        payload: mate
+    }
+}
