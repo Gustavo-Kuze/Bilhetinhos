@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton'
+import Popover from '../base/Popover'
+
 
 export default class Home extends Component {
 
@@ -11,6 +13,7 @@ export default class Home extends Component {
                     <h2>Seja bem-vindo</h2>
                     <a href="/user/signup" className="btn btn-primary">Sign Up</a>
                     <a href="/user/login" className="btn btn-primary">Login</a>
+                    <Popover />
                 </section>
             </Skeleton>
         )
