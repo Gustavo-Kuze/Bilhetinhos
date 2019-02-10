@@ -26,19 +26,30 @@ class Login extends Component {
             callbacks: {
                 signInSuccessWithAuthResult: (authResult, redirectUrl) => {
                     firebase.database().ref(`users`).once('value', (snapshot) => {
-                        this.props.changeUserLogState({
-                            email: authResult.user.email,
-                            uid: authResult.user.uid
-                        })
                         if (!snapshot.hasChild(`${authResult.user.uid}`)) {
+                            this.props.changeUserLogState({
+                                email: authResult.user.email,
+                                uid: authResult.user.uid
+                            })
                             setUser({
                                 email: authResult.user.email,
                                 uid: authResult.user.uid
                             }).then(() => {
                                 window.location.pathname = redirectUrl
                             })
+                        }else{
+                            const userOnFirebase = snapshot.child(`${authResult.user.uid}`).val()
+                            this.props.changeUserLogState({
+                                email: userOnFirebase.email,
+                                uid: userOnFirebase.uid,
+                                name: userOnFirebase.name,
+                                profilePic: userOnFirebase.profilePic,
+                                bio: userOnFirebase.bio,
+                                phone: userOnFirebase.phone,
+                                mates: userOnFirebase.mates
+                            })
                         }
-
+                        
                         window.location = redirectUrl
                     })
                 }

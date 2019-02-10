@@ -43,11 +43,15 @@ class Profile extends Component {
     handlePicChange = element => {
         if (this.isValidImage(element.target.files[0])) {
             firebase.storage().ref().child(`${this.state.user.uid}/profile`).put(element.target.files[0]).then(() => {
-                this.loadProfilePic()
-                this.setState({ ...this.state.user, profilePic: `${this.state.user.uid}/profile` })
-                this.props.updateUserPicture(`${this.state.user.uid}/profile`)
+                firebase.database().ref(`users/${this.state.user.uid}`)
+                    .update({ profilePic: `${this.state.user.uid}/profile` })
+                    .then(() => {
+                        this.props.updateUserPicture(`${this.state.user.uid}/profile`)
+                        this.setState({ ...this.state.user, profilePic: `${this.state.user.uid}/profile` }, () => {
+                            this.loadProfilePic()
+                        })
+                    })
             })
-            // alert(`Boa: ${e.target.files[0].name}`)
         } else {
             alert('O tamanho máximo dos arquivos de imagem deve ser de 500 KB. Somente arquivos nos formatos jpg, jpeg e png são aceitos.')
         }
@@ -81,7 +85,7 @@ class Profile extends Component {
 
     loadProfilePic = () => {
         this.setState({ ...this.state, isLoadingProfilePic: true })
-        firebase.storage().ref().child(`${this.state.user.uid}/profile`)
+        firebase.storage().ref(this.state.user.profilePic || 'profile')//.child(`${this.state.user.uid}/profile`)
             .getDownloadURL()
             .then((url) => {
                 const picPreview = document.getElementById('profile-pic-preview')

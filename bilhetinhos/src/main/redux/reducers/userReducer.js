@@ -20,6 +20,13 @@ export default (state = INITIAL_STATE, action) => {
                 bio: action.payload.bio || '',
                 phone: action.payload.phone || '',
                 mates: action.payload.mates || []
+                // email: action.payload.email || state.email,
+                // uid: action.payload.uid || state.uid,
+                // name: action.payload.name || state.name,
+                // profilePic: action.payload.profilePic || state.profilePic,
+                // bio: action.payload.bio || state.bio,
+                // phone: action.payload.phone || state.phone,
+                // mates: action.payload.mates || state.mates
             }
         case 'RESET_USER_STATE':
             return {
