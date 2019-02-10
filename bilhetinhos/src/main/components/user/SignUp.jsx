@@ -15,8 +15,8 @@ class SignUp extends Component {
     password: ""
   }
 
-  signUp = e => {
-    e.preventDefault()
+  signUp = element => {
+    element.preventDefault()
 
     firebase.auth().onAuthStateChanged((user => {
       this.props.changeUserLogState({
@@ -47,12 +47,12 @@ class SignUp extends Component {
     return false
   }
 
-  handleEmailChanged = e => {
-    this.setState({ ...this.state, email: e.target.value })
+  handleEmailChanged = element => {
+    this.setState({ ...this.state, email: element.target.value })
   }
 
-  handlePasswordChanged = e => {
-    this.setState({ ...this.state, password: e.target.value })
+  handlePasswordChanged = element => {
+    this.setState({ ...this.state, password: element.target.value })
   }
 
   render() {

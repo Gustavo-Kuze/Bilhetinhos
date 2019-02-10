@@ -18,3 +18,13 @@ export const saveState = (state) => {
     }
 }
 
+export const deleteState = () => {
+    try {
+        localStorage.removeItem('state')
+        localStorage.clear()
+    } catch (err) {
+        console.log('Ocorreu um erro ao limpar o estado')
+        console.log(err)
+    }
+}
+

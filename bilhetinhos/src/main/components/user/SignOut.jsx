@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import firebase from '../../api/firebase'
-import { changeUserLogState } from "../../redux/actions/userActions"
+import { resetUserState } from "../../redux/actions/userActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import Spinner from '../utils/Spinner'
+import {deleteState} from '../../redux/localStorage'
+
 
 class SignOut extends Component {
   componentDidMount() {
@@ -11,15 +13,8 @@ class SignOut extends Component {
       .auth()
       .signOut()
       .then(() => {
-        this.props.changeUserLogState({
-          email: '',
-          uid: '',
-          name: '',
-          profilePic: '',
-          bio: '',
-          phone: '',
-          mates: []
-        })
+        deleteState()
+        this.props.resetUserState()
         window.location.pathname = "/user/login";
       });
   }
@@ -34,7 +29,7 @@ class SignOut extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ changeUserLogState }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ resetUserState }, dispatch)
 
 export default connect(
   null,

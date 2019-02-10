@@ -15,8 +15,8 @@ import {
 
 class CreateNote extends Component {
 
-    callCreate = (e) => {
-        e.preventDefault()
+    callCreate = element => {
+        element.preventDefault()
         this.props.create(this.props.uid, {
             title: this.props.title,
             message: this.props.message,

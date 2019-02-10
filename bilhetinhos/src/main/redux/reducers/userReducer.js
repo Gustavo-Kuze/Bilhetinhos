@@ -16,6 +16,10 @@ export default (state = INITIAL_STATE, action) => {
                 email: action.payload.email,
                 uid: action.payload.uid
             }
+        case 'RESET_USER_STATE':
+            return {
+                ...INITIAL_STATE
+            }
         case 'USER_PROFILE_UPDATED':
             return {
                 ...state,

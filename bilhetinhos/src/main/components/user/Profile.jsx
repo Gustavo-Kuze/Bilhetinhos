@@ -23,8 +23,8 @@ class Profile extends Component {
         }
     }
 
-    callUpdateUserProfile = e => {
-        e.preventDefault()
+    callUpdateUserProfile = element => {
+        element.preventDefault()
         setUser({
             ...this.state.user
         }).then(() => {
@@ -36,17 +36,17 @@ class Profile extends Component {
         return false
     }
 
-    handleNameChange = e => {
-        this.setState({ ...this.state.user, name: e.target.value })
+    handleNameChange = element => {
+        this.setState({ ...this.state.user, name: element.target.value })
     }
 
-    isValidImage = (img) => {
+    isValidImage = img => {
         return (img.size / 1024 < 500 && (img.name.includes('.jpg') || img.name.includes('.png') || img.name.includes('.jpeg')))
     }
 
-    handlePicChange = e => {
-        if (this.isValidImage(e.target.files[0])) {
-            firebase.storage().ref().child(`${this.state.user.uid}/profile`).put(e.target.files[0]).then(() => {
+    handlePicChange = element => {
+        if (this.isValidImage(element.target.files[0])) {
+            firebase.storage().ref().child(`${this.state.user.uid}/profile`).put(element.target.files[0]).then(() => {
                 this.loadProfilePic()
                 this.setState({ ...this.state.user, profilePic: `${this.state.user.uid}/profile` })
                 this.props.updateUserPicture(`${this.state.user.uid}/profile`)
@@ -58,12 +58,12 @@ class Profile extends Component {
 
     }
 
-    handleBioChange = e => {
-        this.setState({ ...this.state.user, bio: e.target.value })
+    handleBioChange = element => {
+        this.setState({ ...this.state.user, bio: element.target.value })
     }
 
-    handlePhoneChange = e => {
-        this.setState({ ...this.state.user, phone: e.target.value })
+    handlePhoneChange = element => {
+        this.setState({ ...this.state.user, phone: element.target.value })
     }
 
 

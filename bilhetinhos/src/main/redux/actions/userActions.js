@@ -5,6 +5,12 @@ export const changeUserLogState = userCredentials => {
     }
 }
 
+export const resetUserState = () => {
+    return {
+        type: "RESET_USER_STATE"
+    }
+}
+
 export const updateUserProfile = profileCredentials => {
     return {
         type: "USER_PROFILE_UPDATED",

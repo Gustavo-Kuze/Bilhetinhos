@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 
 export default class ColorPicker extends Component {
   
-    handleChange = e => {
-        this.props.colorChanged(e.target.value)
+    handleChange = element => {
+        this.props.colorChanged(element.target.value)
     }
 
     colorButtons = Object.entries(this.props.colors).map(c => (

@@ -12,12 +12,12 @@ class Mates extends Component {
         mateEmail: ''
     }
 
-    handleEmailChange = e => {
-        this.setState({ mateEmail: e.target.value })
+    handleEmailChange = element => {
+        this.setState({ mateEmail: element.target.value })
     }
 
-    verifyAndAddMate = async (e) => {
-        e.preventDefault()
+    verifyAndAddMate = async element => {
+        element.preventDefault()
         let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
         if (emailProviders.length > 0) {
             firebase.database().ref()
