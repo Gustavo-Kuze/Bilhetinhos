@@ -3,8 +3,8 @@ import If from '../utils/If'
 export default class Modal extends Component {
     render() {
         return (
-            <div className="modal fade" id={this.props.modalId} tabindex="-1" role="dialog" aria-labelledby={`${this.props.modalId}-title`} aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal fade" id={this.props.modalId} tabIndex="-1" role="dialog" aria-labelledby={`${this.props.modalId}-title`} aria-hidden="true">
+                <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id={`${this.props.modalId}-title`}>{this.props.title}</h5>

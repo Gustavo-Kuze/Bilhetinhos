@@ -1,5 +1,5 @@
-import firebase from "firebase/app"
-import 'firebase/auth'
+import firebase from '../../api/firebase'
+import { setUser } from '../../api/users'
 import React, { Component } from "react"
 import Skeleton from "../base/Skeleton/Skeleton"
 
@@ -20,6 +20,11 @@ class SignUp extends Component {
     e.preventDefault()
 
     callbackWithUserAndAccessToken((user, accessToken) => {
+      setUser({
+        email: user.email,
+        uid: user.uid,
+        accessToken
+      })
       this.props.changeUserLogState({
         email: user.email,
         uid: user.uid,

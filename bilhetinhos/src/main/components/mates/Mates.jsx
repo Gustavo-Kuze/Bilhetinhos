@@ -20,6 +20,7 @@ class Mates extends Component {
         e.preventDefault()
         let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
         if (emailProviders.length > 0) {
+            firebase.database().ref()
             this.props.addMate(this.state.mateEmail)
         } else {
             alert('Nenhum colega foi encontrado com este E-mail!')
@@ -48,6 +49,12 @@ class Mates extends Component {
                             <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#add-mate-modal">
                                 Adicionar um colega
                             </button>
+                            <hr />
+                            <ul>
+                                {this.props.mates.map(m => (
+                                    <li key={m}>{m}</li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -56,5 +63,9 @@ class Mates extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    mates: state.user.mates
+})
+
 const mapDispatchToProps = dispatch => bindActionCreators({ addMate }, dispatch)
-export default connect(null, mapDispatchToProps)(Mates)
+export default connect(mapStateToProps, mapDispatchToProps)(Mates)

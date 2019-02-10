@@ -14,7 +14,7 @@ export const updateUserProfile = profileCredentials => {
 
 export const updateUserPicture = profilePic => {
     return {
-        type: "USER_PROFILE_UPDATED",
+        type: "USER_PICTURE_UPDATED",
         payload: profilePic
     }
 }

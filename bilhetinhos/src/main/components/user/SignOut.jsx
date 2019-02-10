@@ -14,7 +14,12 @@ class SignOut extends Component {
         this.props.changeUserLogState({
           email: '',
           uid: '',
-          accessToken: ''
+          accessToken: '',
+          name: '',
+          profilePic: '',
+          bio: '',
+          phone: '',
+          mates: []
         })
         window.location.pathname = "/user/login";
       });
@@ -24,7 +29,7 @@ class SignOut extends Component {
     return (
       <div className="mt-5 d-flex justify-content-center align-items-center">
         <p className="mt-3 mr-3">Saindo...</p>
-        <Spinner sr="Saindo..."/>
+        <Spinner sr="Saindo..." />
       </div>
     );
   }
