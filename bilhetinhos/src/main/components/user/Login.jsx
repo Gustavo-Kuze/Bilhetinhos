@@ -8,7 +8,7 @@ import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
-import { callbackWithUserAndAccessToken } from '../../api/firebaseAuth'
+import { setUser } from '../../api/users'
 
 class Login extends Component {
 
@@ -22,7 +22,29 @@ class Login extends Component {
             signInOptions: [
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                 firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            ]
+            ],
+            callbacks: {
+                signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+                    firebase.database().ref(`users`).once('value', (snapshot) => {
+                        this.props.changeUserLogState({
+                            email: authResult.user.email,
+                            uid: authResult.user.uid
+                        })
+                        if (!snapshot.hasChild(`${authResult.user.uid}`)) {
+                            setUser({
+                                email: authResult.user.email,
+                                uid: authResult.user.uid
+                            }).then(() => {
+                                window.location.pathname = redirectUrl
+                            })
+                        }
+
+                        window.location = redirectUrl
+                    })
+                }
+            }
+
+
             // ,tosUrl and privacyPolicyUrl accept either url string or a callback
             // function.
             // Terms of service url/callback.
@@ -31,6 +53,7 @@ class Login extends Component {
             // privacyPolicyUrl: function () {
             //     window.location.assign('<your-privacy-policy-url>')
             // }
+
         }
 
         var ui = new firebaseui.auth.AuthUI(firebase.auth())
@@ -38,30 +61,15 @@ class Login extends Component {
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig)
 
-        // firebase.auth().onAuthStateChanged(
-        //     user => {
-        //         if (user) {
-        //             this.setState({isLoggedOut: false})
-        //             user.getIdToken().then(accessToken => {
-        //                 this.props.changeUserLogState({
-        //                     email: user.email,
-        //                     uid: user.uid,
-        //                     accessToken
-        //                 })
-        //             })
-        //         }
-        //     },
-        //     error => {
-        //         console.log(error)
-        //     }
-        // )
-        callbackWithUserAndAccessToken((user, accessToken) => {
-            this.props.changeUserLogState({
-                email: user.email,
-                uid: user.uid,
-                accessToken
-            })
-        })
+        // callbackWithUserAndAccessToken((user, accessToken) => {
+        //     this.props.changeUserLogState({
+        //         email: user.email,
+        //         uid: user.uid,
+        //         accessToken
+        //     })
+
+        // 
+        // })
     }
 
     render() {

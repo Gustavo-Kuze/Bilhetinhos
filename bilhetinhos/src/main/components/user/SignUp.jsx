@@ -6,7 +6,6 @@ import Skeleton from "../base/Skeleton/Skeleton"
 import { changeUserLogState } from "../../redux/actions/userActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
-import { callbackWithUserAndAccessToken } from '../../api/firebaseAuth'
 
 
 class SignUp extends Component {
@@ -19,26 +18,24 @@ class SignUp extends Component {
   signUp = e => {
     e.preventDefault()
 
-    callbackWithUserAndAccessToken((user, accessToken) => {
-      
-      setUser({
-        email: user.email,
-        uid: user.uid,
-        accessToken
-      })
+    firebase.auth().onAuthStateChanged((user => {
       this.props.changeUserLogState({
         email: user.email,
-        uid: user.uid,
-        accessToken
+        uid: user.uid
       })
-    })
+
+      setUser({
+        email: user.email,
+        uid: user.uid
+      }).then(() => {
+        window.location.pathname = "/"
+      })
+    }))
 
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => {
-        // window.location.pathname = "/"
-      })
+
       .catch(error => {
         let errorCode = error.code
         let errorMessage = error.message

@@ -1,7 +1,6 @@
 const INITIAL_STATE = {
     email: '',
     uid: '',
-    accessToken: '',
     name: '',
     profilePic: '',
     bio: '',
@@ -15,8 +14,7 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 email: action.payload.email,
-                uid: action.payload.uid,
-                accessToken: action.payload.accessToken
+                uid: action.payload.uid
             }
         case 'USER_PROFILE_UPDATED':
             return {

@@ -6,13 +6,12 @@ import { updateUserProfile, updateUserPicture } from '../../redux/actions/userAc
 import firebase from '../../api/firebase'
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
-
+import { setUser } from '../../api/users'
 
 class Profile extends Component {
     state = {
         email: this.props.email,
         uid: this.props.uid,
-        accessToken: this.props.accessToken,
         name: this.props.name,
         profilePic: this.props.profilePic,
         bio: this.props.bio,
@@ -22,9 +21,14 @@ class Profile extends Component {
 
     callUpdateUserProfile = e => {
         e.preventDefault()
-        this.props.updateUserProfile({
+        setUser({
             ...this.state
+        }).then(() => {
+            this.props.updateUserProfile({
+                ...this.state
+            })
         })
+
         return false
     }
 
@@ -49,12 +53,12 @@ class Profile extends Component {
 
     componentDidMount() {
         firebase.storage().ref().child(`${this.state.uid}/profile`)
-        .getDownloadURL()
-        .then((url) => {
-            const picPreview = document.getElementById('profile-pic-preview')
-            picPreview.setAttribute('src', url)
-            this.setState({ ...this.state, profilePic: url })
-        }).catch(err => console.log(err))
+            .getDownloadURL()
+            .then((url) => {
+                const picPreview = document.getElementById('profile-pic-preview')
+                picPreview.setAttribute('src', url)
+                this.setState({ ...this.state, profilePic: url })
+            }).catch(err => console.log(err))
     }
 
     render() {
@@ -95,7 +99,6 @@ class Profile extends Component {
 const mapStateToProps = state => ({
     email: state.user.email,
     uid: state.user.uid,
-    accessToken: state.user.accessToken,
     name: state.user.name,
     profilePic: state.user.profilePic,
     bio: state.user.bio,

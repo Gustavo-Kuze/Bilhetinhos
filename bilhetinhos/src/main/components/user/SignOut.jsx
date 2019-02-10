@@ -14,7 +14,6 @@ class SignOut extends Component {
         this.props.changeUserLogState({
           email: '',
           uid: '',
-          accessToken: '',
           name: '',
           profilePic: '',
           bio: '',
