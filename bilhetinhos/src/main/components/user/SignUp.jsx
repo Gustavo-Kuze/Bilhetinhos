@@ -20,6 +20,7 @@ class SignUp extends Component {
     e.preventDefault()
 
     callbackWithUserAndAccessToken((user, accessToken) => {
+      
       setUser({
         email: user.email,
         uid: user.uid,
@@ -36,7 +37,7 @@ class SignUp extends Component {
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        window.location.pathname = "/"
+        // window.location.pathname = "/"
       })
       .catch(error => {
         let errorCode = error.code
