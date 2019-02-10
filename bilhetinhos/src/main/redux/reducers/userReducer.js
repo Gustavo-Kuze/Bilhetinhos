@@ -13,8 +13,13 @@ export default (state = INITIAL_STATE, action) => {
         case 'USER_LOG_STATE_CHANGED':
             return {
                 ...state,
-                email: action.payload.email,
-                uid: action.payload.uid
+                email: action.payload.email || '',
+                uid: action.payload.uid || '',
+                name: action.payload.name || '',
+                profilePic: action.payload.profilePic || '',
+                bio: action.payload.bio || '',
+                phone: action.payload.phone || '',
+                mates: action.payload.mates || []
             }
         case 'RESET_USER_STATE':
             return {

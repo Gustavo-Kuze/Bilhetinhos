@@ -36,10 +36,6 @@ class Profile extends Component {
         return false
     }
 
-    handleNameChange = element => {
-        this.setState({ ...this.state.user, name: element.target.value })
-    }
-
     isValidImage = img => {
         return (img.size / 1024 < 500 && (img.name.includes('.jpg') || img.name.includes('.png') || img.name.includes('.jpeg')))
     }
@@ -58,12 +54,28 @@ class Profile extends Component {
 
     }
 
+    handleNameChange = element => {
+        this.setState({
+            ...this.state, user: {
+                ...this.state.user, name: element.target.value
+            }
+        })
+    }
+
     handleBioChange = element => {
-        this.setState({ ...this.state.user, bio: element.target.value })
+        this.setState({
+            ...this.state, user: {
+                ...this.state.user, bio: element.target.value
+            }
+        })
     }
 
     handlePhoneChange = element => {
-        this.setState({ ...this.state.user, phone: element.target.value })
+        this.setState({
+            ...this.state, user: {
+                ...this.state.user, phone: element.target.value
+            }
+        })
     }
 
 
