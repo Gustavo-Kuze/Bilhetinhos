@@ -9,6 +9,7 @@ import Spinner from '../utils/Spinner'
 import { setUser } from '../../api/users'
 
 class Profile extends Component {
+   
     state = {
         email: this.props.email,
         uid: this.props.uid,
@@ -36,11 +37,21 @@ class Profile extends Component {
         this.setState({ ...this.state, name: e.target.value })
     }
 
+    isValidImage = (img) => {
+        return (img.size / 1024 < 500 && (img.name.includes('.jpg') || img.name.includes('.png') || img.name.includes('.jpeg')))
+    }
+
     handlePicChange = e => {
-        var storageRef = firebase.storage().ref();
-        storageRef.child(`${this.state.uid}/profile`).put(e.target.files[0])
-        this.setState({ ...this.state, profilePic: e.target.value })
-        this.props.updateUserPicture(e.target.value)
+        if(this.isValidImage(e.target.files[0])){
+            // var storageRef = firebase.storage().ref();
+            // storageRef.child(`${this.state.uid}/profile`).put(e.target.files[0])
+            // this.setState({ ...this.state, profilePic: e.target.value })
+            // this.props.updateUserPicture(e.target.value)
+            alert(`Boa: ${e.target.files[0].name}`)
+        }else{
+            alert('O tamanho máximo dos arquivos de imagem deve ser de 500 KB.')
+        }
+        
     }
 
     handleBioChange = e => {
@@ -58,7 +69,9 @@ class Profile extends Component {
                 const picPreview = document.getElementById('profile-pic-preview')
                 picPreview.setAttribute('src', url)
                 this.setState({ ...this.state, profilePic: url })
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                console.log(err)
+            })
     }
 
     render() {
@@ -71,11 +84,11 @@ class Profile extends Component {
                             <label htmlFor="inp-user-pic">
                                 <img className="thumbnail" id="profile-pic-preview" style={{ height: '100px' }} src="https://profiles.utdallas.edu/img/default.png" alt="Perfil" />
                             </label>
-                            <input name="user-pic" id="inp-user-pic" className="form-control invisible" value={this.state.profilePic} onChange={this.handlePicChange} type="file" />
-                            <If condition={this.state.profilePic === ''}>
+                            <input name="user-pic" id="inp-user-pic" className="form-control invisible" value={this.state.profilePic} onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg"/>
+                            {/* <If condition={isLoadingProfilePic}>
                                 <br />
                                 <Spinner />
-                            </If>
+                            </If> */}
                             <form onSubmit={this.callUpdateUserProfile}>
                                 <div className="form-group">
                                     <input name="user-name" id="inp-user-name" className="form-control" value={this.state.name} onChange={this.handleNameChange} placeholder="Seu nome completo ou apelido" />
