@@ -41,7 +41,7 @@ class Login extends Component {
                             const userOnFirebase = snapshot.child(`${authResult.user.uid}`).val()
                             this.props.changeUserLogState({
                                 email: userOnFirebase.email,
-                                uid: userOnFirebase.uid,
+                                uid: authResult.user.uid,
                                 name: userOnFirebase.name,
                                 profilePic: userOnFirebase.profilePic,
                                 bio: userOnFirebase.bio,
