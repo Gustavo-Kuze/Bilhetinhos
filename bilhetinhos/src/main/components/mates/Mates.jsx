@@ -32,7 +32,7 @@ class Mates extends Component {
                         alert('O dono deste E-mail já é seu colega!')
                     }
                 } else {
-                    alert('Você não pode se adicionar como colega. Isso que é amor próprio hein!?')
+                    alert('Você não pode se adicionar como colega.')
                 }
             })
         } else {
@@ -51,7 +51,6 @@ class Mates extends Component {
                             <Modal
                                 modalId="add-mate-modal"
                                 title="Adicionar um colega" >
-
                                 <form onSubmit={this.addMateIfExists}>
                                     <div className="form-group">
                                         <input type="email" className="form-control" placeholder="Digite o email de um colega aqui" value={this.state.mateEmail} onChange={this.handleEmailChange} />
