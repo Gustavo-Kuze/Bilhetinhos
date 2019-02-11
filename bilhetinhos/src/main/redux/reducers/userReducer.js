@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'USER_LOG_STATE_CHANGED':
+        case 'CHANGE_USER_LOG_STATE':
             return {
                 ...state,
                 email: action.payload.email || '',
@@ -32,22 +32,27 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...INITIAL_STATE
             }
-        case 'USER_PROFILE_UPDATED':
+        case 'UPDATE_USER_PROFILE':
             return {
                 ...state,
                 name: action.payload.name,
                 bio: action.payload.bio,
                 phone: action.payload.phone
             }
-        case 'USER_PICTURE_UPDATED':
+        case 'UPDATE_USER_PICTURE':
             return {
                 ...state,
                 profilePic: action.payload
             }
-        case 'MATE_ADDED':
+        case 'ADD_MATE':
             return {
                 ...state,
                 mates: (state.mates) ? state.mates.concat(action.payload) : [action.payload]
+            }
+        case 'REFRESH_MATES':
+            return {
+                ...state,
+                mates: action.payload
             }
         default:
             return state

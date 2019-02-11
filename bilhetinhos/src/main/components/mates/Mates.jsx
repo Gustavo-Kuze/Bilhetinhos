@@ -4,7 +4,7 @@ import Modal from '../base/Modal'
 import firebase from '../../api/firebase'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addMate } from '../../redux/actions/userActions'
+import { refreshMates } from '../../redux/actions/userActions'
 
 class Mates extends Component {
 
@@ -16,7 +16,7 @@ class Mates extends Component {
         this.setState({ mateEmail: element.target.value })
     }
 
-    verifyAndAddMate = async element => {
+    addMateIfExists = async element => {
         element.preventDefault()
         let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
         if (emailProviders.length > 0) {
@@ -26,11 +26,11 @@ class Mates extends Component {
                 if (!mates.includes(this.state.mateEmail)) {
                     mates.push(this.state.mateEmail)
                     matesRef.set(mates)
+                    this.props.refreshMates(mates)
                 } else {
                     alert('O dono deste E-mail já é seu colega!')
                 }
             })
-            // this.props.addMate(this.state.mateEmail)
         } else {
             alert('Nenhum colega foi encontrado com este E-mail!')
         }
@@ -48,7 +48,7 @@ class Mates extends Component {
                                 modalId="add-mate-modal"
                                 title="Adicionar um colega" >
 
-                                <form onSubmit={this.verifyAndAddMate}>
+                                <form onSubmit={this.addMateIfExists}>
                                     <div className="form-group">
                                         <input type="email" className="form-control" placeholder="Digite o email de um colega aqui" value={this.state.mateEmail} onChange={this.handleEmailChange} />
                                     </div>
@@ -77,5 +77,5 @@ const mapStateToProps = state => ({
     currentUid: state.user.uid
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addMate }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ refreshMates }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Mates)
