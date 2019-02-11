@@ -3,7 +3,8 @@ const INITIAL_STATE = {
     fontColor: "#424242",
     fontSize: 20,
     message: "",
-    title: ''
+    title: '',
+    noteMates: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -18,6 +19,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, noteColor: action.payload }
         case "CHANGE_FONT_COLOR":
             return { ...state, fontColor: action.payload }
+        case "REFRESH_NOTE_MATES":
+            return { ...state, noteMates: action.payload }
         default:
             return state
     }

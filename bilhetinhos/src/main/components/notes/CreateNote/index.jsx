@@ -9,17 +9,23 @@ import If from '../../utils/If'
 import { Accordion, AccordionItem } from '../../base/Accordion.jsx'
 
 import {
-    handleFontColorChanged, handleFontSizeChanged,
-    handleMessageChanged, handleNoteColorChanged, handleTitleChanged,
-    create
+    handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
+    handleNoteColorChanged, handleTitleChanged, refreshNoteMates, create
 } from '../../../redux/actions/createNoteActions'
-
 
 
 class CreateNote extends Component {
 
     extractUsernameFromEmail = email => {
         return email.match(/([^@]+)/)[0]
+    }
+
+    getCheckedMateBoxes = () => {
+        return Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
+    }
+
+    getCheckedMateBoxesValues = () => {
+        return this.getCheckedMateBoxes().map(c => c.value)
     }
 
     callCreate = element => {
@@ -29,8 +35,10 @@ class CreateNote extends Component {
             message: this.props.message,
             noteColor: this.props.noteColor,
             fontColor: this.props.fontColor,
-            fontSize: this.props.fontSize
+            fontSize: this.props.fontSize,
+            noteMates: this.props.noteMates
         })
+        
         return false
     }
 
@@ -57,7 +65,7 @@ class CreateNote extends Component {
                                         <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
                                             {this.props.mates.map(m => (
                                                 <div key={this.extractUsernameFromEmail(m)} className="form-check">
-                                                    <input className="form-check-input" id={`chk-${this.extractUsernameFromEmail(m)}`} type="checkbox" value={m} />
+                                                    <input className="form-check-input" id={`chk-${this.extractUsernameFromEmail(m)}`} type="checkbox" value={m} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())}/>
                                                     <label className="form-check-label" htmlFor={`chk-${this.extractUsernameFromEmail(m)}`}>{m}</label>
                                                 </div>
                                             ))}
@@ -86,12 +94,13 @@ const mapStateToProps = state => ({
     message: state.createNote.message,
     title: state.createNote.title,
     uid: state.user.uid,
-    mates: state.user.mates
+    mates: state.user.mates,
+    noteMates: state.createNote.noteMates
 })
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
         handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
-        handleNoteColorChanged, handleTitleChanged, create
+        handleNoteColorChanged, handleTitleChanged, refreshNoteMates, create
     }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(CreateNote)
