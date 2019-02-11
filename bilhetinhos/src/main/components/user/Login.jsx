@@ -39,6 +39,7 @@ class Login extends Component {
                             })
                         }else{
                             const userOnFirebase = snapshot.child(`${authResult.user.uid}`).val()
+                           debugger
                             this.props.changeUserLogState({
                                 email: userOnFirebase.email,
                                 uid: authResult.user.uid,
@@ -46,8 +47,9 @@ class Login extends Component {
                                 profilePic: userOnFirebase.profilePic,
                                 bio: userOnFirebase.bio,
                                 phone: userOnFirebase.phone,
-                                mates: userOnFirebase.mates
+                                mates: userOnFirebase.mates ? userOnFirebase.mates.filter(m => m != null) : []
                             })
+                            console.log(userOnFirebase.mates)
                         }
                         
                         window.location = redirectUrl

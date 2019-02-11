@@ -8,15 +8,15 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case "FONT_SIZE_CHANGED":
+        case "CHANGE_FONT_SIZE":
             return { ...state, fontSize: action.payload }
-        case "MESSAGE_CHANGED":
+        case "CHANGE_MESSAGE":
             return { ...state, message: action.payload }
-        case "TITLE_CHANGED":
+        case "CHANGE_TITLE":
             return { ...state, title: action.payload }
-        case "NOTE_COLOR_CHANGED":
+        case "CHANGE_NOTE_COLOR":
             return { ...state, noteColor: action.payload }
-        case "FONT_COLOR_CHANGED":
+        case "CHANGE_FONT_COLOR":
             return { ...state, fontColor: action.payload }
         default:
             return state
