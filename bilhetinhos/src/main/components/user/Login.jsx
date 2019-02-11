@@ -49,7 +49,6 @@ class Login extends Component {
                                 phone: userOnFirebase.phone,
                                 mates: userOnFirebase.mates ? userOnFirebase.mates.filter(m => m != null) : []
                             })
-                            console.log(userOnFirebase.mates)
                         }
                         
                         window.location = redirectUrl

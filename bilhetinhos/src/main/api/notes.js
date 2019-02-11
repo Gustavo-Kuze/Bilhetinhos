@@ -4,8 +4,7 @@ const getNotes = (uid) => {
 }
 
 const setNote = (uid, note) => {
-    firebase.database().ref(`notes/`).child(uid).child(note.title).set(note)
-    return false;
+    return firebase.database().ref(`notes/`).child(uid).child(note.title).set(note)
 }
 
 export {getNotes, setNote}

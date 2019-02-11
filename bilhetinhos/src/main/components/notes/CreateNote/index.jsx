@@ -7,6 +7,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import If from '../../utils/If'
 import { Accordion, AccordionItem } from '../../base/Accordion.jsx'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import ReduxToastr, { toastr } from 'react-redux-toastr'
+import { setNote } from '../../../api/notes'
 
 import {
     handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
@@ -30,15 +33,19 @@ class CreateNote extends Component {
 
     callCreate = element => {
         element.preventDefault()
-        this.props.create(this.props.uid, {
+
+        this.props.create()
+        setNote(this.props.uid, {
             title: this.props.title,
             message: this.props.message,
             noteColor: this.props.noteColor,
             fontColor: this.props.fontColor,
             fontSize: this.props.fontSize,
             noteMates: this.props.noteMates
+        }).then(() => {
+            toastr.success("Sucesso!", "Seu bilhete foi publicado")
         })
-        
+
         return false
     }
 
@@ -48,6 +55,7 @@ class CreateNote extends Component {
                 <section className="container-fluid">
                     <div className="row ">
                         <div className="col-md-6 col-sm-10 offset-sm-1 offset-md-3 ">
+
                             <h1 className="h3">Criar novo bilhete</h1>
                             <form onSubmit={this.callCreate}>
                                 <div className="form-group ">
@@ -65,7 +73,7 @@ class CreateNote extends Component {
                                         <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
                                             {this.props.mates.map(m => (
                                                 <div key={this.extractUsernameFromEmail(m)} className="form-check">
-                                                    <input className="form-check-input" id={`chk-${this.extractUsernameFromEmail(m)}`} type="checkbox" value={m} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())}/>
+                                                    <input className="form-check-input" id={`chk-${this.extractUsernameFromEmail(m)}`} type="checkbox" value={m} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
                                                     <label className="form-check-label" htmlFor={`chk-${this.extractUsernameFromEmail(m)}`}>{m}</label>
                                                 </div>
                                             ))}
@@ -81,6 +89,14 @@ class CreateNote extends Component {
                             </form>
                         </div>
                     </div>
+                    <ReduxToastr
+                        timeOut={4000}
+                        newestOnTop={false}
+                        preventDuplicates
+                        position="top-right"
+                        transitionIn="fadeIn"
+                        transitionOut="fadeOut"
+                        progressBar />
                 </section>
             </Skeleton>
         )

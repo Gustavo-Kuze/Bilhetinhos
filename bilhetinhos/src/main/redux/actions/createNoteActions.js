@@ -1,4 +1,3 @@
-import {setNote} from '../../api/notes'
 
 export const handleFontSizeChanged = event => ({
     type: "CHANGE_FONT_SIZE",
@@ -32,8 +31,8 @@ export const refreshNoteMates = noteMates => ({
     payload: noteMates
 })
 
-export const create = (uid, note) => {
-    setNote(uid, note)
+export const create = () => {
+    
     return {
     type: "CREATE_NOTE"
 }}
