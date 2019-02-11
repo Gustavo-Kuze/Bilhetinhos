@@ -42,7 +42,7 @@ class CreateNote extends Component {
                                                 <h2 className="mb-0">
                                                     <button className="btn btn-link btn-lg btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-note-color" aria-expanded="false" aria-controls="collapse-note-color">
                                                         Cor do bilhete
-                                             </button>
+                                                    </button>
                                                 </h2>
                                             </div>
 
@@ -57,7 +57,7 @@ class CreateNote extends Component {
                                                 <h2 className="mb-0">
                                                     <button className="btn btn-link btn-lg btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse-font-color" aria-expanded="false" aria-controls="collapse-font-color">
                                                         Cor da fonte
-                                            </button>
+                                                    </button>
                                                 </h2>
                                             </div>
                                             <div id="collapse-font-color" className="collapse" aria-labelledby="accordion-heading-font-color" data-parent="#note-options-accordion">
@@ -78,6 +78,35 @@ class CreateNote extends Component {
                                                 <div className="card-body">
                                                     <p>{this.props.fontSize}</p>
                                                     <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-header" id="accordion-heading-mates-list">
+                                                <h2 className="mb-0">
+                                                    <button className="btn btn-link btn-lg btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse-mates-list" aria-expanded="false" aria-controls="collapse-mates-list">
+                                                        Colar bilhete no quadro destes colegas
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            <div id="collapse-mates-list" className="collapse" aria-labelledby="accordion-heading-mates-list" data-parent="#note-options-accordion">
+                                                <div className="card-body">
+                                                    <div class="form-check">
+                                                        <input className="form-check-input" id="chk-zezinho" type="checkbox" value="Zezinho" />
+                                                        <label className="form-check-label" htmlFor="chk-zezinho">Zezinho</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input className="form-check-input" id="chk-cris" type="checkbox" value="Cristina" />
+                                                        <label className="form-check-label" htmlFor="chk-cris">Cristina</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input className="form-check-input" id="chk-rod" type="checkbox" value="Rodolfo" />
+                                                        <label className="form-check-label" htmlFor="chk-rod">Rodolfo</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input className="form-check-input" id="chk-am" type="checkbox" value="Amélia" />
+                                                        <label className="form-check-label" htmlFor="chk-am">Amélia</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

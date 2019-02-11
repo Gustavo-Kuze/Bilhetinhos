@@ -20,15 +20,19 @@ class Mates extends Component {
         element.preventDefault()
         let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
         if (emailProviders.length > 0) {
-            let matesRef = firebase.database().ref(`users/${this.props.currentUid}/mates`)
+            let matesRef = firebase.database().ref(`users/${this.props.currentUserUid}/mates`)
             matesRef.once('value', (snapshot) => {
                 let mates = snapshot.val() || []
-                if (!mates.includes(this.state.mateEmail)) {
-                    mates.push(this.state.mateEmail)
-                    matesRef.set(mates)
-                    this.props.refreshMates(mates)
+                if (this.state.mateEmail !== this.props.currentUserEmail) {
+                    if (!mates.includes(this.state.mateEmail)) {
+                        mates.push(this.state.mateEmail)
+                        matesRef.set(mates)
+                        this.props.refreshMates(mates)
+                    } else {
+                        alert('O dono deste E-mail já é seu colega!')
+                    }
                 } else {
-                    alert('O dono deste E-mail já é seu colega!')
+                    alert('Você não pode se adicionar como colega. Isso que é amor próprio hein!?')
                 }
             })
         } else {
@@ -74,7 +78,8 @@ class Mates extends Component {
 
 const mapStateToProps = state => ({
     mates: state.user.mates,
-    currentUid: state.user.uid
+    currentUserUid: state.user.uid,
+    currentUserEmail: state.user.email
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({ refreshMates }, dispatch)
