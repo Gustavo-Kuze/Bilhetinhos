@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import Skeleton from "../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
-import {getNotes} from '../../../api/notes'
+import {getUserNotes} from '../../../api/notes'
 
 
 class UserNoteboard extends Component {
@@ -10,7 +10,7 @@ class UserNoteboard extends Component {
   }
 
   componentDidMount() {
-    getNotes(this.props.uid).on('value', (snapshot) => {
+    getUserNotes(this.props.uid).on('value', (snapshot) => {
         snapshot.forEach(c => console.log(c.val()))
     })
   }

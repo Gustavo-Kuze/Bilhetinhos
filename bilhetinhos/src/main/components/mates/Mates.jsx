@@ -5,6 +5,7 @@ import firebase from '../../api/firebase'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMates } from '../../redux/actions/userActions'
+import {getMates} from '../../api/users'
 
 class Mates extends Component {
 
@@ -20,21 +21,24 @@ class Mates extends Component {
         element.preventDefault()
         let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
         if (emailProviders.length > 0) {
-            let matesRef = firebase.database().ref(`users/${this.props.currentUserUid}/mates`)
-            matesRef.once('value', (snapshot) => {
-                let mates = snapshot.val() || []
-                if (this.state.mateEmail !== this.props.currentUserEmail) {
-                    if (!mates.includes(this.state.mateEmail)) {
-                        mates.push(this.state.mateEmail)
-                        matesRef.set(mates)
-                        this.props.refreshMates(mates)
+            // let matesRef = firebase.database().ref(`users/${this.props.currentUserUid}/mates`)
+            // matesRef.once('value', (snapshot) => {
+                // let mates = snapshot.val() || []
+                getMates(this.props.currentUserUid).then((mates, matesRef) => {
+                    if (this.state.mateEmail !== this.props.currentUserEmail) {
+                        if (!mates.includes(this.state.mateEmail)) {
+                            mates.push(this.state.mateEmail)
+                            matesRef.set(mates)
+                            this.props.refreshMates(mates)
+                        } else {
+                            alert('O dono deste E-mail já é seu colega!')
+                        }
                     } else {
-                        alert('O dono deste E-mail já é seu colega!')
+                        alert('Você não pode se adicionar como colega.')
                     }
-                } else {
-                    alert('Você não pode se adicionar como colega.')
-                }
-            })
+                })
+                
+            // })
         } else {
             alert('Nenhum colega foi encontrado com este E-mail!')
         }
