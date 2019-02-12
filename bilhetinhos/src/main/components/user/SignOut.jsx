@@ -4,7 +4,7 @@ import { resetUserState } from "../../redux/actions/userActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import Spinner from '../utils/Spinner'
-import {deleteState} from '../../redux/localStorage'
+// import {deleteState} from '../../redux/localStorage'
 
 
 class SignOut extends Component {
@@ -13,9 +13,8 @@ class SignOut extends Component {
       .auth()
       .signOut()
       .then(() => {
-        deleteState()
         this.props.resetUserState()
-        window.location.pathname = "/user/login";
+        // window.location.pathname = "/user/login";
       });
   }
 

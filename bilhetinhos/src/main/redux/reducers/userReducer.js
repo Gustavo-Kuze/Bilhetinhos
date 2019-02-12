@@ -29,9 +29,7 @@ export default (state = INITIAL_STATE, action) => {
                 // mates: action.payload.mates || state.mates
             }
         case 'RESET_USER_STATE':
-            return {
-                ...INITIAL_STATE
-            }
+            return INITIAL_STATE
         case 'UPDATE_USER_PROFILE':
             return {
                 ...state,

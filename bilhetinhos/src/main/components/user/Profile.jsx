@@ -50,7 +50,7 @@ class Profile extends Component {
                     .then(() => {
                         this.props.updateUserPicture(`${this.state.user.uid}/profile`)
                         this.setState({ ...this.state.user, profilePic: `${this.state.user.uid}/profile` }, () => {
-                            this.loadProfilePic()
+                            this.loadProfilePic(`${this.state.user.uid}/profile`)
                             toastr.success('Sucesso!', 'Sua imagem de perfil foi atualizada com êxito!')
                         })
                     })
@@ -84,16 +84,17 @@ class Profile extends Component {
         })
     }
 
-    loadProfilePic = () => {
+    loadProfilePic = (imgPath = this.state.user.profilePic || 'profile') => {
+        
         this.setState({ ...this.state, isLoadingProfilePic: true })
-        firebase.storage().ref(this.state.user.profilePic || 'profile')//.child(`${this.state.user.uid}/profile`)
+        firebase.storage().ref(imgPath)//.child(`${this.state.user.uid}/profile`)
             .getDownloadURL()
             .then((url) => {
                 const picPreview = document.getElementById('profile-pic-preview')
                 picPreview.setAttribute('src', url)
                 this.setState({ ...this.state.user, profilePic: url, isLoadingProfilePic: false })
             }).catch(err => {
-                toastr.error('Erro!', err)
+                toastr.error('Erro!', 'Não foi possível carregar sua imagem de perfil')
                 this.setState({ ...this.state.user, isLoadingProfilePic: false })
             })
     }

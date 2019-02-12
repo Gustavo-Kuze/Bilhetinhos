@@ -28,37 +28,37 @@ class Login extends Component {
                     this.setState({isLoadingUi: false})
                 },
                 signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-                    firebase.database().ref(`users`).once('value', (snapshot) => {
-                        if (!snapshot.hasChild(`${authResult.user.uid}`)) {
-                            this.props.changeUserLogState({
-                                email: authResult.user.email,
-                                uid: authResult.user.uid,
-                                name: authResult.user.displayName
-                            })
-                            setUser({
-                                email: authResult.user.email,
-                                uid: authResult.user.uid,
-                                name: authResult.user.displayName
-
-                            }).then(() => {
-                                window.location.pathname = redirectUrl
-                            })
-                        }else{
-                            const userOnFirebase = snapshot.child(`${authResult.user.uid}`).val()
-                           
-                            this.props.changeUserLogState({
-                                email: userOnFirebase.email,
-                                uid: authResult.user.uid,
-                                name: userOnFirebase.name,
-                                profilePic: userOnFirebase.profilePic,
-                                bio: userOnFirebase.bio,
-                                phone: userOnFirebase.phone,
-                                mates: userOnFirebase.mates ? userOnFirebase.mates.filter(m => m != null) : []
-                            })
-                        }
-                        
-                        window.location = redirectUrl
-                    })
+                      firebase.database().ref(`users`).once('value', (snapshot) => {
+                          if (!snapshot.hasChild(`${authResult.user.uid}`)) {
+                              this.props.changeUserLogState({
+                                  email: authResult.user.email,
+                                  uid: authResult.user.uid,
+                                  name: authResult.user.displayName
+                              })
+                              setUser({
+                                  email: authResult.user.email,
+                                  uid: authResult.user.uid,
+                                  name: authResult.user.displayName
+  
+                              }).then(() => {
+                                  window.location.pathname = redirectUrl
+                              })
+                          }else{
+                              const userOnFirebase = snapshot.child(`${authResult.user.uid}`).val()
+                             
+                              this.props.changeUserLogState({
+                                  email: userOnFirebase.email,
+                                  uid: authResult.user.uid,
+                                  name: userOnFirebase.name,
+                                  profilePic: userOnFirebase.profilePic,
+                                  bio: userOnFirebase.bio,
+                                  phone: userOnFirebase.phone,
+                                  mates: userOnFirebase.mates ? userOnFirebase.mates.filter(m => m != null) : []
+                              })
+                          }
+                          
+                          window.location = redirectUrl
+                      })
                 }
             }
             // ,tosUrl and privacyPolicyUrl accept either url string or a callback
