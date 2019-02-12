@@ -42,15 +42,29 @@ class Profile extends Component {
         return (img.size / 1024 < 500 && (img.name.includes('.jpg') || img.name.includes('.png') || img.name.includes('.jpeg')))
     }
 
+    loadProfilePic = (imgPath = this.state.user.profilePic || 'profile') => {
+        this.setState({ ...this.state, isLoadingProfilePic: true })
+        firebase.storage().ref(imgPath)//.child(`${this.state.user.uid}/profile`)
+            .getDownloadURL()
+            .then((url) => {
+                const picPreview = document.getElementById('profile-pic-preview')
+                picPreview.setAttribute('src', url)
+                this.setState({ ...this.state.user, profilePic: url, isLoadingProfilePic: false })
+            }).catch(err => {
+                toastr.error('Erro!', 'Não foi possível carregar sua imagem de perfil')
+                this.setState({ ...this.state.user, isLoadingProfilePic: false })
+            })
+    }
+
     handlePicChange = element => {
         if (this.isValidImage(element.target.files[0])) {
             firebase.storage().ref().child(`${this.state.user.uid}/profile`).put(element.target.files[0]).then(() => {
                 firebase.database().ref(`users/${this.state.user.uid}`)
                     .update({ profilePic: `${this.state.user.uid}/profile` })
                     .then(() => {
+                        this.loadProfilePic(`${this.state.user.uid}/profile`)
                         this.props.updateUserPicture(`${this.state.user.uid}/profile`)
                         this.setState({ ...this.state.user, profilePic: `${this.state.user.uid}/profile` }, () => {
-                            this.loadProfilePic(`${this.state.user.uid}/profile`)
                             toastr.success('Sucesso!', 'Sua imagem de perfil foi atualizada com êxito!')
                         })
                     })
@@ -82,21 +96,6 @@ class Profile extends Component {
                 ...this.state.user, phone: element.target.value
             }
         })
-    }
-
-    loadProfilePic = (imgPath = this.state.user.profilePic || 'profile') => {
-        
-        this.setState({ ...this.state, isLoadingProfilePic: true })
-        firebase.storage().ref(imgPath)//.child(`${this.state.user.uid}/profile`)
-            .getDownloadURL()
-            .then((url) => {
-                const picPreview = document.getElementById('profile-pic-preview')
-                picPreview.setAttribute('src', url)
-                this.setState({ ...this.state.user, profilePic: url, isLoadingProfilePic: false })
-            }).catch(err => {
-                toastr.error('Erro!', 'Não foi possível carregar sua imagem de perfil')
-                this.setState({ ...this.state.user, isLoadingProfilePic: false })
-            })
     }
 
     componentDidMount() {

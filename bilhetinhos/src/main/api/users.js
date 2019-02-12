@@ -22,7 +22,7 @@ const getMates = (uid) => {
         matesRef.once('value')
             .then((snapshot) => {
                 let mates = snapshot.val() || []
-                res(mates, matesRef)
+                res({mates, matesRef})
             })
             .catch(err => {
                 rej(err)

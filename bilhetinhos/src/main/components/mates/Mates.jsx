@@ -25,12 +25,12 @@ class Mates extends Component {
             // let matesRef = firebase.database().ref(`users/${this.props.currentUserUid}/mates`)
             // matesRef.once('value', (snapshot) => {
             // let mates = snapshot.val() || []
-            getMates(this.props.currentUserUid).then((mates, matesRef) => {
+            getMates(this.props.currentUserUid).then((getMatesRes) => {
                 if (this.state.mateEmail !== this.props.currentUserEmail) {
-                    if (!mates.includes(this.state.mateEmail)) {
-                        mates.push(this.state.mateEmail)
-                        matesRef.set(mates)
-                        this.props.refreshMates(mates)
+                    if (!getMatesRes.mates.includes(this.state.mateEmail)) {
+                        getMatesRes.mates.push(this.state.mateEmail)
+                        getMatesRes.matesRef.set(getMatesRes.mates)
+                        this.props.refreshMates(getMatesRes.mates)
                     } else {
                         toastr.warning('Atenção!', 'O dono deste E-mail já é seu colega!')
                     }
