@@ -4,6 +4,7 @@ import * as firebaseui from 'firebaseui'
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton/Skeleton'
 import { changeUserLogState } from "../../redux/actions/userActions"
+import { changePictureDownloadUrl } from '../../redux/actions/cachedActions'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import If from '../utils/If'
@@ -25,40 +26,46 @@ class Login extends Component {
             ],
             callbacks: {
                 uiShown: () => {
-                    this.setState({isLoadingUi: false})
+                    this.setState({ isLoadingUi: false })
                 },
                 signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-                      firebase.database().ref(`users`).once('value', (snapshot) => {
-                          if (!snapshot.hasChild(`${authResult.user.uid}`)) {
-                              this.props.changeUserLogState({
-                                  email: authResult.user.email,
-                                  uid: authResult.user.uid,
-                                  name: authResult.user.displayName
-                              })
-                              setUser({
-                                  email: authResult.user.email,
-                                  uid: authResult.user.uid,
-                                  name: authResult.user.displayName
-  
-                              }).then(() => {
-                                  window.location.pathname = redirectUrl
-                              })
-                          }else{
-                              const userFromFirebase = snapshot.child(`${authResult.user.uid}`).val()
-                             
-                              this.props.changeUserLogState({
-                                  email: userFromFirebase.email,
-                                  uid: authResult.user.uid,
-                                  name: userFromFirebase.name,
-                                  profilePic: userFromFirebase.profilePic,
-                                  bio: userFromFirebase.bio,
-                                  phone: userFromFirebase.phone,
-                                  mates: userFromFirebase.mates ? userFromFirebase.mates.filter(m => m !== null) : []
-                              })
-                          }
-                          
-                          window.location = redirectUrl
-                      })
+                    firebase.database().ref(`users`).once('value', (snapshot) => {
+                        if (!snapshot.hasChild(`${authResult.user.uid}`)) {
+                            this.props.changeUserLogState({
+                                email: authResult.user.email,
+                                uid: authResult.user.uid,
+                                name: authResult.user.displayName
+                            })
+                            setUser({
+                                email: authResult.user.email,
+                                uid: authResult.user.uid,
+                                name: authResult.user.displayName
+
+                            }).then(() => {
+                                window.location.pathname = redirectUrl
+                            })
+                        } else {
+                            const userFromFirebase = snapshot.child(`${authResult.user.uid}`).val()
+
+                            this.props.changeUserLogState({
+                                email: userFromFirebase.email,
+                                uid: authResult.user.uid,
+                                name: userFromFirebase.name,
+                                profilePic: userFromFirebase.profilePic,
+                                bio: userFromFirebase.bio,
+                                phone: userFromFirebase.phone,
+                                mates: userFromFirebase.mates ? userFromFirebase.mates.filter(m => m !== null) : []
+                            })
+                            firebase.storage().ref(userFromFirebase.profilePic)
+                                .getDownloadURL()
+                                .then((url) => {
+                                    console.log(url)
+                                    this.props.changePictureDownloadUrl(url)
+                                    // window.location = redirectUrl
+                                })
+                        }
+
+                    })
                 }
             }
             // ,tosUrl and privacyPolicyUrl accept either url string or a callback
@@ -100,7 +107,7 @@ class Login extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ changeUserLogState }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ changeUserLogState, changePictureDownloadUrl }, dispatch)
 
 export default connect(
     null,

@@ -45,14 +45,13 @@ const Navbar = props => {
     )
 }
 
-
 const mapStateToProps = state => ({
     displayName: state.user.displayName,
     email: state.user.email,
     uid: state.user.uid,
     accessToken: state.user.accessToken,
     providerData: state.user.providerData,
-    profilePictureSrc: state.user.profilePic
+    profilePictureSrc: state.cached.profilePictureDownloadUrl
 })
 
 export default connect(mapStateToProps)(Navbar)

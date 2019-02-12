@@ -19,7 +19,6 @@ const getMatesNotes = (uid) => {
     })
 }
 
-
 const setNote = (uid, note) => {
     return firebase.database().ref(`notes/`).child(uid).child(note.title).set(note)
 }
