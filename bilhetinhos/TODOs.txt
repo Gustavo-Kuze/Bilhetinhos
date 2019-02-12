@@ -1,0 +1,2 @@
+- Alterar o PopOverButton para aceitar a imagem de perfil além dos ícones;
+- Terminar a função getMatesNotes do notes.js para começar a evoluir o componente UserNoteboard
