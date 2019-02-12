@@ -35,7 +35,9 @@ const Navbar = props => {
                 {/* <a id="popover-user" tabIndex="0" className="nav-link btn btn-lg btn-primary" href="javascript:;" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title={props.email} ><i className="fas fa-user-alt "></i></a> */}
 
                 <PopoverButton
-                    iconClassName="fas fa-user-alt" popoverTitle={props.email || "Menu do Usuário"}>
+                    iconClassName="fas fa-user-alt" popoverTitle={props.email || "Menu do Usuário"}
+                    imgSrc={props.profilePictureSrc}
+                    >
                     <UserMenu />
                 </PopoverButton>
             </div>
@@ -49,7 +51,8 @@ const mapStateToProps = state => ({
     email: state.user.email,
     uid: state.user.uid,
     accessToken: state.user.accessToken,
-    providerData: state.user.providerData
+    providerData: state.user.providerData,
+    profilePictureSrc: state.user.profilePic
 })
 
 export default connect(mapStateToProps)(Navbar)
