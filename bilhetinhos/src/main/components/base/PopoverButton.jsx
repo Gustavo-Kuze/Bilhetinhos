@@ -1,11 +1,24 @@
 import React from 'react'
 import Popover, { ArrowContainer } from 'react-tiny-popover'
 import { fontColors, backgroundColors } from './js/MaterialColors'
+import If from '../utils/If'
+import firebase from '../../api/firebase'
 
 class PopoverButton extends React.Component {
 
     state = {
-        isPopoverOpen: false
+        isPopoverOpen: false,
+        pictureSrc: ''
+    }
+
+    componentDidMount() {
+        if (this.props.imgSrc) {
+            firebase.storage().ref(this.props.imgSrc)
+                .getDownloadURL()
+                .then((url) => {
+                    this.setState({ ...this.state, pictureSrc: url })
+                })
+        }
     }
 
     render() {
@@ -25,7 +38,7 @@ class PopoverButton extends React.Component {
                         arrowSize={11}
                         arrowStyle={{ zIndex: 9999999 }} >
                         <div
-                            style={{ backgroundColor: fontColors.white, border: `1px solid ${backgroundColors.darkerGrey}`, ...this.props.extraStyle}}
+                            style={{ backgroundColor: fontColors.white, border: `1px solid ${backgroundColors.darkerGrey}`, ...this.props.extraStyle }}
                             onClick={() => { this.setState({ isPopoverOpen: !this.state.isPopoverOpen }) }} >
                             <div style={{ backgroundColor: backgroundColors.white, paddingLeft: '5px', paddingTop: '8px', paddingBottom: '5px' }}>
                                 <h6>{this.props.popoverTitle}</h6>
@@ -37,9 +50,14 @@ class PopoverButton extends React.Component {
                     </ArrowContainer>
                 )} >
                 <a href="javascript:;" role="button" className="nav-link btn btn-lg btn-primary" onClick={() => { this.setState({ isPopoverOpen: !this.state.isPopoverOpen }) }} >
-                    <i className={this.props.iconClassName}>
-                        {this.props.buttonContent}
-                    </i>
+                    <If condition={!this.props.imgSrc}>
+                        <i className={this.props.iconClassName}>
+                            {this.props.buttonContent}
+                        </i>
+                    </If>
+                    <If condition={this.props.imgSrc}>
+                        <img id="profile-picture" src={this.state.pictureSrc} alt="Foto do perfil" />
+                    </If>
                 </a>
             </Popover>
         )
