@@ -44,16 +44,16 @@ class Login extends Component {
                                   window.location.pathname = redirectUrl
                               })
                           }else{
-                              const userOnFirebase = snapshot.child(`${authResult.user.uid}`).val()
+                              const userFromFirebase = snapshot.child(`${authResult.user.uid}`).val()
                              
                               this.props.changeUserLogState({
-                                  email: userOnFirebase.email,
+                                  email: userFromFirebase.email,
                                   uid: authResult.user.uid,
-                                  name: userOnFirebase.name,
-                                  profilePic: userOnFirebase.profilePic,
-                                  bio: userOnFirebase.bio,
-                                  phone: userOnFirebase.phone,
-                                  mates: userOnFirebase.mates ? userOnFirebase.mates.filter(m => m != null) : []
+                                  name: userFromFirebase.name,
+                                  profilePic: userFromFirebase.profilePic,
+                                  bio: userFromFirebase.bio,
+                                  phone: userFromFirebase.phone,
+                                  mates: userFromFirebase.mates ? userFromFirebase.mates.filter(m => m !== null) : []
                               })
                           }
                           

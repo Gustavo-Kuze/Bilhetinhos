@@ -15,13 +15,12 @@ const getUser = (uid) => {
     return firebase.database().ref('users/').child(uid)
 }
 
-// ainda não foi testado
 const getMates = (uid) => {
     return new Promise((res, rej) => {
         let matesRef = firebase.database().ref(`users/${uid}/mates`)
         matesRef.once('value')
             .then((snapshot) => {
-                let mates = snapshot.val() || []
+                let mates = (snapshot.val()) ? snapshot.val().filter(m => m !== null) : []
                 res({mates, matesRef})
             })
             .catch(err => {

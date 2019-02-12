@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMates } from '../../redux/actions/userActions'
 import { getMates } from '../../api/users'
+import {getMatesNotes} from '../../api/notes'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 
 class Mates extends Component {
@@ -28,7 +29,7 @@ class Mates extends Component {
             getMates(this.props.currentUserUid).then((getMatesRes) => {
                 if (this.state.mateEmail !== this.props.currentUserEmail) {
                     if (!getMatesRes.mates.includes(this.state.mateEmail)) {
-                        getMatesRes.mates.push(this.state.mateEmail)
+                        getMatesRes.mates.push(this.props.currentUserUid)
                         getMatesRes.matesRef.set(getMatesRes.mates)
                         this.props.refreshMates(getMatesRes.mates)
                     } else {
@@ -44,6 +45,12 @@ class Mates extends Component {
             toastr.error('Erro!', 'Nenhum colega foi encontrado com este E-mail!')
         }
         return false
+    }
+
+    componentDidMount = () => {
+        getMatesNotes(this.props.currentUserUid).then(matesNotes => {
+            console.log(matesNotes)
+        })
     }
 
     render() {
