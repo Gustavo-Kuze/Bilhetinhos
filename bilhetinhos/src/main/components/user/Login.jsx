@@ -13,7 +13,7 @@ import { setUser } from '../../api/users'
 class Login extends Component {
 
     state = {
-        isLoggedOut: true
+        isLoadingUi: true
     }
 
     componentDidMount() {
@@ -24,6 +24,9 @@ class Login extends Component {
                 firebase.auth.EmailAuthProvider.PROVIDER_ID,
             ],
             callbacks: {
+                uiShown: () => {
+                    this.setState({isLoadingUi: false})
+                },
                 signInSuccessWithAuthResult: (authResult, redirectUrl) => {
                     firebase.database().ref(`users`).once('value', (snapshot) => {
                         if (!snapshot.hasChild(`${authResult.user.uid}`)) {
@@ -58,8 +61,6 @@ class Login extends Component {
                     })
                 }
             }
-
-
             // ,tosUrl and privacyPolicyUrl accept either url string or a callback
             // function.
             // Terms of service url/callback.
@@ -68,7 +69,6 @@ class Login extends Component {
             // privacyPolicyUrl: function () {
             //     window.location.assign('<your-privacy-policy-url>')
             // }
-
         }
 
         var ui = new firebaseui.auth.AuthUI(firebase.auth())
@@ -76,29 +76,20 @@ class Login extends Component {
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig)
 
-        // callbackWithUserAndAccessToken((user, accessToken) => {
-        //     this.props.changeUserLogState({
-        //         email: user.email,
-        //         uid: user.uid,
-        //         accessToken
-        //     })
-
-        // 
-        // })
     }
 
     render() {
         return (
             <Skeleton>
                 <section className="container-fluid">
-                    <div className="row ">
+                    <div className="row pt-5 mt-5">
                         <div className="col-10 offset-1 d-flex justify-content-center align-items-center flex-column">
                             <div id="firebaseui-auth-container"></div>
-                            <If condition={this.state.isLoggedOut}>
+                            <If condition={false}>
                                 <p>Ainda não tem uma conta?</p>
                                 <a href="/user/signup" className="text-decoration-none text-center text-light firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-password firebaseui-id-idp-button d-flex justify-content-center align-items-center"><span>Criar</span></a>
                             </If>
-                            <If condition={!this.state.isLoggedOut}>
+                            <If condition={this.state.isLoadingUi}>
                                 <Spinner sr="Entrando..." />
                             </If>
                         </div>
