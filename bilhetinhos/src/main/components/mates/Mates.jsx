@@ -67,11 +67,16 @@ class Mates extends Component {
                                 Adicionar um colega
                             </button>
                             <hr />
-                            <ul>
+                            <div className="list-group">
+                                {this.props.mates.map(m => (
+                                    <a href="javascript:;" key={m} class="list-group-item list-group-item-action">{m}</a>
+                                ))}
+                            </div>
+                            {/* <ul>
                                 {this.props.mates.map(m => (
                                     <li key={m}>{m}</li>
                                 ))}
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                     <ReduxToastr

@@ -1,4 +1,5 @@
 import './css/Note.css'
+import '../../base/css/materialCheckbox.css'
 import React, { Component } from "react"
 import Skeleton from "../../base/Skeleton/Skeleton"
 import ColorPicker from "../../utils/ColorPicker"
@@ -72,9 +73,11 @@ class CreateNote extends Component {
                                         </AccordionItem>
                                         <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
                                             {this.props.mates.map(m => (
-                                                <div key={this.extractUsernameFromEmail(m)} className="form-check">
-                                                    <input className="form-check-input" id={`chk-${this.extractUsernameFromEmail(m)}`} type="checkbox" value={m} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
-                                                    <label className="form-check-label" htmlFor={`chk-${this.extractUsernameFromEmail(m)}`}>{m}</label>
+                                                <div key={this.extractUsernameFromEmail(m)} className="form-check paper-toggle">
+                                                    <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${this.extractUsernameFromEmail(m)}`}>
+                                                        <input className="form-check-input switch" id={`chk-${this.extractUsernameFromEmail(m)}`} type="checkbox" value={m} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
+                                                        <span>{m}</span>
+                                                    </label>
                                                 </div>
                                             ))}
                                             <If condition={!this.props.mates || this.props.mates.length === 0}>

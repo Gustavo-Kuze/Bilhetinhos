@@ -52,6 +52,7 @@ class Profile extends Component {
                 this.setState({ ...this.state.user, profilePic: url, isLoadingProfilePic: false })
             }).catch(err => {
                 toastr.error('Erro!', 'Não foi possível carregar sua imagem de perfil')
+                console.log(err)
                 this.setState({ ...this.state.user, isLoadingProfilePic: false })
             })
     }
@@ -109,14 +110,13 @@ class Profile extends Component {
                     <div className="row ">
                         <div className="col-md-6 col-sm-10 offset-sm-1 offset-md-3 ">
                             <h1 className="h3">Perfil</h1>
-                            <label htmlFor="inp-user-pic">
-                                <img className="thumbnail" id="profile-pic-preview" style={{ height: '100px' }} src="https://profiles.utdallas.edu/img/default.png" alt="Perfil" />
+                            <If condition={this.state.isLoadingProfilePic}>
+                                <Spinner extraClasses="py-5" />
+                            </If>
+                            <label htmlFor="inp-user-pic" className={`${this.state.isLoadingProfilePic ? 'invisible' : ''}`}>
+                                <img className={`thumbnail ${this.state.isLoadingProfilePic ? 'invisible' : ''}`} id="profile-pic-preview" style={{ height: '100px' }} src="https://profiles.utdallas.edu/img/default.png" alt="Perfil" />
                             </label>
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
-                            <If condition={this.state.isLoadingProfilePic}>
-                                <br />
-                                <Spinner />
-                            </If>
                             <form onSubmit={this.callUpdateUserProfile}>
                                 <div className="form-group">
                                     <input name="user-name" id="inp-user-name" className="form-control" value={this.state.user.name} onChange={this.handleNameChange} placeholder="Seu nome completo ou apelido" />
