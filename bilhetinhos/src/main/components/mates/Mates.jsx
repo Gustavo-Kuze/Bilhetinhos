@@ -5,7 +5,7 @@ import firebase from '../../api/firebase'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMates } from '../../redux/actions/userActions'
-import { getMates } from '../../api/users'
+import { getMates, getUserByEmail } from '../../api/users'
 import {getMatesNotes} from '../../api/notes'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 
@@ -28,13 +28,19 @@ class Mates extends Component {
             // let mates = snapshot.val() || []
             getMates(this.props.currentUserUid).then((getMatesRes) => {
                 if (this.state.mateEmail !== this.props.currentUserEmail) {
-                    if (!getMatesRes.mates.includes(this.state.mateEmail)) {
-                        getMatesRes.mates.push(this.props.currentUserUid)
-                        getMatesRes.matesRef.set(getMatesRes.mates)
-                        this.props.refreshMates(getMatesRes.mates)
-                    } else {
-                        toastr.warning('Atenção!', 'O dono deste E-mail já é seu colega!')
-                    }
+                    getUserByEmail(this.state.mateEmail).then(userByEmail => {
+                        if (!getMatesRes.mates.includes(userByEmail.uid)) {
+                            getMatesRes.mates.push(userByEmail.uid)
+                            getMatesRes.matesRef.set(getMatesRes.mates)
+                            this.props.refreshMates(getMatesRes.mates)
+                        } else {
+                            toastr.warning('Atenção!', 'O dono deste E-mail já é seu colega!')
+                        }
+                    }).catch(err => {
+                        console.log('Erro interno: Não foi possível buscar o usuário pelo E-mail')
+                        console.log(err)
+                    })
+                    
                 } else {
                     toastr.warning('Atenção!', 'Você não pode se adicionar como colega.')
                 }
@@ -48,9 +54,13 @@ class Mates extends Component {
     }
 
     componentDidMount = () => {
-        getMatesNotes(this.props.currentUserUid).then(matesNotes => {
-            console.log(matesNotes)
-        })
+        // getMatesNotes(this.props.currentUserUid).then(matesNotes => {
+        //     console.log(matesNotes)
+        // })
+        getUserByEmail('ravenatitan@gmail.com').then(u => {
+            
+            console.log(u)
+        }).catch(err => console.log(err))
     }
 
     render() {

@@ -15,6 +15,22 @@ const getUser = (uid) => {
     return firebase.database().ref('users/').child(uid)
 }
 
+const getUserByEmail = email => {
+    return new Promise((res, rej) => {
+        firebase.database().ref('users/').once('value', snapshot => {
+            snapshot.forEach(u => {
+                if(u.val().email === email){
+                    res({
+                       user: u.val(),
+                       uid: u.key
+                    })
+                }
+            })
+            rej(`Nenhum usuário encontrado com este E-mail: ${email}`)
+        }).catch(err => rej(err))
+    })
+}
+
 const getMates = (uid) => {
     return new Promise((res, rej) => {
         let matesRef = firebase.database().ref(`users/${uid}/mates`)
@@ -30,4 +46,4 @@ const getMates = (uid) => {
 
 }
 
-export { getUser, setUser, getMates }
+export { getUser, getUserByEmail, setUser, getMates }
