@@ -7,6 +7,7 @@ import firebase from '../../api/firebase'
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
 import { setUser } from '../../api/users'
+import ReduxToastr, { toastr } from 'react-redux-toastr'
 
 class Profile extends Component {
 
@@ -31,6 +32,7 @@ class Profile extends Component {
             this.props.updateUserProfile({
                 ...this.state.user
             })
+            toastr.success('Sucesso!', 'Os dados do perfil foram salvos.')
         })
 
         return false
@@ -49,13 +51,13 @@ class Profile extends Component {
                         this.props.updateUserPicture(`${this.state.user.uid}/profile`)
                         this.setState({ ...this.state.user, profilePic: `${this.state.user.uid}/profile` }, () => {
                             this.loadProfilePic()
+                            toastr.success('Sucesso!', 'Sua imagem de perfil foi atualizada com êxito!')
                         })
                     })
             })
         } else {
-            alert('O tamanho máximo dos arquivos de imagem deve ser de 500 KB. Somente arquivos nos formatos jpg, jpeg e png são aceitos.')
+            toastr.warning('Atenção!', 'O tamanho máximo dos arquivos de imagem deve ser de 500 KB. Somente arquivos nos formatos jpg, jpeg e png são aceitos.')
         }
-
     }
 
     handleNameChange = element => {
@@ -82,7 +84,6 @@ class Profile extends Component {
         })
     }
 
-
     loadProfilePic = () => {
         this.setState({ ...this.state, isLoadingProfilePic: true })
         firebase.storage().ref(this.state.user.profilePic || 'profile')//.child(`${this.state.user.uid}/profile`)
@@ -92,7 +93,7 @@ class Profile extends Component {
                 picPreview.setAttribute('src', url)
                 this.setState({ ...this.state.user, profilePic: url, isLoadingProfilePic: false })
             }).catch(err => {
-                console.log(err)
+                toastr.error('Erro!', err)
                 this.setState({ ...this.state.user, isLoadingProfilePic: false })
             })
     }
@@ -130,6 +131,14 @@ class Profile extends Component {
                             </form>
                         </div>
                     </div>
+                    <ReduxToastr
+                        timeOut={4000}
+                        newestOnTop={false}
+                        preventDuplicates
+                        position="top-right"
+                        transitionIn="fadeIn"
+                        transitionOut="fadeOut"
+                        progressBar />
                 </section>
             </Skeleton>
         )

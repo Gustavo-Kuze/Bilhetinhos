@@ -29,11 +29,14 @@ class Login extends Component {
                         if (!snapshot.hasChild(`${authResult.user.uid}`)) {
                             this.props.changeUserLogState({
                                 email: authResult.user.email,
-                                uid: authResult.user.uid
+                                uid: authResult.user.uid,
+                                name: authResult.user.displayName
                             })
                             setUser({
                                 email: authResult.user.email,
-                                uid: authResult.user.uid
+                                uid: authResult.user.uid,
+                                name: authResult.user.displayName
+
                             }).then(() => {
                                 window.location.pathname = redirectUrl
                             })
