@@ -1,9 +1,9 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import combinedReducers from './combinedReducers'
-import {loadState} from './localStorage/'
+import { loadState } from './localStorage/'
+import thunk from 'redux-thunk'
 
-
-const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ 
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__
     && window.__REDUX_DEVTOOLS_EXTENSION__()
 
-export default createStore(combinedReducers, loadState(), devTools)
+export default applyMiddleware(thunk)(createStore)(combinedReducers, loadState(), devTools)
