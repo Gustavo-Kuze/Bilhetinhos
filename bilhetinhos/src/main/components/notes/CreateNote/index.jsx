@@ -105,10 +105,10 @@ class CreateNote extends Component {
                                             <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
                                         </AccordionItem>
                                         <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
-                                            {this.state.matesEmailsAndUids.map(m => (
-                                                <div key={m} className="form-check paper-toggle">
-                                                    <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${m}`}>
-                                                        <input className="form-check-input switch" id={`chk-${m}`} type="checkbox" value={m} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
+                                            {this.state.matesEmailsAndUids.map((m, i) => (
+                                                <div key={this.props.mates[i]} className="form-check paper-toggle">
+                                                    <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${this.props.mates[i]}`}>
+                                                        <input className="form-check-input switch" id={`chk-${this.props.mates[i]}`} type="checkbox" value={this.props.mates[i]} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
                                                         <span>{m}</span>
                                                     </label>
                                                 </div>
