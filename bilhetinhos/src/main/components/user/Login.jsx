@@ -61,7 +61,7 @@ class Login extends Component {
                                 .then((url) => {
                                     console.log(url)
                                     this.props.changePictureDownloadUrl(url)
-                                    // window.location = redirectUrl
+                                    window.location = redirectUrl
                                 })
                         }
 

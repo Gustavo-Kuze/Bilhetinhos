@@ -1,4 +1,4 @@
-import './css/Note.css'
+import '../../base/css/Note.css'
 import '../../base/css/materialCheckbox.css'
 import React, { Component } from "react"
 import Skeleton from "../../base/Skeleton/Skeleton"
