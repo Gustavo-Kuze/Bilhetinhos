@@ -1,1 +1,2 @@
-- Terminar a função getMatesNotes do notes.js para começar a evoluir o componente UserNoteboard
+- Refatorar o projeto para trabalhar com Redux-thunk
+- Terminar de criar os componentes Note e UserNoteboard
