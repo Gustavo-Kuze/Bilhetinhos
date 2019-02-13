@@ -13,7 +13,7 @@ class UserNoteboard extends Component {
     // getUserNotes(this.props.uid).on('value', (snapshot) => {
     //     snapshot.forEach(c => console.log(c.val()))
     // })
-    getMateNotes('kDG1kYSQ4eQ48wbJuUqUMxENWzD2').then(notes => {
+    getMateNotes(this.props.uid, 'kDG1kYSQ4eQ48wbJuUqUMxENWzD2').then(notes => {
       console.log(notes)
     })
   }
