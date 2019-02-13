@@ -77,27 +77,11 @@ class Profile extends Component {
             toastr.warning('Atenção!', 'O tamanho máximo dos arquivos de imagem deve ser de 500 KB. Somente arquivos nos formatos jpg, jpeg e png são aceitos.')
         }
     }
-
-    handleNameChange = element => {
+   
+    handleInputChange = element => {
         this.setState({
             ...this.state, user: {
-                ...this.state.user, name: element.target.value
-            }
-        })
-    }
-
-    handleBioChange = element => {
-        this.setState({
-            ...this.state, user: {
-                ...this.state.user, bio: element.target.value
-            }
-        })
-    }
-
-    handlePhoneChange = element => {
-        this.setState({
-            ...this.state, user: {
-                ...this.state.user, phone: element.target.value
+                ...this.state.user, [`${element.target.name}`]: element.target.value
             }
         })
     }
@@ -123,13 +107,13 @@ class Profile extends Component {
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
                             <form onSubmit={this.callUpdateUserProfile}>
                                 <div className="form-group">
-                                    <input name="user-name" id="inp-user-name" className="form-control" value={this.state.user.name} onChange={this.handleNameChange} placeholder="Seu nome completo ou apelido" />
+                                    <input name="name" id="inp-user-name" className="form-control" value={this.state.user.name} onChange={this.handleInputChange} placeholder="Seu nome completo ou apelido" />
                                 </div>
                                 <div className="form-group">
-                                    <textarea name="user-bio" id="ta-user-bio" className="form-control" cols="30" rows="10" value={this.state.user.bio} onChange={this.handleBioChange} placeholder="Biografia"></textarea>
+                                    <textarea name="bio" id="ta-user-bio" className="form-control" cols="30" rows="10" value={this.state.user.bio} onChange={this.handleInputChange} placeholder="Biografia"></textarea>
                                 </div>
                                 <div className="form-group">
-                                    <input name="user-phone" id="inp-user-phone" className="form-control phone-mask" value={this.state.user.phone} onChange={this.handlePhoneChange} placeholder="Telefone" />
+                                    <input name="phone" id="inp-user-phone" className="form-control phone-mask" value={this.state.user.phone} onChange={this.handleInputChange} placeholder="Telefone" />
                                 </div>
                                 <button className="btn btn-primary">Salvar</button>
                             </form>
