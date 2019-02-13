@@ -56,45 +56,31 @@ class CreateNote extends Component {
     }
 
     getMatesEmailsByUid = async (matesUids) => {
-        var matesEmailsAndUis = []  
-        matesUids.map(async (mate, index) => {
+        var matesEmailsAndUids = []
+        matesEmailsAndUids = matesUids.map(async (mate, index) => {
             var userRef = getUser(mate)
             var userSnapshot = await userRef.once('value')
 
-            matesEmailsAndUis[index] = userSnapshot.val().email 
+            return userSnapshot.val().email
         })
-        return (matesEmailsAndUis)
+
+        return matesEmailsAndUids
     }
-    
-    componentDidUpdate = async () => {
-        // if(!this.state.matesEmailsAndUids){
-            // if(this.props.mates.length > 0 && this.state.matesEmailsAndUids.length === 0){
-            //     let matesEmailsAndUis = await this.getMatesEmailsByUid(this.props.mates)
-                
-            //     this.setState({ ...this.state, matesEmailsAndUis })
-            // }
-        // }
+
+    componentDidUpdate = () => {
+        if (this.props.mates.length > 0 && this.state.matesEmailsAndUids.length === 0) {
+            console.log(this.state.matesEmailsAndUids)
+        }
     }
 
     componentDidMount = async () => {
         // this.setState({...this.state})
         // this.forceUpdate()
-        let matesEmailsAndUis = await this.getMatesEmailsByUid(this.props.mates)
-        this.setState({ ...this.state, matesEmailsAndUis })
-        
-
-        
-        console.log(this.props.mates)
-        console.log(matesEmailsAndUis)
-
-        // matesEmailsAndUis.forEach(m => {
-        //     console.log(m)
-        // })
-        // this.props.mates.forEach(m => {
-        //     console.log(m)
-        // })
-
-        this.forceUpdate()
+        let matesEmailsAndUidsPromise = await this.getMatesEmailsByUid(this.props.mates)
+        let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
+        this.setState({
+            ...this.state, matesEmailsAndUids
+        })
     }
 
     render() {
@@ -120,9 +106,9 @@ class CreateNote extends Component {
                                         </AccordionItem>
                                         <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
                                             {this.state.matesEmailsAndUids.map(m => (
-                                                <div key={this.extractUsernameFromEmail(m)} className="form-check paper-toggle">
-                                                    <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${this.extractUsernameFromEmail(m)}`}>
-                                                        <input className="form-check-input switch" id={`chk-${this.extractUsernameFromEmail(m)}`} type="checkbox" value={m} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
+                                                <div key={m} className="form-check paper-toggle">
+                                                    <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${m}`}>
+                                                        <input className="form-check-input switch" id={`chk-${m}`} type="checkbox" value={m} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
                                                         <span>{m}</span>
                                                     </label>
                                                 </div>
