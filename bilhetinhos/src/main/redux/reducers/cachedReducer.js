@@ -9,6 +9,8 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 profilePictureDownloadUrl: action.payload
             }
+        case 'RESET_CACHE_STATE':
+            return INITIAL_STATE
         default:
             return state
     }

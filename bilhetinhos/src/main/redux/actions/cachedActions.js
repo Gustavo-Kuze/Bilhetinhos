@@ -4,3 +4,9 @@ export const changePictureDownloadUrl = downloadUrl => {
         payload: downloadUrl
     }
 }
+
+export const resetCacheState = () => {
+    return {
+        type: "RESET_CACHE_STATE"
+    }
+}

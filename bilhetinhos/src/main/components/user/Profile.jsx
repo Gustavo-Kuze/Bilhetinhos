@@ -47,8 +47,8 @@ class Profile extends Component {
         firebase.storage().ref(imgPath)//.child(`${this.state.user.uid}/profile`)
             .getDownloadURL()
             .then((url) => {
-                const picPreview = document.getElementById('profile-pic-preview')
-                picPreview.setAttribute('src', url)
+                // const picPreview = document.getElementById('profile-pic-preview')
+                // picPreview.setAttribute('src', url)
                 this.setState({ ...this.state.user, profilePic: url, isLoadingProfilePic: false })
             }).catch(err => {
                 toastr.error('Erro!', 'Não foi possível carregar sua imagem de perfil')
@@ -114,7 +114,8 @@ class Profile extends Component {
                                 <Spinner extraClasses="py-5" />
                             </If>
                             <label htmlFor="inp-user-pic" className={`${this.state.isLoadingProfilePic ? 'invisible' : ''}`}>
-                                <img className={`thumbnail ${this.state.isLoadingProfilePic ? 'invisible' : ''}`} id="profile-pic-preview" style={{ height: '100px' }} src="https://profiles.utdallas.edu/img/default.png" alt="Perfil" />
+                                <img className={`thumbnail ${this.state.isLoadingProfilePic ? 'invisible' : ''}`} id="profile-pic-preview" style={{ height: '100px' }}
+                                 src={`${this.props.profilePictureDownloadUrl ? this.props.profilePictureDownloadUrl : "https://profiles.utdallas.edu/img/default.png"}`}  alt="Perfil" />
                             </label>
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
                             <form onSubmit={this.callUpdateUserProfile}>
@@ -152,7 +153,8 @@ const mapStateToProps = state => ({
     profilePic: state.user.profilePic,
     bio: state.user.bio,
     phone: state.user.phone,
-    mates: state.user.mates
+    mates: state.user.mates,
+    profilePictureDownloadUrl: state.cached.profilePictureDownloadUrl
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({ updateUserProfile, updateUserPicture }, dispatch)
