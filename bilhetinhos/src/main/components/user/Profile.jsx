@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Skeleton from '../base/Skeleton/Skeleton'
 import { updateUserProfile, updateUserPicture } from '../../redux/actions/userActions'
+import {changePictureDownloadUrl, resetCacheState} from '../../redux/actions/cachedActions'
 import firebase from '../../api/firebase'
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
@@ -43,12 +44,14 @@ class Profile extends Component {
     }
 
     loadProfilePic = (imgPath = this.state.user.profilePic || 'profile') => {
+        this.props.resetCacheState()
         this.setState({ ...this.state, isLoadingProfilePic: true })
         firebase.storage().ref(imgPath)//.child(`${this.state.user.uid}/profile`)
             .getDownloadURL()
             .then((url) => {
                 // const picPreview = document.getElementById('profile-pic-preview')
                 // picPreview.setAttribute('src', url)
+                this.props.changePictureDownloadUrl(url)
                 this.setState({ ...this.state.user, profilePic: url, isLoadingProfilePic: false })
             }).catch(err => {
                 toastr.error('Erro!', 'Não foi possível carregar sua imagem de perfil')
@@ -157,6 +160,6 @@ const mapStateToProps = state => ({
     profilePictureDownloadUrl: state.cached.profilePictureDownloadUrl
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ updateUserProfile, updateUserPicture }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ updateUserProfile, updateUserPicture, changePictureDownloadUrl, resetCacheState }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)
