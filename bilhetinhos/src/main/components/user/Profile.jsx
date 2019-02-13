@@ -7,7 +7,7 @@ import {changePictureDownloadUrl, resetCacheState} from '../../redux/actions/cac
 import firebase from '../../api/firebase'
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
-import { setUser } from '../../api/users'
+import { registerUser } from '../../api/users'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 
 class Profile extends Component {
@@ -27,7 +27,7 @@ class Profile extends Component {
 
     callUpdateUserProfile = element => {
         element.preventDefault()
-        setUser({
+        registerUser({
             ...this.state.user
         }).then(() => {
             this.props.updateUserProfile({

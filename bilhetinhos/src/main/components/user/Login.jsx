@@ -9,12 +9,41 @@ import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
-import { setUser } from '../../api/users'
+import { registerUser, isUserRegisteredOnDb } from '../../api/users'
 
 class Login extends Component {
 
     state = {
         isLoadingUi: true
+    }
+
+    signUpAndChangeState = (user) => {
+        this.props.changeUserLogState({
+            email: user.email,
+            uid: user.uid,
+            name: user.displayName
+        })
+    }
+
+    LogInAndChangeState = (user) => {
+        this.props.changeUserLogState({
+            email: user.email,
+            uid: user.uid,
+            name: user.name,
+            profilePic: user.profilePic,
+            bio: user.bio,
+            phone: user.phone,
+            mates: user.mates ? user.mates.filter(m => m !== null) : []
+        })
+    }
+
+    registerUserAndSaveState = async (authResult) => {
+        this.signUpAndChangeState(authResult.user)
+        return registerUser({
+            email: authResult.user.email,
+            uid: authResult.user.uid,
+            name: authResult.user.displayName
+        })
     }
 
     componentDidMount() {
@@ -29,58 +58,25 @@ class Login extends Component {
                     this.setState({ isLoadingUi: false })
                 },
                 signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-                    firebase.database().ref(`users`).once('value', (snapshot) => {
-                        if (!snapshot.hasChild(`${authResult.user.uid}`)) {
-                            this.props.changeUserLogState({
-                                email: authResult.user.email,
-                                uid: authResult.user.uid,
-                                name: authResult.user.displayName
-                            })
-                            setUser({
-                                email: authResult.user.email,
-                                uid: authResult.user.uid,
-                                name: authResult.user.displayName
-
-                            }).then(() => {
+                    firebase.database().ref('users').once('value').then(userSnapshot => {
+                        if (!isUserRegisteredOnDb(authResult.user.uid)) {
+                            this.registerUserAndSaveState(authResult).then(() => {
                                 window.location.pathname = redirectUrl
                             })
                         } else {
-                            const userFromFirebase = snapshot.child(`${authResult.user.uid}`).val()
-
-                            this.props.changeUserLogState({
-                                email: userFromFirebase.email,
-                                uid: authResult.user.uid,
-                                name: userFromFirebase.name,
-                                profilePic: userFromFirebase.profilePic,
-                                bio: userFromFirebase.bio,
-                                phone: userFromFirebase.phone,
-                                mates: userFromFirebase.mates ? userFromFirebase.mates.filter(m => m !== null) : []
+                            const userFromFirebase = userSnapshot.child(`${authResult.user.uid}`).val()
+                            this.LogInAndChangeState({ ...userFromFirebase, uid: authResult.user.uid })
+                            firebase.storage().ref(userFromFirebase.profilePic).getDownloadURL().then(imageUrl => {
+                                this.props.changePictureDownloadUrl(imageUrl)
+                                window.location = redirectUrl
                             })
-                            firebase.storage().ref(userFromFirebase.profilePic)
-                                .getDownloadURL()
-                                .then((url) => {
-                                    console.log(url)
-                                    this.props.changePictureDownloadUrl(url)
-                                    window.location = redirectUrl
-                                })
                         }
-
                     })
                 }
             }
-            // ,tosUrl and privacyPolicyUrl accept either url string or a callback
-            // function.
-            // Terms of service url/callback.
-            // tosUrl: '<your-tos-url>',
-            // Privacy policy url/callback.
-            // privacyPolicyUrl: function () {
-            //     window.location.assign('<your-privacy-policy-url>')
-            // }
         }
 
         var ui = new firebaseui.auth.AuthUI(firebase.auth())
-
-        // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig)
 
     }

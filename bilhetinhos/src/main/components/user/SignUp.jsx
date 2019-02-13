@@ -1,5 +1,5 @@
 import firebase from '../../api/firebase'
-import { setUser } from '../../api/users'
+import { registerUser } from '../../api/users'
 import React, { Component } from "react"
 import Skeleton from "../base/Skeleton/Skeleton"
 
@@ -24,7 +24,7 @@ class SignUp extends Component {
         uid: user.uid
       })
 
-      setUser({
+      registerUser({
         email: user.email,
         uid: user.uid
       }).then(() => {

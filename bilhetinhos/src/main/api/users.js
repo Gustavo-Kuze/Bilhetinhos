@@ -1,6 +1,6 @@
 import firebase from './firebase'
 
-const setUser = (user) => {
+const registerUser = (user) => {
     return firebase.database().ref(`users/${user.uid}`).set({
         email: user.email || '',
         name: user.name || '',
@@ -46,4 +46,26 @@ const getMates = (uid) => {
 
 }
 
-export { getUser, getUserByEmail, setUser, getMates }
+const getMatesEmailsByUid = async (matesUids) => {
+    let matesEmailsAndUids = []
+    matesEmailsAndUids = matesUids.map(async (mate, index) => {
+        let userRef = getUser(mate)
+        let userSnapshot = await userRef.once('value')
+        return userSnapshot.val().email
+    })
+
+    return matesEmailsAndUids
+}
+
+const isUserRegisteredOnDb = (uid, userSnapshot) => {
+    return new Promise((res) => {
+        if(userSnapshot){
+            res(userSnapshot.hasChild(uid))
+        }
+        firebase.database().ref('users').once('value').then(userSnapshot => {
+            res(userSnapshot.hasChild(uid))
+        })
+    })
+}
+
+export {  getUser, getUserByEmail, registerUser, getMates, getMatesEmailsByUid, isUserRegisteredOnDb }

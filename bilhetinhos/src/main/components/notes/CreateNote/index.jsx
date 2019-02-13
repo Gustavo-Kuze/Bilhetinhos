@@ -11,7 +11,7 @@ import { Accordion, AccordionItem } from '../../base/Accordion.jsx'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import { setNote } from '../../../api/notes'
-import { getUser } from '../../../api/users'
+import { getMatesEmailsByUid } from '../../../api/users'
 
 import {
     handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
@@ -55,18 +55,6 @@ class CreateNote extends Component {
         return false
     }
 
-    getMatesEmailsByUid = async (matesUids) => {
-        var matesEmailsAndUids = []
-        matesEmailsAndUids = matesUids.map(async (mate, index) => {
-            var userRef = getUser(mate)
-            var userSnapshot = await userRef.once('value')
-
-            return userSnapshot.val().email
-        })
-
-        return matesEmailsAndUids
-    }
-
     componentDidUpdate = () => {
         if (this.props.mates.length > 0 && this.state.matesEmailsAndUids.length === 0) {
             console.log(this.state.matesEmailsAndUids)
@@ -74,9 +62,7 @@ class CreateNote extends Component {
     }
 
     componentDidMount = async () => {
-        // this.setState({...this.state})
-        // this.forceUpdate()
-        let matesEmailsAndUidsPromise = await this.getMatesEmailsByUid(this.props.mates)
+        let matesEmailsAndUidsPromise = await getMatesEmailsByUid(this.props.mates)
         let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
         this.setState({
             ...this.state, matesEmailsAndUids
