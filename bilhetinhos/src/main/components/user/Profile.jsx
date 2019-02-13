@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Skeleton from '../base/Skeleton/Skeleton'
 import { updateUserProfile, updateUserPicture } from '../../redux/actions/userActions'
-import {changePictureDownloadUrl, resetCacheState} from '../../redux/actions/cachedActions'
+import { changePictureDownloadUrl, resetCacheState } from '../../redux/actions/cachedActions'
 import firebase from '../../api/firebase'
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
@@ -35,7 +35,6 @@ class Profile extends Component {
             })
             toastr.success('Sucesso!', 'Os dados do perfil foram salvos.')
         })
-
         return false
     }
 
@@ -46,33 +45,34 @@ class Profile extends Component {
     loadProfilePic = (imgPath = this.state.user.profilePic || 'profile') => {
         this.props.resetCacheState()
         this.setState({ ...this.state, isLoadingProfilePic: true })
-        firebase.storage().ref(imgPath)//.child(`${this.state.user.uid}/profile`)
+        firebase.storage().ref(imgPath)
             .getDownloadURL()
             .then((url) => {
-                // const picPreview = document.getElementById('profile-pic-preview')
-                // picPreview.setAttribute('src', url)
                 this.props.changePictureDownloadUrl(url)
-                this.setState({ ...this.state.user, profilePic: url, isLoadingProfilePic: false })
+                // this.setState({ ...this.state.user, profilePic: url, isLoadingProfilePic: false })
+                this.setState({ ...this.state, isLoadingProfilePic: false })
             }).catch(err => {
                 toastr.error('Erro!', 'Não foi possível carregar sua imagem de perfil')
                 console.log(err)
-                this.setState({ ...this.state.user, isLoadingProfilePic: false })
+                this.setState({ ...this.state, isLoadingProfilePic: false })
             })
     }
 
     handlePicChange = element => {
-        if (this.isValidImage(element.target.files[0])) {
-            firebase.storage().ref().child(`${this.state.user.uid}/profile`).put(element.target.files[0]).then(() => {
-                firebase.database().ref(`users/${this.state.user.uid}`)
-                    .update({ profilePic: `${this.state.user.uid}/profile` })
-                    .then(() => {
-                        this.loadProfilePic(`${this.state.user.uid}/profile`)
-                        this.props.updateUserPicture(`${this.state.user.uid}/profile`)
-                        this.setState({ ...this.state.user, profilePic: `${this.state.user.uid}/profile` }, () => {
-                            toastr.success('Sucesso!', 'Sua imagem de perfil foi atualizada com êxito!')
-                        })
-                    })
-            })
+        let imageFile = element.target.files[0]
+        if (this.isValidImage(imageFile)) {
+            firebase.storage().ref().child(this.state.user.profilePic).put(imageFile)
+                .then(() => {
+                    // firebase.database().ref(`users/${this.state.user.uid}`)
+                    //     .update({ profilePic: `${this.state.user.uid}/profile` })
+                    //     .then(() => {
+                    this.loadProfilePic(this.state.user.profilePic)
+                    //         this.props.updateUserPicture(`${this.state.user.uid}/profile`)
+                    //         this.setState({ ...this.state.user, profilePic: `${this.state.user.uid}/profile` }, () => {
+                    toastr.success('Sucesso!', 'Sua imagem de perfil foi atualizada com êxito!')
+                    //             })
+                    //         })
+                })
         } else {
             toastr.warning('Atenção!', 'O tamanho máximo dos arquivos de imagem deve ser de 500 KB. Somente arquivos nos formatos jpg, jpeg e png são aceitos.')
         }
@@ -118,7 +118,7 @@ class Profile extends Component {
                             </If>
                             <label htmlFor="inp-user-pic" className={`${this.state.isLoadingProfilePic ? 'invisible' : ''}`}>
                                 <img className={`thumbnail ${this.state.isLoadingProfilePic ? 'invisible' : ''}`} id="profile-pic-preview" style={{ height: '100px' }}
-                                 src={`${this.props.profilePictureDownloadUrl ? this.props.profilePictureDownloadUrl : "https://profiles.utdallas.edu/img/default.png"}`}  alt="Perfil" />
+                                    src={`${this.props.profilePictureDownloadUrl ? this.props.profilePictureDownloadUrl : "https://profiles.utdallas.edu/img/default.png"}`} alt="Perfil" />
                             </label>
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
                             <form onSubmit={this.callUpdateUserProfile}>
