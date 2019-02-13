@@ -11,6 +11,7 @@ import { Accordion, AccordionItem } from '../../base/Accordion.jsx'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import { setNote } from '../../../api/notes'
+import { getUser } from '../../../api/users'
 
 import {
     handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
@@ -19,6 +20,10 @@ import {
 
 
 class CreateNote extends Component {
+
+    state = {
+        matesEmailsAndUids: []
+    }
 
     extractUsernameFromEmail = email => {
         return email.match(/([^@]+)/)[0]
@@ -50,6 +55,48 @@ class CreateNote extends Component {
         return false
     }
 
+    getMatesEmailsByUid = async (matesUids) => {
+        var matesEmailsAndUis = []  
+        matesUids.map(async (mate, index) => {
+            var userRef = getUser(mate)
+            var userSnapshot = await userRef.once('value')
+
+            matesEmailsAndUis[index] = userSnapshot.val().email 
+        })
+        return (matesEmailsAndUis)
+    }
+    
+    componentDidUpdate = async () => {
+        // if(!this.state.matesEmailsAndUids){
+            // if(this.props.mates.length > 0 && this.state.matesEmailsAndUids.length === 0){
+            //     let matesEmailsAndUis = await this.getMatesEmailsByUid(this.props.mates)
+                
+            //     this.setState({ ...this.state, matesEmailsAndUis })
+            // }
+        // }
+    }
+
+    componentDidMount = async () => {
+        // this.setState({...this.state})
+        // this.forceUpdate()
+        let matesEmailsAndUis = await this.getMatesEmailsByUid(this.props.mates)
+        this.setState({ ...this.state, matesEmailsAndUis })
+        
+
+        
+        console.log(this.props.mates)
+        console.log(matesEmailsAndUis)
+
+        // matesEmailsAndUis.forEach(m => {
+        //     console.log(m)
+        // })
+        // this.props.mates.forEach(m => {
+        //     console.log(m)
+        // })
+
+        this.forceUpdate()
+    }
+
     render() {
         return (
             <Skeleton>
@@ -72,7 +119,7 @@ class CreateNote extends Component {
                                             <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
                                         </AccordionItem>
                                         <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
-                                            {this.props.mates.map(m => (
+                                            {this.state.matesEmailsAndUids.map(m => (
                                                 <div key={this.extractUsernameFromEmail(m)} className="form-check paper-toggle">
                                                     <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${this.extractUsernameFromEmail(m)}`}>
                                                         <input className="form-check-input switch" id={`chk-${this.extractUsernameFromEmail(m)}`} type="checkbox" value={m} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
