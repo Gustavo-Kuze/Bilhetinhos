@@ -1,7 +1,15 @@
 import firebase from './firebase'
 
-const registerUser = (user) => {
-    return firebase.database().ref(`users/${user.uid}`).set({
+const _getUsersRef = () => {
+    return firebase.database().ref('users/')
+}
+
+const _getUserRef = uid => {
+    return _getUsersRef().child(uid)
+}
+
+const registerUser = user => {
+    return _getUserRef(user.uid).set({
         email: user.email || '',
         name: user.name || '',
         profilePic: user.profilePic || '',
@@ -11,18 +19,30 @@ const registerUser = (user) => {
     })
 }
 
-const getUser = (uid) => {
-    return firebase.database().ref('users/').child(uid)
+const getUserByUid = uid => {
+    return new Promise((res, rej) => {
+        _getUserRef(uid).once('value', snapshot => {
+            snapshot.forEach(user => {
+                if (user.key === uid) {
+                    res({
+                        user: user.val(),
+                        uid: user.key
+                    })
+                }
+            })
+            rej(`Nenhum usuário encontrado com este Uid: ${uid}`)
+        }).catch(err => rej(err))
+    })
 }
 
 const getUserByEmail = email => {
     return new Promise((res, rej) => {
-        firebase.database().ref('users/').once('value', snapshot => {
-            snapshot.forEach(u => {
-                if(u.val().email === email){
+        _getUsersRef().once('value', snapshot => {
+            snapshot.forEach(user => {
+                if (user.val().email === email) {
                     res({
-                       user: u.val(),
-                       uid: u.key
+                        user: user.val(),
+                        uid: user.key
                     })
                 }
             })
@@ -33,11 +53,11 @@ const getUserByEmail = email => {
 
 const getMates = (uid) => {
     return new Promise((res, rej) => {
-        let matesRef = firebase.database().ref(`users/${uid}/mates`)
+        let matesRef = _getUserRef(uid).child('mates')
         matesRef.once('value')
             .then((snapshot) => {
                 let mates = (snapshot.val()) ? snapshot.val().filter(m => m !== null) : []
-                res({mates, matesRef})
+                res({ mates, matesRef })
             })
             .catch(err => {
                 rej(err)
@@ -49,7 +69,7 @@ const getMates = (uid) => {
 const getMatesEmailsByUid = async (matesUids) => {
     let matesEmailsAndUids = []
     matesEmailsAndUids = matesUids.map(async (mate, index) => {
-        let userRef = getUser(mate)
+        let userRef = _getUserRef(mate)
         let userSnapshot = await userRef.once('value')
         return userSnapshot.val().email
     })
@@ -57,15 +77,31 @@ const getMatesEmailsByUid = async (matesUids) => {
     return matesEmailsAndUids
 }
 
-const isUserRegisteredOnDb = (uid, userSnapshot) => {
+const getMatesUidsByEmail = async (matesEmails) => {
+    let matesUidsAndEmail = []
+    matesUidsAndEmail = matesEmails.map(async email => {
+        let usersSnapshot = await _getUsersRef().once('value')
+        usersSnapshot.forEach(async user => {
+            if(user.val().email === email)
+                return user.key
+        })
+    })
+    return matesUidsAndEmail
+}
+
+const isUserRegisteredOnDb = (uid, usersSnapshot) => {
     return new Promise((res) => {
-        if(userSnapshot){
-            res(userSnapshot.hasChild(uid))
+        if (usersSnapshot) {
+            res(usersSnapshot.hasChild(uid))
         }
-        firebase.database().ref('users').once('value').then(userSnapshot => {
-            res(userSnapshot.hasChild(uid))
+        _getUsersRef().once('value').then(usersSnapshot => {
+            res(usersSnapshot.hasChild(uid))
         })
     })
 }
 
-export {  getUser, getUserByEmail, registerUser, getMates, getMatesEmailsByUid, isUserRegisteredOnDb }
+export {
+    getUserByEmail, getUserByUid,
+    registerUser, getMates, getMatesEmailsByUid,
+    isUserRegisteredOnDb, getMatesUidsByEmail
+}

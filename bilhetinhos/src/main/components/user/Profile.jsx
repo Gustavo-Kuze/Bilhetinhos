@@ -13,7 +13,7 @@ import ReduxToastr, { toastr } from 'react-redux-toastr'
 class Profile extends Component {
 
     state = {
-        isLoadingProfilePic: true,
+        isLoadingProfilePic: false,
         user: {
             email: this.props.email,
             uid: this.props.uid,
@@ -87,7 +87,7 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        this.loadProfilePic()
+        // this.loadProfilePic()
     }
 
     render() {
@@ -102,7 +102,7 @@ class Profile extends Component {
                             </If>
                             <label htmlFor="inp-user-pic" className={`${this.state.isLoadingProfilePic ? 'invisible' : ''}`}>
                                 <img className={`thumbnail ${this.state.isLoadingProfilePic ? 'invisible' : ''}`} id="profile-pic-preview" style={{ height: '100px' }}
-                                    src={`${this.props.profilePictureDownloadUrl ? this.props.profilePictureDownloadUrl : "https://profiles.utdallas.edu/img/default.png"}`} alt="Perfil" />
+                                    src={`${this.props.profilePictureDownloadUrl || "https://profiles.utdallas.edu/img/default.png"}`} alt="Perfil" />
                             </label>
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
                             <form onSubmit={this.saveProfileChanges}>

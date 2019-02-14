@@ -46,7 +46,24 @@ class Login extends Component {
         })
     }
 
-    componentDidMount() {
+    signInSuccessful = (authResult, redirectUrl) => {
+        firebase.database().ref('users').once('value').then(userSnapshot => {
+            if (!isUserRegisteredOnDb(authResult.user.uid)) {
+                this.registerUserAndSaveState(authResult).then(() => {
+                    window.location.pathname = redirectUrl
+                })
+            } else {
+                const userFromFirebase = userSnapshot.child(`${authResult.user.uid}`).val()
+                this.LogInAndChangeState({ ...userFromFirebase, uid: authResult.user.uid })
+                firebase.storage().ref(userFromFirebase.profilePic).getDownloadURL().then(imageUrl => {
+                    this.props.changePictureDownloadUrl(imageUrl)
+                    window.location = redirectUrl
+                })
+            }
+        })
+    }
+
+    initializeFirebaseUi = () => {
         var uiConfig = {
             signInSuccessUrl: '/',
             signInOptions: [
@@ -54,31 +71,17 @@ class Login extends Component {
                 firebase.auth.EmailAuthProvider.PROVIDER_ID,
             ],
             callbacks: {
-                uiShown: () => {
-                    this.setState({ isLoadingUi: false })
-                },
-                signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-                    firebase.database().ref('users').once('value').then(userSnapshot => {
-                        if (!isUserRegisteredOnDb(authResult.user.uid)) {
-                            this.registerUserAndSaveState(authResult).then(() => {
-                                window.location.pathname = redirectUrl
-                            })
-                        } else {
-                            const userFromFirebase = userSnapshot.child(`${authResult.user.uid}`).val()
-                            this.LogInAndChangeState({ ...userFromFirebase, uid: authResult.user.uid })
-                            firebase.storage().ref(userFromFirebase.profilePic).getDownloadURL().then(imageUrl => {
-                                this.props.changePictureDownloadUrl(imageUrl)
-                                window.location = redirectUrl
-                            })
-                        }
-                    })
-                }
+                uiShown: () => this.setState({ isLoadingUi: false }),
+                signInSuccessWithAuthResult: this.signInSuccessful
             }
         }
 
         var ui = new firebaseui.auth.AuthUI(firebase.auth())
         ui.start('#firebaseui-auth-container', uiConfig)
+    }
 
+    componentDidMount() {
+        this.initializeFirebaseUi()
     }
 
     render() {
