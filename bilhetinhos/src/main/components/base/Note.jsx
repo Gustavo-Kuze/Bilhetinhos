@@ -4,6 +4,21 @@ import { connect } from 'react-redux'
 
 export class Note extends Component {
 
+  renderNotes = () => {
+    let noteMates = this.props.noteMates
+    if (noteMates) {
+      if (noteMates.length > 0) {
+        return noteMates.map((m, i) => {
+          return <li key={`marked-mate-${m}-${i}`}
+            className="text-muted list-inline-item">
+            <small className="text-wrap card-text">{m}</small>
+          </li>
+        })
+      }
+    }
+    return ''
+  }
+
   render() {
     return (
       <div className="col-md-4">
@@ -17,9 +32,7 @@ export class Note extends Component {
             <p className="h5 card-title" >{this.props.title}</p>
             <p className="note-message" >{this.props.message}</p>
             <ul className="list-inline">
-              {this.props.noteMates.map((m, i) => {
-                return <li key={`marked-mate-${m}-${i}`} className="text-muted list-inline-item"><small className="text-wrap card-text">{m}</small></li>
-              })}
+              {this.renderNotes()}
             </ul>
           </div>
         </div>
