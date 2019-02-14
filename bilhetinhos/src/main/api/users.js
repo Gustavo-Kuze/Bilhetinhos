@@ -4,12 +4,12 @@ const _getUsersRef = () => {
     return firebase.database().ref('users/')
 }
 
-const _getUserRef = uid => {
+const _getUserRefByUid = uid => {
     return _getUsersRef().child(uid)
 }
 
 const registerUser = user => {
-    return _getUserRef(user.uid).set({
+    return _getUserRefByUid(user.uid).set({
         email: user.email || '',
         name: user.name || '',
         profilePic: user.profilePic || '',
@@ -21,7 +21,7 @@ const registerUser = user => {
 
 const getUserByUid = uid => {
     return new Promise((res, rej) => {
-        _getUserRef(uid).once('value', snapshot => {
+        _getUserRefByUid(uid).once('value', snapshot => {
             snapshot.forEach(user => {
                 if (user.key === uid) {
                     res({
@@ -53,7 +53,7 @@ const getUserByEmail = email => {
 
 const getMates = (uid) => {
     return new Promise((res, rej) => {
-        let matesRef = _getUserRef(uid).child('mates')
+        let matesRef = _getUserRefByUid(uid).child('mates')
         matesRef.once('value')
             .then((snapshot) => {
                 let mates = (snapshot.val()) ? snapshot.val().filter(m => m !== null) : []
@@ -66,10 +66,10 @@ const getMates = (uid) => {
 
 }
 
-const getMatesEmailsByUid = async (matesUids) => {
+const getUsersEmailsByUid = async (matesUids) => {
     let matesEmailsAndUids = []
     matesEmailsAndUids = matesUids.map(async (mate, index) => {
-        let userRef = _getUserRef(mate)
+        let userRef = _getUserRefByUid(mate)
         let userSnapshot = await userRef.once('value')
         return userSnapshot.val().email
     })
@@ -77,16 +77,34 @@ const getMatesEmailsByUid = async (matesUids) => {
     return matesEmailsAndUids
 }
 
-const getMatesUidsByEmail = async (matesEmails) => {
+const getUsersUidsByEmail = async (matesEmails) => {
     let matesUidsAndEmail = []
     matesUidsAndEmail = matesEmails.map(async email => {
         let usersSnapshot = await _getUsersRef().once('value')
         usersSnapshot.forEach(async user => {
-            if(user.val().email === email)
+            if (user.val().email === email)
                 return user.key
         })
     })
     return matesUidsAndEmail
+}
+
+
+const getUserEmailByUid = async uid => {
+    let userSnapshot = await _getUserRefByUid(uid).once('value')
+    return userSnapshot.val() ? userSnapshot.val().email : null
+}
+
+const getUserUidByEmail = async email => {
+    let userUid = null
+    let usersSnapshot = await _getUsersRef().once('value')
+    usersSnapshot.forEach(async user => {
+        if (user.val()) {
+            if (user.val().email === email)
+                userUid = user.key
+        }
+    })
+    return userUid
 }
 
 const isUserRegisteredOnDb = (uid, usersSnapshot) => {
@@ -102,6 +120,7 @@ const isUserRegisteredOnDb = (uid, usersSnapshot) => {
 
 export {
     getUserByEmail, getUserByUid,
-    registerUser, getMates, getMatesEmailsByUid,
-    isUserRegisteredOnDb, getMatesUidsByEmail
+    registerUser, getMates, getUsersEmailsByUid,
+    isUserRegisteredOnDb, getUsersUidsByEmail, getUserUidByEmail,
+    getUserEmailByUid
 }

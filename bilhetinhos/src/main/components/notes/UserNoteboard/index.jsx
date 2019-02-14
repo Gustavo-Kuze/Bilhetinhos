@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import Skeleton from "../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
 import { getUserNotes, getMateNotes } from '../../../api/notes'
+import { getUserEmailByUid, getUserUidByEmail } from '../../../api/users'
 import Note from '../../base/Note'
 
 class UserNoteboard extends Component {
@@ -10,16 +11,25 @@ class UserNoteboard extends Component {
   }
 
   componentDidMount() {
-    let userNotes = []
-    getUserNotes(this.props.uid).on('value', (snapshot) => {
-        snapshot.forEach(c => {
-          userNotes.push(c.val())
-        })
-        this.setState({notes: userNotes})
-    })
+    // let userNotes = []
+    // getUserNotes(this.props.uid).on('value', (snapshot) => {
+    //     snapshot.forEach(note => {
+    //       userNotes.push(note.val())
+    //     })
+    //     this.setState({notes: userNotes})
+    // })
+
     // getMateNotes(this.props.uid, 'kDG1kYSQ4eQ48wbJuUqUMxENWzD2').then(notes => {
     //   this.setState({...this.state, notes: notes.map(n => n.val())})
     // })
+
+    // getUserEmailByUid('BZ08IivJf3M9PMBCEY8STJ2k6RE3').then(email => {
+    //   console.log(email)
+    // })
+
+    getUserUidByEmail('ravenatitann@gmail.com').then(uid => {
+      console.log(uid)
+    })
   }
 
   render() {

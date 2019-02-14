@@ -11,7 +11,7 @@ import { Accordion, AccordionItem } from '../../base/Accordion.jsx'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import { setNote } from '../../../api/notes'
-import { getMatesEmailsByUid } from '../../../api/users'
+import { getUsersEmailsByUid } from '../../../api/users'
 
 import {
     handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
@@ -62,7 +62,7 @@ class CreateNote extends Component {
     }
 
     componentDidMount = async () => {
-        let matesEmailsAndUidsPromise = await getMatesEmailsByUid(this.props.mates)
+        let matesEmailsAndUidsPromise = await getUsersEmailsByUid(this.props.mates)
         let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
         this.setState({
             ...this.state, matesEmailsAndUids
