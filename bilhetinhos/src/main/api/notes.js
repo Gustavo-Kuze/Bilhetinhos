@@ -1,5 +1,5 @@
 import firebase from './firebase'
-import {getMates} from './users'
+// import {getMates} from './users'
 
 const getUserNotes = (uid) => {
     return firebase.database().ref('notes/').child(uid)
@@ -8,7 +8,7 @@ const getUserNotes = (uid) => {
 const getMateNotes = (uid, mateUid) => {
     return new Promise((res, rej) => {
         let matesNotes = []
-        getMates(uid).then(matesObject => {
+        // getMates(uid).then(matesObject => {
             // matesObject.mates
             // matesObject.mates.forEach(mateId => {
                 // })
@@ -25,7 +25,7 @@ const getMateNotes = (uid, mateUid) => {
                     })
                     res(matesNotes)
             });
-        }).catch(err => rej(err))
+        // }).catch(err => rej(err))
     })
 }
 

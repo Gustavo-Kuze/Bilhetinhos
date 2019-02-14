@@ -25,7 +25,7 @@ class Profile extends Component {
         }
     }
 
-    callUpdateUserProfile = element => {
+    saveProfileChanges = element => {
         element.preventDefault()
         registerUser({
             ...this.state.user
@@ -105,7 +105,7 @@ class Profile extends Component {
                                     src={`${this.props.profilePictureDownloadUrl ? this.props.profilePictureDownloadUrl : "https://profiles.utdallas.edu/img/default.png"}`} alt="Perfil" />
                             </label>
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
-                            <form onSubmit={this.callUpdateUserProfile}>
+                            <form onSubmit={this.saveProfileChanges}>
                                 <div className="form-group">
                                     <input name="name" id="inp-user-name" className="form-control" value={this.state.user.name} onChange={this.handleInputChange} placeholder="Seu nome completo ou apelido" />
                                 </div>
