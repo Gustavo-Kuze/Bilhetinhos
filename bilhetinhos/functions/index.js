@@ -5,8 +5,8 @@ admin.initializeApp();
 
 exports.getAllUsers = functions.https.onRequest((req, res) => {
     admin.database().ref('users/').once('value').then(usersSnapshot => {
-       res.json(usersSnapshot.toJSON())
-       return (usersSnapshot.toJSON())
+        res.json(usersSnapshot.toJSON())
+        return (usersSnapshot.toJSON())
     }).catch(err => {
         res.json(err)
     })
@@ -18,3 +18,13 @@ exports.registerUser = functions.https.onRequest((req, res) => {
         return req.body
     }).catch(err => res.json(err))
 })
+
+// exports.callableRegisterUser = functions.https.onCall((data) => {
+//     return new Promise((res, rej) => {
+//         admin.database().ref(`users`).child(data.uid).set(data.user)
+//             .then(data => {
+//                 res(data)
+//                 return data
+//             }).catch(err => rej(err))
+//     })
+// })

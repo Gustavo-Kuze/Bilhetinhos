@@ -92,14 +92,6 @@ const getUsersUidsByEmail = async (matesEmails) => {
     return matesUidsAndEmail
 }
 
-const isUserRegisteredOnDb = async (uid, passedUsersSnapshot) => {
-    if (passedUsersSnapshot)
-        return passedUsersSnapshot.hasChild(uid)
-
-    let usersSnapshot = await _getUsersRef().once('value')
-    return usersSnapshot.hasChild(uid)
-}
-
 const registerUser = user => {
     return _getUserRefByUid(user.uid).set({
         email: user.email || '',
@@ -113,7 +105,6 @@ const registerUser = user => {
 
 export {
     getUserByEmail, getUserByUid,
-    registerUser, getMates, getUsersEmailsByUid,
-    isUserRegisteredOnDb, getUsersUidsByEmail, getUserUidByEmail,
-    getUserEmailByUid
+    registerUser, getMates, getUsersEmailsByUid, 
+    getUsersUidsByEmail, getUserUidByEmail, getUserEmailByUid
 }

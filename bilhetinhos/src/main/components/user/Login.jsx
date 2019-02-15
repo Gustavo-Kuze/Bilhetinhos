@@ -9,7 +9,7 @@ import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
-import { registerUser, isUserRegisteredOnDb } from '../../api/users'
+import { registerUser } from '../../api/users'
 
 class Login extends Component {
 
@@ -48,9 +48,10 @@ class Login extends Component {
 
     signInSuccessful = (authResult, redirectUrl) => {
         firebase.database().ref('users').once('value').then(userSnapshot => {
-            if (!isUserRegisteredOnDb(authResult.user.uid)) {
+            if (!userSnapshot.hasChild(authResult.user.uid)) {
+                debugger
                 this.registerUserAndSaveState(authResult).then(() => {
-                    window.location.pathname = redirectUrl
+                    // window.location.pathname = redirectUrl
                 })
             } else {
                 const userFromFirebase = userSnapshot.child(`${authResult.user.uid}`).val()
