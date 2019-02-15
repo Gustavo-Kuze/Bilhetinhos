@@ -92,7 +92,7 @@ const getUsersUidsByEmail = async (matesEmails) => {
     return matesUidsAndEmail
 }
 
-const registerUser = user => {
+const registerUser = async user => {
     return _getUserRefByUid(user.uid).set({
         email: user.email || '',
         name: user.name || '',
@@ -101,10 +101,35 @@ const registerUser = user => {
         phone: user.phone || '',
         mates: user.mates || []
     })
+    // try {
+    //     let data = await fetch('https://us-central1-projeto-teste-cbe9a.cloudfunctions.net/registerUser', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             uid: user.uid,
+    //             user: {
+    //                 name: user.displayName,
+    //                 email: user.email
+    //             }
+    //         })
+    //     })
+    //     return data.json()
+    // } catch (err) {
+    //     return err
+    // }
 }
 
 export {
     getUserByEmail, getUserByUid,
-    registerUser, getMates, getUsersEmailsByUid, 
+    registerUser, getMates, getUsersEmailsByUid,
     getUsersUidsByEmail, getUserUidByEmail, getUserEmailByUid
 }
+
+// getAllUsers
+// fetch('https://us-central1-projeto-teste-cbe9a.cloudfunctions.net/getAllUsers')
+// .then(data => data.json())
+// .then(json => {
+//     console.log(json)
+// })

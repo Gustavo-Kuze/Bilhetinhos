@@ -39,30 +39,11 @@ class Login extends Component {
 
     registerUserAndSaveState = async (authResult) => {
         this.signUpAndChangeState(authResult.user)
-        // return registerUser({
-        //     email: authResult.user.email,
-        //     uid: authResult.user.uid,
-        //     name: authResult.user.displayName
-        // })
-        try {
-            let data = await fetch('https://us-central1-projeto-teste-cbe9a.cloudfunctions.net/registerUser', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    uid: authResult.user.uid,
-                    user: {
-                        name: authResult.user.displayName,
-                        email: authResult.user.email
-                    }
-                })
-            })
-        } catch (err) {
-            console.log(err)
-        }
-
-
+        return registerUser({
+            email: authResult.user.email,
+            uid: authResult.user.uid,
+            name: authResult.user.displayName
+        })
     }
 
     signInSuccessful = (authResult, redirectUrl) => {
@@ -107,13 +88,6 @@ class Login extends Component {
 
     componentDidMount() {
         this.initializeFirebaseUi()
-
-        // fetch('https://us-central1-projeto-teste-cbe9a.cloudfunctions.net/getAllUsers')
-        // .then(data => data.json())
-        // .then(json => {
-        //     console.log(json)
-        // })
-
     }
 
     render() {

@@ -8,7 +8,8 @@ import { Accordion, AccordionItem } from '../../base/Accordion'
 
 class UserNoteboard extends Component {
   state = {
-    userNotes: []
+    userNotes: [],
+    matesNotes: []
   }
 
   loadUserNotes = async () => {
@@ -29,7 +30,7 @@ class UserNoteboard extends Component {
       })
 
       Promise.all(userNotes).then((nts) => {
-        this.setState({ userNotes: nts })
+        this.setState({ ...this.state, userNotes: nts })
       })
     })
 
@@ -42,28 +43,29 @@ class UserNoteboard extends Component {
       return allMatesNotes.concat(mateNotes)
     }))
     allMatesNotes = allMatesNotes.filter(note => note.length > 0)
+    allMatesNotes = allMatesNotes.reduce((prev, cur) => prev.concat(cur))
+    this.setState({ ...this.state, matesNotes: allMatesNotes })
     return allMatesNotes
   }
 
   componentDidMount = async () => {
-    // this.loadUserNotes()
+    this.loadUserNotes()
     this.loadMatesNotes()
   }
 
-  renderNotes = () => {
-    if (this.state.userNotes) {
-      if (this.state.userNotes.length > 0) {
-        return this.state.userNotes.map(n => (
-          <Note
-            key={n.title}
-            title={n.title}
-            message={n.message}
-            noteMates={n.noteMates}
-            fontColor={n.fontColor}
-            noteColor={n.noteColor}
-          />
-        ))
-      }
+  renderNotes = (notes) => {
+    if (notes.length > 0) {
+      
+      return notes.map(note => (
+        <Note
+          key={note.title}
+          title={note.title}
+          message={note.message}
+          noteMates={note.noteMates}
+          fontColor={note.fontColor}
+          noteColor={note.noteColor}
+        />
+      ))
     }
     return ''
   }
@@ -78,7 +80,12 @@ class UserNoteboard extends Component {
               <Accordion accordionId="notes-accordion">
                 <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
                   <div className="notes-container row ">
-                    {this.renderNotes()}
+                    {this.state.userNotes ? this.renderNotes(this.state.userNotes) : ''}
+                  </div>
+                </AccordionItem>
+                <AccordionItem itemId="mates-notes" itemLabel="Notas dos meus colegas" accordionId="notes-accordion">
+                  <div className="notes-container row ">
+                    {this.state.matesNotes ? this.renderNotes(this.state.matesNotes) : ''}
                   </div>
                 </AccordionItem>
               </Accordion>
