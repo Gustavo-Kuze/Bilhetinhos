@@ -44,22 +44,31 @@ class Login extends Component {
         //     uid: authResult.user.uid,
         //     name: authResult.user.displayName
         // })
+        try {
+            let data = await fetch('https://us-central1-projeto-teste-cbe9a.cloudfunctions.net/registerUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    uid: authResult.user.uid,
+                    user: {
+                        name: authResult.user.displayName,
+                        email: authResult.user.email
+                    }
+                })
+            })
+        } catch (err) {
+            console.log(err)
+        }
 
-        let callableRegisterUser = firebase.functions().httpsCallable('callableRegisterUser')
-        let result = await callableRegisterUser({
-            uid: authResult.user.uid,
-            user: {
-                name: authResult.user.displayName,
-                email: authResult.user.email
-            }
-        })
-        console.log(result)
+
     }
 
     signInSuccessful = (authResult, redirectUrl) => {
         firebase.database().ref('users').once('value').then(userSnapshot => {
             if (!userSnapshot.hasChild(authResult.user.uid)) {
-                
+
                 this.registerUserAndSaveState(authResult).then(() => {
                     window.location.pathname = redirectUrl
                 })
@@ -98,6 +107,13 @@ class Login extends Component {
 
     componentDidMount() {
         this.initializeFirebaseUi()
+
+        // fetch('https://us-central1-projeto-teste-cbe9a.cloudfunctions.net/getAllUsers')
+        // .then(data => data.json())
+        // .then(json => {
+        //     console.log(json)
+        // })
+
     }
 
     render() {
