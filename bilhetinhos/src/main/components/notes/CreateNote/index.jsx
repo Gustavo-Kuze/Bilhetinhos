@@ -56,9 +56,9 @@ class CreateNote extends Component {
     }
 
     componentDidUpdate = () => {
-        if (this.props.mates.length > 0 && this.state.matesEmailsAndUids.length === 0) {
-            console.log(this.state.matesEmailsAndUids)
-        }
+        // if (this.props.mates.length > 0 && this.state.matesEmailsAndUids.length === 0) {
+        //     console.log(this.state.matesEmailsAndUids)
+        // }
     }
 
     componentDidMount = async () => {

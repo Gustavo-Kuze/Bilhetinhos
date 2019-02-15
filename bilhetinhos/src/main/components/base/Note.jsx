@@ -22,7 +22,7 @@ export class Note extends Component {
   render() {
     return (
       <div className="col-md-4">
-        <div className="card my-3" style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }}>
+        <div className="card my-3" style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, borderBottomWidth: '1px' }}>
           <div className="card-header">
             <button type="button" className="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>

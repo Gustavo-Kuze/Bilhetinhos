@@ -1,19 +1,20 @@
 import React, { Component } from "react"
 import Skeleton from "../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
-import { getUserNotes, getMateNotes } from '../../../api/notes'
-import { getUserEmailByUid, getUsersEmailsByUid } from '../../../api/users'
+import { getUserNotesRef, getMateNotesByUid } from '../../../api/notes'
+import { getUsersEmailsByUid, getMates } from '../../../api/users'
 import Note from '../../base/Note'
+import { Accordion, AccordionItem } from '../../base/Accordion'
 
 class UserNoteboard extends Component {
   state = {
-    notes: []
+    userNotes: []
   }
 
-  componentDidMount = async () => {
+  loadUserNotes = async () => {
     let userNotes = []
 
-    getUserNotes(this.props.uid).on('value', async (notesSnapshot) => {
+    getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
       notesSnapshot.forEach(note => {
         userNotes.push(note.val())
       })
@@ -26,18 +27,31 @@ class UserNoteboard extends Component {
         }
         return note
       })
+
       Promise.all(userNotes).then((nts) => {
-        console.log(nts)
-        this.setState({ notes: nts })
+        this.setState({ userNotes: nts })
       })
     })
 
   }
 
+  loadMatesNotes = async () => {
+    let allMatesNotes = []
+    this.props.mates.forEach(async mate => {
+      let mateNotes = await getMateNotesByUid(mate)
+      allMatesNotes.concat(mateNotes)
+    })
+    console.log(allMatesNotes)
+  }
+
+  componentDidMount = async () => {
+    this.loadUserNotes()
+  }
+
   renderNotes = () => {
-    if (this.state.notes) {
-      if (this.state.notes.length > 0) {
-        return this.state.notes.map(n => (
+    if (this.state.userNotes) {
+      if (this.state.userNotes.length > 0) {
+        return this.state.userNotes.map(n => (
           <Note
             key={n.title}
             title={n.title}
@@ -49,7 +63,6 @@ class UserNoteboard extends Component {
         ))
       }
     }
-    console.log('deu ruim')
     return ''
   }
 
@@ -60,14 +73,14 @@ class UserNoteboard extends Component {
           <div className="row ">
             <div className="col-10 offset-1">
               <h1 className="h3">Meu quadro</h1>
-              {/* <ul>
-                {this.state.notes.map(n => (
-                  <li key={n.title || ""}>{n.title || ''}</li>
-                ))}
-              </ul> */}
-              <div className="notes-container row ">
-                {this.renderNotes()}
-              </div>
+              <Accordion accordionId="notes-accordion">
+                <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
+                  <div className="notes-container row ">
+                    {this.renderNotes()}
+                  </div>
+                </AccordionItem>
+              </Accordion>
+
             </div>
           </div>
         </section>
@@ -77,7 +90,8 @@ class UserNoteboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  uid: state.user.uid
+  uid: state.user.uid,
+  mates: state.user.mates
 })
 
 export default connect(mapStateToProps)(UserNoteboard)

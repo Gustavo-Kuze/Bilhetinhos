@@ -71,7 +71,7 @@ const getMates = async uid => {
 
 const getUsersEmailsByUid = async (matesUids) => {
     let matesEmailsAndUids = []
-    matesEmailsAndUids = Promise.all(matesUids.map(async (mate, index) => {
+    matesEmailsAndUids = Promise.all(matesUids.map(async (mate) => {
         let userRef = _getUserRefByUid(mate)
         let userSnapshot = await userRef.once('value')
         return userSnapshot.val().email
@@ -82,13 +82,13 @@ const getUsersEmailsByUid = async (matesUids) => {
 
 const getUsersUidsByEmail = async (matesEmails) => {
     let matesUidsAndEmail = []
-    matesUidsAndEmail = matesEmails.map(async email => {
+    matesUidsAndEmail = Promise.all(matesEmails.map(async email => {
         let usersSnapshot = await _getUsersRef().once('value')
         usersSnapshot.forEach(async user => {
             if (user.val().email === email)
                 return user.key
         })
-    })
+    }))
     return matesUidsAndEmail
 }
 
