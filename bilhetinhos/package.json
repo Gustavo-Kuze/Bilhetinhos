@@ -22,7 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "funcs": "firebase deploy --only functions",
+    "debf": "firebase functions:log"
   },
   "eslintConfig": {
     "extends": "react-app"
