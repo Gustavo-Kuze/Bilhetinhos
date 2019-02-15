@@ -10,6 +10,15 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 
+exports.getAllUsers = functions.https.onRequest((req, res) => {
+    admin.database().ref('users/').once('value').then(usersSnapshot => {
+       res.json(usersSnapshot.toJSON())
+       return (usersSnapshot.toJSON())
+    }).catch(err => {
+        res.json(err)
+    })
+})
+
 // Take the text parameter passed to this HTTP endpoint and insert it into the
 // Realtime Database under the path /messages/:pushId/original
 // exports.addMessage = functions.https.onRequest((req, res) => {
