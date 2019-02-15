@@ -86,7 +86,7 @@ class Mates extends Component {
                             <hr />
                             <div className="list-group">
                                 {this.props.mates.map(m => (
-                                    <a href="javascript:;" key={m} class="list-group-item list-group-item-action">{m}</a>
+                                    <a href="javascript:;" key={m} className="list-group-item list-group-item-action">{m}</a>
                                 ))}
                             </div>
                             {/* <ul>

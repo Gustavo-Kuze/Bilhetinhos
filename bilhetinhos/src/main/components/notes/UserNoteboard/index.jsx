@@ -37,15 +37,17 @@ class UserNoteboard extends Component {
 
   loadMatesNotes = async () => {
     let allMatesNotes = []
-    this.props.mates.forEach(async mate => {
-      let mateNotes = await getMateNotesByUid(mate)
-      allMatesNotes.concat(mateNotes)
-    })
-    console.log(allMatesNotes)
+    allMatesNotes = await Promise.all(this.props.mates.map(async mate => {
+      let mateNotes = await getMateNotesByUid(this.props.uid, mate)
+      return allMatesNotes.concat(mateNotes)
+    }))
+    allMatesNotes = allMatesNotes.filter(note => note.length > 0)
+    return allMatesNotes
   }
 
   componentDidMount = async () => {
-    this.loadUserNotes()
+    // this.loadUserNotes()
+    this.loadMatesNotes()
   }
 
   renderNotes = () => {

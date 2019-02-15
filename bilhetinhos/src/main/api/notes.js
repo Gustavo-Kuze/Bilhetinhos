@@ -5,22 +5,18 @@ const getUserNotesRef = (uid) => {
     return firebase.database().ref('notes/').child(uid)
 }
 
-const getMateNotesByUid = (uid, mateUid) => {
-    return new Promise((res) => {
-        let matesNotes = []
-        firebase.database().ref(`notes/${mateUid}/`).once('value').then(mateNotesSnapshot => {
-            mateNotesSnapshot.forEach(m => {
-                if (m.hasChild('noteMates')) {
-
-                    let noteMates = m.child('noteMates').val()
-                    if (noteMates.includes(uid)) {
-                        matesNotes.push(m)
-                    }
-                }
-            })
-            res(matesNotes)
-        });
+const getMateNotesByUid = async (uid, mateUid) => {
+    let matesNotes = []
+    let mateNotesSnapshot = await firebase.database().ref(`notes/${mateUid}/`).once('value')
+    mateNotesSnapshot.forEach(m => {
+        if (m.hasChild('noteMates')) {
+            let noteMates = m.child('noteMates').val()
+            if (noteMates.includes(uid)) {          
+                matesNotes.push(m.val())
+            }
+        }
     })
+    return matesNotes
 }
 
 const setNote = (uid, note) => {
