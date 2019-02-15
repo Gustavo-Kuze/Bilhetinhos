@@ -39,19 +39,29 @@ class Login extends Component {
 
     registerUserAndSaveState = async (authResult) => {
         this.signUpAndChangeState(authResult.user)
-        return registerUser({
-            email: authResult.user.email,
+        // return registerUser({
+        //     email: authResult.user.email,
+        //     uid: authResult.user.uid,
+        //     name: authResult.user.displayName
+        // })
+
+        let callableRegisterUser = firebase.functions().httpsCallable('callableRegisterUser')
+        let result = await callableRegisterUser({
             uid: authResult.user.uid,
-            name: authResult.user.displayName
+            user: {
+                name: authResult.user.displayName,
+                email: authResult.user.email
+            }
         })
+        console.log(result)
     }
 
     signInSuccessful = (authResult, redirectUrl) => {
         firebase.database().ref('users').once('value').then(userSnapshot => {
             if (!userSnapshot.hasChild(authResult.user.uid)) {
-                debugger
+                
                 this.registerUserAndSaveState(authResult).then(() => {
-                    // window.location.pathname = redirectUrl
+                    window.location.pathname = redirectUrl
                 })
             } else {
                 const userFromFirebase = userSnapshot.child(`${authResult.user.uid}`).val()

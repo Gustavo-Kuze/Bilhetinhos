@@ -19,12 +19,19 @@ exports.registerUser = functions.https.onRequest((req, res) => {
     }).catch(err => res.json(err))
 })
 
-// exports.callableRegisterUser = functions.https.onCall((data) => {
-//     return new Promise((res, rej) => {
-//         admin.database().ref(`users`).child(data.uid).set(data.user)
-//             .then(data => {
-//                 res(data)
-//                 return data
-//             }).catch(err => rej(err))
-//     })
-// })
+exports.callableRegisterUser = functions.https.onCall((data) => {
+    return new Promise((res, rej) => {
+        admin.database().ref(`users`).child(data.uid).set({
+            bio: data.user.bio || "",
+            email: data.user.email || "",
+            name: data.user.name || "",
+            phone: data.user.phone || "",
+            profilePic: data.user.profilePic || "",
+            mates: data.user.mates || []
+        })
+            .then(data => {
+                res(data)
+                return data
+            }).catch(err => rej(err))
+    })
+})
