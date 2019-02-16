@@ -2,11 +2,11 @@ import React, { Component } from "react"
 import Skeleton from "../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
 import { getUserNotesRef, getMateNotesByUid } from '../../../api/notes'
-import { getUsersEmailsByUid, getMates, getUserEmailByUid } from '../../../api/users'
+import { getUsersEmailsByUid, getUserEmailByUid } from '../../../api/users'
 import Note from '../../base/NotePreview'
 import { Accordion, AccordionItem } from '../../base/Accordion'
 
-class UserNoteboard extends Component {
+class Noteboard extends Component {
   state = {
     userNotes: [],
     matesNotes: []
@@ -109,4 +109,4 @@ const mapStateToProps = state => ({
   mates: state.user.mates
 })
 
-export default connect(mapStateToProps)(UserNoteboard)
+export default connect(mapStateToProps)(Noteboard)
