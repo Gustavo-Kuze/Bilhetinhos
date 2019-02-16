@@ -12,45 +12,53 @@ class UserNoteboard extends Component {
     matesNotes: []
   }
 
-  loadUserNotes = async () => {
-    let userNotes = []
+  getNoteWithMatesEmails = async (note) => {
+    if (note.noteMates) {
+      let noteMatesEmails = await getUsersEmailsByUid(note.noteMates)
+      note.noteMates = noteMatesEmails
+    }
+    return note
+  }
 
+  loadUserNotes = async () => {
+    let notes = []
     getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
       notesSnapshot.forEach(note => {
-        userNotes.push(note.val())
+        notes.push(note.val())
       })
-
-      userNotes = await userNotes.map(async userNote => {
-        let note = userNote
-        if (note.noteMates) {
-          let noteMatesEmails = await getUsersEmailsByUid(note.noteMates)
-          note.noteMates = noteMatesEmails
-        }
-        return note
-      })
-
-      Promise.all(userNotes).then((nts) => {
-        this.setState({ ...this.state, userNotes: nts })
+      notes = await notes.map(async userNote => await this.getNoteWithMatesEmails(userNote))
+      Promise.all(notes).then((userNotes) => {
+        this.setState({ ...this.state, userNotes })
       })
     })
+  }
 
+  generateMateNotesWithOwnerEmail = async (mate, mateNotes) => {
+    return Promise.all(mateNotes.map(async mateNote => {
+      let mateEmail = await getUserEmailByUid(mate)
+      let note = await this.getNoteWithMatesEmails(mateNote)
+      note = { ...note, owner: mateEmail }
+      return note
+    }))
+  }
+
+  generateMatesNotes = async () => {
+    let matesNotes = []
+    return Promise.all(this.props.mates.map(async mate => {
+      let mateNotes = await getMateNotesByUid(this.props.uid, mate)
+      mateNotes = await this.generateMateNotesWithOwnerEmail(mate, mateNotes)
+      return matesNotes.concat(mateNotes)
+    }))
   }
 
   loadMatesNotes = async () => {
-    let allMatesNotes = []
-    allMatesNotes = await Promise.all(this.props.mates.map(async mate => {
-      let mateNotes = await getMateNotesByUid(this.props.uid, mate)
-      mateNotes = await Promise.all(mateNotes.map(async note => {
-        let mateEmail = await getUserEmailByUid(mate)
-        note = {...note, owner: mateEmail}
-        return note
-      }))
-      return allMatesNotes.concat(mateNotes)
-    }))
-    allMatesNotes = allMatesNotes.filter(note => note.length > 0)
-    allMatesNotes = allMatesNotes.reduce((prev, cur) => prev.concat(cur))
-    this.setState({ ...this.state, matesNotes: allMatesNotes })
-    return allMatesNotes
+    let matesNotes = await this.generateMatesNotes()
+    matesNotes = matesNotes.filter(note => note.length > 0)
+    if (matesNotes.length > 0) {
+      matesNotes = matesNotes.reduce((prev, cur) => prev.concat(cur))
+      this.setState({ ...this.state, matesNotes })
+    }
+    return matesNotes
   }
 
   componentDidMount = async () => {
@@ -60,17 +68,10 @@ class UserNoteboard extends Component {
 
   renderNotes = (notes) => {
     if (notes.length > 0) {
-      
       return notes.map(note => (
-        <Note
-          key={note.title}
-          title={note.title}
-          message={note.message}
-          noteMates={note.noteMates}
-          fontColor={note.fontColor}
-          noteColor={note.noteColor}
-          owner={note.owner || 'mim'}
-        />
+        <Note key={note.title} title={note.title} message={note.message}
+          noteMates={note.noteMates} fontColor={note.fontColor} noteColor={note.noteColor}
+          owner={note.owner || 'mim'} />
       ))
     }
     return ''
