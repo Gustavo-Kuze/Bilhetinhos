@@ -20,19 +20,6 @@ class UserNoteboard extends Component {
     return note
   }
 
-  loadUserNotes = async () => {
-    let notes = []
-    getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
-      notesSnapshot.forEach(note => {
-        notes.push(note.val())
-      })
-      notes = await notes.map(async userNote => await this.getNoteWithMatesEmails(userNote))
-      Promise.all(notes).then((userNotes) => {
-        this.setState({ ...this.state, userNotes })
-      })
-    })
-  }
-
   generateMateNotesWithOwnerEmail = async (mate, mateNotes) => {
     return Promise.all(mateNotes.map(async mateNote => {
       let mateEmail = await getUserEmailByUid(mate)
@@ -51,6 +38,19 @@ class UserNoteboard extends Component {
     }))
   }
 
+  loadUserNotes = async () => {
+    let notes = []
+    getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
+      notesSnapshot.forEach(note => {
+        notes.push(note.val())
+      })
+      notes = await notes.map(async userNote => await this.getNoteWithMatesEmails(userNote))
+      Promise.all(notes).then((userNotes) => {
+        this.setState({ ...this.state, userNotes })
+      })
+    })
+  }
+
   loadMatesNotes = async () => {
     let matesNotes = await this.generateMatesNotes()
     matesNotes = matesNotes.filter(note => note.length > 0)
@@ -61,20 +61,20 @@ class UserNoteboard extends Component {
     return matesNotes
   }
 
-  componentDidMount = async () => {
-    this.loadUserNotes()
-    this.loadMatesNotes()
-  }
-
-  renderNotes = (notes) => {
+  renderNotes = (notes, areEditable = false) => {
     if (notes.length > 0) {
       return notes.map(note => (
         <Note key={note.title} title={note.title} message={note.message}
           noteMates={note.noteMates} fontColor={note.fontColor} noteColor={note.noteColor}
-          owner={note.owner || 'mim'} />
+          owner={note.owner || 'mim'} editable={areEditable} />
       ))
     }
     return ''
+  }
+
+  componentDidMount = async () => {
+    this.loadUserNotes()
+    this.loadMatesNotes()
   }
 
   render() {
@@ -87,16 +87,15 @@ class UserNoteboard extends Component {
               <Accordion accordionId="notes-accordion">
                 <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
                   <div className="notes-container row ">
-                    {this.state.userNotes ? this.renderNotes(this.state.userNotes) : ''}
+                    {this.state.userNotes ? this.renderNotes(this.state.userNotes, true) : ''}
                   </div>
                 </AccordionItem>
-                <AccordionItem itemId="mates-notes" itemLabel="Notas dos meus colegas" accordionId="notes-accordion">
+                <AccordionItem itemId="mates-notes" itemLabel="Notas dos colegas" accordionId="notes-accordion" open>
                   <div className="notes-container row ">
                     {this.state.matesNotes ? this.renderNotes(this.state.matesNotes) : ''}
                   </div>
                 </AccordionItem>
               </Accordion>
-
             </div>
           </div>
         </section>

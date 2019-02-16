@@ -1,9 +1,7 @@
 import './css/Note.css'
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-
+import If from '../utils/If'
 export class Note extends Component {
-
   renderMates = () => {
     let noteMates = this.props.noteMates
     if (noteMates) {
@@ -23,23 +21,19 @@ export class Note extends Component {
       <div className="col-md-4 d-flex align-items-stretch">
         <div className="card my-3 w-100" style={{ backgroundColor: this.props.noteColor || '#fff9c4', color: this.props.fontColor || '#424242', borderBottomWidth: '1px' }}>
           <div className="card-header">
-            {/* <button type="button" className="close" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button> */}
             <div className="row">
               <div className="col">
                 <small className="card-title">Criada por {this.props.owner || 'mim'}</small>
               </div>
               <div className="col">
                 <div className="float-right">
-                  <button className="btn btn-sm btn-warning mr-1"><i className="fas fa-pencil-alt"></i></button>
-                  <button className="btn btn-sm btn-danger"><i className="fas fa-trash"></i></button>
+                  <If condition={this.props.editable}>
+                    <button className="btn btn-sm btn-warning mr-1"><i className="fas fa-pencil-alt"></i></button>
+                    <button className="btn btn-sm btn-danger"><i className="fas fa-trash"></i></button>
+                  </If>
                 </div>
               </div>
             </div>
-
-
-
           </div>
           <div className="card-body">
             <p className="h5 card-title" >{this.props.title || 'Algo de errado não está certo...'}</p>
@@ -54,13 +48,8 @@ export class Note extends Component {
   }
 }
 
+export default Note
 
-const mapStateToProps = state => ({
-
-})
-
-const mapDispatchToProps = {
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Note)
+{/* <button type="button" className="close" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button> */}
