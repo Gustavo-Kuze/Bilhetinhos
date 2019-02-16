@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import Skeleton from "../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
 import { getUserNotesRef, getMateNotesByUid } from '../../../api/notes'
-import { getUsersEmailsByUid, getMates } from '../../../api/users'
-import Note from '../../base/Note'
+import { getUsersEmailsByUid, getMates, getUserEmailByUid } from '../../../api/users'
+import Note from '../../base/NotePreview'
 import { Accordion, AccordionItem } from '../../base/Accordion'
 
 class UserNoteboard extends Component {
@@ -40,6 +40,11 @@ class UserNoteboard extends Component {
     let allMatesNotes = []
     allMatesNotes = await Promise.all(this.props.mates.map(async mate => {
       let mateNotes = await getMateNotesByUid(this.props.uid, mate)
+      mateNotes = await Promise.all(mateNotes.map(async note => {
+        let mateEmail = await getUserEmailByUid(mate)
+        note = {...note, owner: mateEmail}
+        return note
+      }))
       return allMatesNotes.concat(mateNotes)
     }))
     allMatesNotes = allMatesNotes.filter(note => note.length > 0)
@@ -64,6 +69,7 @@ class UserNoteboard extends Component {
           noteMates={note.noteMates}
           fontColor={note.fontColor}
           noteColor={note.noteColor}
+          owner={note.owner || 'mim'}
         />
       ))
     }
