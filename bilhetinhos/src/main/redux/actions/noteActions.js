@@ -31,10 +31,19 @@ export const refreshNoteMates = noteMates => ({
     payload: noteMates
 })
 
-export const create = () => {
-    
+export const setEntireNote = note => ({
+    type: "SET_ENTIRE_NOTE",
+    payload: note
+})
+
+export const createNote = () => {
     return {
     type: "CREATE_NOTE"
+}}
+
+export const deleteNote = () => {
+    return {
+    type: "DELETE_NOTE"
 }}
 
 

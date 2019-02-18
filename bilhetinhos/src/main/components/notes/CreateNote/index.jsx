@@ -15,11 +15,11 @@ import { getUsersEmailsByUid } from '../../../api/users'
 
 import {
     handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
-    handleNoteColorChanged, handleTitleChanged, refreshNoteMates, create
-} from '../../../redux/actions/createNoteActions'
+    handleNoteColorChanged, handleTitleChanged, refreshNoteMates, createNote
+} from '../../../redux/actions/noteActions'
 
 
-class CreateNote extends Component {
+class note extends Component {
 
     state = {
         matesEmailsAndUids: []
@@ -55,12 +55,6 @@ class CreateNote extends Component {
         return false
     }
 
-    componentDidUpdate = () => {
-        // if (this.props.mates.length > 0 && this.state.matesEmailsAndUids.length === 0) {
-        //     console.log(this.state.matesEmailsAndUids)
-        // }
-    }
-
     componentDidMount = async () => {
         let matesEmailsAndUidsPromise = await getUsersEmailsByUid(this.props.mates)
         let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
@@ -75,7 +69,6 @@ class CreateNote extends Component {
                 <section className="container-fluid">
                     <div className="row ">
                         <div className="col-md-6 col-sm-10 offset-sm-1 offset-md-3 ">
-
                             <h1 className="h3">Criar novo bilhete</h1>
                             <form onSubmit={this.callCreate}>
                                 <div className="form-group ">
@@ -126,19 +119,19 @@ class CreateNote extends Component {
 }
 
 const mapStateToProps = state => ({
-    noteColor: state.createNote.noteColor,
-    fontColor: state.createNote.fontColor,
-    fontSize: state.createNote.fontSize,
-    message: state.createNote.message,
-    title: state.createNote.title,
+    noteColor: state.note.noteColor,
+    fontColor: state.note.fontColor,
+    fontSize: state.note.fontSize,
+    message: state.note.message,
+    title: state.note.title,
     uid: state.user.uid,
     mates: state.user.mates,
-    noteMates: state.createNote.noteMates
+    noteMates: state.note.noteMates
 })
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
         handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
-        handleNoteColorChanged, handleTitleChanged, refreshNoteMates, create
+        handleNoteColorChanged, handleTitleChanged, refreshNoteMates, createNote
     }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNote)
+export default connect(mapStateToProps, mapDispatchToProps)(note)

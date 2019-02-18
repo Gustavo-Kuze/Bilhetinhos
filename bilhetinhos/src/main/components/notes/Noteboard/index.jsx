@@ -5,6 +5,7 @@ import { getUserNotesRef, getMateNotesByUid } from '../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../api/users'
 import Note from '../../base/NotePreview'
 import { Accordion, AccordionItem } from '../../base/Accordion'
+import EditNote from './EditNote'
 
 class Noteboard extends Component {
   state = {
@@ -84,6 +85,10 @@ class Noteboard extends Component {
           <div className="row ">
             <div className="col-10 offset-1">
               <h1 className="h3">Meu quadro</h1>
+              <EditNote />
+              <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edit-note-modal">
+                Criar bilhete +
+              </button>
               <Accordion accordionId="notes-accordion">
                 <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
                   <div className="notes-container row ">

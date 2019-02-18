@@ -15,11 +15,11 @@ export default class Modal extends Component {
                         <div className="modal-body">
                             {this.props.children}
                         </div>
-                        <div className="modal-footer">
-                            <If condition={this.props.buttonText}>
+                        <If condition={this.props.buttonText}>
+                            <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.props.onOk}>{this.props.buttonText}</button>
-                            </If>
-                        </div>
+                            </div>
+                        </If>
                     </div>
                 </div>
             </div>

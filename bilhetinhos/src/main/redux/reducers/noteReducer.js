@@ -21,6 +21,15 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, fontColor: action.payload }
         case "REFRESH_NOTE_MATES":
             return { ...state, noteMates: action.payload }
+        case "SET_ENTIRE_NOTE":
+            return {
+                noteColor: action.payload.noteColor,
+                fontColor: action.payload.fontColor,
+                fontSize: action.payload.fontSize,
+                message: action.payload.message,
+                title: action.payload.title,
+                noteMates: action.payload.noteMates
+            }
         default:
             return state
     }
