@@ -8,6 +8,11 @@ import {
 
 class ColorPicker extends Component {
 
+    state = {
+        currentColor: '',
+        colorButtons: []
+    }
+
     handleChange = element => {
         // this.props.colorChanged(element.target.value)
         if (this.props.isNoteColorPicker) {
@@ -17,16 +22,12 @@ class ColorPicker extends Component {
         }
     }
 
-    checkButtonOnCurrentColor = (color) => {
-        let shouldCheck = false
-        if (this.props.isNoteColorPicker) {
-            if (this.props.currentNoteColor === color)
-                shouldCheck = true
-        } else {
-            if (this.props.currentFontColor === color)
-                shouldCheck = true
-        }
-        return shouldCheck
+    getRightColor = () => {
+        return (this.props.isNoteColorPicker) ? this.props.currentNoteColor : this.props.currentFontColor
+    }
+
+    checkButtonOnCurrentColor = color => {
+        return this.state.currentColor === color
     }
 
     // componentDidUpdate = () => {
@@ -53,14 +54,17 @@ class ColorPicker extends Component {
         ))
     }
 
-    colorButtons = this.generateColorButtons()
-
     componentDidUpdate = () => {
-        this.colorButtons = this.generateColorButtons()
-    }
-
-    componentDidMount = () => {
-
+        if (this.state.currentColor !== this.getRightColor()) {
+            this.setState({
+                currentColor: this.getRightColor()
+            }, () => {
+                this.setState({
+                    ...this.state,
+                    colorButtons: this.generateColorButtons()
+                })
+            })
+        }
     }
 
     render() {
@@ -69,7 +73,7 @@ class ColorPicker extends Component {
                 <div className='row'>
                     <div className="col-lg-6">
                         <div className="row">
-                            {this.colorButtons}
+                            {this.state.colorButtons}
                         </div>
                     </div>
                 </div>

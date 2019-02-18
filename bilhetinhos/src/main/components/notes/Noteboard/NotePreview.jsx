@@ -29,7 +29,7 @@ export class NotePreview extends Component {
       title: this.props.title || '',
       noteMates: this.props.mates || []
     }
-    debugger
+    
     this.props.setEntireNote(note)
   }
 

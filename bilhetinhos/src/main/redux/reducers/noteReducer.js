@@ -23,6 +23,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, noteMates: action.payload }
         case "SET_ENTIRE_NOTE":
             return {
+                ...state,
                 noteColor: action.payload.noteColor,
                 fontColor: action.payload.fontColor,
                 fontSize: action.payload.fontSize,
