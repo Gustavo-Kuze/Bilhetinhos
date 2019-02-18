@@ -9,7 +9,13 @@ export default class Modal extends Component {
                 this.props.onClose()
             });  
         }
-
+        
+        if(this.props.onOpen){
+            window.$(`#${this.props.modalId}`).on('show.bs.modal', () => { 
+                console.log('Fired at start of show event!');
+                this.props.onOpen()
+            });  
+        }
     }
     
     render() {

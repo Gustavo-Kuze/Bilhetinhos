@@ -23,7 +23,7 @@ class ColorPicker extends Component {
     }
 
     getRightColor = () => {
-        return (this.props.isNoteColorPicker) ? this.props.currentNoteColor : this.props.currentFontColor
+        return (this.props.isNoteColorPicker) ? this.props.noteColor : this.props.fontColor
     }
 
     checkButtonOnCurrentColor = color => {
@@ -35,8 +35,8 @@ class ColorPicker extends Component {
     // }
 
     generateColorButtons = () => {
-        return Object.entries(this.props.colors).map(color => (
-            <div key={color[0]} className='col-2-xs color-button-container' >
+        return Object.entries(this.props.colors).map(color => {
+            return <div key={color[0]} className='col-2-xs color-button-container' >
                 <input id={`color-button-${this.props.name}-${color[0]}`}
                     className={`color-button-radio`}
                     type="radio"
@@ -51,13 +51,18 @@ class ColorPicker extends Component {
                     </span>
                 </label>
             </div>
-        ))
+        })
     }
 
     componentDidUpdate = () => {
-        if (this.state.currentColor !== this.getRightColor()) {
+        console.log(`Cor da nota atual do props: ${this.props.noteColor}`)
+        console.log(`Cor da fonte atual do props: ${this.props.fontColor}`)
+        console.log(`Cor atual do estado: ${this.state.currentColor}`)
+       
+        let currentColor = this.getRightColor()
+        if (this.state.currentColor !== currentColor) {
             this.setState({
-                currentColor: this.getRightColor()
+                currentColor
             }, () => {
                 this.setState({
                     ...this.state,
@@ -66,6 +71,22 @@ class ColorPicker extends Component {
             })
         }
     }
+
+    componentDidMount = () => {
+       
+    }
+
+    // componentDidMount = () => {
+    //     let currentColor = this.getRightColor()
+    //     this.setState({
+    //         currentColor
+    //     }, () => {
+    //         this.setState({
+    //             ...this.state,
+    //             colorButtons: this.generateColorButtons()
+    //         })
+    //     })
+    // }
 
     render() {
         return (
@@ -83,8 +104,8 @@ class ColorPicker extends Component {
 }
 
 const mapStateToProps = state => ({
-    currentNoteColor: state.note.noteColor,
-    currentFontColor: state.note.fontColor
+    noteColor: state.note.noteColor,
+    fontColor: state.note.fontColor
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

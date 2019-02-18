@@ -17,8 +17,10 @@ import {
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 
+
 export class EditNote extends Component {
   state = {
+    shouldRenderChildren: false,
     matesEmailsAndUids: []
   }
 
@@ -59,47 +61,64 @@ export class EditNote extends Component {
     })
   }
 
+  onOpen = () => {
+    this.setState({ ...this.state, shouldRenderChildren: true }, () => {
+      this.props.onOpen()
+    })
+  }
+
+  onClose = () => {
+    this.setState({ ...this.state, shouldRenderChildren: false }, () => {
+      this.props.onClose()
+    })
+  }
+
   render() {
     return (
       <React.Fragment>
         <Modal
           modalId="edit-note-modal"
-          title="Personalize seu bilhete" 
-            onClose={this.props.onClose}
-          >
+          title="Personalize seu bilhete"
+          onClose={this.onClose}
+          onOpen={this.onOpen}
+        >
 
-          <form onSubmit={this.callCreate}>
-            <div className="form-group ">
-              <Accordion accordionId="note-options-accordion">
-                <AccordionItem itemId="note-color" itemLabel="Cor do bilhete" accordionId="note-options-accordion">
-                  <ColorPicker name="note-color" colors={backgroundColors} isNoteColorPicker={true} colorChanged={this.props.handleNoteColorChanged} />
-                </AccordionItem>
-                <AccordionItem itemId="font-color" itemLabel="Cor da fonte" accordionId="note-options-accordion">
-                  <ColorPicker name="font-color" colors={fontColors} colorChanged={this.props.handleFontColorChanged} />
-                </AccordionItem>
-                <AccordionItem itemId="font-size" itemLabel="Tamanho da fonte" accordionId="note-options-accordion">
-                  <p>{this.props.fontSize}</p>
-                  <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
-                </AccordionItem>
-                <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
-                  {this.state.matesEmailsAndUids.map((m, i) => (
-                    <div key={this.props.mates[i]} className="form-check paper-toggle">
-                      <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${this.props.mates[i]}`}>
-                        <input className="form-check-input switch" id={`chk-${this.props.mates[i]}`} type="checkbox" value={this.props.mates[i]} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
-                        <span>{m}</span>
-                      </label>
-                    </div>
-                  ))}
-                  <If condition={!this.props.mates || this.props.mates.length === 0}>
-                    <p className="text-muted">Você não tem nenhum colega</p>
-                  </If>
-                </AccordionItem>
-              </Accordion>
-              <input className="my-3 form-control" type="text" name="note-title" placeholder="O título do bilhete vai aqui" value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />
-              <textarea id="ta-note-message" className="form-control note-message" placeholder="Digite sua mensagem aqui!" name="note-message" rows="10" value={this.props.message} onChange={this.props.handleMessageChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, fontSize: this.props.fontSize }}></textarea>
-              <button className="btn btn-primary btn-lg mt-3" data-toggle="modal" data-target="#edit-note-modal">Criar</button>
-            </div>
-          </form>
+          <If condition={this.state.shouldRenderChildren}>
+
+            <form onSubmit={this.callCreate}>
+              <div className="form-group ">
+                <Accordion accordionId="note-options-accordion">
+                  <AccordionItem itemId="note-color" itemLabel="Cor do bilhete" accordionId="note-options-accordion">
+                    <ColorPicker name="note-color" colors={backgroundColors} isNoteColorPicker={true} />
+                  </AccordionItem>
+                  <AccordionItem itemId="font-color" itemLabel="Cor da fonte" accordionId="note-options-accordion">
+                    <ColorPicker name="font-color" colors={fontColors} isNoteColorPicker={false} />
+                  </AccordionItem>
+                  <AccordionItem itemId="font-size" itemLabel="Tamanho da fonte" accordionId="note-options-accordion">
+                    <p>{this.props.fontSize}</p>
+                    <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} />
+                  </AccordionItem>
+                  <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
+                    {this.state.matesEmailsAndUids.map((m, i) => (
+                      <div key={this.props.mates[i]} className="form-check paper-toggle">
+                        <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${this.props.mates[i]}`}>
+                          <input className="form-check-input switch" id={`chk-${this.props.mates[i]}`} type="checkbox" value={this.props.mates[i]} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
+                          <span>{m}</span>
+                        </label>
+                      </div>
+                    ))}
+                    <If condition={!this.props.mates || this.props.mates.length === 0}>
+                      <p className="text-muted">Você não tem nenhum colega</p>
+                    </If>
+                  </AccordionItem>
+                </Accordion>
+                <input className="my-3 form-control" type="text" name="note-title" placeholder="O título do bilhete vai aqui" value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />
+                <textarea id="ta-note-message" className="form-control note-message" placeholder="Digite sua mensagem aqui!" name="note-message" rows="10" value={this.props.message} onChange={this.props.handleMessageChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, fontSize: this.props.fontSize }}></textarea>
+                <button className="btn btn-primary btn-lg mt-3" data-toggle="modal" data-target="#edit-note-modal">Criar</button>
+              </div>
+            </form>
+          </If>
+
         </Modal>
         <ReduxToastr
           timeOut={4000}

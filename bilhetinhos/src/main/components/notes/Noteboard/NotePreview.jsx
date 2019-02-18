@@ -22,12 +22,12 @@ export class NotePreview extends Component {
 
   callSetEntireNote = () => {
     let note = {
-      noteColor: this.props.noteColor || "#fff9c4",
-      fontColor: this.props.fontColor || "#424242",
-      fontSize: this.props.fontSize || 20,
-      message: this.props.message || "",
-      title: this.props.title || '',
-      noteMates: this.props.mates || []
+      noteColor: this.props.noteColor ,//|| "#fff9c4",
+      fontColor: this.props.fontColor ,//|| "#424242",
+      fontSize: this.props.fontSize ,//|| 20,
+      message: this.props.message ,//|| "",
+      title: this.props.title ,//|| '',
+      noteMates: this.props.mates //|| []
     }
     
     this.props.setEntireNote(note)
@@ -65,12 +65,12 @@ export class NotePreview extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  note: state.note
-})
+// const mapStateToProps = state => ({
+//   note: state.note
+// })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   setEntireNote
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotePreview)
+export default connect(null, mapDispatchToProps)(NotePreview)
