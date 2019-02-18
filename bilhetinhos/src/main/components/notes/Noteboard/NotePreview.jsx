@@ -1,7 +1,11 @@
 import './css/Note.css'
 import React, { Component } from 'react'
-import If from '../utils/If'
-export class Note extends Component {
+import If from '../../utils/If'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { setEntireNote } from '../../../redux/actions/noteActions'
+
+export class NotePreview extends Component {
   renderMates = () => {
     let noteMates = this.props.noteMates
     if (noteMates) {
@@ -16,6 +20,18 @@ export class Note extends Component {
     return ''
   }
 
+  callSetEntireNote = () => {
+    let note = {
+      noteColor: this.props.noteColor || "#fff9c4",
+      fontColor: this.props.fontColor || "#424242",
+      fontSize: this.props.fontSize || 20,
+      message: this.props.message || "",
+      title: this.props.title || '',
+      noteMates: this.props.mates || []
+    }
+    this.props.setEntireNote(note)
+  }
+
   render() {
     return (
       <div className="col-md-4 d-flex align-items-stretch">
@@ -28,7 +44,7 @@ export class Note extends Component {
               <div className="col">
                 <div className="float-right">
                   <If condition={this.props.editable}>
-                    <button className="btn btn-sm btn-warning mr-1"><i className="fas fa-pencil-alt"></i></button>
+                    <button className="btn btn-sm btn-warning mr-1" onClick={this.callSetEntireNote} data-toggle="modal" data-target="#edit-note-modal"><i className="fas fa-pencil-alt"></i></button>
                     <button className="btn btn-sm btn-danger"><i className="fas fa-trash"></i></button>
                   </If>
                 </div>
@@ -37,7 +53,7 @@ export class Note extends Component {
           </div>
           <div className="card-body">
             <p className="h5 card-title" >{this.props.title || 'Algo de errado não está certo...'}</p>
-            <p className="note-message" >{this.props.message || 'Algum erro deve ter ocorrido para você estar vendo isso'}</p>
+            <p className="note-message" style={{fontSize: `${this.props.fontSize || '20px'}`}}>{this.props.message || 'Algum erro deve ter ocorrido para você estar vendo isso'}</p>
             <ul className="list-inline">
               {this.renderMates()}
             </ul>
@@ -48,8 +64,12 @@ export class Note extends Component {
   }
 }
 
-export default Note
+const mapStateToProps = state => ({
+  note: state.note
+})
 
-{/* <button type="button" className="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button> */}
+const mapDispatchToProps = dispatch => bindActionCreators({
+  setEntireNote
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotePreview)

@@ -1,4 +1,4 @@
-import '../../../base/css/Note.css'
+import '../css/Note.css'
 import '../../../base/css/materialCheckbox.css'
 import React, { Component } from "react"
 import ColorPicker from "../../../utils/ColorPicker"

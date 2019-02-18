@@ -3,7 +3,7 @@ import Skeleton from "../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
 import { getUserNotesRef, getMateNotesByUid } from '../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../api/users'
-import Note from '../../base/NotePreview'
+import NotePreview from './NotePreview'
 import { Accordion, AccordionItem } from '../../base/Accordion'
 import EditNote from './EditNote'
 
@@ -65,9 +65,9 @@ class Noteboard extends Component {
   renderNotes = (notes, areEditable = false) => {
     if (notes.length > 0) {
       return notes.map(note => (
-        <Note key={note.title} title={note.title} message={note.message}
+        <NotePreview key={note.title} title={note.title} message={note.message}
           noteMates={note.noteMates} fontColor={note.fontColor} noteColor={note.noteColor}
-          owner={note.owner || 'mim'} editable={areEditable} />
+          owner={note.owner || 'mim'} editable={areEditable} fontSize={note.fontSize} />
       ))
     }
     return ''
