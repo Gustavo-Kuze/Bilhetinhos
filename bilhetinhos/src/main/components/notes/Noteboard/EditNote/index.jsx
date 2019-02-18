@@ -37,7 +37,6 @@ export class EditNote extends Component {
   callCreate = element => {
     element.preventDefault()
 
-    this.props.createNote()
     setNote(this.props.uid, {
       title: this.props.title,
       message: this.props.message,
@@ -47,6 +46,7 @@ export class EditNote extends Component {
       noteMates: this.props.noteMates
     }).then(() => {
       toastr.success("Sucesso!", "Seu bilhete foi publicado")
+      // this.props.loadUserNotes()
     })
 
     return false
@@ -96,7 +96,7 @@ export class EditNote extends Component {
               </Accordion>
               <input className="my-3 form-control" type="text" name="note-title" placeholder="O título do bilhete vai aqui" value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />
               <textarea id="ta-note-message" className="form-control note-message" placeholder="Digite sua mensagem aqui!" name="note-message" rows="10" value={this.props.message} onChange={this.props.handleMessageChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, fontSize: this.props.fontSize }}></textarea>
-              <button className="btn btn-primary btn-lg mt-3">Criar</button>
+              <button className="btn btn-primary btn-lg mt-3" data-toggle="modal" data-target="#edit-note-modal">Criar</button>
             </div>
           </form>
         </Modal>

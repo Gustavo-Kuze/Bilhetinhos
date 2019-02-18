@@ -40,14 +40,14 @@ class Noteboard extends Component {
   }
 
   loadUserNotes = async () => {
-    let notes = []
     getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
+      let notes = []
       notesSnapshot.forEach(note => {
         notes.push(note.val())
       })
       notes = await notes.map(async userNote => await this.getNoteWithMatesEmails(userNote))
       Promise.all(notes).then((userNotes) => {
-        this.setState({ ...this.state, userNotes })
+        this.setState({ userNotes })
       })
     })
   }
@@ -73,6 +73,13 @@ class Noteboard extends Component {
     return ''
   }
 
+  componentDidUpdate = async () => {
+      if(!this.state.userNotes){
+        debugger
+        await this.loadUserNotes()
+      }
+  }
+
   componentDidMount = async () => {
     this.loadUserNotes()
     this.loadMatesNotes()
@@ -85,7 +92,7 @@ class Noteboard extends Component {
           <div className="row ">
             <div className="col-10 offset-1">
               <h1 className="h3">Meu quadro</h1>
-              <EditNote />
+              <EditNote loadUserNotes={() => {this.setState({userNotes: false})}}/>
               <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edit-note-modal">
                 Criar bilhete +
               </button>
