@@ -1,12 +1,14 @@
 import React, { Component } from "react"
 import Skeleton from "../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
+import { bindActionCreators } from 'redux'
 import { getUserNotesRef, getMateNotesByUid } from '../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../api/users'
 import NotePreview from './NotePreview'
 import { Accordion, AccordionItem } from '../../base/Accordion'
 import EditNote from './EditNote'
 import RemoveNote from './RemoveNote'
+import { setEntireNote } from '../../../redux/actions/noteActions'
 
 class Noteboard extends Component {
   state = {
@@ -75,15 +77,26 @@ class Noteboard extends Component {
   }
 
   componentDidUpdate = async () => {
-      if(!this.state.userNotes){
-        debugger
-        await this.loadUserNotes()
-      }
+    if (!this.state.userNotes) {
+      debugger
+      await this.loadUserNotes()
+    }
   }
 
   componentDidMount = async () => {
     this.loadUserNotes()
     this.loadMatesNotes()
+  }
+
+  onModalClose = () => {
+    this.props.setEntireNote({
+      noteColor: "#fff9c4",
+      fontColor: "#424242",
+      fontSize: 20,
+      message: "",
+      title: '',
+      noteMates: []
+    })
   }
 
   render() {
@@ -96,7 +109,7 @@ class Noteboard extends Component {
               <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edit-note-modal">
                 Criar bilhete +
               </button>
-              <RemoveNote />
+              <RemoveNote onClose={this.onModalClose} />
               <Accordion accordionId="notes-accordion">
                 <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
                   <div className="notes-container row ">
@@ -109,7 +122,7 @@ class Noteboard extends Component {
                   </div>
                 </AccordionItem>
               </Accordion>
-              <EditNote loadUserNotes={() => {this.setState({userNotes: false})}}/>
+              <EditNote onClose={this.onModalClose} loadUserNotes={() => { this.setState({ userNotes: false }) }} />
             </div>
           </div>
         </section>
@@ -122,5 +135,8 @@ const mapStateToProps = state => ({
   uid: state.user.uid,
   mates: state.user.mates
 })
+const mapDispatchToProps = dispatch => bindActionCreators({
+  setEntireNote
+}, dispatch)
 
-export default connect(mapStateToProps)(Noteboard)
+export default connect(mapStateToProps, mapDispatchToProps)(Noteboard)

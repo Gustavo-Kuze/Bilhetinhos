@@ -62,10 +62,12 @@ export class EditNote extends Component {
   render() {
     return (
       <React.Fragment>
-
         <Modal
           modalId="edit-note-modal"
-          title="Personalize seu bilhete" >
+          title="Personalize seu bilhete" 
+            onClose={this.props.onClose}
+          >
+
           <form onSubmit={this.callCreate}>
             <div className="form-group ">
               <Accordion accordionId="note-options-accordion">

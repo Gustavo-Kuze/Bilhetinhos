@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
 import If from '../utils/If'
 export default class Modal extends Component {
+    
+    componentDidMount = () => {
+        if(this.props.onClose){
+            window.$(`#${this.props.modalId}`).on('hide.bs.modal', () => { 
+                console.log('Fired at start of hide event!');
+                this.props.onClose()
+            });  
+        }
+
+    }
+    
     render() {
         return (
             <div className="modal fade" id={this.props.modalId} tabIndex="-1" role="dialog" aria-labelledby={`${this.props.modalId}-title`} aria-hidden="true">

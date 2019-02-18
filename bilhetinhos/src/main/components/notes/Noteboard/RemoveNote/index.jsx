@@ -5,7 +5,7 @@ import Modal from '../../../base/Modal'
 
 const RemoveNote = props => {
   return (
-    <Modal modalId="remove-note-modal" title="Tem certeza disso!?">
+    <Modal modalId="remove-note-modal" title="Tem certeza disso!?" onClose={props.onClose}>
         <h4 className="text-danger">ATENÇÃO!</h4>
         <p>Você está prestes a excluir o bilhete {`"${props.noteTitle || 'NOME DO BILHETE'}"`}. Esta ação <span className="text-danger">NÃO PODE</span> ser desfeita. Deseja mesmo prosseguir?</p>
         <button className="btn btn-secondary" onClick={() => {
