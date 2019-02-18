@@ -46,7 +46,6 @@ export class EditNote extends Component {
       noteMates: this.props.noteMates
     }).then(() => {
       toastr.success("Sucesso!", "Seu bilhete foi publicado")
-      // this.props.loadUserNotes()
     })
 
     return false
@@ -71,7 +70,7 @@ export class EditNote extends Component {
             <div className="form-group ">
               <Accordion accordionId="note-options-accordion">
                 <AccordionItem itemId="note-color" itemLabel="Cor do bilhete" accordionId="note-options-accordion">
-                  <ColorPicker name="note-color" colors={backgroundColors} colorChanged={this.props.handleNoteColorChanged} />
+                  <ColorPicker name="note-color" colors={backgroundColors} isNoteColorPicker={true} colorChanged={this.props.handleNoteColorChanged} />
                 </AccordionItem>
                 <AccordionItem itemId="font-color" itemLabel="Cor da fonte" accordionId="note-options-accordion">
                   <ColorPicker name="font-color" colors={fontColors} colorChanged={this.props.handleFontColorChanged} />
