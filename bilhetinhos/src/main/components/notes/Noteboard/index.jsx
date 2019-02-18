@@ -6,6 +6,7 @@ import { getUsersEmailsByUid, getUserEmailByUid } from '../../../api/users'
 import NotePreview from './NotePreview'
 import { Accordion, AccordionItem } from '../../base/Accordion'
 import EditNote from './EditNote'
+import RemoveNote from './RemoveNote'
 
 class Noteboard extends Component {
   state = {
@@ -92,10 +93,10 @@ class Noteboard extends Component {
           <div className="row ">
             <div className="col-10 offset-1">
               <h1 className="h3">Meu quadro</h1>
-              <EditNote loadUserNotes={() => {this.setState({userNotes: false})}}/>
               <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edit-note-modal">
                 Criar bilhete +
               </button>
+              <RemoveNote />
               <Accordion accordionId="notes-accordion">
                 <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
                   <div className="notes-container row ">
@@ -108,6 +109,7 @@ class Noteboard extends Component {
                   </div>
                 </AccordionItem>
               </Accordion>
+              <EditNote loadUserNotes={() => {this.setState({userNotes: false})}}/>
             </div>
           </div>
         </section>

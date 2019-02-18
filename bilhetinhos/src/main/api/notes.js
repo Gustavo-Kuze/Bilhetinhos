@@ -1,5 +1,4 @@
 import firebase from './firebase'
-// import {getMates} from './users'
 
 const getUserNotesRef = (uid) => {
     return firebase.database().ref('notes/').child(uid)
@@ -23,4 +22,8 @@ const setNote = (uid, note) => {
     return firebase.database().ref(`notes/`).child(uid).child(note.title).set(note)
 }
 
-export { getUserNotesRef, getMateNotesByUid, setNote }
+const removeNote = (uid, noteTitle) => {
+    return firebase.database().ref(`notes/`).child(uid).child(noteTitle).remove()
+}
+
+export { getUserNotesRef, getMateNotesByUid, setNote, removeNote }

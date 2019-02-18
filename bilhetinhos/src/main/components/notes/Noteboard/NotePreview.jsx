@@ -45,7 +45,7 @@ export class NotePreview extends Component {
                 <div className="float-right">
                   <If condition={this.props.editable}>
                     <button className="btn btn-sm btn-warning mr-1" onClick={this.callSetEntireNote} data-toggle="modal" data-target="#edit-note-modal"><i className="fas fa-pencil-alt"></i></button>
-                    <button className="btn btn-sm btn-danger"><i className="fas fa-trash"></i></button>
+                    <button className="btn btn-sm btn-danger" onClick={this.callSetEntireNote}><i className="fas fa-trash" data-toggle="modal" data-target="#remove-note-modal"></i></button>
                   </If>
                 </div>
               </div>
