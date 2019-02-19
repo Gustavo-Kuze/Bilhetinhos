@@ -1,7 +1,7 @@
 import '../css/Note.css'
 import '../../../base/css/materialCheckbox.css'
 import React, { Component } from "react"
-import ColorPicker from "../../../utils/ColorPicker"
+import ColorPicker from "../ColorPicker/"
 import { backgroundColors, fontColors } from '../../../base/js/MaterialColors'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'

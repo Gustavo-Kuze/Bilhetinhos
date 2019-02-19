@@ -1,9 +1,9 @@
-import './css/Note.css'
+import '.././css/Note.css'
 import React, { Component } from 'react'
-import If from '../../utils/If'
+import If from '../../../utils/If'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { setEntireNote } from '../../../redux/actions/noteActions'
+import { setEntireNote } from '../../../../redux/actions/noteActions'
 
 export class NotePreview extends Component {
   renderMates = () => {
@@ -64,10 +64,6 @@ export class NotePreview extends Component {
     )
   }
 }
-
-// const mapStateToProps = state => ({
-//   note: state.note
-// })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   setEntireNote

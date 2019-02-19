@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { bindActionCreators } from 'redux'
 import { getUserNotesRef, getMateNotesByUid } from '../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../api/users'
-import NotePreview from './NotePreview'
+import NotePreview from './NotePreview/'
 import { Accordion, AccordionItem } from '../../base/Accordion'
 import EditNote from './EditNote'
 import RemoveNote from './RemoveNote'
