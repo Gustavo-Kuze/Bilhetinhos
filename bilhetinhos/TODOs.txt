@@ -1,2 +1,7 @@
-- Refatorar o projeto para trabalhar com Redux-thunk
-- Terminar de criar os componentes Note e UserNoteboard
+- Refazer a listagem do componente Mates, para mostrar mais informações dos colegas, além de
+dar a possibilidade de excluir colegas também;
+- linkar os colegas às suas respectivas notas para poder dar ênfaze no mesmo na listagem do componente mates;
+- Deixar as notificações funcionais;
+- Melhorar o componente Footer;
+- Criar o componente de configurações (ou remover o botão do menu, caso o mesmo não seja necessário);
+- Melhorar o componente Home, para uma apresentação REAL do projeto;

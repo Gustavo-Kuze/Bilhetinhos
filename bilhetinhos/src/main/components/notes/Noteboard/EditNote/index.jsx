@@ -83,9 +83,7 @@ export class EditNote extends Component {
           onOpen={this.onOpen}
           open={this.props.open}
         >
-
           <If condition={this.state.shouldRenderChildren}>
-
             <form onSubmit={this.callCreate}>
               <div className="form-group ">
                 <Accordion accordionId="note-options-accordion">
@@ -97,7 +95,7 @@ export class EditNote extends Component {
                   </AccordionItem>
                   <AccordionItem itemId="font-size" itemLabel="Tamanho da fonte" accordionId="note-options-accordion">
                     <p>{this.props.fontSize}</p>
-                    <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize}  onChange={this.props.handleFontSizeChanged} />
+                    <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
                   </AccordionItem>
                   <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
                     {this.state.matesEmailsAndUids.map((m, i) => (
