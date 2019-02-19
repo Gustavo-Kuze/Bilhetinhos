@@ -42,7 +42,7 @@ class ColorPicker extends Component {
                     value={color[1]}
                     name={this.props.name}
                     onChange={this.handleChange}
-                    defaultChecked={this.checkButtonOnCurrentColor(color[1])}
+                    checked={this.checkButtonOnCurrentColor(color[1])}
                 />
                 <label className=" color-button-label" htmlFor={`color-button-${this.props.name}-${color[0]}`}>
                     <span className="color-button-span d-flex justify-content-center align-items-center" style={{ backgroundColor: color[1] }}>
@@ -78,17 +78,17 @@ class ColorPicker extends Component {
         e estes não desmarcam para o novo valor no componentDidUpdate neste caso
     */
 
-    // componentDidMount = () => {
-    //     let currentColor = this.getRightColor()
-    //     this.setState({
-    //         currentColor
-    //     }, () => {
-    //         this.setState({
-    //             ...this.state,
-    //             colorButtons: this.generateColorButtons()
-    //         })
-    //     })
-    // }
+    componentDidMount = () => {
+        let currentColor = this.getRightColor()
+        this.setState({
+            currentColor
+        }, () => {
+            this.setState({
+                ...this.state,
+                colorButtons: this.generateColorButtons()
+            })
+        })
+    }
 
     render() {
         return (
