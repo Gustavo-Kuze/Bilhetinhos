@@ -96,7 +96,7 @@ export class EditNote extends Component {
                   </AccordionItem>
                   <AccordionItem itemId="font-size" itemLabel="Tamanho da fonte" accordionId="note-options-accordion">
                     <p>{this.props.fontSize}</p>
-                    <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} />
+                    <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize}  onChange={this.props.handleFontSizeChanged} />
                   </AccordionItem>
                   <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
                     {this.state.matesEmailsAndUids.map((m, i) => (

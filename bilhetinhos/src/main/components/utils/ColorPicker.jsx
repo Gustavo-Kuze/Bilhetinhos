@@ -30,12 +30,11 @@ class ColorPicker extends Component {
         return this.state.currentColor === color
     }
 
-    // componentDidUpdate = () => {
-    //     this.colorButtons = this.generateColorButtons()
-    // }
-
     generateColorButtons = () => {
         return Object.entries(this.props.colors).map(color => {
+            if(this.checkButtonOnCurrentColor(color[1])){
+                console.log('vai marcar como padrão: ' + color[0])
+            }
             return <div key={color[0]} className='col-2-xs color-button-container' >
                 <input id={`color-button-${this.props.name}-${color[0]}`}
                     className={`color-button-radio`}
@@ -55,12 +54,9 @@ class ColorPicker extends Component {
     }
 
     componentDidUpdate = () => {
-        console.log(`Cor da nota atual do props: ${this.props.noteColor}`)
-        console.log(`Cor da fonte atual do props: ${this.props.fontColor}`)
-        console.log(`Cor atual do estado: ${this.state.currentColor}`)
-       
         let currentColor = this.getRightColor()
         if (this.state.currentColor !== currentColor) {
+
             this.setState({
                 currentColor
             }, () => {
@@ -69,12 +65,18 @@ class ColorPicker extends Component {
                     colorButtons: this.generateColorButtons()
                 })
             })
+        }else{
+            console.log(`Cor da nota atual do props: ${this.props.noteColor}`)
+            console.log(`Cor da fonte atual do props: ${this.props.fontColor}`)
+            console.log(`Cor atual do estado: ${this.state.currentColor}`)           
         }
     }
 
-    componentDidMount = () => {
-       
-    }
+    /*
+        O componente não está atualizando com os valores padrão, por que de fato não existe nenhuma atualização necessário, 
+        porém, quando mandamos um setState no componentDidMount, estamos gerando os ColorButtons marcados,
+        e estes não desmarcam para o novo valor no componentDidUpdate neste caso
+    */
 
     // componentDidMount = () => {
     //     let currentColor = this.getRightColor()
