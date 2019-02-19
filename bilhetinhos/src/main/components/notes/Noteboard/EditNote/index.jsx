@@ -81,6 +81,7 @@ export class EditNote extends Component {
           title="Personalize seu bilhete"
           onClose={this.onClose}
           onOpen={this.onOpen}
+          open={this.props.open}
         >
 
           <If condition={this.state.shouldRenderChildren}>

@@ -5,10 +5,9 @@ import UserMenu from './UserMenu'
 import NotificationList from './NotificationList'
 
 const Navbar = props => {
-
     return (
         <nav className="navbar navbar-expand-md fixed-top bg-primary navbar-dark">
-            <a className="navbar-brand" href="/">NKDJHSJUEHS</a>
+            <a className="navbar-brand" href="/">Bilhetes</a>
             <PopoverButton
                 iconClassName="far fa-bell" popoverTitle={"Notificações"}
                 buttonContent={<span className="badge badge-primary badge-pill">2</span>} 
@@ -21,7 +20,7 @@ const Navbar = props => {
             <div className="collapse navbar-collapse mx-3" id="navbarCollapse">
                 <ul className="navbar-nav mr-auto text-center">
                     <li className="nav-itema">
-                        <a className="nav-link btn btn-lg btn-primary" href="/bilhetes/novo">Criar bilhete <span className=""><i className="fas fa-plus"></i></span></a>
+                        <a className="nav-link btn btn-lg btn-primary" href="/quadro?novo=bilhete">Criar bilhete <span className=""><i className="fas fa-plus"></i></span></a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link btn btn-lg btn-primary" href="/quadro">Meu quadro</a>

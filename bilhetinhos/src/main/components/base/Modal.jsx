@@ -16,6 +16,10 @@ export default class Modal extends Component {
                 this.props.onOpen()
             });  
         }
+
+        if(this.props.open){
+            window.$(`#${this.props.modalId}`).modal('show')
+        }
     }
     
     render() {

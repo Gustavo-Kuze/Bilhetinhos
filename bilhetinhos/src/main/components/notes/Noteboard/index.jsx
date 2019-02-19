@@ -78,7 +78,6 @@ class Noteboard extends Component {
 
   componentDidUpdate = async () => {
     if (!this.state.userNotes) {
-      debugger
       await this.loadUserNotes()
     }
   }
@@ -98,17 +97,8 @@ class Noteboard extends Component {
       noteMates: []
     })
   }
- 
-  onModalOpen = () => {
-    // this.props.setEntireNote({
-    //   noteColor: "#fff9c4",
-    //   fontColor: "#424242",
-    //   fontSize: 20,
-    //   message: "",
-    //   title: '',
-    //   noteMates: []
-    // })
-  }
+
+  shouldOpenEditorForNewNote = () => window.location.search.includes('novo=bilhete')
 
   render() {
     return (
@@ -133,7 +123,8 @@ class Noteboard extends Component {
                   </div>
                 </AccordionItem>
               </Accordion>
-              <EditNote onClose={this.onModalClose} onOpen={this.onModalOpen} loadUserNotes={() => { this.setState({ userNotes: false }) }} />
+              <EditNote onClose={this.onModalClose} onOpen={() => { }} open={this.shouldOpenEditorForNewNote()}/>
+              {/* loadUserNotes={() => { this.setState({ userNotes: false }) }} /> */}
             </div>
           </div>
         </section>

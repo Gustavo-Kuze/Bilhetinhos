@@ -2,7 +2,6 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
 import Home from '../components/home/Home'
-import CreateNote from '../components/notes/CreateNote'
 import Noteboard from '../components/notes/Noteboard'
 import Profile from '../components/user/Profile'
 import Login from '../components/user/Login'
@@ -19,7 +18,6 @@ export default () =>
             <Route exact path='/user/signup' component={SignUp} />
             <ProtectedRoute exact path='/user/signout' component={SignOut} />
             <ProtectedRoute exact path='/user/profile' component={Profile} />
-            <ProtectedRoute exact path='/bilhetes/novo' component={CreateNote} />
             <ProtectedRoute exact path='/colegas' component={Mates} />
             <ProtectedRoute exact path='/quadro' component={Noteboard} />
             <Redirect from='*' to='/' />
