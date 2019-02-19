@@ -1,3 +1,4 @@
+import './css/Mates.css'
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton/Skeleton'
 import Modal from '../base/Modal'
@@ -6,8 +7,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMates } from '../../redux/actions/userActions'
 import { getMates, getUserByEmail } from '../../api/users'
-import {getMatesNotes} from '../../api/notes'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
+import MatePreview from './MatePreview'
 
 class Mates extends Component {
 
@@ -23,9 +24,6 @@ class Mates extends Component {
         element.preventDefault()
         let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
         if (emailProviders.length > 0) {
-            // let matesRef = firebase.database().ref(`users/${this.props.currentUserUid}/mates`)
-            // matesRef.once('value', (snapshot) => {
-            // let mates = snapshot.val() || []
             getMates(this.props.currentUserUid).then((getMatesRes) => {
                 if (this.state.mateEmail !== this.props.currentUserEmail) {
                     getUserByEmail(this.state.mateEmail).then(userByEmail => {
@@ -40,13 +38,11 @@ class Mates extends Component {
                         console.log('Erro interno: Não foi possível buscar o usuário pelo E-mail')
                         console.log(err)
                     })
-                    
+
                 } else {
                     toastr.warning('Atenção!', 'Você não pode se adicionar como colega.')
                 }
             })
-
-            // })
         } else {
             toastr.error('Erro!', 'Nenhum colega foi encontrado com este E-mail!')
         }
@@ -54,11 +50,8 @@ class Mates extends Component {
     }
 
     componentDidMount = () => {
-        // getMatesNotes(this.props.currentUserUid).then(matesNotes => {
-        //     console.log(matesNotes)
-        // })
         getUserByEmail('ravenatitan@gmail.com').then(u => {
-            
+
             console.log(u)
         }).catch(err => console.log(err))
     }
@@ -68,7 +61,7 @@ class Mates extends Component {
             <Skeleton>
                 <section className="container-fluid">
                     <div className="row ">
-                        <div className="col-md-6 col-sm-10 offset-sm-1 offset-md-3 ">
+                        <div className="col-sm-10 offset-sm-1 col-md-6 offset-md-3">
                             <h1 className="h3">Colegas</h1>
                             <Modal
                                 modalId="add-mate-modal"
@@ -84,16 +77,21 @@ class Mates extends Component {
                                 Adicionar um colega
                             </button>
                             <hr />
-                            <div className="list-group">
+                            {/* <div className="list-group">
                                 {this.props.mates.map(m => (
                                     <a href="javascript:;" key={m} className="list-group-item list-group-item-action">{m}</a>
                                 ))}
-                            </div>
-                            {/* <ul>
-                                {this.props.mates.map(m => (
-                                    <li key={m}>{m}</li>
-                                ))}
-                            </ul> */}
+                            </div> */}
+
+                            <ul className="list-unstyled">
+                                <MatePreview />
+                                <MatePreview />
+                                <MatePreview />
+                                <MatePreview />
+                                <MatePreview />
+                            </ul>
+
+
                         </div>
                     </div>
                     <ReduxToastr
