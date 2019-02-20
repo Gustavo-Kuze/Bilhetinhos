@@ -1,11 +1,11 @@
 import firebase from './firebase'
 
-const _getUsersRef = () => {
+const getUsersRef = () => {
     return firebase.database().ref('users/')
 }
 
 const _getUserRefByUid = uid => {
-    return _getUsersRef().child(uid)
+    return getUsersRef().child(uid)
 }
 
 const getUserEmailByUid = async uid => {
@@ -15,7 +15,7 @@ const getUserEmailByUid = async uid => {
 
 const getUserUidByEmail = async email => {
     let userUid = null
-    let usersSnapshot = await _getUsersRef().once('value')
+    let usersSnapshot = await getUsersRef().once('value')
     usersSnapshot.forEach(async user => {
         if (user.val()) {
             if (user.val().email === email)
@@ -28,14 +28,7 @@ const getUserUidByEmail = async email => {
 const getUserByUid = uid => {
     return new Promise((res, rej) => {
         _getUserRefByUid(uid).once('value', snapshot => {
-            snapshot.forEach(user => {
-                if (user.key === uid) {
-                    res({
-                        user: user.val(),
-                        uid: user.key
-                    })
-                }
-            })
+            res(snapshot.val())
             rej(`Nenhum usuário encontrado com este Uid: ${uid}`)
         }).catch(err => rej(err))
     })
@@ -43,7 +36,7 @@ const getUserByUid = uid => {
 
 const getUserByEmail = email => {
     return new Promise((res, rej) => {
-        _getUsersRef().once('value', snapshot => {
+        getUsersRef().once('value', snapshot => {
             snapshot.forEach(user => {
                 if (user.val().email === email) {
                     res({
@@ -83,7 +76,7 @@ const getUsersEmailsByUid = async (matesUids) => {
 const getUsersUidsByEmail = async (matesEmails) => {
     let matesUidsAndEmail = []
     matesUidsAndEmail = Promise.all(matesEmails.map(async email => {
-        let usersSnapshot = await _getUsersRef().once('value')
+        let usersSnapshot = await getUsersRef().once('value')
         usersSnapshot.forEach(async user => {
             if (user.val().email === email)
                 return user.key
@@ -122,7 +115,7 @@ const registerUser = async user => {
 }
 
 export {
-    getUserByEmail, getUserByUid,
+    getUserByEmail, getUserByUid, getUsersRef,
     registerUser, getMates, getUsersEmailsByUid,
     getUsersUidsByEmail, getUserUidByEmail, getUserEmailByUid
 }

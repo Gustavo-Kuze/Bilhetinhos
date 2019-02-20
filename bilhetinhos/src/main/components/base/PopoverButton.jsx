@@ -3,8 +3,8 @@ import React from 'react'
 import Popover, { ArrowContainer } from 'react-tiny-popover'
 import { fontColors, backgroundColors } from './js/MaterialColors'
 import If from '../utils/If'
-import firebase from '../../api/firebase'
-import Spinner from '../utils/Spinner'
+// import firebase from '../../api/firebase'
+// import Spinner from '../utils/Spinner'
 
 class PopoverButton extends React.Component {
 

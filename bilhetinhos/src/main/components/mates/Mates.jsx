@@ -6,14 +6,15 @@ import firebase from '../../api/firebase'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMates } from '../../redux/actions/userActions'
-import { getMates, getUserByEmail } from '../../api/users'
+import { getMates, getUserByEmail, getUserByUid, getUsersRef } from '../../api/users'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import MatePreview from './MatePreview'
 
 class Mates extends Component {
 
     state = {
-        mateEmail: ''
+        mateEmail: '',
+        matePreviews: []
     }
 
     handleEmailChange = element => {
@@ -49,11 +50,51 @@ class Mates extends Component {
         return false
     }
 
-    componentDidMount = () => {
-        getUserByEmail('ravenatitan@gmail.com').then(u => {
+    renderMates = async () => {
+        let matePreviews = await Promise.all(this.props.mates.map(async mateUid => {
+            try {
+                let mate = await getUserByUid(mateUid)
+                return (
+                    <MatePreview
+                        uid={mateUid}
+                        email={mate.email}
+                        profilePic={mate.profilePic}
+                        name={mate.name}
+                    />
+                )
+            } catch (err) {
+                toastr.error('Erro', 'Ocorreu um erro ao tentar carregar algum colega')
+                console.log(err)
+                return ''
+            }
+        }))
+        console.log(matePreviews)
+        return matePreviews
+    }
 
-            console.log(u)
-        }).catch(err => console.log(err))
+    createMatePreview = mate => (
+        <MatePreview
+            uid={mate.key}
+            email={mate.email}
+            profilePic={mate.profilePic}
+            name={mate.name} />
+    )
+
+    loadMatePreviews = () => {
+        getUsersRef().on('value', async usersSnapshot => {
+            let mates = []
+            usersSnapshot.forEach(user => {
+                mates.push(user.val())
+            })
+            this.setState({
+                ...this.state,
+                matePreviews: mates.map(mate => this.createMatePreview(mate))
+            })
+        })
+    }
+
+    componentDidMount = () => {
+        this.loadMatePreviews()
     }
 
     render() {
@@ -82,16 +123,9 @@ class Mates extends Component {
                                     <a href="javascript:;" key={m} className="list-group-item list-group-item-action">{m}</a>
                                 ))}
                             </div> */}
-
                             <ul className="list-unstyled">
-                                <MatePreview />
-                                <MatePreview />
-                                <MatePreview />
-                                <MatePreview />
-                                <MatePreview />
+                                {this.state.matePreviews}
                             </ul>
-
-
                         </div>
                     </div>
                     <ReduxToastr

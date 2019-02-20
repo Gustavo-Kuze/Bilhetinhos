@@ -86,9 +86,9 @@ class Profile extends Component {
         })
     }
 
-    componentDidMount() {
+    // componentDidMount() {
         // this.loadProfilePic()
-    }
+    // }
 
     render() {
         return (
@@ -102,7 +102,7 @@ class Profile extends Component {
                             </If>
                             <label htmlFor="inp-user-pic" className={`${this.state.isLoadingProfilePic ? 'invisible' : ''}`}>
                                 <img className={`thumbnail ${this.state.isLoadingProfilePic ? 'invisible' : ''}`} id="profile-pic-preview" style={{ height: '100px' }}
-                                    src={`${this.props.profilePictureDownloadUrl || "https://profiles.utdallas.edu/img/default.png"}`} alt="Perfil" />
+                                    src={`${this.props.profilePictureDownloadUrl || "/img/default_user_profile.png"}`} alt="Perfil" />
                             </label>
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
                             <form onSubmit={this.saveProfileChanges}>
@@ -147,3 +147,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({ updateUserProfile, updateUserPicture, changePictureDownloadUrl, resetCacheState }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+
+
+// https://profiles.utdallas.edu/img/default.png

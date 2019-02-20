@@ -6,12 +6,12 @@ const MatePreview = props => {
             <div className="media-body">
                 <div className="row">
                     <div className="col-3 px-3">
-                        <img src="https://profiles.utdallas.edu/img/default.png" className="mate-profile-pic" alt="Imagem de peril do colega" />
+                        <img src={props.profilePic || "/img/default_user_profile.png"} className="mate-profile-pic" alt="Imagem de perfil do colega" />
                     </div>
                     <div className="col-7 px-3">
-                        <h5 className="mt-3 mb-1 text-center">Nome do colega</h5>
+                        <h5 className="mt-3 mb-1 text-center">{props.name || props.email}</h5>
                         <p className="text-center">
-                            Aqui da pra colocar o email para contato do colega
+                            {props.email || props.uid}
                         </p>
                     </div>
                     <div className="col-2 px-3">
