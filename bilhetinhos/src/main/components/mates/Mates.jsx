@@ -6,7 +6,7 @@ import firebase from '../../api/firebase'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMates } from '../../redux/actions/userActions'
-import { getMates, getUserByEmail, getUserByUid, getUsersRef } from '../../api/users'
+import { getMates, getUserByEmail, getUserByUid, getUsersRef, removeMate } from '../../api/users'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import MatePreview from './MatePreview'
 import RemoveMate from './RemoveMate/'
@@ -84,9 +84,9 @@ class Mates extends Component {
             uid={mate.uid}
             email={mate.email}
             profilePic={mate.profilePic}
-            name={mate.name} 
+            name={mate.name}
             setMateOnState={this.setMateOnState}
-            />
+        />
     )
 
     loadMatePreviews = () => {
@@ -94,21 +94,21 @@ class Mates extends Component {
             let matesAsync = []
             let usersSnapshotVal = usersSnapshot.val()
             matesAsync = await Promise.all(Object.entries(usersSnapshotVal)
-            .filter(user => this.props.mates.includes(user[0]))
-            .map(async user => {
-                let mate = {
-                    uid: user[0],
-                    email: user[1].email,
-                    name: user[1].name,
-                    profilePic: user[1].profilePic
-                }
-                
-                if(mate.profilePic){
-                    let profilePicUrl = await firebase.storage().ref(mate.profilePic).getDownloadURL()
-                    mate.profilePic = profilePicUrl
-                }
-                return mate
-            }))
+                .filter(user => this.props.mates.includes(user[0]))
+                .map(async user => {
+                    let mate = {
+                        uid: user[0],
+                        email: user[1].email,
+                        name: user[1].name,
+                        profilePic: user[1].profilePic
+                    }
+
+                    if (mate.profilePic) {
+                        let profilePicUrl = await firebase.storage().ref(mate.profilePic).getDownloadURL()
+                        mate.profilePic = profilePicUrl
+                    }
+                    return mate
+                }))
 
             let mates = await Promise.all(matesAsync)
             this.setState({
@@ -119,7 +119,7 @@ class Mates extends Component {
     }
 
     setMateOnState = (mate) => {
-        this.setState({...this.state, mate})
+        this.setState({ ...this.state, mate })
     }
 
 
@@ -132,6 +132,11 @@ class Mates extends Component {
     componentDidMount = () => {
         this.loadMatePreviews()
         this.startMatesListener()
+    }
+
+    removeMateAndRefresh = async (uid, mateUid) => {
+        let newMates = await removeMate(uid, mateUid)
+        this.props.refreshMates(newMates)
     }
 
     render() {
@@ -151,12 +156,13 @@ class Mates extends Component {
                                     <button className="btn btn-primary">Adicionar</button>
                                 </form>
                             </Modal>
-                            <RemoveMate 
+                            <RemoveMate
                                 name={this.state.mate.name}
                                 email={this.state.mate.email}
                                 uid={this.props.currentUserUid}
                                 mateUid={this.state.mate.uid}
-                                onClose={() => {}}
+                                onClose={() => { }}
+                                removeMate={this.removeMateAndRefresh}
                             />
                             <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#add-mate-modal">
                                 Adicionar um colega

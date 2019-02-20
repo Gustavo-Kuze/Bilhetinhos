@@ -117,12 +117,11 @@ const registerUser = async user => {
 
 const removeMate = async (uid, mateUid) => {
     let getMatesResponse = await getMates(uid)
-    console.log('entrou no removeMate')
     if (getMatesResponse.mates.length > 0) {
-        console.log('o mates.length era maior que 0')
         let mates = []
         mates = (getMatesResponse.mates.filter(mate => mate !== mateUid))
         getMatesResponse.matesRef.set(mates)
+        return mates
     }
 }
 
