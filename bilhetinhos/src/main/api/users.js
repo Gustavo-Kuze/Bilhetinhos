@@ -94,6 +94,7 @@ const registerUser = async user => {
         phone: user.phone || '',
         mates: user.mates || []
     })
+
     // try {
     //     let data = await fetch('https://us-central1-projeto-teste-cbe9a.cloudfunctions.net/registerUser', {
     //         method: 'POST',
@@ -114,10 +115,22 @@ const registerUser = async user => {
     // }
 }
 
+const removeMate = async (uid, mateUid) => {
+    let getMatesResponse = await getMates(uid)
+    console.log('entrou no removeMate')
+    if (getMatesResponse.mates.length > 0) {
+        console.log('o mates.length era maior que 0')
+        let mates = []
+        mates = (getMatesResponse.mates.filter(mate => mate !== mateUid))
+        getMatesResponse.matesRef.set(mates)
+    }
+}
+
 export {
     getUserByEmail, getUserByUid, getUsersRef,
     registerUser, getMates, getUsersEmailsByUid,
-    getUsersUidsByEmail, getUserUidByEmail, getUserEmailByUid
+    getUsersUidsByEmail, getUserUidByEmail, getUserEmailByUid,
+    removeMate
 }
 
 // getAllUsers

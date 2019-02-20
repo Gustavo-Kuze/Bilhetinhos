@@ -9,12 +9,18 @@ import { refreshMates } from '../../redux/actions/userActions'
 import { getMates, getUserByEmail, getUserByUid, getUsersRef } from '../../api/users'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import MatePreview from './MatePreview'
+import RemoveMate from './RemoveMate/'
 
 class Mates extends Component {
 
     state = {
         mateEmail: '',
-        matePreviews: []
+        matePreviews: [],
+        mate: {
+            name: '',
+            email: '',
+            uid: ''
+        }
     }
 
     handleEmailChange = element => {
@@ -78,11 +84,13 @@ class Mates extends Component {
             uid={mate.uid}
             email={mate.email}
             profilePic={mate.profilePic}
-            name={mate.name} />
+            name={mate.name} 
+            setMateOnState={this.setMateOnState}
+            />
     )
 
     loadMatePreviews = () => {
-        getUsersRef().on('value', async usersSnapshot => {
+        getUsersRef().once('value', async usersSnapshot => {
             let matesAsync = []
             let usersSnapshotVal = usersSnapshot.val()
             matesAsync = await Promise.all(Object.entries(usersSnapshotVal)
@@ -110,8 +118,20 @@ class Mates extends Component {
         })
     }
 
+    setMateOnState = (mate) => {
+        this.setState({...this.state, mate})
+    }
+
+
+    startMatesListener = () => {
+        getUsersRef().child(this.props.currentUserUid).child('mates').on('value', () => {
+            this.loadMatePreviews()
+        })
+    }
+
     componentDidMount = () => {
         this.loadMatePreviews()
+        this.startMatesListener()
     }
 
     render() {
@@ -131,15 +151,17 @@ class Mates extends Component {
                                     <button className="btn btn-primary">Adicionar</button>
                                 </form>
                             </Modal>
+                            <RemoveMate 
+                                name={this.state.mate.name}
+                                email={this.state.mate.email}
+                                uid={this.props.currentUserUid}
+                                mateUid={this.state.mate.uid}
+                                onClose={() => {}}
+                            />
                             <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#add-mate-modal">
                                 Adicionar um colega
                             </button>
                             <hr />
-                            {/* <div className="list-group">
-                                {this.props.mates.map(m => (
-                                    <a href="javascript:;" key={m} className="list-group-item list-group-item-action">{m}</a>
-                                ))}
-                            </div> */}
                             <ul className="list-unstyled">
                                 {this.state.matePreviews}
                             </ul>

@@ -17,7 +17,14 @@ const MatePreview = props => {
                                 </p>
                             </div>
                             <div className="col-md-2">
-                                <button className="btn btn-sm btn-danger mt-3"><i className="fas fa-trash"></i></button>
+                                <button className="btn btn-sm btn-danger mt-3" data-toggle="modal" data-target="#remove-mate-modal" 
+                                onClick={() => {
+                                    props.setMateOnState({
+                                        name: props.name,
+                                        email: props.email,
+                                        uid: props.uid
+                                    })
+                                }}><i className="fas fa-trash"></i></button>
                             </div>
                         </div>
                     </div>

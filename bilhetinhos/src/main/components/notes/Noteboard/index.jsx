@@ -110,6 +110,7 @@ class Noteboard extends Component {
               <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edit-note-modal">
                 Criar bilhete +
               </button>
+              <ht />
               <RemoveNote onClose={this.onModalClose} />
               <Accordion accordionId="notes-accordion">
                 <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
