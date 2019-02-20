@@ -36,8 +36,10 @@ class Mates extends Component {
                     getUserByEmail(this.state.mateEmail).then(userByEmail => {
                         if (!getMatesRes.mates.includes(userByEmail.uid)) {
                             getMatesRes.mates.push(userByEmail.uid)
-                            getMatesRes.matesRef.set(getMatesRes.mates)
-                            this.props.refreshMates(getMatesRes.mates)
+                            getMatesRes.matesRef.set(getMatesRes.mates).then(ok => {
+                                toastr('Sucesso!', 'Usuário adicionado à sua lista de colegas com sucesso.')
+                                this.props.refreshMates(getMatesRes.mates)
+                            })
                         } else {
                             toastr.warning('Atenção!', 'O dono deste E-mail já é seu colega!')
                         }
