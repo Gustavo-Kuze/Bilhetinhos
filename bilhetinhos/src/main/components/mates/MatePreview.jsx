@@ -2,7 +2,7 @@ import React from 'react'
 
 const MatePreview = props => {
     return (
-        <li className="media border p-3 border-muted my-3">
+        <li key={props.uid} className="media border p-3 border-muted my-3">
             <div className="media-body">
                 <div className="row">
                     <div className="col-3 px-3">

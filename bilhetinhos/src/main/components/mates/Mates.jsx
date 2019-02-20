@@ -74,7 +74,8 @@ class Mates extends Component {
 
     createMatePreview = mate => (
         <MatePreview
-            uid={mate.key}
+            key={mate.uid}
+            uid={mate.uid}
             email={mate.email}
             profilePic={mate.profilePic}
             name={mate.name} />
@@ -82,10 +83,30 @@ class Mates extends Component {
 
     loadMatePreviews = () => {
         getUsersRef().on('value', async usersSnapshot => {
-            let mates = []
-            usersSnapshot.forEach(user => {
-                mates.push(user.val())
-            })
+            let matesAsync = []
+            let usersSnapshotVal = usersSnapshot.val()
+            matesAsync = await Promise.all(Object.entries(usersSnapshotVal).map(async user => {
+                console.log(user[0])
+                let mate = {
+                    uid: user[0],
+                    email: user[1].email,
+                    name: user[1].name,
+                    profilePic: user[1].profilePic
+                }
+                
+                if(mate.profilePic){
+                    let profilePicUrl = await firebase.storage().ref(mate.profilePic).getDownloadURL()
+                    mate.profilePic = profilePicUrl
+                }
+                return mate
+            }))
+
+             debugger
+            // usersSnapshot.forEach(async user => {
+               
+            // })
+
+            let mates = await Promise.all(matesAsync)
             this.setState({
                 ...this.state,
                 matePreviews: mates.map(mate => this.createMatePreview(mate))
