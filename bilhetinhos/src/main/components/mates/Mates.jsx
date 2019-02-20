@@ -85,8 +85,9 @@ class Mates extends Component {
         getUsersRef().on('value', async usersSnapshot => {
             let matesAsync = []
             let usersSnapshotVal = usersSnapshot.val()
-            matesAsync = await Promise.all(Object.entries(usersSnapshotVal).map(async user => {
-                console.log(user[0])
+            matesAsync = await Promise.all(Object.entries(usersSnapshotVal)
+            .filter(user => this.props.mates.includes(user[0]))
+            .map(async user => {
                 let mate = {
                     uid: user[0],
                     email: user[1].email,
@@ -100,11 +101,6 @@ class Mates extends Component {
                 }
                 return mate
             }))
-
-             debugger
-            // usersSnapshot.forEach(async user => {
-               
-            // })
 
             let mates = await Promise.all(matesAsync)
             this.setState({
