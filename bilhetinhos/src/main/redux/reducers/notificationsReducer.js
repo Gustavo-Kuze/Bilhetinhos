@@ -8,13 +8,13 @@ const newNotification = {
 }
 
 const INITIAL_STATE = {
-    notifications: []
+    alerts: []
 }
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'REFRESH_NOTIFICATIONS':
-            return action.payload
+            return {...state, alerts: action.payload} 
         default:
             return state
     }

@@ -81,15 +81,15 @@ class Profile extends Component {
 
     componentDidMount = async () => {
         // await sendUserNotification(this.props.uid, {
-        //     title: 'Tanto faz',
+        //     title: 'Alerta de bilhete',
         //     receivedDate: Date.now(),
-        //     description: 'Minha segunda notificação',
-        //     sender: 'Bilhetes',
+        //     description: 'Fulano da Silva colou uma mensagem em seu quadro',
+        //     sender: 'Fulano da Silva',
         //     read: false,
         //     href: '/'
         // })
 
-        await removeUserNotification(this.props.uid, 99)
+        // await removeUserNotification(this.props.uid, 99)
 
         let notifications = await getUserNotifications(this.props.uid)
         console.log(notifications)

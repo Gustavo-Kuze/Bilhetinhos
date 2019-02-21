@@ -10,6 +10,8 @@ import { bindActionCreators } from "redux"
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
 import { registerUser } from '../../api/users'
+import {getUserNotifications} from '../../api/notifications'
+import {refreshNotifications} from '../../redux/actions/notificationsActions'
 
 class Login extends Component {
 
@@ -59,7 +61,10 @@ class Login extends Component {
                 try {
                     firebase.storage().ref(userFromFirebase.profilePic).getDownloadURL().then(imageUrl => {
                         this.props.changePictureDownloadUrl(imageUrl)
-                        window.location = redirectUrl
+                        getUserNotifications(authResult.user.uid).then(notifications => {
+                            this.props.refreshNotifications(notifications)
+                            window.location = redirectUrl
+                        })
                     })
                 } catch (err) {
                     console.log(err)
@@ -112,7 +117,9 @@ class Login extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ changeUserLogState, changePictureDownloadUrl }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changeUserLogState, changePictureDownloadUrl, refreshNotifications
+}, dispatch)
 
 export default connect(
     null,
