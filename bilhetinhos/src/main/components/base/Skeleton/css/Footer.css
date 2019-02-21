@@ -1,7 +1,8 @@
 footer.footer {
+    margin: 0;
+    padding: 5px;
     position: fixed;
-    height: 90px;
     bottom: 0vh;
-    width: 100%;
+    width: 100vw;
     z-index: 2;
 }

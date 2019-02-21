@@ -22,9 +22,7 @@ const removeMate = async (uid, mateUid) => {
     }
 }
 
-
 const addMateIfExists = async (uid, email, mateEmail, successCallback = null) => {
-    // try {
     let mateEmailExists = await isEmailRegistered(mateEmail)
     if (mateEmailExists) {
         let getMatesRes = await getMates(uid)
@@ -39,21 +37,12 @@ const addMateIfExists = async (uid, email, mateEmail, successCallback = null) =>
             } else {
                 throw 'O dono deste E-mail já é seu colega!'
             }
-            // .catch(err => {
-            //     console.log('Erro interno: Não foi possível buscar o usuário pelo E-mail')
-            //     console.log(err)
-            //     throw err
-            // })
         } else {
             throw 'Você não pode se adicionar como colega.'
         }
     } else {
         throw 'Nenhum colega foi encontrado com este E-mail!'
     }
-
-    // } catch (err) {
-    //     throw err
-    // }
 }
 
 export { removeMate, getMates, addMateIfExists }
