@@ -3,3 +3,6 @@
 - Melhorar o componente Home, para uma apresentação REAL do projeto;
 
 - Os colegas marcados ainda não são carregados na edição de notas, investigar...
+
+
+- BUG, preciso limpar as notificações do cached quando o usuário SAI

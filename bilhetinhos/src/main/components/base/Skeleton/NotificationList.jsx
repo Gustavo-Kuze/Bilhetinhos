@@ -1,36 +1,42 @@
 import React, { Component } from 'react'
 import { NotificationButton, NotificationLink } from './NotificationAction'
 import NotificationContent from './NotificationContent'
+// import {connect} from 'react-redux'
+// import {bindActionCreators} from 'redux'
+// import {refreshNotifications} from '../../../redux/actions/notificationsActions'
 
-
-export default class NotificationList extends Component {
+class NotificationList extends Component {
     state = {
         notifications: [
-            {
-                title: 'Minha linda notificação',
-                receivedDate: '30/02/2019',
-                description: 'Fulano da Silva quer ser seu amigo',
-                sender: 'Bilhetinhos',
-                read: false,
-                href: '/'
-            },
-            {
-                title: 'Há um problema em sua conta',
-                receivedDate: '12/02/2019',
-                description: 'Ops... Tem algumas coisas que tu precisa verificar, tche',
-                sender: 'Bilhetinhos',
-                read: true,
-                onClick: () => { alert('PAH!') }
-            },
-            {
-                title: 'Alerta de bilhete!',
-                receivedDate: '11/02/2019',
-                description: 'Não esquece do nosso trabalho de ciências!',
-                sender: 'Fulano da Silva',
-                read: true,
-                onClick: () => { alert('Alerta de bilhete!') }
-            }
+            // {
+            //     title: 'Minha linda notificação',
+            //     receivedDate: '30/02/2019',
+            //     description: 'Fulano da Silva quer ser seu amigo',
+            //     sender: 'Bilhetinhos',
+            //     read: false,
+            //     href: '/'
+            // },
+            // {
+            //     title: 'Há um problema em sua conta',
+            //     receivedDate: '12/02/2019',
+            //     description: 'Ops... Tem algumas coisas que tu precisa verificar, tche',
+            //     sender: 'Bilhetinhos',
+            //     read: true,
+            //     onClick: () => { alert('PAH!') }
+            // },
+            // {
+            //     title: 'Alerta de bilhete!',
+            //     receivedDate: '11/02/2019',
+            //     description: 'Não esquece do nosso trabalho de ciências!',
+            //     sender: 'Fulano da Silva',
+            //     read: true,
+            //     onClick: () => { alert('Alerta de bilhete!') }
+            // }
         ]
+    }
+
+    componentDidMount = () => {
+        this.setState({...this.state, notifications: this.props.alerts || []})
     }
 
     render() {
@@ -75,3 +81,15 @@ export default class NotificationList extends Component {
         )
     }
 }
+
+export default NotificationList
+// const mapStateToProps = state => ({
+//     alerts: state.notifications.alerts,
+//     uid: state.user.uid
+// })
+
+// const mapDispatchToProps = dispatch => bindActionCreators({
+//     refreshNotifications
+// }, dispatch)
+
+// export default connect(mapStateToProps, mapDispatchToProps)(NotificationList)
