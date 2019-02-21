@@ -9,11 +9,15 @@ import { Accordion, AccordionItem } from '../../base/Accordion'
 import EditNote from './EditNote'
 import RemoveNote from './RemoveNote'
 import { setEntireNote } from '../../../redux/actions/noteActions'
+import Spinner from '../../utils/Spinner'
+import If from '../../utils/If'
 
 class Noteboard extends Component {
   state = {
     userNotes: [],
-    matesNotes: []
+    matesNotes: [],
+    isLoadingNotes: false,
+    isLoadingMatesNotes: false
   }
 
   getNoteWithMatesEmails = async (note) => {
@@ -44,23 +48,25 @@ class Noteboard extends Component {
 
   loadUserNotes = async () => {
     getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
+      this.setState({...this.state, isLoadingNotes: true})
       let notes = []
       notesSnapshot.forEach(note => {
         notes.push(note.val())
       })
       notes = await notes.map(async userNote => await this.getNoteWithMatesEmails(userNote))
       Promise.all(notes).then((userNotes) => {
-        this.setState({ userNotes })
+        this.setState({...this.state, userNotes, isLoadingNotes: false })
       })
     })
   }
-
+  
   loadMatesNotes = async () => {
+    this.setState({...this.state, isLoadingNotes: true})
     let matesNotes = await this.generateMatesNotes()
     matesNotes = matesNotes.filter(note => note.length > 0)
     if (matesNotes.length > 0) {
       matesNotes = matesNotes.reduce((prev, cur) => prev.concat(cur))
-      this.setState({ ...this.state, matesNotes })
+      this.setState({ ...this.state, matesNotes, isLoadingMatesNotes: false })
     }
     return matesNotes
   }
@@ -114,18 +120,31 @@ class Noteboard extends Component {
               <RemoveNote onClose={this.onModalClose} />
               <Accordion accordionId="notes-accordion">
                 <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
+                  <If condition={this.state.isLoadingNotes}>
+                    <div className="row">
+                      <div className="col offset-5">
+                        <Spinner extraClasses="py-5 pl-3" />
+                      </div>
+                    </div>
+                  </If>
                   <div className="notes-container row ">
                     {this.state.userNotes ? this.renderNotes(this.state.userNotes, true) : ''}
                   </div>
                 </AccordionItem>
                 <AccordionItem itemId="mates-notes" itemLabel="Notas dos colegas" accordionId="notes-accordion" open>
+                  <If condition={this.state.isLoadingMatesNotes}>
+                    <div className="row">
+                      <div className="col offset-5">
+                        <Spinner extraClasses="py-5 pl-3" />
+                      </div>
+                    </div>
+                  </If>
                   <div className="notes-container row ">
                     {this.state.matesNotes ? this.renderNotes(this.state.matesNotes) : ''}
                   </div>
                 </AccordionItem>
               </Accordion>
-              <EditNote onClose={this.onModalClose} onOpen={() => { }} open={this.shouldOpenEditorForNewNote()}/>
-              {/* loadUserNotes={() => { this.setState({ userNotes: false }) }} /> */}
+              <EditNote onClose={this.onModalClose} onOpen={() => { }} open={this.shouldOpenEditorForNewNote()} />
             </div>
           </div>
         </section>

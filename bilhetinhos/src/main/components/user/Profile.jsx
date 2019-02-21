@@ -49,7 +49,6 @@ class Profile extends Component {
             .getDownloadURL()
             .then((url) => {
                 this.props.changePictureDownloadUrl(url)
-                // this.setState({ ...this.state.user, profilePic: url, isLoadingProfilePic: false })
                 this.setState({ ...this.state, isLoadingProfilePic: false })
             }).catch(err => {
                 toastr.error('Erro!', 'Não foi possível carregar sua imagem de perfil')
@@ -63,15 +62,8 @@ class Profile extends Component {
         if (this.isValidImage(imageFile)) {
             firebase.storage().ref().child(this.state.user.profilePic).put(imageFile)
                 .then(() => {
-                    // firebase.database().ref(`users/${this.state.user.uid}`)
-                    //     .update({ profilePic: `${this.state.user.uid}/profile` })
-                    //     .then(() => {
                     this.loadProfilePic(this.state.user.profilePic)
-                    //         this.props.updateUserPicture(`${this.state.user.uid}/profile`)
-                    //         this.setState({ ...this.state.user, profilePic: `${this.state.user.uid}/profile` }, () => {
                     toastr.success('Sucesso!', 'Sua imagem de perfil foi atualizada com êxito!')
-                    //             })
-                    //         })
                 })
         } else {
             toastr.warning('Atenção!', 'O tamanho máximo dos arquivos de imagem deve ser de 500 KB. Somente arquivos nos formatos jpg, jpeg e png são aceitos.')
@@ -85,10 +77,6 @@ class Profile extends Component {
             }
         })
     }
-
-    // componentDidMount() {
-        // this.loadProfilePic()
-    // }
 
     render() {
         return (

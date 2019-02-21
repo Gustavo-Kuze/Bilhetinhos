@@ -6,11 +6,14 @@ import firebase from '../../api/firebase'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMates } from '../../redux/actions/userActions'
-import { getUserByEmail, getUserByUid, getUsersRef } from '../../api/users'
-import { getMates, removeMate, addMateIfExists } from '../../api/mates'
+import { getUserByUid, getUsersRef } from '../../api/users'
+import { removeMate, addMateIfExists } from '../../api/mates'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import MatePreview from './MatePreview'
 import RemoveMate from './RemoveMate/'
+import Spinner from '../utils/Spinner'
+import If from '../utils/If'
+
 
 class Mates extends Component {
 
@@ -21,7 +24,8 @@ class Mates extends Component {
             name: '',
             email: '',
             uid: ''
-        }
+        },
+        isLoadingMates: false
     }
 
     handleEmailChange = element => {
@@ -73,6 +77,7 @@ class Mates extends Component {
     )
 
     loadMatePreviews = () => {
+        this.setState({ ...this.state, isLoadingMates: true })
         getUsersRef().once('value', async usersSnapshot => {
             let matesAsync = []
             let usersSnapshotEntries = Object.entries(usersSnapshot.val())
@@ -89,17 +94,19 @@ class Mates extends Component {
 
                         if (mate.profilePic)
                             mate.profilePic = await firebase.storage().ref(mate.profilePic).getDownloadURL()
-                            
+
                         return mate
                     }))
 
                 let mates = await Promise.all(matesAsync)
                 this.setState({
                     ...this.state,
-                    matePreviews: mates.map(mate => this.createMatePreview(mate))
+                    matePreviews: mates.map(mate => this.createMatePreview(mate)),
+                    isLoadingMates: false
                 })
             } else {
                 toastr.error('Erro!', 'Não foi possível carregar os colegas, por favor saia e faça login novamente.')
+                this.setState({ ...this.state, isLoadingMates: false })
             }
         })
     }
@@ -152,6 +159,13 @@ class Mates extends Component {
                                 Adicionar um colega
                             </button>
                             <hr />
+                            <If condition={this.state.isLoadingMates}>
+                                <div className="row">
+                                    <div className="col offset-5">
+                                        <Spinner extraClasses="py-5 pl-3" />
+                                    </div>
+                                </div>
+                            </If>
                             <ul className="list-unstyled">
                                 {this.state.matePreviews}
                             </ul>

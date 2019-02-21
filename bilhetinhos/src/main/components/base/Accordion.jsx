@@ -3,7 +3,7 @@ import React from 'react'
 const Accordion = props => {
     return (
         <div className="accordion" id={props.accordionId}>
-            <div className="card">
+            <div className="card ">
                 {props.children}
             </div>
         </div>
@@ -13,9 +13,9 @@ const Accordion = props => {
 const AccordionItem = props => {
     return (
         <React.Fragment>
-            <div className="card-header" id={`accordion-heading-${props.itemId}`}>
+            <div className="card-header bg-muted" id={`accordion-heading-${props.itemId}`}>
                 <h2 className="mb-0">
-                    <button className={`btn btn-link btn-lg btn-block text-left `} type="button" data-toggle="collapse" data-target={`#collapse-${props.itemId}`} aria-expanded={props.open} aria-controls={`collapse-${props.itemId}`}>
+                    <button className={`btn btn-link btn-lg btn-block text-left text-decoration-none`} type="button" data-toggle="collapse" data-target={`#collapse-${props.itemId}`} aria-expanded={props.open} aria-controls={`collapse-${props.itemId}`}>
                         {props.itemLabel}
                     </button>
                 </h2>
