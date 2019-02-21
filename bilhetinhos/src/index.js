@@ -10,7 +10,8 @@ import store from './main/redux/store'
 store.subscribe(() => {
     saveState({
         user: store.getState().user,
-        cached: store.getState().cached
+        cached: store.getState().cached,
+        notifications: store.getState().notifications
     })
 })
 

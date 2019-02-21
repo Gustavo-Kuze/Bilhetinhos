@@ -1,15 +1,11 @@
 import firebase from './firebase'
 
-const getUsersRef = () => {
-    return firebase.database().ref('users/')
-}
+const getUsersRef = () => firebase.database().ref('users/')
 
-const _getUserRefByUid = uid => {
-    return getUsersRef().child(uid)
-}
+const getUserRefByUid = uid => getUsersRef().child(uid)
 
 const getUserEmailByUid = async uid => {
-    let userSnapshot = await _getUserRefByUid(uid).once('value')
+    let userSnapshot = await getUserRefByUid(uid).once('value')
     return userSnapshot.val() ? userSnapshot.val().email : null
 }
 
@@ -27,7 +23,7 @@ const getUserUidByEmail = async email => {
 
 const getUserByUid = uid => {
     return new Promise((res, rej) => {
-        _getUserRefByUid(uid).once('value', snapshot => {
+        getUserRefByUid(uid).once('value', snapshot => {
             res(snapshot.val())
             rej(`Nenhum usuário encontrado com este Uid: ${uid}`)
         }).catch(err => rej(err))
@@ -50,22 +46,10 @@ const getUserByEmail = email => {
     })
 }
 
-const getMates = async uid => {
-    try {
-        let matesRef = _getUserRefByUid(uid).child('mates')
-        let matesSnapshot = await matesRef.once('value')
-        let mates = (matesSnapshot.val()) ? matesSnapshot.val().filter(m => m !== null) : []
-        return { mates, matesRef }
-    }
-    catch (err) {
-        throw new Error(err)
-    }
-}
-
 const getUsersEmailsByUid = async (matesUids) => {
     let matesEmailsAndUids = []
     matesEmailsAndUids = Promise.all(matesUids.map(async (mate) => {
-        let userRef = _getUserRefByUid(mate)
+        let userRef = getUserRefByUid(mate)
         let userSnapshot = await userRef.once('value')
         return userSnapshot.val().email
     }))
@@ -86,7 +70,7 @@ const getUsersUidsByEmail = async (matesEmails) => {
 }
 
 const registerUser = async user => {
-    return _getUserRefByUid(user.uid).set({
+    return getUserRefByUid(user.uid).set({
         email: user.email || '',
         name: user.name || '',
         profilePic: user.profilePic || '',
@@ -94,6 +78,20 @@ const registerUser = async user => {
         phone: user.phone || '',
         mates: user.mates || []
     })
+
+}
+
+const isEmailRegistered = async email => {
+    let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
+    return emailProviders.length > 0
+}
+
+
+export {
+    getUserByEmail, getUserByUid, getUsersRef,
+    registerUser, getUsersEmailsByUid, getUsersUidsByEmail,
+    getUserUidByEmail, getUserEmailByUid, getUserRefByUid, isEmailRegistered
+}
 
     // try {
     //     let data = await fetch('https://us-central1-projeto-teste-cbe9a.cloudfunctions.net/registerUser', {
@@ -113,24 +111,6 @@ const registerUser = async user => {
     // } catch (err) {
     //     return err
     // }
-}
-
-const removeMate = async (uid, mateUid) => {
-    let getMatesResponse = await getMates(uid)
-    if (getMatesResponse.mates.length > 0) {
-        let mates = []
-        mates = (getMatesResponse.mates.filter(mate => mate !== mateUid))
-        getMatesResponse.matesRef.set(mates)
-        return mates
-    }
-}
-
-export {
-    getUserByEmail, getUserByUid, getUsersRef,
-    registerUser, getMates, getUsersEmailsByUid,
-    getUsersUidsByEmail, getUserUidByEmail, getUserEmailByUid,
-    removeMate
-}
 
 // getAllUsers
 // fetch('https://us-central1-projeto-teste-cbe9a.cloudfunctions.net/getAllUsers')
