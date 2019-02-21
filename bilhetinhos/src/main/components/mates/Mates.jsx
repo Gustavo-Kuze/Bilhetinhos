@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMates } from '../../redux/actions/userActions'
 import { getUserByEmail, getUserByUid, getUsersRef } from '../../api/users'
-import { getMates, removeMate } from '../../api/mates'
+import { getMates, removeMate, addMateIfExists } from '../../api/mates'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import MatePreview from './MatePreview'
 import RemoveMate from './RemoveMate/'
@@ -28,35 +28,41 @@ class Mates extends Component {
         this.setState({ mateEmail: element.target.value })
     }
 
-    addMateIfExists = async element => {
-        element.preventDefault()
-        let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
-        if (emailProviders.length > 0) {
-            getMates(this.props.currentUserUid).then((getMatesRes) => {
-                if (this.state.mateEmail !== this.props.currentUserEmail) {
-                    getUserByEmail(this.state.mateEmail).then(userByEmail => {
-                        if (!getMatesRes.mates.includes(userByEmail.uid)) {
-                            getMatesRes.mates.push(userByEmail.uid)
-                            getMatesRes.matesRef.set(getMatesRes.mates).then(ok => {
-                                toastr('Sucesso!', 'Usuário adicionado à sua lista de colegas com sucesso.')
-                                this.props.refreshMates(getMatesRes.mates)
-                            })
-                        } else {
-                            toastr.warning('Atenção!', 'O dono deste E-mail já é seu colega!')
-                        }
-                    }).catch(err => {
-                        console.log('Erro interno: Não foi possível buscar o usuário pelo E-mail')
-                        console.log(err)
-                    })
+    callAddMateIfExists = async element => {
+        // let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
+        // if (emailProviders.length > 0) {
+        //     getMates(this.props.currentUserUid).then((getMatesRes) => {
+        //         if (this.state.mateEmail !== this.props.currentUserEmail) {
+        //             getUserByEmail(this.state.mateEmail).then(userByEmail => {
+        //                 if (!getMatesRes.mates.includes(userByEmail.uid)) {
+        //                     getMatesRes.mates.push(userByEmail.uid)
+        //                     getMatesRes.matesRef.set(getMatesRes.mates).then(ok => {
+        //                         toastr('Sucesso!', 'Usuário adicionado à sua lista de colegas com sucesso.')
+        //                         this.props.refreshMates(getMatesRes.mates)
+        //                     })
+        //                 } else {
+        //                     toastr.warning('Atenção!', 'O dono deste E-mail já é seu colega!')
+        //                 }
+        //             }).catch(err => {
+        //                 console.log('Erro interno: Não foi possível buscar o usuário pelo E-mail')
+        //                 console.log(err)
+        //             })
 
-                } else {
-                    toastr.warning('Atenção!', 'Você não pode se adicionar como colega.')
-                }
+        //         } else {
+        //             toastr.warning('Atenção!', 'Você não pode se adicionar como colega.')
+        //         }
+        //     })
+        // } else {
+        //     toastr.error('Erro!', 'Nenhum colega foi encontrado com este E-mail!')
+        // }
+        try {
+            let mates = await addMateIfExists(this.props.currentUserUid, this.props.currentUserEmail, this.state.mateEmail, (msg) => {
+                toastr.success('Sucesso!', msg)
             })
-        } else {
-            toastr.error('Erro!', 'Nenhum colega foi encontrado com este E-mail!')
+            this.props.refreshMates(mates)
+        } catch (err) {
+            toastr.error('Erro!', err)
         }
-        return false
     }
 
     renderMates = async () => {
@@ -96,28 +102,33 @@ class Mates extends Component {
         getUsersRef().once('value', async usersSnapshot => {
             let matesAsync = []
             let usersSnapshotVal = usersSnapshot.val()
-            matesAsync = await Promise.all(Object.entries(usersSnapshotVal)
-                .filter(user => this.props.mates.includes(user[0]))
-                .map(async user => {
-                    let mate = {
-                        uid: user[0],
-                        email: user[1].email,
-                        name: user[1].name,
-                        profilePic: user[1].profilePic
-                    }
+            let usersSnapshotValEntries = Object.entries(usersSnapshotVal)
+            if (usersSnapshotValEntries && this.props.mates) {
+                matesAsync = await Promise.all(usersSnapshotValEntries
+                    .filter(user => this.props.mates.includes(user[0]))
+                    .map(async user => {
+                        let mate = {
+                            uid: user[0],
+                            email: user[1].email,
+                            name: user[1].name,
+                            profilePic: user[1].profilePic
+                        }
 
-                    if (mate.profilePic) {
-                        let profilePicUrl = await firebase.storage().ref(mate.profilePic).getDownloadURL()
-                        mate.profilePic = profilePicUrl
-                    }
-                    return mate
-                }))
+                        if (mate.profilePic) {
+                            let profilePicUrl = await firebase.storage().ref(mate.profilePic).getDownloadURL()
+                            mate.profilePic = profilePicUrl
+                        }
+                        return mate
+                    }))
 
-            let mates = await Promise.all(matesAsync)
-            this.setState({
-                ...this.state,
-                matePreviews: mates.map(mate => this.createMatePreview(mate))
-            })
+                let mates = await Promise.all(matesAsync)
+                this.setState({
+                    ...this.state,
+                    matePreviews: mates.map(mate => this.createMatePreview(mate))
+                })
+            }else{
+                toastr.error('Erro!', 'Não foi possível carregar os colegas, por favor saia e faça login novamente.')
+            }
         })
     }
 
@@ -152,12 +163,10 @@ class Mates extends Component {
                             <Modal
                                 modalId="add-mate-modal"
                                 title="Adicionar um colega" >
-                                <form onSubmit={this.addMateIfExists}>
-                                    <div className="form-group">
-                                        <input type="email" className="form-control" placeholder="Digite o email de um colega aqui" value={this.state.mateEmail} onChange={this.handleEmailChange} />
-                                    </div>
-                                    <button className="btn btn-primary">Adicionar</button>
-                                </form>
+                                <div className="form-group">
+                                    <input tabIndex="0" type="email" className="form-control" placeholder="Digite o email de um colega aqui" value={this.state.mateEmail} onChange={this.handleEmailChange} />
+                                </div>
+                                <button className="btn btn-primary" onClick={async () => { return await this.callAddMateIfExists() }}>Adicionar</button>
                             </Modal>
                             <RemoveMate
                                 name={this.state.mate.name}

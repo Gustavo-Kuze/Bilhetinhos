@@ -8,7 +8,7 @@ const getMates = async uid => {
         return { mates, matesRef }
     }
     catch (err) {
-        throw new Error(err)
+        throw err
     }
 }
 
@@ -24,31 +24,36 @@ const removeMate = async (uid, mateUid) => {
 
 
 const addMateIfExists = async (uid, email, mateEmail, successCallback = null) => {
+    // try {
     let mateEmailExists = await isEmailRegistered(mateEmail)
     if (mateEmailExists) {
-        getMates(uid).then((getMatesRes) => {
-            if (mateEmail !== email) {
-                getUserByEmail(mateEmail).then(userByEmail => {
-                    if (!getMatesRes.mates.includes(userByEmail.uid)) {
-                        getMatesRes.mates.push(userByEmail.uid)
-                        getMatesRes.matesRef.set(getMatesRes.mates).then(ok => {
-                            if (successCallback) successCallback();
-                            return 'Usuário adicionado à sua lista de colegas com sucesso.'
-                        })
-                    } else {
-                        return new Error('O dono deste E-mail já é seu colega!')
-                    }
-                }).catch(err => {
-                    console.log('Erro interno: Não foi possível buscar o usuário pelo E-mail')
-                    console.log(err)
-                })
+        let getMatesRes = await getMates(uid)
+        if (mateEmail !== email) {
+            let userByEmail = await getUserByEmail(mateEmail)
+            if (!getMatesRes.mates.includes(userByEmail.uid)) {
+                getMatesRes.mates.push(userByEmail.uid)
+                let ok = await getMatesRes.matesRef.set(getMatesRes.mates)
+                let successMsg = 'Usuário adicionado à sua lista de colegas com sucesso.'
+                if (successCallback) successCallback(successMsg);
+                return getMatesRes.mates
             } else {
-                return new Error('Você não pode se adicionar como colega.')
+                throw 'O dono deste E-mail já é seu colega!'
             }
-        })
+            // .catch(err => {
+            //     console.log('Erro interno: Não foi possível buscar o usuário pelo E-mail')
+            //     console.log(err)
+            //     throw err
+            // })
+        } else {
+            throw 'Você não pode se adicionar como colega.'
+        }
     } else {
-        return new Error('Nenhum colega foi encontrado com este E-mail!')
+        throw 'Nenhum colega foi encontrado com este E-mail!'
     }
+
+    // } catch (err) {
+    //     throw err
+    // }
 }
 
 export { removeMate, getMates, addMateIfExists }

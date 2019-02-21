@@ -82,7 +82,7 @@ const registerUser = async user => {
 }
 
 const isEmailRegistered = async email => {
-    let emailProviders = await firebase.auth().fetchProvidersForEmail(this.state.mateEmail)
+    let emailProviders = await firebase.auth().fetchProvidersForEmail(email)
     return emailProviders.length > 0
 }
 
