@@ -32,28 +32,30 @@ class Mates extends Component {
         this.setState({ mateEmail: element.target.value })
     }
 
-    callAddMateIfExists = async () => {
-        // try {
-        //     let mates = await addMateIfExists(this.props.currentUserUid, this.props.currentUserEmail, this.state.mateEmail, (msg) => {
-        //         toastr.success('Sucesso!', msg)
-        //     })
-        //     this.props.refreshMates(mates)
-        // } catch (err) {
-        //     toastr.error('Erro!', err.message)
-        // }
-
+    notifyAddedMate = async () => {
         let mateUid = await getUserUidByEmail(this.state.mateEmail)
-
         if (mateUid) {
             await sendUserNotification(mateUid, {
                 title: 'Um colega lhe adicionou',
                 receivedDate: Date.now(),
-                description: `O colega ${this.props.currentUserEmail} adicionou você!`,
+                description: `${this.props.currentUserEmail} adicionou você! Clique para adicioná-lo também`,
                 sender: 'Bilhetes',
                 read: false,
                 href: '/'
             })
             toastr.success('Sucesso', 'Sua notificação foi enviada com sucesso!')
+        }
+    }
+
+    callAddMateIfExists = async () => {
+        try {
+            let mates = await addMateIfExists(this.props.currentUserUid, this.props.currentUserEmail, this.state.mateEmail, (msg) => {
+                toastr.success('Sucesso!', msg)
+            })
+            this.props.refreshMates(mates)
+            this.notifyAddedMate()
+        } catch (err) {
+            toastr.error('Erro!', err.message)
         }
     }
 
