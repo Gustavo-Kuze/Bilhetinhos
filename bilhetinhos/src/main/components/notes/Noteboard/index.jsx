@@ -46,7 +46,7 @@ class Noteboard extends Component {
     }))
   }
 
-  loadUserNotes = async () => {
+  startUserNotesListener = async () => {
     getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
       this.setState({...this.state, isLoadingNotes: true})
       let notes = []
@@ -84,12 +84,12 @@ class Noteboard extends Component {
 
   componentDidUpdate = async () => {
     if (!this.state.userNotes) {
-      await this.loadUserNotes()
+      await this.startUserNotesListener()
     }
   }
 
   componentDidMount = async () => {
-    this.loadUserNotes()
+    this.startUserNotesListener()
     this.loadMatesNotes()
   }
 

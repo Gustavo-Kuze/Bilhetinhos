@@ -83,14 +83,14 @@ class Profile extends Component {
     }
 
     componentDidMount = async () => {
-        // await sendUserNotification(this.props.uid, {
-        //     title: 'Alerta de bilhete',
-        //     receivedDate: Date.now(),
-        //     description: 'Fulano da Silva colou uma mensagem em seu quadro',
-        //     sender: 'Fulano da Silva',
-        //     read: false,
-        //     href: '/'
-        // })
+        await sendUserNotification(this.props.uid, {
+            title: 'Listener bombando',
+            receivedDate: Date.now(),
+            description: 'To testanu se o listener funfa',
+            sender: 'Bilhetes',
+            read: false,
+            href: '/'
+        })
 
         // await markAsRead(this.props.uid, {
         //     title: 'Alerta de bilhete',
@@ -100,6 +100,8 @@ class Profile extends Component {
         //     read: false,
         //     href: '/' 
         // })
+
+
 
         let notifications = await getUserNotifications(this.props.uid)
         console.log(notifications)

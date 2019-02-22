@@ -13,14 +13,19 @@ class Navbar extends React.Component {
         anyUnreadAlerts: false
     }
 
-    handleUnreadAlertsChange = async () => {
-        let unread = await getUnreadNotifications(this.props.uid)
+    handleUnreadAlertsChange = async uid => {
+        let unread = await getUnreadNotifications(uid)
         let anyUnread = unread.length > 0
         this.setState({...this.state, unreadAlertsCount: unread.length, anyUnreadAlerts: anyUnread})
     }
 
+    // para fazer com que as notificações sejam recarregadas quando o listener às recarregas
+    // preciso criar essas duas propriedades do state la no store
     componentDidMount = () => {
-        this.handleUnreadAlertsChange()
+        let uid = this.props.uid
+        if(this.props.uid){
+            this.handleUnreadAlertsChange(uid)
+        }
     }
 
     render() {
@@ -28,12 +33,9 @@ class Navbar extends React.Component {
             <nav className="navbar navbar-expand-md fixed-top bg-primary navbar-dark">
                 <a className="navbar-brand" href="/">Bilhetes</a>
                 <PopoverButton
-                    // fas fa-bell é o sino fechado
-
                     iconClassName={`${this.state.anyUnreadAlerts ? 'fas' : 'far'} fa-bell`}popoverTitle={"Notificações"}
                     buttonContent={
                         <span className="badge badge-primary badge-pill">
-                            {/* {this.props.alerts ? this.props.alerts.length : ''} */}
                             {this.state.unreadAlertsCount}
                         </span>
                     }
