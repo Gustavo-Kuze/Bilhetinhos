@@ -15,25 +15,37 @@ const sendUserNotification = async (uid, notification) => {
     getNotificationsRef().child(uid).set(notifications)
 }
 
-const removeUserNotification = async (uid, notificationIndex) => {
+const removeUserNotification = async (uid, notification) => {
     let notifications = (await getUserNotifications(uid)) || []
     if (notifications.length > 0) {
-        notifications.splice(notificationIndex, 1)
+        notifications = notifications.filter(notif => notif.receivedDate !== notification.receivedDate)
         getNotificationsRef().child(uid).set(notifications)
     }
 }
 
-const markAsRead = async (uid, notificationIndex) => {
+const markAsRead = async (uid, notification) => {
     let notifications = (await getUserNotifications(uid)) || []
     if (notifications.length > 0) {
-        if(notifications[notificationIndex]){
-            notifications[notificationIndex].read = true
-            getNotificationsRef().child(uid).set(notifications)
-        }
+        notifications = notifications.map(notif => {
+            if (notif.receivedDate === notification.receivedDate) {
+                notif.read = true
+            }
+            return notif
+        })
+        getNotificationsRef().child(uid).set(notifications)
     }
+}
+
+const getUnreadNotifications = async uid => {
+    let notifications = (await getUserNotifications(uid)) || []
+    if (notifications.length > 0) {
+        let unread = notifications.filter(notification => notification.read === false)
+        return unread
+    }
+    return []
 }
 
 export {
     getNotificationsRef, getUserNotifications, sendUserNotification,
-    removeUserNotification, markAsRead
+    removeUserNotification, markAsRead, getUnreadNotifications
 }

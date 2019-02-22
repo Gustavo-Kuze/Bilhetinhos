@@ -9,7 +9,10 @@ import If from '../utils/If'
 import Spinner from '../utils/Spinner'
 import { registerUser } from '../../api/users'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
-import {sendUserNotification,getUserNotifications, getNotificationsRef, markAsRead, removeUserNotification} from '../../api/notifications'
+import {
+    sendUserNotification, getUserNotifications, getNotificationsRef,
+    markAsRead, removeUserNotification
+} from '../../api/notifications'
 
 class Profile extends Component {
 
@@ -70,7 +73,7 @@ class Profile extends Component {
             toastr.warning('Atenção!', 'O tamanho máximo dos arquivos de imagem deve ser de 500 KB. Somente arquivos nos formatos jpg, jpeg e png são aceitos.')
         }
     }
-   
+
     handleInputChange = element => {
         this.setState({
             ...this.state, user: {
@@ -89,7 +92,14 @@ class Profile extends Component {
         //     href: '/'
         // })
 
-        // await removeUserNotification(this.props.uid, 99)
+        await markAsRead(this.props.uid, {
+            title: 'Alerta de bilhete',
+            receivedDate: 1550766805523,
+            description: 'Fulano da Silva colou uma mensagem em seu quadro',
+            sender: 'Fulano da Silva',
+            read: false,
+            href: '/' 
+        })
 
         let notifications = await getUserNotifications(this.props.uid)
         console.log(notifications)
