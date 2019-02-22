@@ -31,7 +31,8 @@ class ColorPicker extends Component {
 
     generateColorButtons = () => {
         return Object.entries(this.props.colors).map(color => {
-            return <ColorButton 
+            return <ColorButton
+                key={`${color[0]}-${color[1]}`}
                 name={this.props.name}
                 colorName={color[0]}
                 colorValue={color[1]}
@@ -55,7 +56,7 @@ class ColorPicker extends Component {
     componentDidUpdate = () => {
         let currentColor = this.getRightColor()
         if (this.state.currentColor !== currentColor) {
-          this.setColorAndButtonsToState(currentColor)  
+            this.setColorAndButtonsToState(currentColor)
         }
     }
 

@@ -9,7 +9,7 @@ export default function Footer() {
                     <div className="col">
                         <div className="row">
                             <div className="col">
-                                <p className="text-center">Desenvolvido por <a target="_blank" rel="NOOPENER NOREFERER" href="https://gustavokuze.com" className="text-decoration-none">Gustavo Kuze</a> </p>
+                                <p className="text-center">Desenvolvido por <a target="_blank" rel="noopener noreferrer" href="https://gustavokuze.com" className="text-decoration-none">Gustavo Kuze</a> </p>
                             </div>
                         </div>
                     </div>

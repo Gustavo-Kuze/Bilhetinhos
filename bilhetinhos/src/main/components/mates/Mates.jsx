@@ -39,7 +39,7 @@ class Mates extends Component {
             })
             this.props.refreshMates(mates)
         } catch (err) {
-            toastr.error('Erro!', err)
+            toastr.error('Erro!', err.message)
         }
     }
 

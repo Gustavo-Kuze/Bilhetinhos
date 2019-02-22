@@ -1,27 +1,25 @@
 import React, { Component } from 'react'
 import If from '../utils/If'
 export default class Modal extends Component {
-    
+
     componentDidMount = () => {
-        if(this.props.onClose){
-            window.$(`#${this.props.modalId}`).on('hide.bs.modal', () => { 
-                console.log('Fired at start of hide event!');
+        if (this.props.onClose) {
+            window.$(`#${this.props.modalId}`).on('hide.bs.modal', () => {
                 this.props.onClose()
-            });  
-        }
-        
-        if(this.props.onOpen){
-            window.$(`#${this.props.modalId}`).on('show.bs.modal', () => { 
-                console.log('Fired at start of show event!');
-                this.props.onOpen()
-            });  
+            });
         }
 
-        if(this.props.open){
+        if (this.props.onOpen) {
+            window.$(`#${this.props.modalId}`).on('show.bs.modal', () => {
+                this.props.onOpen()
+            });
+        }
+
+        if (this.props.open) {
             window.$(`#${this.props.modalId}`).modal('show')
         }
     }
-    
+
     render() {
         return (
             <div className="modal fade" id={this.props.modalId} tabIndex="-1" role="dialog" aria-labelledby={`${this.props.modalId}-title`} aria-hidden="true">

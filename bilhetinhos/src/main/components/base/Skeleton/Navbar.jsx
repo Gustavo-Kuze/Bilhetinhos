@@ -5,7 +5,6 @@ import PopoverButton from '../PopoverButton'
 import UserMenu from './UserMenu'
 import NotificationList from './Notifications/NotificationList'
 import { refreshNotifications } from '../../../redux/actions/notificationsActions'
-import { getUnreadNotifications } from '../../../api/notifications'
 
 class Navbar extends React.Component {
    

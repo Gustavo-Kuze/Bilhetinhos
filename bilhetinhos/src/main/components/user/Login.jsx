@@ -10,7 +10,6 @@ import { bindActionCreators } from "redux"
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
 import { registerUser } from '../../api/users'
-import { getUserNotifications, getNotificationsRef } from '../../api/notifications'
 import { refreshNotifications } from '../../redux/actions/notificationsActions'
 
 class Login extends Component {
@@ -48,15 +47,6 @@ class Login extends Component {
         })
     }
 
-    // startNotificationsListener = (uid, callback) => {
-    //     getNotificationsRef().child(uid).on('value', () => {
-    //         getUserNotifications(uid).then(notifications => {
-    //             this.props.refreshNotifications(notifications)
-    //             callback()
-    //         })
-    //     })
-    // }
-
     signInSuccessful = (authResult, redirectUrl) => {
         firebase.database().ref('users').once('value').then(userSnapshot => {
             if (!userSnapshot.hasChild(authResult.user.uid)) {
@@ -70,9 +60,7 @@ class Login extends Component {
                 try {
                     firebase.storage().ref(userFromFirebase.profilePic).getDownloadURL().then(imageUrl => {
                         this.props.changePictureDownloadUrl(imageUrl)
-                        // this.startNotificationsListener(authResult.user.uid, () => {
-                            window.location = redirectUrl
-                        // })
+                        window.location = redirectUrl
                     })
                 } catch (err) {
                     console.log(err)

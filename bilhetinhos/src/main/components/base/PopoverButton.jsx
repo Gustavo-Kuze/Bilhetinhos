@@ -3,28 +3,19 @@ import React from 'react'
 import Popover, { ArrowContainer } from 'react-tiny-popover'
 import { fontColors, backgroundColors } from './js/MaterialColors'
 import If from '../utils/If'
-// import firebase from '../../api/firebase'
-// import Spinner from '../utils/Spinner'
 
 class PopoverButton extends React.Component {
 
     state = {
         isPopoverOpen: false,
-        // pictureSrc: '',
         pictureLoaded: false
     }
 
     componentDidMount() {
         if (this.props.imgSrc) {
-            // firebase.storage().ref(this.props.imgSrc)
-            //     .getDownloadURL()
-            //     .then((url) => {
-            //         console.log(url)
-            //         this.setState({ ...this.state, pictureSrc: url })
-                    document.getElementById('profile-picture').addEventListener('load', () => {
-                        this.setState({ ...this.state, pictureLoaded: true })
-                    })
-                // })
+            document.getElementById('profile-picture').addEventListener('load', () => {
+                this.setState({ ...this.state, pictureLoaded: true })
+            })
         }
     }
 
@@ -56,22 +47,17 @@ class PopoverButton extends React.Component {
                         </div>
                     </ArrowContainer>
                 )} >
-                <a href="javascript:;" role="button" className="nav-link btn btn-lg btn-primary" onClick={() => { this.setState({ isPopoverOpen: !this.state.isPopoverOpen }) }} >
+                <button className="nav-link btn btn-lg btn-primary" onClick={() => { this.setState({ isPopoverOpen: !this.state.isPopoverOpen }) }} >
                     <If condition={!this.props.imgSrc}>
                         <i className={this.props.iconClassName}>
                             {this.props.buttonContent}
                         </i>
                     </If>
                     <If condition={this.props.imgSrc}>
-                        <img id="profile-picture" 
-                        // className={`${this.state.pictureLoaded ? '' :'invisible'}`} 
-                        
-                        src={this.props.imgSrc} alt="Foto do perfil" />
+                        <img id="profile-picture"
+                            src={this.props.imgSrc} alt="Foto do perfil" />
                     </If>
-                    {/* <If condition={this.props.imgSrc && !this.state.pictureLoaded}>
-                        <Spinner extraClasses="float-right" color="light" />
-                    </If> */}
-                </a>
+                </button>
             </Popover>
         )
     }
