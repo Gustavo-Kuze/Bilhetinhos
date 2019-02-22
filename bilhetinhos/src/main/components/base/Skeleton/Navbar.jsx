@@ -3,40 +3,21 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PopoverButton from '../PopoverButton'
 import UserMenu from './UserMenu'
-import NotificationList from './NotificationList'
+import NotificationList from './Notifications/NotificationList'
 import { refreshNotifications } from '../../../redux/actions/notificationsActions'
 import { getUnreadNotifications } from '../../../api/notifications'
 
 class Navbar extends React.Component {
-    state = {
-        unreadAlertsCount: '',
-        anyUnreadAlerts: false
-    }
-
-    handleUnreadAlertsChange = async uid => {
-        let unread = await getUnreadNotifications(uid)
-        let anyUnread = unread.length > 0
-        this.setState({...this.state, unreadAlertsCount: unread.length, anyUnreadAlerts: anyUnread})
-    }
-
-    // para fazer com que as notificações sejam recarregadas quando o listener às recarregas
-    // preciso criar essas duas propriedades do state la no store
-    componentDidMount = () => {
-        let uid = this.props.uid
-        if(this.props.uid){
-            this.handleUnreadAlertsChange(uid)
-        }
-    }
-
+   
     render() {
         return (
             <nav className="navbar navbar-expand-md fixed-top bg-primary navbar-dark">
                 <a className="navbar-brand" href="/">Bilhetes</a>
                 <PopoverButton
-                    iconClassName={`${this.state.anyUnreadAlerts ? 'fas' : 'far'} fa-bell`}popoverTitle={"Notificações"}
+                    iconClassName={`${this.props.anyUnreadAlerts ? 'fas' : 'far'} fa-bell`}popoverTitle={"Notificações"}
                     buttonContent={
                         <span className="badge badge-primary badge-pill">
-                            {this.state.unreadAlertsCount}
+                            {this.props.unreadAlertsCount}
                         </span>
                     }
                     extraStyle={{ height: "300px", overflow: "auto" }}>
@@ -79,7 +60,9 @@ const mapStateToProps = state => ({
     accessToken: state.user.accessToken,
     providerData: state.user.providerData,
     profilePictureSrc: state.cached.profilePictureDownloadUrl,
-    alerts: state.notifications.alerts
+    alerts: state.notifications.alerts,
+    anyUnreadAlerts: state.notifications.anyUnreadAlerts,
+    unreadAlertsCount: state.notifications.unreadAlertsCount
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

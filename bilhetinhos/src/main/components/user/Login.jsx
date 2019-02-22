@@ -48,13 +48,14 @@ class Login extends Component {
         })
     }
 
-    startNotificationsListener = uid => {
-        getNotificationsRef().child(uid).on('value', () => {
-            getUserNotifications(uid).then(notifications => {
-                this.props.refreshNotifications(notifications)
-            })
-        })
-    }
+    // startNotificationsListener = (uid, callback) => {
+    //     getNotificationsRef().child(uid).on('value', () => {
+    //         getUserNotifications(uid).then(notifications => {
+    //             this.props.refreshNotifications(notifications)
+    //             callback()
+    //         })
+    //     })
+    // }
 
     signInSuccessful = (authResult, redirectUrl) => {
         firebase.database().ref('users').once('value').then(userSnapshot => {
@@ -69,8 +70,9 @@ class Login extends Component {
                 try {
                     firebase.storage().ref(userFromFirebase.profilePic).getDownloadURL().then(imageUrl => {
                         this.props.changePictureDownloadUrl(imageUrl)
-                        this.startNotificationsListener(authResult.user.uid)
-                        window.location = redirectUrl
+                        // this.startNotificationsListener(authResult.user.uid, () => {
+                            window.location = redirectUrl
+                        // })
                     })
                 } catch (err) {
                     console.log(err)
