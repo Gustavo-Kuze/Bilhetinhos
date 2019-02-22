@@ -29,8 +29,17 @@ export class NotePreview extends Component {
       title: this.props.title ,
       noteMates: this.props.mates 
     }
-    this.props.setEntireNote(note)
-    window.$('#remove-note-modal').modal('show') //o modal é aberto apenas após a chamada do setEntireNote para garantir que ele abra
+    this.props.setEntireNote(note)    
+  }
+
+  openNoteEditor = () => {
+    this.callSetEntireNote()
+    window.$('#edit-note-modal').modal('show')
+  }
+  
+  openRemoveDialog = () => {
+    this.callSetEntireNote()
+    window.$('#remove-note-modal').modal('show')
   }
 
   render() {
@@ -45,8 +54,8 @@ export class NotePreview extends Component {
               <div className="col">
                 <div className="float-right">
                   <If condition={this.props.editable}>
-                    <button className="btn btn-sm btn-warning mr-1" onClick={this.callSetEntireNote} data-toggle="modal" data-target="#edit-note-modal"><i className="fas fa-pencil-alt"></i></button>
-                    <button className="btn btn-sm btn-danger" onClick={this.callSetEntireNote}><i className="fas fa-trash"></i></button>
+                    <button className="btn btn-sm btn-warning mr-1" onClick={this.openNoteEditor}><i className="fas fa-pencil-alt"></i></button>
+                    <button className="btn btn-sm btn-danger" onClick={this.openRemoveDialog}><i className="fas fa-trash"></i></button>
                   </If>
                 </div>
               </div>
