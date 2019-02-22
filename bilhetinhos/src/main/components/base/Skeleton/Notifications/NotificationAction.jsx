@@ -10,7 +10,7 @@ const NotificationButton = props => {
 
 const NotificationLink = props => {
     return (
-        <a href={props.href} 
+        <a href={props.read ? props.href : `${props.href}?mark=${props.date}`} 
         className={`border border-dark list-group-item list-group-item-action ${props.read ? 'bg-light text-dark' : 'bg-primary text-light'}`}>
             {props.children}
         </a>

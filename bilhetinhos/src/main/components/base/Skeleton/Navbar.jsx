@@ -1,10 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import PopoverButton from '../PopoverButton'
 import UserMenu from './UserMenu'
 import NotificationList from './Notifications/NotificationList'
-import { refreshNotifications } from '../../../redux/actions/notificationsActions'
 
 class Navbar extends React.Component {
    
@@ -64,8 +62,4 @@ const mapStateToProps = state => ({
     unreadAlertsCount: state.notifications.unreadAlertsCount
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    refreshNotifications
-}, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+export default connect(mapStateToProps)(Navbar)

@@ -6,14 +6,14 @@ import firebase from '../../api/firebase'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMates } from '../../redux/actions/userActions'
-import { getUserByUid, getUsersRef } from '../../api/users'
+import { getUserByUid, getUsersRef, getUserUidByEmail } from '../../api/users'
 import { removeMate, addMateIfExists } from '../../api/mates'
+import { sendUserNotification } from '../../api/notifications'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import MatePreview from './MatePreview'
 import RemoveMate from './RemoveMate/'
 import Spinner from '../utils/Spinner'
 import If from '../utils/If'
-
 
 class Mates extends Component {
 
@@ -33,13 +33,27 @@ class Mates extends Component {
     }
 
     callAddMateIfExists = async () => {
-        try {
-            let mates = await addMateIfExists(this.props.currentUserUid, this.props.currentUserEmail, this.state.mateEmail, (msg) => {
-                toastr.success('Sucesso!', msg)
+        // try {
+        //     let mates = await addMateIfExists(this.props.currentUserUid, this.props.currentUserEmail, this.state.mateEmail, (msg) => {
+        //         toastr.success('Sucesso!', msg)
+        //     })
+        //     this.props.refreshMates(mates)
+        // } catch (err) {
+        //     toastr.error('Erro!', err.message)
+        // }
+
+        let mateUid = await getUserUidByEmail(this.state.mateEmail)
+
+        if (mateUid) {
+            await sendUserNotification(mateUid, {
+                title: 'Um colega lhe adicionou',
+                receivedDate: Date.now(),
+                description: `O colega ${this.props.currentUserEmail} adicionou você!`,
+                sender: 'Bilhetes',
+                read: false,
+                href: '/'
             })
-            this.props.refreshMates(mates)
-        } catch (err) {
-            toastr.error('Erro!', err.message)
+            toastr.success('Sucesso', 'Sua notificação foi enviada com sucesso!')
         }
     }
 

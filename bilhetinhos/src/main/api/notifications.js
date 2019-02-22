@@ -23,11 +23,11 @@ const removeUserNotification = async (uid, notification) => {
     }
 }
 
-const markAsRead = async (uid, notification) => {
+const markAsRead = async (uid, readAlertReceivedDate) => {
     let notifications = (await getUserNotifications(uid)) || []
     if (notifications.length > 0) {
         notifications = notifications.map(notif => {
-            if (notif.receivedDate === notification.receivedDate) {
+            if (`${notif.receivedDate}` === readAlertReceivedDate) {
                 notif.read = true
             }
             return notif

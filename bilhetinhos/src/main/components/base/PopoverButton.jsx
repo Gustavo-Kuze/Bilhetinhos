@@ -47,7 +47,7 @@ class PopoverButton extends React.Component {
                         </div>
                     </ArrowContainer>
                 )} >
-                <button className="nav-link btn btn-lg btn-primary" onClick={() => { this.setState({ isPopoverOpen: !this.state.isPopoverOpen }) }} >
+                <a href="javascript:;" role="button" className="nav-link btn btn-lg btn-primary" onClick={() => { this.setState({ isPopoverOpen: !this.state.isPopoverOpen }) }} >
                     <If condition={!this.props.imgSrc}>
                         <i className={this.props.iconClassName}>
                             {this.props.buttonContent}
@@ -57,7 +57,7 @@ class PopoverButton extends React.Component {
                         <img id="profile-picture"
                             src={this.props.imgSrc} alt="Foto do perfil" />
                     </If>
-                </button>
+                </a>
             </Popover>
         )
     }

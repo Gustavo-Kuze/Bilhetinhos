@@ -1,7 +1,16 @@
-export const refreshNotifications = notifications => {
-    return {
-        type: 'REFRESH_NOTIFICATIONS',
-        payload: notifications
+import { getUnreadNotifications } from '../../api/notifications'
+
+export const refreshNotifications = (uid, notifications) => {
+    return dispatch => {
+        getUnreadNotifications(uid).then(unread => {
+            dispatch({
+                type: 'REFRESH_NOTIFICATIONS',
+                payload: {
+                    alerts: notifications,
+                    unread
+                }
+            })
+        })
     }
 }
 

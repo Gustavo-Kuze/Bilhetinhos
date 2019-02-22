@@ -16,9 +16,19 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'REFRESH_NOTIFICATIONS':
-            let anyUnreadAlerts = action.payload.length > 0
-            let unreadAlertsCount = action.payload.length
-            return { ...state, alerts: action.payload, anyUnreadAlerts, unreadAlertsCount }
+            let { anyUnreadAlerts, unreadAlertsCount } = INITIAL_STATE
+            if (action.payload) {
+                if (action.payload.unread) {
+                    anyUnreadAlerts = action.payload.unread.length > 0
+                    unreadAlertsCount = action.payload.unread.length
+                }
+            }
+            return {
+                ...state,
+                alerts: action.payload.alerts,
+                anyUnreadAlerts,
+                unreadAlertsCount
+            }
         case 'RESET_NOTIFICATIONS_STATE':
             return INITIAL_STATE
         default:

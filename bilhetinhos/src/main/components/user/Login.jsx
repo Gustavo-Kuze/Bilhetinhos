@@ -10,7 +10,6 @@ import { bindActionCreators } from "redux"
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
 import { registerUser } from '../../api/users'
-import { refreshNotifications } from '../../redux/actions/notificationsActions'
 
 class Login extends Component {
 
@@ -50,7 +49,6 @@ class Login extends Component {
     signInSuccessful = (authResult, redirectUrl) => {
         firebase.database().ref('users').once('value').then(userSnapshot => {
             if (!userSnapshot.hasChild(authResult.user.uid)) {
-
                 this.registerUserAndSaveState(authResult).then(() => {
                     window.location.pathname = redirectUrl
                 })
@@ -114,7 +112,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    changeUserLogState, changePictureDownloadUrl, refreshNotifications
+    changeUserLogState, changePictureDownloadUrl
 }, dispatch)
 
 export default connect(
