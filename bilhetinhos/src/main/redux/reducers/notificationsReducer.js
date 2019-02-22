@@ -15,6 +15,8 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'REFRESH_NOTIFICATIONS':
             return {...state, alerts: action.payload} 
+        case 'RESET_NOTIFICATIONS_STATE':
+            return INITIAL_STATE
         default:
             return state
     }

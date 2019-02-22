@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import firebase from '../../api/firebase'
-import { resetUserState } from "../../redux/actions/userActions"
-import { resetCacheState } from "../../redux/actions/cachedActions"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import Spinner from '../utils/Spinner'
-// import {deleteState} from '../../redux/localStorage'
+import { resetUserState } from "../../redux/actions/userActions"
+import { resetCacheState } from "../../redux/actions/cachedActions"
+import { resetNotificationsState } from "../../redux/actions/notificationsActions"
 
 
 class SignOut extends Component {
@@ -16,7 +16,7 @@ class SignOut extends Component {
       .then(() => {
         this.props.resetUserState()
         this.props.resetCacheState()
-        // window.location.pathname = "/user/login";
+        this.props.resetNotificationsState()
       });
   }
 
@@ -30,7 +30,9 @@ class SignOut extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ resetUserState, resetCacheState }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+  resetUserState, resetCacheState, resetNotificationsState
+}, dispatch)
 
 export default connect(
   null,

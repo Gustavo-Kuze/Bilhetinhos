@@ -4,3 +4,9 @@ export const refreshNotifications = notifications => {
         payload: notifications
     }
 }
+
+export const resetNotificationsState = () => {
+    return {
+        type: 'RESET_NOTIFICATIONS_STATE'
+    }
+}
