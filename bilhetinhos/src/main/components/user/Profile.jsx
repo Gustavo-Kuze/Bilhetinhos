@@ -92,14 +92,14 @@ class Profile extends Component {
         //     href: '/'
         // })
 
-        await markAsRead(this.props.uid, {
-            title: 'Alerta de bilhete',
-            receivedDate: 1550766805523,
-            description: 'Fulano da Silva colou uma mensagem em seu quadro',
-            sender: 'Fulano da Silva',
-            read: false,
-            href: '/' 
-        })
+        // await markAsRead(this.props.uid, {
+        //     title: 'Alerta de bilhete',
+        //     receivedDate: 1550766805523,
+        //     description: 'Fulano da Silva colou uma mensagem em seu quadro',
+        //     sender: 'Fulano da Silva',
+        //     read: false,
+        //     href: '/' 
+        // })
 
         let notifications = await getUserNotifications(this.props.uid)
         console.log(notifications)

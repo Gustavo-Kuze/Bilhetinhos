@@ -20,17 +20,17 @@ export class NotePreview extends Component {
     return ''
   }
 
-  callSetEntireNote = () => {
+  callSetEntireNote = () => { 
     let note = {
-      noteColor: this.props.noteColor ,//|| "#fff9c4",
-      fontColor: this.props.fontColor ,//|| "#424242",
-      fontSize: this.props.fontSize ,//|| 20,
-      message: this.props.message ,//|| "",
-      title: this.props.title ,//|| '',
-      noteMates: this.props.mates //|| []
+      noteColor: this.props.noteColor ,
+      fontColor: this.props.fontColor ,
+      fontSize: this.props.fontSize ,
+      message: this.props.message ,
+      title: this.props.title ,
+      noteMates: this.props.mates 
     }
-    
     this.props.setEntireNote(note)
+    window.$('#remove-note-modal').modal('show') //o modal é aberto apenas após a chamada do setEntireNote para garantir que ele abra
   }
 
   render() {
@@ -46,7 +46,7 @@ export class NotePreview extends Component {
                 <div className="float-right">
                   <If condition={this.props.editable}>
                     <button className="btn btn-sm btn-warning mr-1" onClick={this.callSetEntireNote} data-toggle="modal" data-target="#edit-note-modal"><i className="fas fa-pencil-alt"></i></button>
-                    <button className="btn btn-sm btn-danger" onClick={this.callSetEntireNote}><i className="fas fa-trash" data-toggle="modal" data-target="#remove-note-modal"></i></button>
+                    <button className="btn btn-sm btn-danger" onClick={this.callSetEntireNote}><i className="fas fa-trash"></i></button>
                   </If>
                 </div>
               </div>
