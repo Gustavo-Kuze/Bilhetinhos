@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getNotificationsRef, getUserNotifications, markAsRead } from '../../../../api/notifications'
+import { getNotificationsRef, getUserNotifications, markAsRead, removeUserNotification } from '../../../../api/notifications'
 import { refreshNotifications } from '../../../../redux/actions/notificationsActions'
 
 class NotificationsObserver extends Component {
@@ -18,14 +18,22 @@ class NotificationsObserver extends Component {
 
     markQueryAlertAsRead = async () => {
         if (window.location.search.includes('mark')) {
-            let readAlertReceivedDate = window.location.search.replace('?mark=', '')
-            await markAsRead(this.props.uid, readAlertReceivedDate)
+            let alertReceivedDate = window.location.search.replace('?mark=', '')
+            await markAsRead(this.props.uid, alertReceivedDate)
+        }
+    }
+
+    removeQueryAlert = async () => {
+        if (window.location.search.includes('rem')) {
+            let alertReceivedDate = window.location.search.replace('?rem=', '')
+            await removeUserNotification(this.props.uid, alertReceivedDate)
         }
     }
 
     componentDidMount = () => {
         this.startNotificationsListener(this.props.uid)
         this.markQueryAlertAsRead()
+        this.removeQueryAlert()
     }
 
     render() {
