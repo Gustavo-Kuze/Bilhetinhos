@@ -41,7 +41,7 @@ class Mates extends Component {
                 description: `${this.props.currentUserEmail} adicionou você! Clique para adicioná-lo também`,
                 sender: 'Bilhetes',
                 read: false,
-                href: '/'
+                href: `/colegas?addm=${this.props.currentUserUid}`
             })
             toastr.success('Sucesso', 'Sua notificação foi enviada com sucesso!')
         }

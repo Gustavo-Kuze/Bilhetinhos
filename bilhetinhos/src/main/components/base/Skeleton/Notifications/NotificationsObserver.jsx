@@ -1,8 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getNotificationsRef, getUserNotifications, markAsRead, removeUserNotification } from '../../../../api/notifications'
 import { refreshNotifications } from '../../../../redux/actions/notificationsActions'
+import {
+    getNotificationsRef, getUserNotifications, markAsRead, removeUserNotification
+}
+    from '../../../../api/notifications'
+import { addMateIfExists } from '../../../../api/mates'
+import { getUserEmailByUid } from '../../../../api/users'
 
 class NotificationsObserver extends Component {
 
@@ -17,16 +22,30 @@ class NotificationsObserver extends Component {
     }
 
     markQueryAlertAsRead = async () => {
-        if (window.location.search.includes('mark')) {
-            let alertReceivedDate = window.location.search.replace('?mark=', '')
+        let params = new URLSearchParams(window.location.search)
+        if (params.has('mark')) {
+            let alertReceivedDate = params.get('mark')
             await markAsRead(this.props.uid, alertReceivedDate)
         }
     }
 
     removeQueryAlert = async () => {
-        if (window.location.search.includes('rem')) {
-            let alertReceivedDate = window.location.search.replace('?rem=', '')
+        let params = new URLSearchParams(window.location.search)
+        if (params.has('rem')) {
+            let alertReceivedDate = params.get('rem')
             await removeUserNotification(this.props.uid, alertReceivedDate)
+        }
+    }
+
+    addQueryMate = async () => {
+        let params = new URLSearchParams(window.location.search)
+        if (params.has('addm')) {
+            let queryMateUid = params.get('addm')
+            let mateEmail = await getUserEmailByUid(queryMateUid)
+            await addMateIfExists(this.props.uid, this.props.email, mateEmail, (msg) => {
+                console.log(msg)
+                window.location.search = ''
+            })
         }
     }
 
@@ -34,6 +53,7 @@ class NotificationsObserver extends Component {
         this.startNotificationsListener(this.props.uid)
         this.markQueryAlertAsRead()
         this.removeQueryAlert()
+        this.addQueryMate()
     }
 
     render() {
@@ -42,7 +62,8 @@ class NotificationsObserver extends Component {
 }
 
 const mapStateToProps = state => ({
-    uid: state.user.uid
+    uid: state.user.uid,
+    email: state.user.email
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
