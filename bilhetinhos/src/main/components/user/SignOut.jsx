@@ -6,7 +6,7 @@ import Spinner from '../utils/Spinner'
 import { resetUserState } from "../../redux/actions/userActions"
 import { resetCacheState } from "../../redux/actions/cachedActions"
 import { resetNotificationsState } from "../../redux/actions/notificationsActions"
-
+import {resetMates} from '../../redux/actions/matesActions'
 
 class SignOut extends Component {
   componentDidMount() {
@@ -17,6 +17,7 @@ class SignOut extends Component {
         this.props.resetUserState()
         this.props.resetCacheState()
         this.props.resetNotificationsState()
+        this.props.resetMates()
       });
   }
 
@@ -31,7 +32,7 @@ class SignOut extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  resetUserState, resetCacheState, resetNotificationsState
+  resetUserState, resetCacheState, resetNotificationsState, resetMates
 }, dispatch)
 
 export default connect(

@@ -14,7 +14,7 @@ import MatePreview from './MatePreview'
 import RemoveMate from './RemoveMate/'
 import Spinner from '../utils/Spinner'
 import If from '../utils/If'
-import { refreshMates } from '../../redux/actions/matesActions'
+import { refreshMates, matesLoading } from '../../redux/actions/matesActions'
 
 class Mates extends Component {
 
@@ -25,8 +25,7 @@ class Mates extends Component {
             name: '',
             email: '',
             uid: ''
-        },
-        isLoadingMates: false
+        }
     }
 
     handleEmailChange = element => {
@@ -94,38 +93,15 @@ class Mates extends Component {
     )
 
     loadMatePreviews = () => {
-        this.setState({ ...this.state, isLoadingMates: true })
-        getUsersRef().once('value', async usersSnapshot => {
-            let matesAsync = []
-            let usersSnapshotEntries = Object.entries(usersSnapshot.val())
-            if (usersSnapshotEntries && this.props.matesUids) {
-                matesAsync = await Promise.all(usersSnapshotEntries
-                    .filter(user => this.props.matesUids.includes(user[0]))
-                    .map(async user => {
-                        let mate = {
-                            uid: user[0],
-                            email: user[1].email,
-                            name: user[1].name,
-                            profilePic: user[1].profilePic
-                        }
+        if (this.props.mates) {
+            this.setState({
+                ...this.state,
+                matePreviews: this.props.mates.map(mate => this.createMatePreview(mate))
+            })
+        } else {
+            toastr.error('Erro', 'Não foi possível carregar os colegas')
+        }
 
-                        if (mate.profilePic)
-                            mate.profilePic = await firebase.storage().ref(mate.profilePic).getDownloadURL()
-
-                        return mate
-                    }))
-
-                let mates = await Promise.all(matesAsync)
-                this.setState({
-                    ...this.state,
-                    matePreviews: mates.map(mate => this.createMatePreview(mate)),
-                    isLoadingMates: false
-                })
-            } else {
-                toastr.error('Erro!', 'Não foi possível carregar os colegas, por favor saia e faça login novamente.')
-                this.setState({ ...this.state, isLoadingMates: false })
-            }
-        })
     }
 
     setMateOnState = (mate) => {
@@ -134,7 +110,10 @@ class Mates extends Component {
 
     startMatesListener = () => {
         getUsersRef().child(this.props.currentUserUid).child('mates').on('value', () => {
-            this.loadMatePreviews()
+            this.props.matesLoading()
+            this.props.refreshMates(this.props.currentUserUid, () => {
+                this.loadMatePreviews()
+            })
         })
     }
 
@@ -144,9 +123,11 @@ class Mates extends Component {
     }
 
     componentDidMount = () => {
-        this.loadMatePreviews()
         this.startMatesListener()
-        this.props.refreshMates(this.props.currentUserUid)
+        this.props.matesLoading()
+        this.props.refreshMates(this.props.currentUserUid, () => {
+            this.loadMatePreviews()
+        })
     }
 
     render() {
@@ -177,7 +158,7 @@ class Mates extends Component {
                                 Adicionar um colega
                             </button>
                             <hr />
-                            <If condition={this.state.isLoadingMates}>
+                            <If condition={this.props.isLoadingMates}>
                                 <div className="row">
                                     <div className="col offset-5">
                                         <Spinner extraClasses="py-5 pl-3" />
@@ -213,6 +194,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     refreshMatesUids,
-    refreshMates
+    refreshMates,
+    matesLoading
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Mates)

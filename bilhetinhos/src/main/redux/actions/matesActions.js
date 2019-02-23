@@ -1,12 +1,13 @@
 import { getMates } from '../../api/mates'
 
-export const refreshMates = uid => {
+export const refreshMates = (uid, callback = null) => {
     return dispatch => {
         getMates(uid).then(mates => {
             dispatch({
                 type: "REFRESH_MATES",
                 payload: mates
             })
+            if(callback) callback()
         })
     }
 }
