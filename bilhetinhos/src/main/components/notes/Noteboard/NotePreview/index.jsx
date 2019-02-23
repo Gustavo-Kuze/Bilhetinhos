@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import If from '../../../utils/If'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { setEntireNote } from '../../../../redux/actions/noteActions'
+import { setEntireNote } from '../../../../redux/actions/editNoteActions'
 
 export class NotePreview extends Component {
   renderMates = () => {

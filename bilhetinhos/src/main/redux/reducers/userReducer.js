@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     profilePic: '',
     bio: '',
     phone: '',
-    mates: []
+    matesUids: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -19,14 +19,14 @@ export default (state = INITIAL_STATE, action) => {
                 profilePic: action.payload.profilePic || '',
                 bio: action.payload.bio || '',
                 phone: action.payload.phone || '',
-                mates: action.payload.mates || []
+                matesUids: action.payload.mates || []
                 // email: action.payload.email || state.email,
                 // uid: action.payload.uid || state.uid,
                 // name: action.payload.name || state.name,
                 // profilePic: action.payload.profilePic || state.profilePic,
                 // bio: action.payload.bio || state.bio,
                 // phone: action.payload.phone || state.phone,
-                // mates: action.payload.mates || state.mates
+                // matesUids: action.payload.mates || state.mates
             }
         case 'RESET_USER_STATE':
             return INITIAL_STATE
@@ -45,12 +45,12 @@ export default (state = INITIAL_STATE, action) => {
         case 'ADD_MATE':
             return {
                 ...state,
-                mates: (state.mates) ? state.mates.concat(action.payload) : [action.payload]
+                matesUids: (state.mates) ? state.mates.concat(action.payload) : [action.payload]
             }
         case 'REFRESH_MATES':
             return {
                 ...state,
-                mates: action.payload
+                matesUids: action.payload
             }
         default:
             return state

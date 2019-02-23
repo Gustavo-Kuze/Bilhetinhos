@@ -26,15 +26,7 @@ export const updateUserPicture = profilePic => {
     }
 }
 
-// talvez fique obsoleta logo
-export const addMate = mate => {
-    return {
-        type: "ADD_MATE",
-        payload: mate
-    }
-}
-
-export const refreshMates = mates => {
+export const refreshMatesUids = mates => {
     return {
         type: "REFRESH_MATES",
         payload: mates

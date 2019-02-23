@@ -18,7 +18,7 @@ const RemoveNote = props => {
 
 const mapStateToProps = state => ({
     uid: state.user.uid,
-    noteTitle: state.note.title
+    noteTitle: state.editNote.title
 })
 
 export default connect(mapStateToProps)(RemoveNote)

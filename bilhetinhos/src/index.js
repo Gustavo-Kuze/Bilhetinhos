@@ -11,7 +11,9 @@ store.subscribe(() => {
     saveState({
         user: store.getState().user,
         cached: store.getState().cached,
-        notifications: store.getState().notifications
+        notifications: store.getState().notifications,
+        notes: store.getState().notes,
+        mates: store.getState().mates
     })
 })
 

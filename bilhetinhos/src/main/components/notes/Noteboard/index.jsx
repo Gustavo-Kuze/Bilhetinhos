@@ -8,7 +8,7 @@ import NotePreview from './NotePreview/'
 import { Accordion, AccordionItem } from '../../base/Accordion'
 import EditNote from './EditNote'
 import RemoveNote from './RemoveNote'
-import { setEntireNote } from '../../../redux/actions/noteActions'
+import { setEntireNote } from '../../../redux/actions/editNoteActions'
 import Spinner from '../../utils/Spinner'
 import If from '../../utils/If'
 
@@ -155,7 +155,7 @@ class Noteboard extends Component {
 
 const mapStateToProps = state => ({
   uid: state.user.uid,
-  mates: state.user.mates
+  mates: state.user.matesUids
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
   setEntireNote

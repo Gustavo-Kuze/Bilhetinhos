@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
     handleFontColorChanged, handleNoteColorChanged
-} from '../../../../redux/actions/noteActions'
+} from '../../../../redux/actions/editNoteActions'
 
 import ColorButton from './ColorButton'
 

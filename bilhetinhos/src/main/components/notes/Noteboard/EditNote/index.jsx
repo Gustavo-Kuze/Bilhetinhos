@@ -13,7 +13,7 @@ import Modal from '../../../base/Modal'
 import {
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
   handleNoteColorChanged, handleTitleChanged, refreshNoteMates, createNote
-} from '../../../../redux/actions/noteActions'
+} from '../../../../redux/actions/editNoteActions'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 
@@ -133,14 +133,14 @@ export class EditNote extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  noteColor: state.note.noteColor,
-  fontColor: state.note.fontColor,
-  fontSize: state.note.fontSize,
-  message: state.note.message,
-  title: state.note.title,
+  noteColor: state.editNote.noteColor,
+  fontColor: state.editNote.fontColor,
+  fontSize: state.editNote.fontSize,
+  message: state.editNote.message,
+  title: state.editNote.title,
   uid: state.user.uid,
-  mates: state.user.mates,
-  noteMates: state.note.noteMates
+  mates: state.user.matesUids,
+  noteMates: state.editNote.noteMates
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

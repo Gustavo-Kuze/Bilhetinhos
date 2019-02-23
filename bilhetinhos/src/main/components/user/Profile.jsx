@@ -159,7 +159,7 @@ const mapStateToProps = state => ({
     profilePic: state.user.profilePic,
     bio: state.user.bio,
     phone: state.user.phone,
-    mates: state.user.mates,
+    mates: state.user.matesUids,
     profilePictureDownloadUrl: state.cached.profilePictureDownloadUrl
 })
 

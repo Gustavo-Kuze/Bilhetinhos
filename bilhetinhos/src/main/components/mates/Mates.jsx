@@ -5,7 +5,7 @@ import Modal from '../base/Modal'
 import firebase from '../../api/firebase'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { refreshMates } from '../../redux/actions/userActions'
+import { refreshMatesUids } from '../../redux/actions/userActions'
 import { getUserByUid, getUsersRef, getUserUidByEmail } from '../../api/users'
 import { removeMate, addMateIfExists } from '../../api/mates'
 import { sendUserNotification } from '../../api/notifications'
@@ -14,6 +14,7 @@ import MatePreview from './MatePreview'
 import RemoveMate from './RemoveMate/'
 import Spinner from '../utils/Spinner'
 import If from '../utils/If'
+import { refreshMates } from '../../redux/actions/matesActions'
 
 class Mates extends Component {
 
@@ -52,7 +53,7 @@ class Mates extends Component {
             let mates = await addMateIfExists(this.props.currentUserUid, this.props.currentUserEmail, this.state.mateEmail, (msg) => {
                 toastr.success('Sucesso!', msg)
             })
-            this.props.refreshMates(mates)
+            this.props.refreshMatesUids(mates)
             this.notifyAddedMate()
         } catch (err) {
             toastr.error('Erro!', err.message)
@@ -60,7 +61,7 @@ class Mates extends Component {
     }
 
     renderMates = async () => {
-        let matePreviews = await Promise.all(this.props.mates.map(async mateUid => {
+        let matePreviews = await Promise.all(this.props.matesUids.map(async mateUid => {
             try {
                 let mate = await getUserByUid(mateUid)
                 return (
@@ -97,9 +98,9 @@ class Mates extends Component {
         getUsersRef().once('value', async usersSnapshot => {
             let matesAsync = []
             let usersSnapshotEntries = Object.entries(usersSnapshot.val())
-            if (usersSnapshotEntries && this.props.mates) {
+            if (usersSnapshotEntries && this.props.matesUids) {
                 matesAsync = await Promise.all(usersSnapshotEntries
-                    .filter(user => this.props.mates.includes(user[0]))
+                    .filter(user => this.props.matesUids.includes(user[0]))
                     .map(async user => {
                         let mate = {
                             uid: user[0],
@@ -139,12 +140,13 @@ class Mates extends Component {
 
     removeMateAndRefresh = async (uid, mateUid) => {
         let newMates = await removeMate(uid, mateUid)
-        this.props.refreshMates(newMates)
+        this.props.refreshMatesUids(newMates)
     }
 
     componentDidMount = () => {
         this.loadMatePreviews()
         this.startMatesListener()
+        this.props.refreshMates(this.props.currentUserUid)
     }
 
     render() {
@@ -202,10 +204,13 @@ class Mates extends Component {
 }
 
 const mapStateToProps = state => ({
-    mates: state.user.mates,
+    matesUids: state.user.matesUids,
     currentUserUid: state.user.uid,
     currentUserEmail: state.user.email
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ refreshMates }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+    refreshMatesUids,
+    refreshMates
+}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Mates)

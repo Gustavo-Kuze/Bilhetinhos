@@ -1,16 +1,20 @@
 import { combineReducers } from 'redux'
-import noteReducer from './reducers/noteReducer'
+import editNoteReducer from './reducers/editNoteReducer'
 import userReducer from './reducers/userReducer'
 import {reducer as torstrReducer} from 'react-redux-toastr'
 import cachedReducer from './reducers/cachedReducer'
 import notificationsReducer from './reducers/notificationsReducer'
+import matesReducer from './reducers/matesReducer'
+import notesReducer from './reducers/notesReducer'
 
 const combinedReducers = combineReducers({
-    note: noteReducer,
+    editNote: editNoteReducer,
     user: userReducer,
     toastr: torstrReducer,
     cached: cachedReducer,
-    notifications: notificationsReducer
+    notifications: notificationsReducer,
+    mates: matesReducer,
+    notes: notesReducer
 })
 
 export default combinedReducers
