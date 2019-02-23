@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    mates: [],
+    users: [],
     loading: false
 }
 
@@ -8,7 +8,7 @@ export default (state = INITIAL_STATE, action) => {
         case "REFRESH_MATES":
             return {
                 ...state,
-                mates: action.payload,
+                users: action.payload,
                 loading: false
             }
         case "RESET_MATES":

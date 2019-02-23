@@ -206,7 +206,9 @@ class Mates extends Component {
 const mapStateToProps = state => ({
     matesUids: state.user.matesUids,
     currentUserUid: state.user.uid,
-    currentUserEmail: state.user.email
+    currentUserEmail: state.user.email,
+    isLoadingMates: state.mates.loading,
+    mates: state.mates.users
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

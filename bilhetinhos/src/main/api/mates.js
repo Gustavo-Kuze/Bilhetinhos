@@ -1,6 +1,7 @@
-import { getUserRefByUid, isEmailRegistered, getUserByEmail } from './users'
+import { getUserRefByUid, isEmailRegistered, getUserByEmail, getUsersRef } from './users'
+import firebase from './firebase'
 
-const getMates = async uid => {
+const getMatesUidsAndReference = async uid => {
     try {
         let matesRef = getUserRefByUid(uid).child('mates')
         let matesSnapshot = await matesRef.once('value')
@@ -13,7 +14,7 @@ const getMates = async uid => {
 }
 
 const removeMate = async (uid, mateUid) => {
-    let getMatesResponse = await getMates(uid)
+    let getMatesResponse = await getMatesUidsAndReference(uid)
     if (getMatesResponse.mates.length > 0) {
         let mates = []
         mates = (getMatesResponse.mates.filter(mate => mate !== mateUid))
@@ -25,7 +26,7 @@ const removeMate = async (uid, mateUid) => {
 const addMateIfExists = async (uid, email, mateEmail, successCallback = null) => {
     let mateEmailExists = await isEmailRegistered(mateEmail)
     if (mateEmailExists) {
-        let getMatesRes = await getMates(uid)
+        let getMatesRes = await getMatesUidsAndReference(uid)
         if (mateEmail !== email) {
             let userByEmail = await getUserByEmail(mateEmail)
             if (!getMatesRes.mates.includes(userByEmail.uid)) {
@@ -46,4 +47,35 @@ const addMateIfExists = async (uid, email, mateEmail, successCallback = null) =>
     }
 }
 
-export { removeMate, getMates, addMateIfExists }
+
+const getMates = async uid => {
+    let usersSnapshot = await getUsersRef().once('value')
+    let matesAsync = []
+    let usersSnapshotEntries = Object.entries(usersSnapshot.val())
+    let matesUidsAndRef = await getMatesUidsAndReference(uid)
+    try {
+        matesAsync = await Promise.all(usersSnapshotEntries
+            .filter(user => matesUidsAndRef.mates.includes(user[0]))
+            .map(async user => {
+                let mate = {
+                    uid: user[0],
+                    email: user[1].email,
+                    name: user[1].name,
+                    profilePic: user[1].profilePic
+                }
+
+                if (mate.profilePic)
+                    mate.profilePic = await firebase.storage().ref(mate.profilePic).getDownloadURL()
+
+                return mate
+            }))
+
+        let mates = await Promise.all(matesAsync)
+        return mates
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
+
+export { removeMate, getMatesUidsAndReference, addMateIfExists, getMates }
