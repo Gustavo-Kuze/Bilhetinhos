@@ -2,7 +2,6 @@ import './css/Mates.css'
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton/Skeleton'
 import Modal from '../base/Modal'
-import firebase from '../../api/firebase'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMatesUids } from '../../redux/actions/userActions'
@@ -52,7 +51,8 @@ class Mates extends Component {
             let mates = await addMateIfExists(this.props.currentUserUid, this.props.currentUserEmail, this.state.mateEmail, (msg) => {
                 toastr.success('Sucesso!', msg)
             })
-            this.props.refreshMatesUids(mates)
+            // this.props.refreshMatesUids(mates)
+            this.props.refreshMatesUids(this.props.currentUserUid)
             this.notifyAddedMate()
         } catch (err) {
             toastr.error('Erro!', err.message)
@@ -119,7 +119,8 @@ class Mates extends Component {
 
     removeMateAndRefresh = async (uid, mateUid) => {
         let newMates = await removeMate(uid, mateUid)
-        this.props.refreshMatesUids(newMates)
+        // this.props.refreshMatesUids(newMates)
+        this.props.refreshMatesUids(uid)
     }
 
     componentDidMount = () => {

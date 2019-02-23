@@ -19,7 +19,7 @@ export default (state = INITIAL_STATE, action) => {
                 profilePic: action.payload.profilePic || '',
                 bio: action.payload.bio || '',
                 phone: action.payload.phone || '',
-                matesUids: action.payload.mates || []
+                matesUids: action.payload.matesUids || []
                 // email: action.payload.email || state.email,
                 // uid: action.payload.uid || state.uid,
                 // name: action.payload.name || state.name,
@@ -47,7 +47,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 matesUids: (state.mates) ? state.mates.concat(action.payload) : [action.payload]
             }
-        case 'REFRESH_MATES':
+        case 'REFRESH_MATES_UIDS':
             return {
                 ...state,
                 matesUids: action.payload

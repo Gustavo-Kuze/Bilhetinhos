@@ -33,7 +33,7 @@ class Login extends Component {
             profilePic: user.profilePic,
             bio: user.bio,
             phone: user.phone,
-            mates: user.mates ? user.mates.filter(m => m !== null) : []
+            matesUids: user.mates ? user.mates.filter(m => m !== null) : []
         })
     }
 

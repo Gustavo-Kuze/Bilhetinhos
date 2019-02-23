@@ -81,8 +81,8 @@ class ColorPicker extends Component {
 }
 
 const mapStateToProps = state => ({
-    noteColor: state.note.noteColor,
-    fontColor: state.note.fontColor
+    noteColor: state.editNote.noteColor,
+    fontColor: state.editNote.fontColor
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

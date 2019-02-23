@@ -1,3 +1,4 @@
+import {getMatesUidsAndReference} from '../../api/mates'
 
 export const changeUserLogState = userCredentials => {
     return {
@@ -26,9 +27,13 @@ export const updateUserPicture = profilePic => {
     }
 }
 
-export const refreshMatesUids = mates => {
-    return {
-        type: "REFRESH_MATES",
-        payload: mates
+export const refreshMatesUids = uid => {
+    return dispatch => {
+        getMatesUidsAndReference(uid).then(uidsAndRef => {
+            dispatch({
+                type: "REFRESH_MATES_UIDS",
+                payload: uidsAndRef.mates
+            })
+        })
     }
 }

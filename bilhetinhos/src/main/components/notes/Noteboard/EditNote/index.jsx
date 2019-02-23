@@ -54,11 +54,15 @@ export class EditNote extends Component {
   }
 
   componentDidMount = async () => {
-    let matesEmailsAndUidsPromise = await getUsersEmailsByUid(this.props.mates)
-    let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
-    this.setState({
-      ...this.state, matesEmailsAndUids
-    })
+    if (this.props.matesUids) {
+      let matesUids = this.props.matesUids
+      let matesEmailsAndUidsPromise = await getUsersEmailsByUid(matesUids)
+      let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
+      this.setState({
+        ...this.state, matesEmailsAndUids
+      })
+    }
+
   }
 
   onOpen = () => {
@@ -99,14 +103,14 @@ export class EditNote extends Component {
                   </AccordionItem>
                   <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
                     {this.state.matesEmailsAndUids.map((m, i) => (
-                      <div key={this.props.mates[i]} className="form-check paper-toggle">
-                        <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${this.props.mates[i]}`}>
-                          <input className="form-check-input switch" id={`chk-${this.props.mates[i]}`} type="checkbox" value={this.props.mates[i]} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
+                      <div key={this.props.matesUids[i]} className="form-check paper-toggle">
+                        <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${this.props.matesUids[i]}`}>
+                          <input className="form-check-input switch" id={`chk-${this.props.matesUids[i]}`} type="checkbox" value={this.props.matesUids[i]} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
                           <span>{m}</span>
                         </label>
                       </div>
                     ))}
-                    <If condition={!this.props.mates || this.props.mates.length === 0}>
+                    <If condition={!this.props.matesUids || this.props.matesUids.length === 0}>
                       <p className="text-muted">Você não tem nenhum colega</p>
                     </If>
                   </AccordionItem>
@@ -139,7 +143,7 @@ const mapStateToProps = (state) => ({
   message: state.editNote.message,
   title: state.editNote.title,
   uid: state.user.uid,
-  mates: state.user.matesUids,
+  matesUids: state.user.matesUids,
   noteMates: state.editNote.noteMates
 })
 
