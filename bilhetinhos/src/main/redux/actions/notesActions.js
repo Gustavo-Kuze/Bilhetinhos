@@ -7,6 +7,10 @@ export const refreshUserNotes = uid => {
                 type: "REFRESH_USER_NOTES",
                 payload: notes
             })
+        }).catch(err => {
+            dispatch({
+                type: "USER_NOTES_LOADED"
+            })
         })
     }
 }
@@ -19,6 +23,11 @@ export const refreshMatesNotes = (uid, matesUids) => {
                 dispatch({
                     type: "REFRESH_MATES_NOTES",
                     payload: allMatesNotes
+                })
+            }else{
+                console.log('allMatesNotes was an empty array')
+                dispatch({
+                    type: "MATES_NOTES_LOADED"
                 })
             }
         })

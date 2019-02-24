@@ -15,6 +15,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, isLoadingUserNotes: true }
         case "LOADING_MATES_NOTES":
             return { ...state, isLoadingMatesNotes: true }
+        case "USER_NOTES_LOADED":
+            return { ...state, isLoadingUserNotes: false }
+        case "MATES_NOTES_LOADED":
+            return { ...state, isLoadingMatesNotes: false }
         case "RESET_NOTES":
             return INITIAL_STATE
         default:

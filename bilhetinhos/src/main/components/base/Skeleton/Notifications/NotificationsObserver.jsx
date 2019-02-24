@@ -45,6 +45,8 @@ class NotificationsObserver extends Component {
             await addMateIfExists(this.props.uid, this.props.email, mateEmail, (msg) => {
                 console.log(msg)
                 window.location.search = ''
+            }).catch(err => {
+                console.log(err.message)
             })
         }
     }

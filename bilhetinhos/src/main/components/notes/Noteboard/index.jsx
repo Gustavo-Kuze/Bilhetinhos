@@ -12,15 +12,30 @@ import If from '../../utils/If'
 
 class Noteboard extends Component {
 
+  markNoteIfQuery = (title) => {
+    let params = new URLSearchParams(window.location.search)
+    if(params.has('note')){
+      let note = params.get('note')
+      let isEqual = title === note
+      return isEqual
+    }
+    return false
+  }
+
   renderNotes = (notes, areEditable = false) => {
     if (notes.length > 0) {
       return notes.map(note => (
         <NotePreview key={note.title} title={note.title} message={note.message}
           noteMates={note.noteMates} fontColor={note.fontColor} noteColor={note.noteColor}
-          owner={note.owner || 'mim'} editable={areEditable} fontSize={note.fontSize} />
+          owner={note.owner || 'mim'} editable={areEditable} fontSize={note.fontSize}
+          mark={this.markNoteIfQuery(note.title)}/>
       ))
     }
     return ''
+  }
+
+  componentDidMount = () => {
+    this.markNoteIfQuery()
   }
 
   onModalClose = () => {

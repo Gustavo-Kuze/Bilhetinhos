@@ -19,12 +19,10 @@ export class NotesObserver extends Component {
     startMatesNotesListener = async (uid, matesUids) => {
         matesUids.forEach(mUid => {
             getNotesRef().child(mUid).on('value', async () => {
-                this.props.loadingMatesNotes()
-                
+                this.props.loadingMatesNotes()      
                 this.props.refreshMatesNotes(uid, matesUids)
             })
         })
-        
     }
 
     componentDidMount = () => {

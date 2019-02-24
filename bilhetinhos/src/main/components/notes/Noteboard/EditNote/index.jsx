@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux'
 import If from '../../../utils/If'
 import { Accordion, AccordionItem } from '../../../base/Accordion.jsx'
 import { setNote } from '../../../../api/notes'
-import { getUsersEmailsByUid } from '../../../../api/users'
+import { getUsersEmailsByUid, getUserUidByEmail } from '../../../../api/users'
 import Modal from '../../../base/Modal'
 import {
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
@@ -16,7 +16,7 @@ import {
 } from '../../../../redux/actions/editNoteActions'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
-
+import { sendUserNotification } from '../../../../api/notifications'
 
 export class EditNote extends Component {
   state = {
@@ -36,6 +36,25 @@ export class EditNote extends Component {
     return this.getCheckedMateBoxes().map(c => c.value)
   }
 
+  notifyMates = async (mates) => {
+    if (mates) {
+      mates.forEach(async mateUid => {
+        await sendUserNotification(mateUid, {
+          title: 'Um colega colou uma nota em seu quadro',
+          receivedDate: Date.now(),
+          description: `Clique para ver`,
+          sender: 'Bilhetes',
+          read: false,
+          href: `/quadro?note=${encodeURIComponent(this.props.title)}`
+        })
+        console.log(`Colega ${mateUid} notificado`)
+      })
+    }else{
+      console.log('não haviam colegas para serem notificados')
+    }
+    return
+  }
+
   callCreate = element => {
     element.preventDefault()
     setNote(this.props.uid, {
@@ -45,8 +64,9 @@ export class EditNote extends Component {
       fontColor: this.props.fontColor,
       fontSize: this.props.fontSize,
       noteMates: this.props.noteMates
-    }).then(() => {
+    }).then(async () => {
       toastr.success("Sucesso!", "Seu bilhete foi publicado")
+      await this.notifyMates(this.props.noteMates)
     })
 
     return false
