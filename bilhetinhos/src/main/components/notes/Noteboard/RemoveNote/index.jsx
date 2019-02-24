@@ -29,7 +29,7 @@ class RemoveNote extends Component {
       <Modal modalId="remove-note-modal" title="Tem certeza disso!?" onClose={this.props.onClose}>
         <h4 className="text-danger">ATENÇÃO!</h4>
         <p>Você está prestes a excluir o bilhete {`"${this.state.noteTitle || 'NOME DO BILHETE'}"`}. Esta ação <span className="text-danger">NÃO PODE</span> ser desfeita. Deseja mesmo prosseguir?</p>
-        <button className="btn btn-secondary" onClick={() => this.callRemoveNote()} data-toggle="modal" data-target="#remove-note-modal">Sim, desejo excluir</button>
+        <button className="btn btn-secondary mr-1" onClick={() => this.callRemoveNote()} data-toggle="modal" data-target="#remove-note-modal">Sim, desejo excluir</button>
         <button className="btn btn-primary" data-toggle="modal" data-target="#remove-note-modal">Cancelar</button>
       </Modal>
     )

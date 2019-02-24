@@ -1,5 +1,5 @@
 import '../css/Note.css'
-import '../../../base/css/materialCheckbox.css'
+import '../../../base/css/materialCheckbox2.css'
 import React, { Component } from "react"
 import ColorPicker from "../ColorPicker/"
 import { backgroundColors, fontColors } from '../../../base/js/MaterialColors'
@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux'
 import If from '../../../utils/If'
 import { Accordion, AccordionItem } from '../../../base/Accordion.jsx'
 import { setNote } from '../../../../api/notes'
-import { getUsersEmailsByUid, getUserUidByEmail } from '../../../../api/users'
+import { getUsersEmailsByUid } from '../../../../api/users'
 import Modal from '../../../base/Modal'
 import {
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
@@ -123,9 +123,9 @@ export class EditNote extends Component {
                   <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
                     {this.state.matesEmailsAndUids.map((m, i) => (
                       <div key={this.props.matesUids[i]} className="form-check paper-toggle">
-                        <label className="form-check-label pure-material-checkbox" htmlFor={`chk-${this.props.matesUids[i]}`}>
-                          <input className="form-check-input switch" id={`chk-${this.props.matesUids[i]}`} type="checkbox" value={this.props.matesUids[i]} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
-                          <span>{m}</span>
+                        <label className="form-check-label pure-material-checkbox d-flex align-items-center" htmlFor={`chk-${this.props.matesUids[i]}`}>
+                          <input className="form-check-input switch material-checkbox" id={`chk-${this.props.matesUids[i]}`} type="checkbox" value={this.props.matesUids[i]} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
+                          <span className="">{m}</span>
                         </label>
                       </div>
                     ))}

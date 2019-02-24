@@ -12,3 +12,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.drop-material-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.26);
+  transition: box-shadow 0.2s ease-in-out
+}
+
+.drop-material-shadow:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.23);
+}
