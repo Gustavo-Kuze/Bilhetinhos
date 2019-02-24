@@ -24,7 +24,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "funcs": "firebase deploy --only functions",
-    "debf": "firebase functions:log"
+    "debf": "firebase functions:log",
+    "net": "netlify deploy --dir=build",
+    "net-prod": "netlify deploy --prod --dir=build",
+    "net-init": "netlify init"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,5 +37,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "netlify-cli": "^2.8.0"
+  }
 }

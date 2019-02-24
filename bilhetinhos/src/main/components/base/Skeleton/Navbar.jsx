@@ -9,7 +9,7 @@ class Navbar extends React.Component {
     render() {
         return (
             <nav className="navbar navbar-expand-md fixed-top bg-primary navbar-dark">
-                <a className="navbar-brand" href="/">Bilhetes</a>
+                <a className="navbar-brand" href="/">Bilhetinhos</a>
                 <PopoverButton
                     iconClassName={`${this.props.anyUnreadAlerts ? 'fas' : 'far'} fa-bell`}popoverTitle={"Notificações"}
                     buttonContent={

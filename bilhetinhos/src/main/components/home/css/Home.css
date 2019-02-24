@@ -1,0 +1,9 @@
+.diagonal-div {
+    transform: skewY(-5deg);
+    height: 450px;
+}
+
+.diagonal-div > div {
+    transform: skewY(5deg);
+    padding-top: 8vh;
+}
