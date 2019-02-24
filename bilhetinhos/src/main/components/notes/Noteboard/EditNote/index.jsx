@@ -38,7 +38,6 @@ export class EditNote extends Component {
 
   callCreate = element => {
     element.preventDefault()
-
     setNote(this.props.uid, {
       title: this.props.title,
       message: this.props.message,
@@ -117,7 +116,7 @@ export class EditNote extends Component {
                 </Accordion>
                 <input className="my-3 form-control" type="text" name="note-title" placeholder="O título do bilhete vai aqui" value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />
                 <textarea id="ta-note-message" className="form-control note-message" placeholder="Digite sua mensagem aqui!" name="note-message" rows="10" value={this.props.message} onChange={this.props.handleMessageChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, fontSize: this.props.fontSize }}></textarea>
-                <button className="btn btn-primary btn-lg mt-3" data-toggle="modal" data-target="#edit-note-modal">Criar</button>
+                <button className="btn btn-primary btn-lg mt-3" >Criar</button>
               </div>
             </form>
           </If>
@@ -142,9 +141,9 @@ const mapStateToProps = (state) => ({
   fontSize: state.editNote.fontSize,
   message: state.editNote.message,
   title: state.editNote.title,
+  noteMates: state.editNote.noteMates,
   uid: state.user.uid,
-  matesUids: state.user.matesUids,
-  noteMates: state.editNote.noteMates
+  matesUids: state.user.matesUids
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

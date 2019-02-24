@@ -3,8 +3,7 @@ import Skeleton from "../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
 import { bindActionCreators } from 'redux'
 import {
-  // getUserNotesRef,
-  getMateNotesByUid
+  getMateNotes, getAllMatesNotes
 } from '../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../api/users'
 import NotePreview from './NotePreview/'
@@ -23,31 +22,32 @@ class Noteboard extends Component {
     isLoadingMatesNotes: false
   }
 
-  getNoteWithMatesEmails = async (note) => {
-    if (note.noteMates) {
-      let noteMatesEmails = await getUsersEmailsByUid(note.noteMates)
-      note.noteMates = noteMatesEmails
-    }
-    return note
-  }
+  // getNoteWithMatesEmails = async (note) => {
+  //   if (note.noteMates) {
+  //     let noteMatesEmails = await getUsersEmailsByUid(note.noteMates)
+  //     note.noteMates = noteMatesEmails
+  //   }
+  //   return note
+  // }
 
-  generateMateNotesWithOwnerEmail = async (mate, mateNotes) => {
-    return Promise.all(mateNotes.map(async mateNote => {
-      let mateEmail = await getUserEmailByUid(mate)
-      let note = await this.getNoteWithMatesEmails(mateNote)
-      note = { ...note, owner: mateEmail }
-      return note
-    }))
-  }
+  // generateMateNotesWithOwnerEmail = async (mate, mateNotes) => {
+  //   return Promise.all(mateNotes.map(async mateNote => {
+  //     let mateEmail = await getUserEmailByUid(mate)
+  //     let note = await this.getNoteWithMatesEmails(mateNote)
+  //     note = { ...note, owner: mateEmail }
+  //     return note
+  //   }))
+  // }
 
-  generateMatesNotes = async () => {
-    let matesNotes = []
-    return Promise.all(this.props.mates.map(async mate => {
-      let mateNotes = await getMateNotesByUid(this.props.uid, mate)
-      mateNotes = await this.generateMateNotesWithOwnerEmail(mate, mateNotes)
-      return matesNotes.concat(mateNotes)
-    }))
-  }
+  // generateAllMatesNotes = async () => {
+  //   let matesNotes = []
+  //   let matesNotesPromise = await Promise.all(this.props.mates.map(async mate => {
+  //     let mateNotes = await getMateNotes(this.props.uid, mate)
+  //     mateNotes = await this.generateMateNotesWithOwnerEmail(mate, mateNotes)
+  //     return matesNotes.concat(mateNotes)
+  //   }))
+  //   return matesNotesPromise.filter(note => note.length > 0)
+  // }
 
   // startUserNotesListener = async () => {
   //   getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
@@ -65,13 +65,12 @@ class Noteboard extends Component {
 
   loadMatesNotes = async () => {
     this.setState({ ...this.state, isLoadingNotes: true })
-    let matesNotes = await this.generateMatesNotes()
-    matesNotes = matesNotes.filter(note => note.length > 0)
-    if (matesNotes.length > 0) {
-      matesNotes = matesNotes.reduce((prev, cur) => prev.concat(cur))
-      this.setState({ ...this.state, matesNotes, isLoadingMatesNotes: false })
+    let allMatesNotes = await getAllMatesNotes(this.props.uid, this.props.mates)
+    if (allMatesNotes.length > 0) {
+      allMatesNotes = allMatesNotes.reduce((prev, cur) => prev.concat(cur))
+      this.setState({ ...this.state, matesNotes: allMatesNotes, isLoadingMatesNotes: false })
     }
-    return matesNotes
+    return allMatesNotes
   }
 
   renderNotes = (notes, areEditable = false) => {

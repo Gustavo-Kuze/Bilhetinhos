@@ -13,7 +13,8 @@ store.subscribe(() => {
         cached: store.getState().cached,
         notifications: store.getState().notifications,
         notes: store.getState().notes,
-        mates: store.getState().mates
+        mates: store.getState().mates,
+        editNote: store.getState().editNote
     })
 })
 

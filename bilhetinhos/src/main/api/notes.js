@@ -1,5 +1,5 @@
 import firebase from './firebase'
-import {getUsersEmailsByUid} from './users'
+import { getUsersEmailsByUid, getUserEmailByUid } from './users'
 
 const getUserNotesRef = (uid) => {
     return firebase.database().ref('notes/').child(uid)
@@ -10,22 +10,7 @@ const setNote = (uid, note) => {
 }
 
 const removeNote = (uid, noteTitle) => {
-    debugger
     return firebase.database().ref(`notes/`).child(uid).child(noteTitle).remove()
-}
-
-const getMateNotesByUid = async (uid, mateUid) => {
-    let matesNotes = []
-    let mateNotesSnapshot = await firebase.database().ref(`notes/${mateUid}/`).once('value')
-    mateNotesSnapshot.forEach(m => {
-        if (m.hasChild('noteMates')) {
-            let noteMates = m.child('noteMates').val()
-            if (noteMates.includes(uid)) {
-                matesNotes.push(m.val())
-            }
-        }
-    })
-    return matesNotes
 }
 
 const getNoteWithMatesEmails = async (note) => {
@@ -47,4 +32,39 @@ const getUserNotes = async uid => {
     return userNotes
 }
 
-export { getUserNotesRef, getMateNotesByUid, setNote, removeNote, getUserNotes }
+const getMateNotes = async (uid, mateUid) => {
+    let matesNotes = []
+    let mateNotesSnapshot = await firebase.database().ref(`notes/${mateUid}/`).once('value')
+    mateNotesSnapshot.forEach(m => {
+        if (m.hasChild('noteMates')) {
+            let noteMates = m.child('noteMates').val()
+            if (noteMates.includes(uid)) {
+                matesNotes.push(m.val())
+            }
+        }
+    })
+    return matesNotes
+}
+
+const generateMateNotesWithOwnerEmail = async (mate, mateNotes) => {
+    return Promise.all(mateNotes.map(async mateNote => {
+        let mateEmail = await getUserEmailByUid(mate)
+        let note = await getNoteWithMatesEmails(mateNote)
+        note = { ...note, owner: mateEmail }
+        return note
+    }))
+}
+
+const getAllMatesNotes = async (uid, matesUids) => {
+    let matesNotes = []
+    let matesNotesPromise = await Promise.all(matesUids.map(async mate => {
+      let mateNotes = await getMateNotes(uid, mate)
+      mateNotes = await generateMateNotesWithOwnerEmail(mate, mateNotes)
+      return matesNotes.concat(mateNotes)
+    }))
+    return matesNotesPromise.filter(note => note.length > 0)
+  }
+
+
+
+export { getUserNotesRef, getMateNotes, setNote, removeNote, getUserNotes, getAllMatesNotes }
