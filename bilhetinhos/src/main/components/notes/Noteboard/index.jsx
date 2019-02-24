@@ -2,7 +2,10 @@ import React, { Component } from "react"
 import Skeleton from "../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
 import { bindActionCreators } from 'redux'
-import { getUserNotesRef, getMateNotesByUid } from '../../../api/notes'
+import {
+  // getUserNotesRef,
+  getMateNotesByUid
+} from '../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../api/users'
 import NotePreview from './NotePreview/'
 import { Accordion, AccordionItem } from '../../base/Accordion'
@@ -14,9 +17,9 @@ import If from '../../utils/If'
 
 class Noteboard extends Component {
   state = {
-    userNotes: [],
+    // userNotes: [],
     matesNotes: [],
-    isLoadingNotes: false,
+    // isLoadingNotes: false,
     isLoadingMatesNotes: false
   }
 
@@ -46,19 +49,19 @@ class Noteboard extends Component {
     }))
   }
 
-  startUserNotesListener = async () => {
-    getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
-      this.setState({ ...this.state, isLoadingNotes: true })
-      let notes = []
-      notesSnapshot.forEach(note => {
-        notes.push(note.val())
-      })
-      notes = await notes.map(async userNote => await this.getNoteWithMatesEmails(userNote))
-      Promise.all(notes).then((userNotes) => {
-        this.setState({ ...this.state, userNotes, isLoadingNotes: false })
-      })
-    })
-  }
+  // startUserNotesListener = async () => {
+  //   getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
+  //     this.setState({ ...this.state, isLoadingNotes: true })
+  //     let notes = []
+  //     notesSnapshot.forEach(note => {
+  //       notes.push(note.val())
+  //     })
+  //     notes = await notes.map(async userNote => await this.getNoteWithMatesEmails(userNote))
+  //     Promise.all(notes).then((userNotes) => {
+  //       this.setState({ ...this.state, userNotes, isLoadingNotes: false })
+  //     })
+  //   })
+  // }
 
   loadMatesNotes = async () => {
     this.setState({ ...this.state, isLoadingNotes: true })
@@ -82,14 +85,14 @@ class Noteboard extends Component {
     return ''
   }
 
-  componentDidUpdate = async () => {
-    if (!this.state.userNotes) {
-      await this.startUserNotesListener()
-    }
-  }
+  // componentDidUpdate = async () => {
+  //   if (!this.state.userNotes) {
+  //     await this.startUserNotesListener()
+  //   }
+  // }
 
   componentDidMount = async () => {
-    this.startUserNotesListener()
+    // this.startUserNotesListener()
     this.loadMatesNotes()
   }
 
@@ -120,7 +123,8 @@ class Noteboard extends Component {
               <RemoveNote onClose={this.onModalClose} />
               <Accordion accordionId="notes-accordion">
                 <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
-                  <If condition={this.state.isLoadingNotes}>
+                  {/* <If condition={this.state.isLoadingNotes}> */}
+                  <If condition={this.props.isLoadingUserNotes}>
                     <div className="row">
                       <div className="col offset-5">
                         <Spinner extraClasses="py-5 pl-3" />
@@ -128,7 +132,8 @@ class Noteboard extends Component {
                     </div>
                   </If>
                   <div className="notes-container row ">
-                    {this.state.userNotes ? this.renderNotes(this.state.userNotes, true) : ''}
+                    {/* {this.state.userNotes ? this.renderNotes(this.state.userNotes, true) : ''} */}
+                    {this.props.userNotes ? this.renderNotes(this.props.userNotes, true) : ''}
                   </div>
                 </AccordionItem>
                 <AccordionItem itemId="mates-notes" itemLabel="Notas dos colegas" accordionId="notes-accordion" open>
@@ -155,7 +160,9 @@ class Noteboard extends Component {
 
 const mapStateToProps = state => ({
   uid: state.user.uid,
-  mates: state.user.matesUids
+  mates: state.user.matesUids,
+  userNotes: state.notes.userNotes,
+  isLoadingUserNotes: state.notes.isLoadingUserNotes
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

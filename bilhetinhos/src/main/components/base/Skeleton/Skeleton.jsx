@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer'
 import NotificationsObserver from './Notifications/NotificationsObserver'
 import MatesObserver from '../../mates/MatesObserver'
+import NotesObserver from '../../notes/NotesObserver'
 export default class Skeleton extends Component {
 
     render() {
@@ -11,6 +12,7 @@ export default class Skeleton extends Component {
             <Fragment>
                 <NotificationsObserver />
                 <MatesObserver />
+                <NotesObserver />
                 <Header />
                 <main className="main-mt">
                     {this.props.children}

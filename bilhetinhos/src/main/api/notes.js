@@ -10,6 +10,7 @@ const setNote = (uid, note) => {
 }
 
 const removeNote = (uid, noteTitle) => {
+    debugger
     return firebase.database().ref(`notes/`).child(uid).child(noteTitle).remove()
 }
 
