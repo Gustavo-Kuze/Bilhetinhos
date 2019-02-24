@@ -48,20 +48,20 @@ class Noteboard extends Component {
 
   startUserNotesListener = async () => {
     getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
-      this.setState({...this.state, isLoadingNotes: true})
+      this.setState({ ...this.state, isLoadingNotes: true })
       let notes = []
       notesSnapshot.forEach(note => {
         notes.push(note.val())
       })
       notes = await notes.map(async userNote => await this.getNoteWithMatesEmails(userNote))
       Promise.all(notes).then((userNotes) => {
-        this.setState({...this.state, userNotes, isLoadingNotes: false })
+        this.setState({ ...this.state, userNotes, isLoadingNotes: false })
       })
     })
   }
-  
+
   loadMatesNotes = async () => {
-    this.setState({...this.state, isLoadingNotes: true})
+    this.setState({ ...this.state, isLoadingNotes: true })
     let matesNotes = await this.generateMatesNotes()
     matesNotes = matesNotes.filter(note => note.length > 0)
     if (matesNotes.length > 0) {
@@ -157,6 +157,7 @@ const mapStateToProps = state => ({
   uid: state.user.uid,
   mates: state.user.matesUids
 })
+
 const mapDispatchToProps = dispatch => bindActionCreators({
   setEntireNote
 }, dispatch)

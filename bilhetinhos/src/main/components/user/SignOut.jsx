@@ -7,6 +7,7 @@ import { resetUserState } from "../../redux/actions/userActions"
 import { resetCacheState } from "../../redux/actions/cachedActions"
 import { resetNotificationsState } from "../../redux/actions/notificationsActions"
 import {resetMates} from '../../redux/actions/matesActions'
+import {resetNotes} from '../../redux/actions/notesActions'
 
 class SignOut extends Component {
   componentDidMount() {
@@ -18,6 +19,7 @@ class SignOut extends Component {
         this.props.resetCacheState()
         this.props.resetNotificationsState()
         this.props.resetMates()
+        this.props.resetNotes()
       });
   }
 
@@ -32,7 +34,7 @@ class SignOut extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  resetUserState, resetCacheState, resetNotificationsState, resetMates
+  resetUserState, resetCacheState, resetNotificationsState, resetMates, resetNotes
 }, dispatch)
 
 export default connect(
