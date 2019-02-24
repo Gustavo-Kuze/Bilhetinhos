@@ -43,6 +43,8 @@ class Mates extends Component {
                 href: `/colegas?addm=${this.props.currentUserUid}`
             })
             toastr.success('Sucesso', 'Sua notificação foi enviada com sucesso!')
+        }else{
+            alert('deu merda')
         }
     }
 

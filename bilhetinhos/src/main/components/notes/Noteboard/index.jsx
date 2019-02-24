@@ -2,10 +2,6 @@ import React, { Component } from "react"
 import Skeleton from "../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
 import { bindActionCreators } from 'redux'
-import {
-  getMateNotes, getAllMatesNotes
-} from '../../../api/notes'
-import { getUsersEmailsByUid, getUserEmailByUid } from '../../../api/users'
 import NotePreview from './NotePreview/'
 import { Accordion, AccordionItem } from '../../base/Accordion'
 import EditNote from './EditNote'
@@ -15,63 +11,6 @@ import Spinner from '../../utils/Spinner'
 import If from '../../utils/If'
 
 class Noteboard extends Component {
-  state = {
-    // userNotes: [],
-    matesNotes: [],
-    // isLoadingNotes: false,
-    isLoadingMatesNotes: false
-  }
-
-  // getNoteWithMatesEmails = async (note) => {
-  //   if (note.noteMates) {
-  //     let noteMatesEmails = await getUsersEmailsByUid(note.noteMates)
-  //     note.noteMates = noteMatesEmails
-  //   }
-  //   return note
-  // }
-
-  // generateMateNotesWithOwnerEmail = async (mate, mateNotes) => {
-  //   return Promise.all(mateNotes.map(async mateNote => {
-  //     let mateEmail = await getUserEmailByUid(mate)
-  //     let note = await this.getNoteWithMatesEmails(mateNote)
-  //     note = { ...note, owner: mateEmail }
-  //     return note
-  //   }))
-  // }
-
-  // generateAllMatesNotes = async () => {
-  //   let matesNotes = []
-  //   let matesNotesPromise = await Promise.all(this.props.mates.map(async mate => {
-  //     let mateNotes = await getMateNotes(this.props.uid, mate)
-  //     mateNotes = await this.generateMateNotesWithOwnerEmail(mate, mateNotes)
-  //     return matesNotes.concat(mateNotes)
-  //   }))
-  //   return matesNotesPromise.filter(note => note.length > 0)
-  // }
-
-  // startUserNotesListener = async () => {
-  //   getUserNotesRef(this.props.uid).on('value', async (notesSnapshot) => {
-  //     this.setState({ ...this.state, isLoadingNotes: true })
-  //     let notes = []
-  //     notesSnapshot.forEach(note => {
-  //       notes.push(note.val())
-  //     })
-  //     notes = await notes.map(async userNote => await this.getNoteWithMatesEmails(userNote))
-  //     Promise.all(notes).then((userNotes) => {
-  //       this.setState({ ...this.state, userNotes, isLoadingNotes: false })
-  //     })
-  //   })
-  // }
-
-  loadMatesNotes = async () => {
-    this.setState({ ...this.state, isLoadingNotes: true })
-    let allMatesNotes = await getAllMatesNotes(this.props.uid, this.props.mates)
-    if (allMatesNotes.length > 0) {
-      allMatesNotes = allMatesNotes.reduce((prev, cur) => prev.concat(cur))
-      this.setState({ ...this.state, matesNotes: allMatesNotes, isLoadingMatesNotes: false })
-    }
-    return allMatesNotes
-  }
 
   renderNotes = (notes, areEditable = false) => {
     if (notes.length > 0) {
@@ -82,17 +21,6 @@ class Noteboard extends Component {
       ))
     }
     return ''
-  }
-
-  // componentDidUpdate = async () => {
-  //   if (!this.state.userNotes) {
-  //     await this.startUserNotesListener()
-  //   }
-  // }
-
-  componentDidMount = async () => {
-    // this.startUserNotesListener()
-    this.loadMatesNotes()
   }
 
   onModalClose = () => {
@@ -122,7 +50,7 @@ class Noteboard extends Component {
               <RemoveNote onClose={this.onModalClose} />
               <Accordion accordionId="notes-accordion">
                 <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
-                  {/* <If condition={this.state.isLoadingNotes}> */}
+
                   <If condition={this.props.isLoadingUserNotes}>
                     <div className="row">
                       <div className="col offset-5">
@@ -131,12 +59,11 @@ class Noteboard extends Component {
                     </div>
                   </If>
                   <div className="notes-container row ">
-                    {/* {this.state.userNotes ? this.renderNotes(this.state.userNotes, true) : ''} */}
                     {this.props.userNotes ? this.renderNotes(this.props.userNotes, true) : ''}
                   </div>
                 </AccordionItem>
                 <AccordionItem itemId="mates-notes" itemLabel="Notas dos colegas" accordionId="notes-accordion" open>
-                  <If condition={this.state.isLoadingMatesNotes}>
+                  <If condition={this.props.isLoadingMatesNotes}>
                     <div className="row">
                       <div className="col offset-5">
                         <Spinner extraClasses="py-5 pl-3" />
@@ -144,7 +71,7 @@ class Noteboard extends Component {
                     </div>
                   </If>
                   <div className="notes-container row ">
-                    {this.state.matesNotes ? this.renderNotes(this.state.matesNotes) : ''}
+                    {this.props.matesNotes ? this.renderNotes(this.props.matesNotes) : ''}
                   </div>
                 </AccordionItem>
               </Accordion>
@@ -161,7 +88,9 @@ const mapStateToProps = state => ({
   uid: state.user.uid,
   mates: state.user.matesUids,
   userNotes: state.notes.userNotes,
-  isLoadingUserNotes: state.notes.isLoadingUserNotes
+  matesNotes: state.notes.matesNotes,
+  isLoadingUserNotes: state.notes.isLoadingUserNotes,
+  isLoadingMatesNotes: state.notes.isLoadingMatesNotes
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

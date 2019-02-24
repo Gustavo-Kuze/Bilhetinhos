@@ -1,16 +1,16 @@
 import firebase from './firebase'
 import { getUsersEmailsByUid, getUserEmailByUid } from './users'
 
-const getUserNotesRef = (uid) => {
-    return firebase.database().ref('notes/').child(uid)
-}
+const getNotesRef = () => firebase.database().ref('notes/')
+
+const getUserNotesRef = uid => getNotesRef().child(uid)
 
 const setNote = (uid, note) => {
-    return firebase.database().ref(`notes/`).child(uid).child(note.title).set(note)
+    return getUserNotesRef(uid).child(note.title).set(note)
 }
 
 const removeNote = (uid, noteTitle) => {
-    return firebase.database().ref(`notes/`).child(uid).child(noteTitle).remove()
+    return getUserNotesRef(uid).child(noteTitle).remove()
 }
 
 const getNoteWithMatesEmails = async (note) => {
@@ -65,6 +65,4 @@ const getAllMatesNotes = async (uid, matesUids) => {
     return matesNotesPromise.filter(note => note.length > 0)
   }
 
-
-
-export { getUserNotesRef, getMateNotes, setNote, removeNote, getUserNotes, getAllMatesNotes }
+export { getUserNotesRef, getMateNotes, setNote, removeNote, getUserNotes, getAllMatesNotes, getNotesRef }

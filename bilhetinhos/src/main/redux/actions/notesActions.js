@@ -1,4 +1,4 @@
-import { getUserNotes } from '../../api/notes'
+import { getUserNotes, getAllMatesNotes } from '../../api/notes'
 
 export const refreshUserNotes = uid => {
     return dispatch => {
@@ -11,10 +11,17 @@ export const refreshUserNotes = uid => {
     }
 }
 
-export const refreshMatesNotes = notes => {
-    return {
-        type: "REFRESH_MATES_NOTES",
-        payload: notes
+export const refreshMatesNotes = (uid, matesUids) => {
+    return dispatch => {
+        getAllMatesNotes(uid, matesUids).then(allMatesNotes => {
+            if (allMatesNotes.length > 0) {
+                allMatesNotes = allMatesNotes.reduce((prev, cur) => prev.concat(cur))
+                dispatch({
+                    type: "REFRESH_MATES_NOTES",
+                    payload: allMatesNotes
+                })
+            }
+        })
     }
 }
 

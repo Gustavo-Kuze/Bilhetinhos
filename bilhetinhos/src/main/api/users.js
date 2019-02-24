@@ -12,7 +12,7 @@ const getUserEmailByUid = async uid => {
 const getUserUidByEmail = async email => {
     let userUid = null
     let usersSnapshot = await getUsersRef().once('value')
-    usersSnapshot.forEach(async user => {
+    usersSnapshot.forEach(user => {
         if (user.val()) {
             if (user.val().email === email)
                 userUid = user.key
