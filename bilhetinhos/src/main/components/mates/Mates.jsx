@@ -38,11 +38,11 @@ class Mates extends Component {
                 title: 'Um colega lhe adicionou',
                 receivedDate: Date.now(),
                 description: `${this.props.currentUserEmail} adicionou você! Clique para adicioná-lo também`,
-                sender: 'Bilhetes',
+                sender: `${this.props.currentUserEmail}`,
                 read: false,
                 href: `/colegas?addm=${this.props.currentUserUid}`
             })
-            toastr.success('Sucesso', 'Sua notificação foi enviada com sucesso!')
+            toastr.success('Sucesso', 'Sua notificação foi enviada!')
         }
     }
 
@@ -51,7 +51,6 @@ class Mates extends Component {
             let mates = await addMateIfExists(this.props.currentUserUid, this.props.currentUserEmail, this.state.mateEmail, (msg) => {
                 toastr.success('Sucesso!', msg)
             })
-            // this.props.refreshMatesUids(mates)
             this.props.refreshMatesUids(this.props.currentUserUid)
             this.notifyAddedMate()
         } catch (err) {
@@ -119,7 +118,6 @@ class Mates extends Component {
 
     removeMateAndRefresh = async (uid, mateUid) => {
         let newMates = await removeMate(uid, mateUid)
-        // this.props.refreshMatesUids(newMates)
         this.props.refreshMatesUids(uid)
     }
 

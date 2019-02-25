@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux'
 import If from '../../../utils/If'
 import { Accordion, AccordionItem } from '../../../base/Accordion.jsx'
 import { setNote } from '../../../../api/notes'
-import { getUsersEmailsByUid } from '../../../../api/users'
+import { getUsersEmailsByUid, getUserEmailByUid } from '../../../../api/users'
 import Modal from '../../../base/Modal'
 import {
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
@@ -17,11 +17,13 @@ import {
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import { sendUserNotification } from '../../../../api/notifications'
+import { areMates } from '../../../../api/mates'
 
 export class EditNote extends Component {
   state = {
     shouldRenderChildren: false,
-    matesEmailsAndUids: []
+    matesEmailsAndUids: [],
+    matesCheckboxes: []
   }
 
   extractUsernameFromEmail = email => {
@@ -38,18 +40,20 @@ export class EditNote extends Component {
 
   notifyMates = async (mates) => {
     if (mates) {
+      let userEmail = await getUserEmailByUid(this.props.uid)
+      debugger
       mates.forEach(async mateUid => {
         await sendUserNotification(mateUid, {
           title: 'Um colega colou uma nota em seu quadro',
           receivedDate: Date.now(),
           description: `Clique para ver`,
-          sender: 'Bilhetes',
+          sender: `${userEmail}`,
           read: false,
           href: `/quadro?note=${encodeURIComponent(this.props.title)}`
         })
         console.log(`Colega ${mateUid} notificado`)
       })
-    }else{
+    } else {
       console.log('não haviam colegas para serem notificados')
     }
     return
@@ -80,6 +84,7 @@ export class EditNote extends Component {
       this.setState({
         ...this.state, matesEmailsAndUids
       })
+      this.renderMatesCheckboxes()
     }
 
   }
@@ -94,6 +99,23 @@ export class EditNote extends Component {
     this.setState({ ...this.state, shouldRenderChildren: false }, () => {
       this.props.onClose()
     })
+  }
+
+  renderMatesCheckboxes = async () => {
+    let checkboxes = await Promise.all(this.state.matesEmailsAndUids.map(async (m, i) => {
+      let areUsersMates = await areMates(this.props.uid, this.props.matesUids[i])
+      if (areUsersMates) {
+        return <div key={this.props.matesUids[i]} className="form-check paper-toggle">
+          <label className="form-check-label pure-material-checkbox d-flex align-items-center" htmlFor={`chk-${this.props.matesUids[i]}`}>
+            <input className="form-check-input switch material-checkbox" id={`chk-${this.props.matesUids[i]}`} type="checkbox" value={this.props.matesUids[i]} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
+            <span className="">{m}</span>
+          </label>
+        </div>
+      }
+    }))
+    checkboxes = checkboxes.filter(chk => chk)
+    console.log(checkboxes)
+    this.setState({...this.state, matesCheckboxes: checkboxes})
   }
 
   render() {
@@ -121,14 +143,7 @@ export class EditNote extends Component {
                     <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
                   </AccordionItem>
                   <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
-                    {this.state.matesEmailsAndUids.map((m, i) => (
-                      <div key={this.props.matesUids[i]} className="form-check paper-toggle">
-                        <label className="form-check-label pure-material-checkbox d-flex align-items-center" htmlFor={`chk-${this.props.matesUids[i]}`}>
-                          <input className="form-check-input switch material-checkbox" id={`chk-${this.props.matesUids[i]}`} type="checkbox" value={this.props.matesUids[i]} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
-                          <span className="">{m}</span>
-                        </label>
-                      </div>
-                    ))}
+                    {this.state.matesCheckboxes.length > 0 ? this.state.matesCheckboxes : 'Você não tem nenhum colega'}
                     <If condition={!this.props.matesUids || this.props.matesUids.length === 0}>
                       <p className="text-muted">Você não tem nenhum colega</p>
                     </If>

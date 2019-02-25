@@ -47,7 +47,6 @@ const addMateIfExists = async (uid, email, mateEmail, successCallback = null) =>
     }
 }
 
-
 const getMates = async uid => {
     let usersSnapshot = await getUsersRef().once('value')
     let matesAsync = []
@@ -77,5 +76,9 @@ const getMates = async uid => {
     }
 }
 
+const areMates = async (uid, mateUid) => {
+    let response = await getMatesUidsAndReference(mateUid)
+    return response.mates.includes(uid)
+}
 
-export { removeMate, getMatesUidsAndReference, addMateIfExists, getMates }
+export { removeMate, getMatesUidsAndReference, addMateIfExists, getMates, areMates }
