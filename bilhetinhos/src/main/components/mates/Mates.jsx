@@ -167,7 +167,10 @@ class Mates extends Component {
                                 </div>
                             </If>
                             <ul className="list-unstyled">
-                                {this.state.matePreviews}
+                                {
+                                    this.state.matePreviews.length === 0 && !this.props.isLoadingMates ?
+                                        <li><p className="lead">Você ainda não possui nenhum colega</p></li> :
+                                        this.state.matePreviews}
                             </ul>
                         </div>
                     </div>

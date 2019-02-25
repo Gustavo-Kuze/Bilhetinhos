@@ -44,13 +44,8 @@ export class NotePreview extends Component {
 
   render() {
     return (
-      <div className="col-md-4 d-flex align-items-stretch">
+      <div className="col-md-6 col-lg-4 d-flex align-items-stretch">
         <div className="card my-3 w-100 drop-material-shadow"
-          // onClick={()=>{
-          //   let params = new URLSearchParams(window.location.search)
-          //   params.set('note', this.props.title)
-          //   window.location.search = params.toString()
-          // }}
           style={{
             backgroundColor: this.props.noteColor || '#fff9c4',
             color: this.props.fontColor || '#424242', borderBottomWidth: '1px', border: this.props.mark ? '3px solid red' : ''

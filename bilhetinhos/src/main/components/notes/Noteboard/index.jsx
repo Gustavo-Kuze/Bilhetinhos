@@ -14,7 +14,7 @@ class Noteboard extends Component {
 
   markNoteIfQuery = (title) => {
     let params = new URLSearchParams(window.location.search)
-    if(params.has('note')){
+    if (params.has('note')) {
       let note = params.get('note')
       let isEqual = title === note
       return isEqual
@@ -28,7 +28,7 @@ class Noteboard extends Component {
         <NotePreview key={note.title} title={note.title} message={note.message}
           noteMates={note.noteMates} fontColor={note.fontColor} noteColor={note.noteColor}
           owner={note.owner || 'mim'} editable={areEditable} fontSize={note.fontSize}
-          mark={this.markNoteIfQuery(note.title)}/>
+          mark={this.markNoteIfQuery(note.title)} />
       ))
     }
     return ''
@@ -64,7 +64,7 @@ class Noteboard extends Component {
               <hr />
               <RemoveNote onClose={this.onModalClose} />
               <Accordion accordionId="notes-accordion">
-                <AccordionItem itemId="user-notes" itemLabel="Minhas notas" accordionId="notes-accordion" open>
+                <AccordionItem itemId="user-notes" itemLabel="Meus bilhetes" accordionId="notes-accordion" open>
 
                   <If condition={this.props.isLoadingUserNotes}>
                     <div className="row">
@@ -74,10 +74,14 @@ class Noteboard extends Component {
                     </div>
                   </If>
                   <div className="notes-container row ">
-                    {this.props.userNotes ? this.renderNotes(this.props.userNotes, true) : ''}
+                    {
+                      this.props.userNotes.length > 0 ?
+                        this.renderNotes(this.props.userNotes, true) :
+                        <p className="lead mx-auto">Você não escreveu nenhum bilhete ainda</p>
+                    }
                   </div>
                 </AccordionItem>
-                <AccordionItem itemId="mates-notes" itemLabel="Notas dos colegas" accordionId="notes-accordion" open>
+                <AccordionItem itemId="mates-notes" itemLabel="Bilhetes dos colegas" accordionId="notes-accordion" open>
                   <If condition={this.props.isLoadingMatesNotes}>
                     <div className="row">
                       <div className="col offset-5">
@@ -86,7 +90,11 @@ class Noteboard extends Component {
                     </div>
                   </If>
                   <div className="notes-container row ">
-                    {this.props.matesNotes ? this.renderNotes(this.props.matesNotes) : ''}
+                    {
+                      this.props.matesNotes.length > 0 ?
+                        this.renderNotes(this.props.matesNotes) :
+                        <p className="lead mx-auto">Nenhum colega colou nada em seu quadro</p>
+                    }
                   </div>
                 </AccordionItem>
               </Accordion>
