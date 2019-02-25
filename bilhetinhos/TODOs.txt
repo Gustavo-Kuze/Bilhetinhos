@@ -1,7 +1,5 @@
 - BUG: Quando um usuário lhe marca em uma nota e você não o tem como colega,
  você não consegue ver a nota, muito embora receba notificação; (PRIORIDADE)
- - Mostrar "Você não possui nenhum colega" em Mates, caso a lista de colegas esteja vazia; (PRIORIDADE)
- - Mostrar "Você não tem nenhuma notificação caso a lista esteja vazia"; (PRIORIDADE)
  - Talvez adicionar um floating action button à todas as telas com as opções adicionar um
   novo colega/criar uma nota, ao invés dos botões existentes;
   
