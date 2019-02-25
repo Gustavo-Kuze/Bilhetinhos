@@ -27,7 +27,7 @@ export class NotePreview extends Component {
       fontSize: this.props.fontSize,
       message: this.props.message,
       title: this.props.title,
-      noteMates: this.props.mates
+      noteMates: this.props.noteMates
     }
     this.props.setEntireNote(note)
   }

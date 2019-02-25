@@ -107,15 +107,20 @@ export class EditNote extends Component {
       if (areUsersMates) {
         return <div key={this.props.matesUids[i]} className="form-check paper-toggle">
           <label className="form-check-label pure-material-checkbox d-flex align-items-center" htmlFor={`chk-${this.props.matesUids[i]}`}>
-            <input className="form-check-input switch material-checkbox" id={`chk-${this.props.matesUids[i]}`} type="checkbox" value={this.props.matesUids[i]} onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} />
+            <input className="form-check-input switch material-checkbox"
+              id={`chk-${this.props.matesUids[i]}`}
+              type="checkbox"
+              value={this.props.matesUids[i]}
+              onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} 
+              // checked={this.props.noteMates.includes(this.props.matesUids[i])}
+              />
             <span className="">{m}</span>
           </label>
         </div>
       }
     }))
     checkboxes = checkboxes.filter(chk => chk)
-    console.log(checkboxes)
-    this.setState({...this.state, matesCheckboxes: checkboxes})
+    this.setState({ ...this.state, matesCheckboxes: checkboxes })
   }
 
   render() {
@@ -144,9 +149,9 @@ export class EditNote extends Component {
                   </AccordionItem>
                   <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
                     {this.state.matesCheckboxes.length > 0 ? this.state.matesCheckboxes : 'Você não tem nenhum colega'}
-                    <If condition={!this.props.matesUids || this.props.matesUids.length === 0}>
+                    {/* <If condition={!this.props.matesUids || this.props.matesUids.length === 0}>
                       <p className="text-muted">Você não tem nenhum colega</p>
-                    </If>
+                    </If> */}
                   </AccordionItem>
                 </Accordion>
                 <input className="my-3 form-control" type="text" name="note-title" placeholder="O título do bilhete vai aqui" value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />
