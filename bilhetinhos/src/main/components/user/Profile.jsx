@@ -31,8 +31,13 @@ class Profile extends Component {
         }
     }
 
-    saveProfileChanges = element => {
+    callSaveProfileChanges = element => {
         element.preventDefault()
+        this.saveProfileChanges()
+        return false
+    }
+
+    saveProfileChanges = () => {
         registerUser({
             ...this.state.user
         }).then(() => {
@@ -41,14 +46,13 @@ class Profile extends Component {
             })
             toastr.success('Sucesso!', 'Os dados do perfil foram salvos.')
         })
-        return false
     }
 
     isValidImage = img => {
         return (img.size / 1024 < 500 && (img.name.includes('.jpg') || img.name.includes('.png') || img.name.includes('.jpeg')))
     }
 
-    loadProfilePic = (imgPath = this.state.user.profilePic || 'profile') => {
+    loadProfilePic = (imgPath = `${this.state.user.uid}/profile` || 'profile') => {
         this.props.resetCacheState()
         this.setState({ ...this.state, isLoadingProfilePic: true })
         firebase.storage().ref(imgPath)
@@ -66,10 +70,20 @@ class Profile extends Component {
     handlePicChange = element => {
         let imageFile = element.target.files[0]
         if (this.isValidImage(imageFile)) {
-            firebase.storage().ref().child(this.state.user.profilePic).put(imageFile)
+            firebase.storage().ref().child(this.state.user.profilePic || `${this.state.user.uid}/profile`).put(imageFile)
                 .then(() => {
-                    this.loadProfilePic(this.state.user.profilePic)
-                    toastr.success('Sucesso!', 'Sua imagem de perfil foi atualizada com êxito!')
+                    this.setState({
+                        ...this.state,
+                        user: {
+                            ...this.state.user,
+                            profilePic: this.state.user.profilePic || `${this.state.user.uid}/profile`
+                        }
+                    }, () => {
+                        this.saveProfileChanges()
+                        this.loadProfilePic(this.state.user.profilePic || `${this.state.user.uid}/profile`)
+                        toastr.success('Sucesso!', 'Sua imagem de perfil foi atualizada com êxito!')
+                    })
+
                 })
         } else {
             toastr.warning('Atenção!', 'O tamanho máximo dos arquivos de imagem deve ser de 500 KB. Somente arquivos nos formatos jpg, jpeg e png são aceitos.')
@@ -124,7 +138,7 @@ class Profile extends Component {
                                     src={`${this.props.profilePictureDownloadUrl || "/img/default_user_profile.png"}`} alt="Perfil" />
                             </label>
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
-                            <form onSubmit={this.saveProfileChanges}>
+                            <form onSubmit={this.callSaveProfileChanges}>
                                 <div className="form-group">
                                     <input name="name" id="inp-user-name" className="form-control" value={this.state.user.name} onChange={this.handleInputChange} placeholder="Seu nome completo ou apelido" />
                                 </div>
