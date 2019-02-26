@@ -1,3 +1,0 @@
- - Talvez adicionar um floating action button à todas as telas com as opções adicionar um
-  novo colega/criar uma nota, ao invés dos botões existentes;
-  

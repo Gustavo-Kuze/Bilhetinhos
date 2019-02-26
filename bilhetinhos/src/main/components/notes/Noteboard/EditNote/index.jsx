@@ -58,7 +58,7 @@ export class EditNote extends Component {
 
   callCreate = element => {
     element.preventDefault()
-    if(this.props.uid && this.props.title && this.props.message){
+    if (this.props.uid && this.props.title && this.props.message) {
       setNote(this.props.uid, {
         title: this.props.title,
         message: this.props.message,
@@ -70,7 +70,7 @@ export class EditNote extends Component {
         toastr.success("Sucesso!", "Seu bilhete foi publicado")
         await this.notifyMates(this.props.noteMates)
       })
-    }else{
+    } else {
       toastr.warning('Atenção!', 'Você precisa fornecer um título e uma mensagem para publicar seu bilhete')
     }
     return false
@@ -91,7 +91,7 @@ export class EditNote extends Component {
     this.props.refreshNoteMates(defaultChecked)
   }
 
-  pushToDefaultChecked = (mateUid) => {
+  pushToDefaultChecked = mateUid => {
     defaultChecked.push(mateUid)
     return ''
   }

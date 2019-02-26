@@ -45,13 +45,18 @@ export class NotePreview extends Component {
   render() {
     return (
       <div className="col-md-6 col-lg-4 d-flex align-items-stretch">
-        <div className="card my-3 w-100 drop-material-shadow"
+        <div className="card my-3 w-100 drop-material-shadow" id={`note-${this.props.title.replace(/ /g, '')}`}
           style={{
             backgroundColor: this.props.noteColor || '#fff9c4',
-            color: this.props.fontColor || '#424242', borderBottomWidth: '1px', border: this.props.mark ? '3px solid red' : ''
+            color: this.props.fontColor || '#424242', borderBottomWidth: '1px',
+            border:
+              this.props.mark ?
+                '3px solid red' :
+                ''
           }}>
           <div className="card-header">
             <div className="row">
+
               <div className="col">
                 <small className="card-title">Criada por {this.props.owner || 'mim'}</small>
               </div>
@@ -60,6 +65,11 @@ export class NotePreview extends Component {
                   <If condition={this.props.editable}>
                     <button className="btn btn-sm btn-warning mr-1" onClick={this.openNoteEditor}><i className="fas fa-pencil-alt"></i></button>
                     <button className="btn btn-sm btn-danger" onClick={this.openRemoveDialog}><i className="fas fa-trash"></i></button>
+                  </If>
+                  <If condition={this.props.mark}>
+                    <div className="col-1">
+                      <img className="" src="/img/pin.png" alt="Nota marcada" style={{ position: 'absolute', right: '-30px', top: '-25px', zIndex: '999' }} />
+                    </div>
                   </If>
                 </div>
               </div>

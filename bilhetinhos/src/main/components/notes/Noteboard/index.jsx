@@ -10,6 +10,8 @@ import { setEntireNote } from '../../../redux/actions/editNoteActions'
 import Spinner from '../../utils/Spinner'
 import If from '../../utils/If'
 
+var markedNoteId = ''
+
 class Noteboard extends Component {
 
   markNoteIfQuery = (title) => {
@@ -17,6 +19,9 @@ class Noteboard extends Component {
     if (params.has('note')) {
       let note = params.get('note')
       let isEqual = title === note
+      if (isEqual) {
+        markedNoteId = `note-${params.get('note').replace(/ /g, '')}`
+      }
       return isEqual
     }
     return false
@@ -34,8 +39,13 @@ class Noteboard extends Component {
     return ''
   }
 
-  componentDidMount = () => {
-    this.markNoteIfQuery()
+  componentDidUpdate = () => {
+    if (markedNoteId) {
+      try {
+        document.getElementById(markedNoteId).scrollIntoView()
+      } catch (err) {
+      }
+    }
   }
 
   onModalClose = () => {
