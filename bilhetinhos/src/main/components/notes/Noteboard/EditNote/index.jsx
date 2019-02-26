@@ -19,13 +19,14 @@ import ReduxToastr, { toastr } from 'react-redux-toastr'
 import { sendUserNotification } from '../../../../api/notifications'
 import { areMates } from '../../../../api/mates'
 
+var defaultChecked = []
+var shouldVerifyForDefaultChecked = true
+
 export class EditNote extends Component {
   state = {
     shouldRenderChildren: false,
     matesEmailsAndUids: [],
-    matesCheckboxes: [],
-    defaultChecked: [],
-    keepUpdatingDefaultChecked: true
+    matesCheckboxes: []
   }
 
   extractUsernameFromEmail = email => {
@@ -77,8 +78,41 @@ export class EditNote extends Component {
     return false
   }
 
-  componentDidUpdate = () => {
-    this.props.refreshNoteMates(this.state.defaultChecked)
+  onOpen = () => {
+    this.setState({ ...this.state, shouldRenderChildren: true, matesCheckboxes: [] }, () => {
+      this.props.onOpen()
+    })
+  }
+
+  onClose = () => {
+    this.setState({ ...this.state, shouldRenderChildren: false }, () => {
+      this.props.onClose()
+    })
+    shouldVerifyForDefaultChecked = true
+  }
+
+  pushToDefaultChecked = (mateUid) => {
+    defaultChecked.push(mateUid)
+    return ''
+  }
+
+  addMateToEditNoteIfIncludedInNoteMates = (mateEmail, mateUid) => {
+    if (typeof this.props.noteMates === typeof []) {
+      let includes = this.props.noteMates.includes(mateEmail)
+      if (includes)
+        return this.pushToDefaultChecked(mateUid)
+    }
+    return ''
+  }
+
+  componentDidUpdate = async () => {
+    if (this.state.matesCheckboxes.length === 0 && this.state.matesEmailsAndUids.length > 0) {
+      await this.renderMatesCheckboxes()
+      await this.props.refreshNoteMates(defaultChecked)
+    }
+    if (shouldVerifyForDefaultChecked) {
+      this.checkDefault()
+    }
   }
 
   componentDidMount = async () => {
@@ -88,29 +122,24 @@ export class EditNote extends Component {
       let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
       this.setState({
         ...this.state, matesEmailsAndUids
-      }, async () => {
-        await this.renderMatesCheckboxes()
       })
     }
 
   }
 
-  onOpen = () => {
-    this.setState({ ...this.state, shouldRenderChildren: true }, () => {
-      this.props.onOpen()
-    })
-  }
-
-  onClose = () => {
-    this.setState({ ...this.state, shouldRenderChildren: false }, () => {
-      this.props.onClose()
-    })
-  }
-
-  addDefaultChecked = (mateUid) => {
-    debugger
-    this.setState({ ...this.state, defaultChecked: this.state.defaultChecked.push(mateUid) })
-    return ''
+  checkDefault = () => {
+    let didFirstTimeCheck = false
+    if (this.props.noteMates) {
+      this.props.noteMates.map((m, i) => {
+        let elem = document.getElementById(`chk-${m}`)
+        if (elem) {
+          elem.setAttribute('checked', true)
+          didFirstTimeCheck = true
+        }
+      })
+      if (didFirstTimeCheck)
+        shouldVerifyForDefaultChecked = false
+    }
   }
 
   renderMatesCheckboxes = async () => {
@@ -127,8 +156,7 @@ export class EditNote extends Component {
             />
             <span className="">{m}</span>
           </label>
-          {this.props.noteMates.includes(this.props.matesUids[i]) ?
-            this.addDefaultChecked(this.props.matesUids[i]) : ''}
+          {this.addMateToEditNoteIfIncludedInNoteMates(m, this.props.matesUids[i])}
         </div>
       }
     }))
@@ -162,9 +190,6 @@ export class EditNote extends Component {
                   </AccordionItem>
                   <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
                     {this.state.matesCheckboxes.length > 0 ? this.state.matesCheckboxes : 'Você não tem nenhum colega'}
-                    {/* <If condition={!this.props.matesUids || this.props.matesUids.length === 0}>
-                      <p className="text-muted">Você não tem nenhum colega</p>
-                    </If> */}
                   </AccordionItem>
                 </Accordion>
                 <input className="my-3 form-control" type="text" name="note-title" placeholder="O título do bilhete vai aqui" value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />

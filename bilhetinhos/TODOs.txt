@@ -1,4 +1,5 @@
  - Talvez adicionar um floating action button à todas as telas com as opções adicionar um
   novo colega/criar uma nota, ao invés dos botões existentes;
   
-- Os colegas marcados ainda não são carregados na edição de notas, investigar...
+  
+- Quando fechamos a nota em edição as checkboxes ainda estão sendo marcadas;

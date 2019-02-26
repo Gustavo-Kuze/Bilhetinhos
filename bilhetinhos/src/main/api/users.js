@@ -53,7 +53,6 @@ const getUsersEmailsByUid = async (matesUids) => {
         let userSnapshot = await userRef.once('value')
         return userSnapshot.val().email
     }))
-
     return matesEmailsAndUids
 }
 
