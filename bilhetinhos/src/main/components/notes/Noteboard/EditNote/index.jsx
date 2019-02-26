@@ -23,7 +23,9 @@ export class EditNote extends Component {
   state = {
     shouldRenderChildren: false,
     matesEmailsAndUids: [],
-    matesCheckboxes: []
+    matesCheckboxes: [],
+    defaultChecked: [],
+    keepUpdatingDefaultChecked: true
   }
 
   extractUsernameFromEmail = email => {
@@ -41,7 +43,6 @@ export class EditNote extends Component {
   notifyMates = async (mates) => {
     if (mates) {
       let userEmail = await getUserEmailByUid(this.props.uid)
-      debugger
       mates.forEach(async mateUid => {
         await sendUserNotification(mateUid, {
           title: 'Um colega colou uma nota em seu quadro',
@@ -76,6 +77,10 @@ export class EditNote extends Component {
     return false
   }
 
+  componentDidUpdate = () => {
+    this.props.refreshNoteMates(this.state.defaultChecked)
+  }
+
   componentDidMount = async () => {
     if (this.props.matesUids) {
       let matesUids = this.props.matesUids
@@ -83,8 +88,9 @@ export class EditNote extends Component {
       let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
       this.setState({
         ...this.state, matesEmailsAndUids
+      }, async () => {
+        await this.renderMatesCheckboxes()
       })
-      this.renderMatesCheckboxes()
     }
 
   }
@@ -101,6 +107,12 @@ export class EditNote extends Component {
     })
   }
 
+  addDefaultChecked = (mateUid) => {
+    debugger
+    this.setState({ ...this.state, defaultChecked: this.state.defaultChecked.push(mateUid) })
+    return ''
+  }
+
   renderMatesCheckboxes = async () => {
     let checkboxes = await Promise.all(this.state.matesEmailsAndUids.map(async (m, i) => {
       let areUsersMates = await areMates(this.props.uid, this.props.matesUids[i])
@@ -111,11 +123,12 @@ export class EditNote extends Component {
               id={`chk-${this.props.matesUids[i]}`}
               type="checkbox"
               value={this.props.matesUids[i]}
-              onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())} 
-              // checked={this.props.noteMates.includes(this.props.matesUids[i])}
-              />
+              onClick={() => this.props.refreshNoteMates(this.getCheckedMateBoxesValues())}
+            />
             <span className="">{m}</span>
           </label>
+          {this.props.noteMates.includes(this.props.matesUids[i]) ?
+            this.addDefaultChecked(this.props.matesUids[i]) : ''}
         </div>
       }
     }))
