@@ -72,11 +72,9 @@ class Mates extends Component {
                 )
             } catch (err) {
                 toastr.error('Erro', 'Ocorreu um erro ao tentar carregar algum colega')
-                console.log(err)
                 return ''
             }
         }))
-        console.log(matePreviews)
         return matePreviews
     }
 

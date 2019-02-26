@@ -9,12 +9,6 @@ import If from '../utils/If'
 import Spinner from '../utils/Spinner'
 import { registerUser } from '../../api/users'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
-import {
-    getUserNotifications,
-    // sendUserNotification,
-    // getNotificationsRef,
-    // markAsRead, removeUserNotification
-} from '../../api/notifications'
 
 class Profile extends Component {
 
@@ -96,31 +90,6 @@ class Profile extends Component {
                 ...this.state.user, [`${element.target.name}`]: element.target.value
             }
         })
-    }
-
-    componentDidMount = async () => {
-        // await sendUserNotification(this.props.uid, {
-        //     title: 'Listener bombando',
-        //     receivedDate: Date.now(),
-        //     description: 'To testanu se o listener funfa',
-        //     sender: 'Bilhetes',
-        //     read: false,
-        //     href: '/'
-        // })
-
-        // await markAsRead(this.props.uid, {
-        //     title: 'Alerta de bilhete',
-        //     receivedDate: 1550766805523,
-        //     description: 'Fulano da Silva colou uma mensagem em seu quadro',
-        //     sender: 'Fulano da Silva',
-        //     read: false,
-        //     href: '/' 
-        // })
-
-
-
-        let notifications = await getUserNotifications(this.props.uid)
-        console.log(notifications)
     }
 
     render() {

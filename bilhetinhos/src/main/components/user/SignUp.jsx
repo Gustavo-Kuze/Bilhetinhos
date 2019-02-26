@@ -35,15 +35,10 @@ class SignUp extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-
       .catch(error => {
-        let errorCode = error.code
-        let errorMessage = error.message
         console.log("Ocorreu um erro ao tentar criar um usuário: ")
-        console.log(errorCode)
-        console.log(errorMessage)
+        console.log(error.message)
       })
-
     return false
   }
 

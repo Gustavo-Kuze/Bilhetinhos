@@ -29,10 +29,6 @@ export class EditNote extends Component {
     matesCheckboxes: []
   }
 
-  extractUsernameFromEmail = email => {
-    return email.match(/([^@]+)/)[0]
-  }
-
   getCheckedMateBoxes = () => {
     return Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
   }
@@ -53,7 +49,6 @@ export class EditNote extends Component {
           read: false,
           href: `/quadro?note=${encodeURIComponent(this.props.title)}`
         })
-        console.log(`Colega ${mateUid} notificado`)
       })
     } else {
       console.log('não haviam colegas para serem notificados')
@@ -78,7 +73,6 @@ export class EditNote extends Component {
     }else{
       toastr.warning('Atenção!', 'Você precisa fornecer um título e uma mensagem para publicar seu bilhete')
     }
-
     return false
   }
 
@@ -102,7 +96,7 @@ export class EditNote extends Component {
     return ''
   }
 
-  addMateToEditNoteIfIncludedInNoteMates = (mateEmail, mateUid) => {
+  pushToDefaultCheckedIfIncluded = (mateEmail, mateUid) => {
     if (typeof this.props.noteMates === typeof []) {
       let includes = this.props.noteMates.includes(mateEmail)
       if (includes)
@@ -117,7 +111,7 @@ export class EditNote extends Component {
       await this.props.refreshNoteMates(defaultChecked)
     }
     if (shouldVerifyForDefaultChecked) {
-      this.checkDefault()
+      this.visuallyCheckDefault()
     }
   }
 
@@ -133,17 +127,17 @@ export class EditNote extends Component {
 
   }
 
-  checkDefault = () => {
-    let didFirstTimeCheck = false
+  visuallyCheckDefault = () => {
+    let didCheckOnOpen = false
     if (this.props.noteMates) {
       this.props.noteMates.map((m, i) => {
         let elem = document.getElementById(`chk-${m}`)
         if (elem) {
           elem.setAttribute('checked', true)
-          didFirstTimeCheck = true
+          didCheckOnOpen = true
         }
       })
-      if (didFirstTimeCheck)
+      if (didCheckOnOpen)
         shouldVerifyForDefaultChecked = false
     }
   }
@@ -162,7 +156,7 @@ export class EditNote extends Component {
             />
             <span className="">{m}</span>
           </label>
-          {this.addMateToEditNoteIfIncludedInNoteMates(m, this.props.matesUids[i])}
+          {this.pushToDefaultCheckedIfIncluded(m, this.props.matesUids[i])}
         </div>
       }
     }))
