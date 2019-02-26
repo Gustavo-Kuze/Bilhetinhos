@@ -3,6 +3,8 @@ import { removeNote } from '../../../../api/notes'
 import { connect } from 'react-redux'
 import Modal from '../../../base/Modal'
 
+var noteTitle = ''
+
 class RemoveNote extends Component {
 
   state = {
@@ -15,9 +17,14 @@ class RemoveNote extends Component {
   }
 
   componentDidUpdate = () => {
-    if (this.props.noteTitle && !this.state.noteTitle) {
-      this.setState({ ...this.state, noteTitle: this.props.noteTitle })
+    if (noteTitle && noteTitle !== this.state.noteTitle) {
+      this.setState({ ...this.state, noteTitle: noteTitle })
     }
+  }
+
+  static getDerivedStateFromProps(props){
+    noteTitle = props.noteTitle
+    return props.noteTitle
   }
 
   componentDidMount = () => {
@@ -42,4 +49,3 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(RemoveNote)
-

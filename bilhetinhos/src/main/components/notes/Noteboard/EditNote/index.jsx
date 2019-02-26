@@ -63,17 +63,21 @@ export class EditNote extends Component {
 
   callCreate = element => {
     element.preventDefault()
-    setNote(this.props.uid, {
-      title: this.props.title,
-      message: this.props.message,
-      noteColor: this.props.noteColor,
-      fontColor: this.props.fontColor,
-      fontSize: this.props.fontSize,
-      noteMates: this.props.noteMates
-    }).then(async () => {
-      toastr.success("Sucesso!", "Seu bilhete foi publicado")
-      await this.notifyMates(this.props.noteMates)
-    })
+    if(this.props.uid && this.props.title && this.props.message){
+      setNote(this.props.uid, {
+        title: this.props.title,
+        message: this.props.message,
+        noteColor: this.props.noteColor,
+        fontColor: this.props.fontColor,
+        fontSize: this.props.fontSize,
+        noteMates: this.props.noteMates
+      }).then(async () => {
+        toastr.success("Sucesso!", "Seu bilhete foi publicado")
+        await this.notifyMates(this.props.noteMates)
+      })
+    }else{
+      toastr.warning('Atenção!', 'Você precisa fornecer um título e uma mensagem para publicar seu bilhete')
+    }
 
     return false
   }
@@ -89,6 +93,8 @@ export class EditNote extends Component {
       this.props.onClose()
     })
     shouldVerifyForDefaultChecked = true
+    defaultChecked = []
+    this.props.refreshNoteMates(defaultChecked)
   }
 
   pushToDefaultChecked = (mateUid) => {
