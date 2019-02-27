@@ -6,6 +6,7 @@ import NotificationsObserver from './notifications/NotificationsObserver'
 import MatesObserver from '../../mates/MatesObserver'
 import NotesObserver from '../../notes/NotesObserver'
 import FloatingActionButton from '../../utils/FAB/FloatingActionButton'
+import {Translate} from 'react-translated'
 export default class Skeleton extends Component {
 
     render() {
@@ -16,6 +17,7 @@ export default class Skeleton extends Component {
                 <NotesObserver />
                 <Header />
                 <main className="main-mt">
+                <p><Translate text="Hi, World!"/></p>
                     {this.props.children}
                 </main>
                 <FloatingActionButton />

@@ -3,6 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './main/routes/Routes'
 import * as serviceWorker from './serviceWorker';
+import { Provider as TranslationProvider } from 'react-translated'
+import translation from './main/translations/translation'
 import { Provider } from 'react-redux'
 import { saveState } from './main/redux/localStorage/'
 import store from './main/redux/store'
@@ -20,7 +22,9 @@ store.subscribe(() => {
 
 ReactDOM.render(
     <Provider store={store}>
-        <Routes />
+        <TranslationProvider language="fr" translation={translation}>
+            <Routes />
+        </TranslationProvider>
     </Provider>
     , document.getElementById('root'));
 
