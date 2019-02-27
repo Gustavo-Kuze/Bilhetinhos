@@ -68,7 +68,9 @@ export class NotePreview extends Component {
                   </If>
                   <If condition={this.props.mark}>
                     <div className="col-1">
-                      <img className="" src="/img/pin.png" alt="Nota marcada" style={{ position: 'absolute', right: '-30px', top: '-25px', zIndex: '999' }} />
+                      <img className="" src="/img/pin.png"
+                       alt="Nota marcada" 
+                       style={{ position: 'absolute', right: '-30px', top: '-20px', zIndex: '999' }} />
                     </div>
                   </If>
                 </div>
