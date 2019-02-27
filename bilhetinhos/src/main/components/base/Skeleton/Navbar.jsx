@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PopoverButton from '../PopoverButton'
 import UserMenu from './UserMenu'
-import NotificationList from './Notifications/NotificationList'
+import NotificationList from './notifications/NotificationList'
 
 class Navbar extends React.Component {
    
