@@ -87,7 +87,70 @@ export default {
     en: 'Cancel',
     pt: 'Cancelar'
   },
-
+  'mates-alert-title': {
+    en: 'Friendship invite',
+    pt: 'Convite de amizade'
+  },
+  'mates-alert-description': {
+    en: 'Click to accept {userEmail} invitation',
+    pt: 'Clique para adicionar o {userEmail}'
+  },
+  'toastr-success-title': {
+    en: 'Success!',
+    pt: 'Successo!'
+  },
+  'toastr-error-title': {
+    en: 'Error!',
+    pt: 'Erro!'
+  },
+  'toastr-error-trying-load-mates': {
+    en: "An error occured while trying to load one or more mates.",
+    pt: 'Occoreu um erro ao carregar o(s) colega(s).'
+  },
+  'mates-list-header-label': {
+    en: 'Mates',
+    pt: 'Colegas'
+  },
+  'mates-new-mate-email-placeholder': {
+    en: "Inform your mate's E-mail",
+    pt: 'Digite o E-mail do seu colega aqui'
+  },
+  'mates-add-mate': {
+    en: 'Add mate',
+    pt: 'Adicionar colega'
+  },
+  'mates-no-mates-label': {
+    en: "You doesn't have any mates yet",
+    pt: 'Você ainda não possui nenhum colega'
+  },
+  'toastr-notification-sent': {
+    en: 'Your notification has been sent',
+    pt: 'Sua notificação foi enviada'
+  }
+  // '': {
+  //   en: '',
+  //   pt: ''
+  // },
+  // '': {
+  //   en: '',
+  //   pt: ''
+  // },
+  // '': {
+  //   en: '',
+  //   pt: ''
+  // },
+  // '': {
+  //   en: '',
+  //   pt: ''
+  // },
+  // '': {
+  //   en: '',
+  //   pt: ''
+  // },
+  // '': {
+  //   en: '',
+  //   pt: ''
+  // },
 }
 
 const template = {
