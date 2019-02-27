@@ -17,8 +17,8 @@ export default class Skeleton extends Component {
                 <Header />
                 <main className="main-mt">
                     {this.props.children}
-                <FloatingActionButton />
                 </main>
+                <FloatingActionButton />
                 <Footer />
             </Fragment>
         )
