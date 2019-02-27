@@ -16,13 +16,14 @@ store.subscribe(() => {
         notifications: store.getState().notifications,
         notes: store.getState().notes,
         mates: store.getState().mates,
-        editNote: store.getState().editNote
+        editNote: store.getState().editNote,
+        language: store.getState().language
     })
 })
 
 ReactDOM.render(
     <Provider store={store}>
-        <TranslationProvider language="en" translation={translation}>
+        <TranslationProvider language={store.getState().language} translation={translation}>
             <Routes />
         </TranslationProvider>
     </Provider>

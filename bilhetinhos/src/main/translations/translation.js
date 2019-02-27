@@ -23,5 +23,32 @@ export default {
       en: "This website is under construction and may suffer several changes or data lost.",
       pt: 'Este site se encontra em construção e pode sofrer severas alterações e/ou perda de dados durante o processo.'
     },
-
+    'footer-by': {
+      en: 'Developed by ',
+      pt: 'Desenvolvido por '
+    },
+    'fab-actions': {
+      en: 'Actions',
+      pt: 'Ações'
+    },
+    'fab-new-note': {
+      en: 'Create note',
+      pt: 'Novo bilhete'
+    },
+    'fab-new-mate': {
+      en: 'Add mate',
+      pt: 'Adicionar colega'
+    },
+    'navbar-btn-noteboard': {
+      en: 'My board',
+      pt: 'Meu quadro'
+    },
+    'navbar-btn-mates': {
+      en: 'Mates',
+      pt: 'Colegas'
+    },
+    'navbar-usermenu-default-label': {
+      en: 'User menu',
+      pt: 'Menu do usuário'
+    }
   }
