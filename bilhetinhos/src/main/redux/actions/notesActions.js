@@ -25,7 +25,6 @@ export const refreshMatesNotes = (uid, matesUids) => {
                     payload: allMatesNotes
                 })
             }else{
-                console.log('allMatesNotes was an empty array')
                 dispatch({
                     type: "MATES_NOTES_LOADED"
                 })

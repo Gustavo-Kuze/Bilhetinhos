@@ -1,6 +1,0 @@
-- BUG: Quando um usuário lhe marca em uma nota e você não o tem como colega,
- você não consegue ver a nota, muito embora receba notificação; (PRIORIDADE)
- - Talvez adicionar um floating action button à todas as telas com as opções adicionar um
-  novo colega/criar uma nota, ao invés dos botões existentes;
-  
-- Os colegas marcados ainda não são carregados na edição de notas, investigar...

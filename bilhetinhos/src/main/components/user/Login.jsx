@@ -61,7 +61,6 @@ class Login extends Component {
                         window.location = redirectUrl
                     })
                 } catch (err) {
-                    console.log(err)
                     window.location = redirectUrl
                 }
             }

@@ -12,6 +12,8 @@ class NotificationList extends Component {
         this.setState({ ...this.state, notifications: this.props.alerts || [] })
     }
 
+    getReversedNotifications = () => ([...this.state.notifications]).reverse()
+
     render() {
         return (
             <div id="popover-notification-content" >
@@ -19,7 +21,7 @@ class NotificationList extends Component {
                     <If condition={this.state.notifications.length > 0}>
                         <div className="list-group">
                             {
-                                this.state.notifications.map((n, i) => {
+                                this.getReversedNotifications().map((n, i) => {
                                     return (
                                         <NotificationLink
                                             key={`${n.title}[${i}]`}

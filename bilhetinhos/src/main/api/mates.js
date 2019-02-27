@@ -31,8 +31,7 @@ const addMateIfExists = async (uid, email, mateEmail, successCallback = null) =>
             let userByEmail = await getUserByEmail(mateEmail)
             if (!getMatesRes.mates.includes(userByEmail.uid)) {
                 getMatesRes.mates.push(userByEmail.uid)
-                let ok = await getMatesRes.matesRef.set(getMatesRes.mates)
-                console.log(ok)
+                await getMatesRes.matesRef.set(getMatesRes.mates)
                 let successMsg = 'Usuário adicionado à sua lista de colegas com sucesso.'
                 if (successCallback) successCallback(successMsg);
                 return getMatesRes.mates

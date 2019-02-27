@@ -43,7 +43,6 @@ class NotificationsObserver extends Component {
             let queryMateUid = params.get('addm')
             let mateEmail = await getUserEmailByUid(queryMateUid)
             await addMateIfExists(this.props.uid, this.props.email, mateEmail, (msg) => {
-                console.log(msg)
                 window.location.search = ''
             }).catch(err => {
                 console.log(err.message)
