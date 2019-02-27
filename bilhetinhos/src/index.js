@@ -22,7 +22,7 @@ store.subscribe(() => {
 
 ReactDOM.render(
     <Provider store={store}>
-        <TranslationProvider language="fr" translation={translation}>
+        <TranslationProvider language="en" translation={translation}>
             <Routes />
         </TranslationProvider>
     </Provider>
