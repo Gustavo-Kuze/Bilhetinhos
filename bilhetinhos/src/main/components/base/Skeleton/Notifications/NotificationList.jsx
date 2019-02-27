@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NotificationLink from './NotificationLink'
 import NotificationContent from './NotificationContent'
 import If from '../../../utils/If'
+import {Translate} from 'react-translated'
 
 class NotificationList extends Component {
     state = {
@@ -40,7 +41,7 @@ class NotificationList extends Component {
                         </div>
                     </If>
                     <If condition={this.state.notifications.length === 0}>
-                        <p className="text-muted mt-5">Tudo atualizado por aqui!</p>
+                        <p className="text-muted mt-5"><Translate text="notifications-default-label"/></p>
                     </If>
                 </div>
 

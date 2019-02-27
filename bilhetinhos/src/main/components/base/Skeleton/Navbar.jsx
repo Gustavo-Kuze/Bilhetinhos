@@ -12,16 +12,22 @@ class Navbar extends React.Component {
         return (
             <nav className="navbar navbar-expand-md fixed-top bg-primary navbar-dark">
                 <a className="navbar-brand" href="/">Bilhetinhos</a>
-                <PopoverButton
-                    iconClassName={`${this.props.anyUnreadAlerts ? 'fas' : 'far'} fa-bell`} popoverTitle={"Notificações"}
-                    buttonContent={
-                        <span className="badge badge-primary badge-pill">
-                            {this.props.unreadAlertsCount}
-                        </span>
+                <Translator>
+                    {
+                        ({ translate }) => (
+                            <PopoverButton
+                                iconClassName={`${this.props.anyUnreadAlerts ? 'fas' : 'far'} fa-bell`} popoverTitle={translate({ text: 'navbar-notifications-default-label' })}
+                                buttonContent={
+                                    <span className="badge badge-primary badge-pill">
+                                        {this.props.unreadAlertsCount}
+                                    </span>
+                                }
+                                extraStyle={{ height: "300px", overflow: "auto" }}>
+                                <NotificationList alerts={this.props.alerts} />
+                            </PopoverButton>
+                        )
                     }
-                    extraStyle={{ height: "300px", overflow: "auto" }}>
-                    <NotificationList alerts={this.props.alerts} />
-                </PopoverButton>
+                </Translator>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
