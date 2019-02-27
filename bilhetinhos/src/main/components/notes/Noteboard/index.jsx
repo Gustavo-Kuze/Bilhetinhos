@@ -68,8 +68,8 @@ class Noteboard extends Component {
           <div className="row ">
             <div className="col-10 offset-1">
               <h1 className="h3">Meu quadro</h1>
-              <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edit-note-modal">
-                Criar bilhete +
+              <button type="button" className="btn btn-link text-decoration-none btn-lg" data-toggle="modal" data-target="#edit-note-modal">
+                Novo bilhete
               </button>
               <hr />
               <RemoveNote onClose={this.onModalClose} />

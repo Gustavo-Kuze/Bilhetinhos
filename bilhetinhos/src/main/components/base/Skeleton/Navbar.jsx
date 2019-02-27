@@ -27,9 +27,6 @@ class Navbar extends React.Component {
                 </button>
                 <div className="collapse navbar-collapse mx-3" id="navbarCollapse">
                     <ul className="navbar-nav mr-auto text-center">
-                        <li className="nav-itema">
-                            <a className="nav-link btn btn-lg btn-primary" href="/quadro?novo=bilhete">Criar bilhete <span className=""><i className="fas fa-plus"></i></span></a>
-                        </li>
                         <li className="nav-item">
                             <a className="nav-link btn btn-lg btn-primary" href="/quadro">Meu quadro</a>
                         </li>

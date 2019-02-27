@@ -135,7 +135,7 @@ class Mates extends Component {
                 <section className="container-fluid">
                     <div className="row ">
                         <div className="col-sm-10 offset-sm-1 col-md-6 offset-md-3">
-                            <h1 className="h3">Colegas</h1>
+                            <h1 className="h3 mt-xs-5 mt-sm-1">Colegas</h1>
                             <Modal
                                 open={this.shouldOpenEditorForNewMate()}
                                 modalId="add-mate-modal"
@@ -154,9 +154,13 @@ class Mates extends Component {
                                 onClose={() => { }}
                                 removeMate={this.removeMateAndRefresh}
                             />
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#add-mate-modal">
-                                Adicionar um colega
-                            </button>
+                            <div className="row">
+                                <div className="col offset-2 offset-sm-0">
+                                    <button type="button" className="btn btn-link text-decoration-none btn-lg" data-toggle="modal" data-target="#add-mate-modal">
+                                        Adicionar colega
+                                    </button>
+                                </div>
+                            </div>
                             <hr />
                             <If condition={this.props.isLoadingMates}>
                                 <div className="row">
