@@ -11,7 +11,9 @@
   box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18), 
               0px 4px 12px -7px rgba(0, 0, 0, 0.15);
   border-radius: 50%;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 56px;
   height: 56px;
   margin: 20px auto 0;
@@ -49,28 +51,28 @@
 .fab-item:nth-last-child(1) {
   -webkit-transition-delay: 25ms;
           transition-delay: 25ms;
-  background-image: url('https://cbwconline.com/IMG/Share.svg');
+  /* background-image: url('https://cbwconline.com/IMG/Share.svg'); */
   background-size: contain;
 }
 
 .fab-item:not(:last-child):nth-last-child(2) {
   -webkit-transition-delay: 50ms;
           transition-delay: 20ms;
-  background-image: url('https://cbwconline.com/IMG/Facebook-Flat.png');
+  /* background-image: url('https://cbwconline.com/IMG/Facebook-Flat.png'); */
   background-size: contain;
 }
 
 .fab-item:not(:last-child):nth-last-child(3) {
   -webkit-transition-delay: 75ms;
           transition-delay: 40ms;
-  background-image: url('https://cbwconline.com/IMG/Twitter-Flat.png');
+  /* background-image: url('https://cbwconline.com/IMG/Twitter-Flat.png'); */
   background-size: contain;
 }
 
 .fab-item:not(:last-child):nth-last-child(4) {
   -webkit-transition-delay: 100ms;
           transition-delay: 60ms;
-  background-image: url('https://cbwconline.com/IMG/Google%20Plus.svg');
+  /* background-image: url('https://cbwconline.com/IMG/Google%20Plus.svg'); */
   background-size: contain;
 }
 

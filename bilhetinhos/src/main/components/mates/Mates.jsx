@@ -127,6 +127,8 @@ class Mates extends Component {
         })
     }
 
+    shouldOpenEditorForNewMate = () => window.location.search.includes('novo=colega')
+
     render() {
         return (
             <Skeleton>
@@ -135,6 +137,7 @@ class Mates extends Component {
                         <div className="col-sm-10 offset-sm-1 col-md-6 offset-md-3">
                             <h1 className="h3">Colegas</h1>
                             <Modal
+                                open={this.shouldOpenEditorForNewMate()}
                                 modalId="add-mate-modal"
                                 title="Adicionar um colega" >
                                 <div className="form-group">
