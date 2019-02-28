@@ -9,6 +9,7 @@ import RemoveNote from './RemoveNote'
 import { setEntireNote } from '../../../redux/actions/editNoteActions'
 import Spinner from '../../utils/Spinner'
 import If from '../../utils/If'
+import { Translate, Translator } from 'react-translated'
 
 var markedNoteId = ''
 
@@ -67,47 +68,56 @@ class Noteboard extends Component {
         <section className="container-fluid">
           <div className="row ">
             <div className="col-10 offset-1">
-              <h1 className="h3">Meu quadro</h1>
+              <h1 className="h3"><Translate text="noteboard-header-label" /></h1>
               <button type="button" className="btn btn-link text-decoration-none btn-lg" data-toggle="modal" data-target="#edit-note-modal">
-                Novo bilhete
+                <Translate text="noteboard-btn-new-note" />
               </button>
               <hr />
               <RemoveNote onClose={this.onModalClose} />
-              <Accordion accordionId="notes-accordion">
-                <AccordionItem itemId="user-notes" itemLabel="Meus bilhetes" accordionId="notes-accordion" open>
+              <Translator>
+                {({ translate }) => {
+                  this.translate = translate
+                  return (
+                    <Accordion accordionId="notes-accordion">
+                      <AccordionItem itemId="user-notes" itemLabel={translate({ text: "noteboard-accordion-my-notes-label" })} accordionId="notes-accordion" open>
+                        <If condition={this.props.isLoadingUserNotes}>
+                          <div className="row">
+                            <div className="col offset-5">
+                              <Spinner extraClasses="py-5 pl-3" />
+                            </div>
+                          </div>
+                        </If>
+                        <div className="notes-container row ">
+                          {
+                            this.props.userNotes.length > 0 ?
+                              this.renderNotes(this.props.userNotes, true) :
+                              <p className="lead mx-auto">{translate({ text: "noteboard-my-notes-no-note" })}</p>
+                          }
+                        </div>
+                      </AccordionItem>
+                      <AccordionItem itemId="mates-notes" itemLabel={translate({ text: "noteboard-accordion-mates-notes-label" })} accordionId="notes-accordion" open>
+                        <If condition={this.props.isLoadingMatesNotes}>
+                          <div className="row">
+                            <div className="col offset-5">
+                              <Spinner extraClasses="py-5 pl-3" />
+                            </div>
+                          </div>
+                        </If>
+                        <div className="notes-container row ">
+                          {
+                            this.props.matesNotes.length > 0 ?
+                              this.renderNotes(this.props.matesNotes) :
+                              <p className="lead mx-auto">{translate({ text: "noteboard-mates-notes-no-note" })}</p>
+                          }
+                        </div>
+                      </AccordionItem>
+                    </Accordion>
+                  )
+                }
+                }
+              </Translator>
 
-                  <If condition={this.props.isLoadingUserNotes}>
-                    <div className="row">
-                      <div className="col offset-5">
-                        <Spinner extraClasses="py-5 pl-3" />
-                      </div>
-                    </div>
-                  </If>
-                  <div className="notes-container row ">
-                    {
-                      this.props.userNotes.length > 0 ?
-                        this.renderNotes(this.props.userNotes, true) :
-                        <p className="lead mx-auto">Você não escreveu nenhum bilhete ainda</p>
-                    }
-                  </div>
-                </AccordionItem>
-                <AccordionItem itemId="mates-notes" itemLabel="Bilhetes dos colegas" accordionId="notes-accordion" open>
-                  <If condition={this.props.isLoadingMatesNotes}>
-                    <div className="row">
-                      <div className="col offset-5">
-                        <Spinner extraClasses="py-5 pl-3" />
-                      </div>
-                    </div>
-                  </If>
-                  <div className="notes-container row ">
-                    {
-                      this.props.matesNotes.length > 0 ?
-                        this.renderNotes(this.props.matesNotes) :
-                        <p className="lead mx-auto">Nenhum colega colou nada em seu quadro</p>
-                    }
-                  </div>
-                </AccordionItem>
-              </Accordion>
+
               <EditNote onClose={this.onModalClose} onOpen={() => { }} open={this.shouldOpenEditorForNewNote()} />
             </div>
           </div>

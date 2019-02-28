@@ -79,6 +79,11 @@ export default {
     en: "You're about to remove {mateNameOrEmail}. This action CANNOT be undone. Are you sure you want to proceed?",
     pt: "Você está prestes a excluir o colega {mateNameOrEmail}. Esta ação NÃO PODE ser desfeita. Deseja mesmo continuar?"
   },
+  'remove-note-modal-question': {
+    en: "You're about to remove note {noteTitle}. This action CANNOT be undone. Are you sure you want to proceed?",
+    pt: "Você está prestes a excluir o bilhete {noteTitle}. Esta ação NÃO PODE ser desfeita. Deseja mesmo continuar?"
+  },
+  
   'warning-modal-btn-yes': {
     en: 'Yes, go on',
     pt: 'Sim, continuar'
@@ -126,7 +131,35 @@ export default {
   'toastr-notification-sent': {
     en: 'Your notification has been sent',
     pt: 'Sua notificação foi enviada'
+  },
+  'noteboard-header-label': {
+    en: 'Noteboard',
+    pt: 'Quadro'
+  },
+  'noteboard-btn-new-note': {
+    en: 'New Note',
+    pt: 'Novo Bilhete'
+  },
+  'noteboard-accordion-my-notes-label': {
+    en: 'My notes',
+    pt: 'Meus bilhetes'
+  },
+  'noteboard-accordion-mates-notes-label': {
+    en: "Mates's notes",
+    pt: 'Bilhetes dos colegas'
+  },
+  'noteboard-my-notes-no-note': {
+    en: "You haven't written any notes yet",
+    pt: 'Você ainda não escreveu nenhuma nota'
+  },
+  'noteboard-mates-notes-no-note': {
+    en: 'Nothing to show here',
+    pt: 'Nada para mostrar aqui'
   }
+  // '': {
+  //   en: '',
+  //   pt: ''
+  // },
   // '': {
   //   en: '',
   //   pt: ''

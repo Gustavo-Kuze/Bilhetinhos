@@ -16,13 +16,7 @@ import If from '../utils/If'
 import { refreshMates, matesLoading } from '../../redux/actions/matesActions'
 import { Translate, Translator } from 'react-translated'
 
-
 class Mates extends Component {
-
-    // toastrSuccessTitle = ''
-    // toastrErrorTitle = ''
-    // toastrNotificationSentText = ''
-    // toastrErrorTryingLoadMatesText = ''
 
     state = {
         mateEmail: '',
