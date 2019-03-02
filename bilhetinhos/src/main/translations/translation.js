@@ -1,15 +1,15 @@
 export default {
   'home-welcome': {
-    en: 'Welcome, click the button below to log in and start exploring the app',
-    pt: 'Seja bem-vindo, clique no botão abaixo para entrar com sua conta e começar a explorar o app',
+    en: 'Welcome, click to log in and start exploring the app',
+    pt: 'Seja bem-vindo, clique para entrar com sua conta e começar a explorar o app',
   },
   'home-login-button': {
     en: 'LogIn',
     pt: 'Entrar'
   },
   'home-section-1-title': {
-    en: "Put sticky notes on your mates's noteboard!",
-    pt: 'Crie notas e cole no quadro dos seus colegas!'
+    en: "Stick notes on your mates's noteboard!",
+    pt: 'Cole notas no quadro dos seus colegas!'
   },
   'home-section-1-p': {
     en: "Bilhetinhos is a minimalistic social network that allows You to interact with the ones You care about!",
@@ -155,11 +155,39 @@ export default {
   'noteboard-mates-notes-no-note': {
     en: 'Nothing to show here',
     pt: 'Nada para mostrar aqui'
-  }
-  // '': {
-  //   en: '',
-  //   pt: ''
-  // },
+  },
+  'signout-label': {
+    en: 'Signing out...',
+    pt: 'Saindo...'
+  },
+  'spinner-default-label': {
+    en: 'Loading...',
+    pt: 'Carregando...'
+  },
+  'api-mates-added-successfully': {
+    en: 'User successfully added to your mates list',
+    pt: 'Usuário adicionado à sua lista de colegas com sucesso.'
+  },
+  'api-mates-error-mate-already-added': {
+    en: "E-mail's owner is already your mate",
+    pt: 'O dono deste E-mail já é seu colega!'
+  },
+  'api-mates-error-cannot-add-yourself': {
+    en: "You cannot add yourself as a mate.",
+    pt: 'Você não pode se adicionar como colega.'
+  },
+  'api-mates-error-mate-not-found': {
+    en: "The E-mail provided does not match any registered user.",
+    pt: 'O E-mail fornecido não pertence a nenhum usuário registrado.'
+  },
+  'api-notes-error-uid-not-found': {
+    en: "No user found with this uid",
+    pt: 'Nenhum usuário encontrado com este Uid'
+  },
+  'api-notes-error-email-not-found': {
+    en: "No user found with this E-mail",
+    pt: 'Nenhum usuário encontrado com este E-mail'
+  },
   // '': {
   //   en: '',
   //   pt: ''

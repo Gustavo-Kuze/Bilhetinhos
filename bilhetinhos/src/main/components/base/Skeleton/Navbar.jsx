@@ -4,7 +4,7 @@ import PopoverButton from '../PopoverButton'
 import UserMenu from './UserMenu'
 import NotificationList from './notifications/NotificationList'
 import LanguageSelector from './LanguageSelector'
-import { Translate, Translator } from 'react-translated'
+import { Translate } from 'react-translated'
 
 class Navbar extends React.Component {
 
@@ -12,22 +12,16 @@ class Navbar extends React.Component {
         return (
             <nav className="navbar navbar-expand-md fixed-top bg-primary navbar-dark">
                 <a className="navbar-brand" href="/">Bilhetinhos</a>
-                <Translator>
-                    {
-                        ({ translate }) => (
-                            <PopoverButton
-                                iconClassName={`${this.props.anyUnreadAlerts ? 'fas' : 'far'} fa-bell`} popoverTitle={translate({ text: 'navbar-notifications-default-label' })}
-                                buttonContent={
-                                    <span className="badge badge-primary badge-pill">
-                                        {this.props.unreadAlertsCount}
-                                    </span>
-                                }
-                                extraStyle={{ height: "300px", overflow: "auto" }}>
-                                <NotificationList alerts={this.props.alerts} />
-                            </PopoverButton>
-                        )
+                <PopoverButton
+                    iconClassName={`${this.props.anyUnreadAlerts ? 'fas' : 'far'} fa-bell`} popoverTitle={window.translate({ text: 'navbar-notifications-default-label' })}
+                    buttonContent={
+                        <span className="badge badge-primary badge-pill">
+                            {this.props.unreadAlertsCount}
+                        </span>
                     }
-                </Translator>
+                    extraStyle={{ height: "300px", overflow: "auto" }}>
+                    <NotificationList alerts={this.props.alerts} />
+                </PopoverButton>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -43,17 +37,11 @@ class Navbar extends React.Component {
                             <LanguageSelector />
                         </li>
                     </ul>
-                    <Translator>
-                        {
-                            ({ translate }) => (
-                                <PopoverButton
-                                    iconClassName="fas fa-user-alt" popoverTitle={this.props.email || translate({ text: 'navbar-usermenu-default-label' })}
-                                    imgSrc={this.props.profilePictureSrc}>
-                                    <UserMenu />
-                                </PopoverButton>
-                            )
-                        }
-                    </Translator>
+                    <PopoverButton
+                        iconClassName="fas fa-user-alt" popoverTitle={this.props.email || window.translate({ text: 'navbar-usermenu-default-label' })}
+                        imgSrc={this.props.profilePictureSrc}>
+                        <UserMenu />
+                    </PopoverButton>
                 </div>
             </nav>
         )

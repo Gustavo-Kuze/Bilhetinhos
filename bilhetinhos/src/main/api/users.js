@@ -25,7 +25,7 @@ const getUserByUid = uid => {
     return new Promise((res, rej) => {
         getUserRefByUid(uid).once('value', snapshot => {
             res(snapshot.val())
-            rej(`Nenhum usuário encontrado com este Uid: ${uid}`)
+            rej(`${window.translate('api-notes-error-uid-not-found')}: ${uid}`)
         }).catch(err => rej(err))
     })
 }
@@ -41,7 +41,7 @@ const getUserByEmail = email => {
                     })
                 }
             })
-            rej(`Nenhum usuário encontrado com este E-mail: ${email}`)
+            rej(`${window.translate('api-notes-error-email-not-found')}: ${email}`)
         }).catch(err => rej(err))
     })
 }

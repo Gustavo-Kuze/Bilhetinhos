@@ -14,7 +14,7 @@ import RemoveMate from './RemoveMate/'
 import Spinner from '../utils/Spinner'
 import If from '../utils/If'
 import { refreshMates, matesLoading } from '../../redux/actions/matesActions'
-import { Translate, Translator } from 'react-translated'
+import { Translate } from 'react-translated'
 
 class Mates extends Component {
 
@@ -32,8 +32,8 @@ class Mates extends Component {
         this.setState({ mateEmail: element.target.value })
     }
 
-    translateAlertTitle = () => (this.translate({ text: "mates-alert-title" }))
-    translateAlertDescription = () => (this.translate({ text: "mates-alert-description", data: { userEmail: this.props.currentUserEmail } }))
+    translateAlertTitle = () => (window.translate({ text: "mates-alert-title" }))
+    translateAlertDescription = () => (window.translate({ text: "mates-alert-description", data: { userEmail: this.props.currentUserEmail } }))
 
     notifyAddedMate = async () => {
         let mateUid = await getUserUidByEmail(this.state.mateEmail)
@@ -46,19 +46,19 @@ class Mates extends Component {
                 read: false,
                 href: `/colegas?addm=${this.props.currentUserUid}`
             })
-            toastr.success(this.translate({ text: "toastr-success-title" }), this.translate({ text: "toastr-notification-sent" }))
+            toastr.success(window.translate({ text: "toastr-success-title" }), window.translate({ text: "toastr-notification-sent" }))
         }
     }
 
     callAddMateIfExists = async () => {
         try {
             let mates = await addMateIfExists(this.props.currentUserUid, this.props.currentUserEmail, this.state.mateEmail, (msg) => {
-                toastr.success(this.translate({ text: "toastr-success-title" }), msg)
+                toastr.success(window.translate({ text: "toastr-success-title" }), msg)
             })
             this.props.refreshMatesUids(this.props.currentUserUid)
             this.notifyAddedMate()
         } catch (err) {
-            toastr.error(this.translate({ text: "toastr-error-title" }), err.message)
+            toastr.error(window.translate({ text: "toastr-error-title" }), err.message)
         }
     }
 
@@ -75,7 +75,7 @@ class Mates extends Component {
                     />
                 )
             } catch (err) {
-                toastr.error(this.translate({ text: "toastr-error-title" }), this.translate({ text: "toastr-error-trying-load-mates" }))
+                toastr.error(window.translate({ text: "toastr-error-title" }), window.translate({ text: "toastr-error-trying-load-mates" }))
                 return ''
             }
         }))
@@ -100,7 +100,7 @@ class Mates extends Component {
                 matePreviews: this.props.mates.map(mate => this.createMatePreview(mate))
             })
         } else {
-            toastr.error(this.translate({ text: "toastr-error-title" }), this.translate({ text: "toastr-error-trying-load-mates" }))
+            toastr.error(window.translate({ text: "toastr-error-title" }), window.translate({ text: "toastr-error-trying-load-mates" }))
         }
 
     }
@@ -143,19 +143,10 @@ class Mates extends Component {
                             <Modal
                                 open={this.shouldOpenEditorForNewMate()}
                                 modalId="add-mate-modal"
-                                title="Adicionar um colega" >
+                                title={window.translate({ text: "mates-add-mate" })} >
                                 <div className="form-group">
-                                    <Translator>
-                                        {
-                                            ({ translate }) => {
-                                                this.translate = translate
-                                                return (
-                                                    <input tabIndex="0" type="email" className="form-control" placeholder={translate({ text: "mates-new-mate-email-placeholder" })} value={this.state.mateEmail} onChange={this.handleEmailChange}
-                                                        onKeyUp={e => { if (e.key === 'Enter') this.callAddMateIfExists(); }} />
-                                                )
-                                            }
-                                        }
-                                    </Translator>
+                                    <input tabIndex="0" type="email" className="form-control" placeholder={window.translate({ text: "mates-new-mate-email-placeholder" })} value={this.state.mateEmail} onChange={this.handleEmailChange}
+                                        onKeyUp={e => { if (e.key === 'Enter') this.callAddMateIfExists(); }} />
                                 </div>
                                 <button className="btn btn-primary" onClick={this.callAddMateIfExists}><Translate text="mates-add-mate" /></button>
                             </Modal>
@@ -186,11 +177,7 @@ class Mates extends Component {
                                 {
                                     this.state.matePreviews.length === 0 && !this.props.isLoadingMates ?
                                         <li>
-                                            <Translator>
-                                                {({ translate }) => (
-                                                    <p className="lead">{translate({ text: "mates-no-mates-label" })}</p>
-                                                )}
-                                            </Translator>
+                                            <p className="lead">{window.translate({ text: "mates-no-mates-label" })}</p>
                                         </li> :
                                         this.state.matePreviews
                                 }

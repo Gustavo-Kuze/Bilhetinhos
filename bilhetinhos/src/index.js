@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './main/routes/Routes'
 import * as serviceWorker from './serviceWorker';
-import { Provider as TranslationProvider } from 'react-translated'
+import { Provider as TranslationProvider, Translator } from 'react-translated'
 import translation from './main/translations/translation'
 import { Provider } from 'react-redux'
 import { saveState } from './main/redux/localStorage/'
@@ -24,7 +24,18 @@ store.subscribe(() => {
 ReactDOM.render(
     <Provider store={store}>
         <TranslationProvider language={store.getState().language} translation={translation}>
-            <Routes />
+            <Translator>
+                {
+                    /* The translate method must be available on window, 
+                    so the api files have access to It */
+                    ({ translate }) => {
+                        window.translate = translate
+                        return (
+                            <Routes />
+                        )
+                    }
+                }
+            </Translator>
         </TranslationProvider>
     </Provider>
     , document.getElementById('root'));

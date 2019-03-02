@@ -32,17 +32,17 @@ const addMateIfExists = async (uid, email, mateEmail, successCallback = null) =>
             if (!getMatesRes.mates.includes(userByEmail.uid)) {
                 getMatesRes.mates.push(userByEmail.uid)
                 await getMatesRes.matesRef.set(getMatesRes.mates)
-                let successMsg = 'Usuário adicionado à sua lista de colegas com sucesso.'
+                let successMsg = window.translate({text: 'api-mates-added-successfully'})
                 if (successCallback) successCallback(successMsg);
                 return getMatesRes.mates
             } else {
-                throw new Error('O dono deste E-mail já é seu colega!')
+                throw new Error(window.translate({text: 'api-mates-error-mate-already-added'}))
             }
         } else {
-            throw new Error('Você não pode se adicionar como colega.')
+            throw new Error(window.translate({text: 'api-mates-error-cannot-add-yourself'}))
         }
     } else {
-        throw new Error('Nenhum colega foi encontrado com este E-mail!')
+        throw new Error(window.translate({text: 'api-mates-error-mate-not-found'}))
     }
 }
 

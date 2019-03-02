@@ -9,7 +9,7 @@ import RemoveNote from './RemoveNote'
 import { setEntireNote } from '../../../redux/actions/editNoteActions'
 import Spinner from '../../utils/Spinner'
 import If from '../../utils/If'
-import { Translate, Translator } from 'react-translated'
+import { Translate } from 'react-translated'
 
 var markedNoteId = ''
 
@@ -74,12 +74,9 @@ class Noteboard extends Component {
               </button>
               <hr />
               <RemoveNote onClose={this.onModalClose} />
-              <Translator>
-                {({ translate }) => {
-                  this.translate = translate
                   return (
                     <Accordion accordionId="notes-accordion">
-                      <AccordionItem itemId="user-notes" itemLabel={translate({ text: "noteboard-accordion-my-notes-label" })} accordionId="notes-accordion" open>
+                      <AccordionItem itemId="user-notes" itemLabel={window.translate({ text: "noteboard-accordion-my-notes-label" })} accordionId="notes-accordion" open>
                         <If condition={this.props.isLoadingUserNotes}>
                           <div className="row">
                             <div className="col offset-5">
@@ -91,11 +88,11 @@ class Noteboard extends Component {
                           {
                             this.props.userNotes.length > 0 ?
                               this.renderNotes(this.props.userNotes, true) :
-                              <p className="lead mx-auto">{translate({ text: "noteboard-my-notes-no-note" })}</p>
+                              <p className="lead mx-auto">{window.translate({ text: "noteboard-my-notes-no-note" })}</p>
                           }
                         </div>
                       </AccordionItem>
-                      <AccordionItem itemId="mates-notes" itemLabel={translate({ text: "noteboard-accordion-mates-notes-label" })} accordionId="notes-accordion" open>
+                      <AccordionItem itemId="mates-notes" itemLabel={window.translate({ text: "noteboard-accordion-mates-notes-label" })} accordionId="notes-accordion" open>
                         <If condition={this.props.isLoadingMatesNotes}>
                           <div className="row">
                             <div className="col offset-5">
@@ -107,17 +104,12 @@ class Noteboard extends Component {
                           {
                             this.props.matesNotes.length > 0 ?
                               this.renderNotes(this.props.matesNotes) :
-                              <p className="lead mx-auto">{translate({ text: "noteboard-mates-notes-no-note" })}</p>
+                              <p className="lead mx-auto">{window.translate({ text: "noteboard-mates-notes-no-note" })}</p>
                           }
                         </div>
                       </AccordionItem>
                     </Accordion>
                   )
-                }
-                }
-              </Translator>
-
-
               <EditNote onClose={this.onModalClose} onOpen={() => { }} open={this.shouldOpenEditorForNewNote()} />
             </div>
           </div>
