@@ -4,7 +4,7 @@ import If from '../../../utils/If'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setEntireNote } from '../../../../redux/actions/editNoteActions'
-
+import {Translate} from 'react-translated'
 export class NotePreview extends Component {
   renderMates = () => {
     let noteMates = this.props.noteMates
@@ -58,7 +58,7 @@ export class NotePreview extends Component {
             <div className="row">
 
               <div className="col">
-                <small className="card-title">Criada por {this.props.owner || 'mim'}</small>
+                <small className="card-title"><Translate text="notepreview-created-by" data={{owner: this.props.owner}}/></small>
               </div>
               <div className="col">
                 <div className="float-right">
@@ -78,8 +78,8 @@ export class NotePreview extends Component {
             </div>
           </div>
           <div className="card-body">
-            <p className="h5 card-title" >{this.props.title || 'Algo de errado não está certo...'}</p>
-            <p className="note-message" style={{ fontSize: `${this.props.fontSize || '20px'}` }}>{this.props.message || 'Algum erro deve ter ocorrido para você estar vendo isso'}</p>
+            <p className="h5 card-title" >{this.props.title || ''}</p>
+            <p className="note-message" style={{ fontSize: `${this.props.fontSize || '20px'}` }}>{this.props.message || ''}</p>
             <ul className="list-inline">
               {this.renderMates()}
             </ul>

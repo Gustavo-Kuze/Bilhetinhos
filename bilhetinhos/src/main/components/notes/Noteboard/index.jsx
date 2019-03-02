@@ -33,7 +33,7 @@ class Noteboard extends Component {
       return notes.map(note => (
         <NotePreview key={note.title} title={note.title} message={note.message}
           noteMates={note.noteMates} fontColor={note.fontColor} noteColor={note.noteColor}
-          owner={note.owner || 'mim'} editable={areEditable} fontSize={note.fontSize}
+          owner={note.owner || this.props.email} editable={areEditable} fontSize={note.fontSize}
           mark={this.markNoteIfQuery(note.title)} />
       ))
     }
@@ -119,6 +119,7 @@ class Noteboard extends Component {
 
 const mapStateToProps = state => ({
   uid: state.user.uid,
+  email: state.user.email,
   mates: state.user.matesUids,
   userNotes: state.notes.userNotes,
   matesNotes: state.notes.matesNotes,

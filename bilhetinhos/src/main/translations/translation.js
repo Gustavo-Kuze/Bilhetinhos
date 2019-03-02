@@ -8,8 +8,8 @@ export default {
     pt: 'Entrar'
   },
   'home-section-1-title': {
-    en: "Stick notes on your mates's noteboard!",
-    pt: 'Cole notas no quadro dos seus colegas!'
+    en: "Share notes with everyone!",
+    pt: 'Compartilhe bilhetes com todo mundo!'
   },
   'home-section-1-p': {
     en: "Bilhetinhos is a minimalistic social network that allows You to interact with the ones You care about!",
@@ -228,6 +228,64 @@ export default {
     en: "No user found with this E-mail",
     pt: 'Nenhum usuário encontrado com este E-mail'
   },
+  'editnote-notify-users-title': {
+    en: "A mate has put a note on your board",
+    pt: 'Um colega colou uma nota em seu quadro'
+  },
+  'editnote-notify-users-description': {
+    en: "Click here to see",
+    pt: 'Clique aqui para ver'
+  },
+  'editnote-published': {
+    en: "Your note has been published!",
+    pt: 'Seu bilhete foi publicado!'
+  },
+  'editnote-error-empty-inputs': {
+    en: "You have to provide a title and a message to publish your note",
+    pt: 'Você precisa fornecer um título e uma mensagem para publicar seu bilhete'
+  },
+  'editnote-accordion-item-notecolor-label': {
+    en: "Note color",
+    pt: "Cor do bilhete"
+  },
+  'editnote-accordion-item-fontcolor-label': {
+    en: "Font color",
+    pt: "Cor da fonte"
+  },
+  'editnote-accordion-item-fontsize-label': {
+    en: "Font size",
+    pt: "Tamanho da fonte"
+  },
+  'editnote-accordion-item-mates-label': {
+    en: "Share note with these mates",
+    pt: "Compartilhar a nota com estes colegas"
+  },
+  'editnote-you-have-no-mates': {
+    en: "You have no mates",
+    pt: "Você não tem nenhum colega"
+  },
+  'editnote-notetitle-placeholder': {
+    en: "The note title goes here",
+    pt: "O título da nota vai aqui"
+  },
+  'editnote-message-placeholder': {
+    en: "Type your message here!",
+    pt: "Digite sua mensagem aqui!"
+  },
+  'editnote-btn-create': {
+    en: "Publish",
+    pt: "Publicar"
+  },
+  'editnote-title': {
+    en: "Customize you note",
+    pt: "Personalize seu bilhete"
+  },
+  'notepreview-created-by': {
+    en: "Created by {owner}",
+    pt: "Criado por {owner}"
+  },
+
+
   // '': {
   //   en: '',
   //   pt: ''
