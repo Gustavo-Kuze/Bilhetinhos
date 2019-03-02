@@ -74,42 +74,40 @@ class Noteboard extends Component {
               </button>
               <hr />
               <RemoveNote onClose={this.onModalClose} />
-                  return (
-                    <Accordion accordionId="notes-accordion">
-                      <AccordionItem itemId="user-notes" itemLabel={window.translate({ text: "noteboard-accordion-my-notes-label" })} accordionId="notes-accordion" open>
-                        <If condition={this.props.isLoadingUserNotes}>
-                          <div className="row">
-                            <div className="col offset-5">
-                              <Spinner extraClasses="py-5 pl-3" />
-                            </div>
-                          </div>
-                        </If>
-                        <div className="notes-container row ">
-                          {
-                            this.props.userNotes.length > 0 ?
-                              this.renderNotes(this.props.userNotes, true) :
-                              <p className="lead mx-auto">{window.translate({ text: "noteboard-my-notes-no-note" })}</p>
-                          }
-                        </div>
-                      </AccordionItem>
-                      <AccordionItem itemId="mates-notes" itemLabel={window.translate({ text: "noteboard-accordion-mates-notes-label" })} accordionId="notes-accordion" open>
-                        <If condition={this.props.isLoadingMatesNotes}>
-                          <div className="row">
-                            <div className="col offset-5">
-                              <Spinner extraClasses="py-5 pl-3" />
-                            </div>
-                          </div>
-                        </If>
-                        <div className="notes-container row ">
-                          {
-                            this.props.matesNotes.length > 0 ?
-                              this.renderNotes(this.props.matesNotes) :
-                              <p className="lead mx-auto">{window.translate({ text: "noteboard-mates-notes-no-note" })}</p>
-                          }
-                        </div>
-                      </AccordionItem>
-                    </Accordion>
-                  )
+              <Accordion accordionId="notes-accordion">
+                <AccordionItem itemId="user-notes" itemLabel={window.translate({ text: "noteboard-accordion-my-notes-label" })} accordionId="notes-accordion" open>
+                  <If condition={this.props.isLoadingUserNotes}>
+                    <div className="row">
+                      <div className="col offset-5">
+                        <Spinner extraClasses="py-5 pl-3" />
+                      </div>
+                    </div>
+                  </If>
+                  <div className="notes-container row ">
+                    {
+                      this.props.userNotes.length > 0 ?
+                        this.renderNotes(this.props.userNotes, true) :
+                        <p className="lead mx-auto">{window.translate({ text: "noteboard-my-notes-no-note" })}</p>
+                    }
+                  </div>
+                </AccordionItem>
+                <AccordionItem itemId="mates-notes" itemLabel={window.translate({ text: "noteboard-accordion-mates-notes-label" })} accordionId="notes-accordion" open>
+                  <If condition={this.props.isLoadingMatesNotes}>
+                    <div className="row">
+                      <div className="col offset-5">
+                        <Spinner extraClasses="py-5 pl-3" />
+                      </div>
+                    </div>
+                  </If>
+                  <div className="notes-container row ">
+                    {
+                      this.props.matesNotes.length > 0 ?
+                        this.renderNotes(this.props.matesNotes) :
+                        <p className="lead mx-auto">{window.translate({ text: "noteboard-mates-notes-no-note" })}</p>
+                    }
+                  </div>
+                </AccordionItem>
+              </Accordion>
               <EditNote onClose={this.onModalClose} onOpen={() => { }} open={this.shouldOpenEditorForNewNote()} />
             </div>
           </div>

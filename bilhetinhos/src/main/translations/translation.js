@@ -108,9 +108,49 @@ export default {
     en: 'Error!',
     pt: 'Erro!'
   },
+  'toastr-attention-title': {
+    en: 'Attention!',
+    pt: 'Atenção!'
+  },
   'toastr-error-trying-load-mates': {
     en: "An error occured while trying to load one or more mates.",
     pt: 'Occoreu um erro ao carregar o(s) colega(s).'
+  },
+  'profile-saved': {
+    en: 'Your profile data has been saved.',
+    pt: 'Os dados do perfil foram salvos.'
+  },
+  'profile-image-loading-error': {
+    en: 'Cannot load your profile image',
+    pt: 'Não foi possível carregar sua imagem de perfil'
+  },
+  'profile-image-updated': {
+    en: 'Your profile picture was successfully updated',
+    pt: 'Sua imagem de perfil foi atualizada com êxito!'
+  },
+  'profile-image-error-size-or-type': {
+    en: 'The image file maximum size is 500kb. Only jpg, jpeg and png files are accepted.',
+    pt: 'O tamanho máximo dos arquivos de imagem deve ser de 500 KB. Somente arquivos nos formatos jpg, jpeg e png são aceitos.'
+  },
+  'profile-header-title': {
+    en: 'Profile',
+    pt: 'Perfil'
+  },
+  'profile-name-placeholder': {
+    en: 'Your full name or nickname',
+    pt: 'Seu nome completo ou apelido'
+  },
+  'profile-bio-placeholder': {
+    en: 'Biography',
+    pt: 'Biografia'
+  },
+  'profile-phone-placeholder': {
+    en: 'Phone number',
+    pt: 'Número de telefone'
+  },
+  'profile-btn-save': {
+    en: 'Save',
+    pt: 'Salvar'
   },
   'mates-list-header-label': {
     en: 'Mates',
