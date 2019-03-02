@@ -28,6 +28,7 @@
     "debf": "firebase functions:log",
     "net": "netlify deploy --dir=build",
     "net-prod": "netlify deploy --prod --dir=build",
+    "build-net": "npm run build && netlify deploy --dir=build",
     "net-init": "netlify init"
   },
   "eslintConfig": {
