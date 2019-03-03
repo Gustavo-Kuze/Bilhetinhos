@@ -3,24 +3,24 @@ import { connect } from 'react-redux'
 import PopoverButton from '../PopoverButton'
 import UserMenu from './UserMenu'
 import NotificationList from './notifications/NotificationList'
+import LanguageSelector from './LanguageSelector'
+import { Translate } from 'react-translated'
 
 class Navbar extends React.Component {
-   
+
     render() {
         return (
             <nav className="navbar navbar-expand-md fixed-top bg-primary navbar-dark">
                 <a className="navbar-brand" href="/">Bilhetinhos</a>
                 <PopoverButton
-                    iconClassName={`${this.props.anyUnreadAlerts ? 'fas' : 'far'} fa-bell`}popoverTitle={"Notificações"}
+                    iconClassName={`${this.props.anyUnreadAlerts ? 'fas' : 'far'} fa-bell`} popoverTitle={window.translate({ text: 'navbar-notifications-default-label' })}
                     buttonContent={
                         <span className="badge badge-primary badge-pill">
                             {this.props.unreadAlertsCount}
                         </span>
                     }
                     extraStyle={{ height: "300px", overflow: "auto" }}>
-                    <NotificationList
-                        alerts={this.props.alerts}
-                    />
+                    <NotificationList alerts={this.props.alerts} />
                 </PopoverButton>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -28,16 +28,18 @@ class Navbar extends React.Component {
                 <div className="collapse navbar-collapse mx-3" id="navbarCollapse">
                     <ul className="navbar-nav mr-auto text-center">
                         <li className="nav-item">
-                            <a className="nav-link btn btn-lg btn-primary" href="/quadro">Meu quadro</a>
+                            <a className="nav-link btn btn-lg btn-primary" href="/quadro"><Translate text="navbar-btn-noteboard" /></a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link btn btn-lg btn-primary" href="/colegas">Colegas</a>
+                            <a className="nav-link btn btn-lg btn-primary" href="/colegas"><Translate text="navbar-btn-mates" /></a>
+                        </li>
+                        <li>
+                            <LanguageSelector />
                         </li>
                     </ul>
                     <PopoverButton
-                        iconClassName="fas fa-user-alt" popoverTitle={this.props.email || "Menu do Usuário"}
-                        imgSrc={this.props.profilePictureSrc}
-                    >
+                        iconClassName="fas fa-user-alt" popoverTitle={this.props.email || window.translate({ text: 'navbar-usermenu-default-label' })}
+                        imgSrc={this.props.profilePictureSrc}>
                         <UserMenu />
                     </PopoverButton>
                 </div>

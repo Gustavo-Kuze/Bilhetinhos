@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { removeNote } from '../../../../api/notes'
 import { connect } from 'react-redux'
 import Modal from '../../../base/Modal'
+import { Translate } from 'react-translated'
 
 var noteTitle = ''
 
@@ -30,14 +31,13 @@ class RemoveNote extends Component {
   componentDidMount = () => {
     this.setState({ ...this.state, uid: this.props.uid })
   }
-
   render() {
     return (
-      <Modal modalId="remove-note-modal" title="Tem certeza disso!?" onClose={this.props.onClose}>
-        <h4 className="text-danger">ATENÇÃO!</h4>
-        <p>Você está prestes a excluir o bilhete {`"${this.state.noteTitle || 'NOME DO BILHETE'}"`}. Esta ação <span className="text-danger">NÃO PODE</span> ser desfeita. Deseja mesmo prosseguir?</p>
-        <button className="btn btn-secondary mr-1" onClick={() => this.callRemoveNote()} data-toggle="modal" data-target="#remove-note-modal">Sim, desejo excluir</button>
-        <button className="btn btn-primary" data-toggle="modal" data-target="#remove-note-modal">Cancelar</button>
+      <Modal modalId="remove-note-modal"  title={<Translate text="warning-modal-title"/>} onClose={this.props.onClose}>
+        <h4 className="text-danger"><Translate text="warning-modal-subtitle"/></h4>
+        <p><Translate text="remove-note-modal-question" data={{noteTitle: `"${this.props.noteTitle || 'NOME DO BILHETE'}"`}}/></p>
+        <button className="btn btn-secondary mr-1" onClick={() => this.callRemoveNote()} data-toggle="modal" data-target="#remove-note-modal"><Translate text="warning-modal-btn-yes"/></button>
+        <button className="btn btn-primary" data-toggle="modal" data-target="#remove-note-modal"><Translate text="warning-modal-btn-cancel"/></button>
       </Modal>
     )
   }

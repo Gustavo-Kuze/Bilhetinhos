@@ -9,6 +9,7 @@ import RemoveNote from './RemoveNote'
 import { setEntireNote } from '../../../redux/actions/editNoteActions'
 import Spinner from '../../utils/Spinner'
 import If from '../../utils/If'
+import { Translate } from 'react-translated'
 
 var markedNoteId = ''
 
@@ -32,7 +33,7 @@ class Noteboard extends Component {
       return notes.map(note => (
         <NotePreview key={note.title} title={note.title} message={note.message}
           noteMates={note.noteMates} fontColor={note.fontColor} noteColor={note.noteColor}
-          owner={note.owner || 'mim'} editable={areEditable} fontSize={note.fontSize}
+          owner={note.owner || this.props.email} editable={areEditable} fontSize={note.fontSize}
           mark={this.markNoteIfQuery(note.title)} />
       ))
     }
@@ -67,15 +68,14 @@ class Noteboard extends Component {
         <section className="container-fluid">
           <div className="row ">
             <div className="col-10 offset-1">
-              <h1 className="h3">Meu quadro</h1>
+              <h1 className="h3"><Translate text="noteboard-header-label" /></h1>
               <button type="button" className="btn btn-link text-decoration-none btn-lg" data-toggle="modal" data-target="#edit-note-modal">
-                Novo bilhete
+                <Translate text="noteboard-btn-new-note" />
               </button>
               <hr />
               <RemoveNote onClose={this.onModalClose} />
               <Accordion accordionId="notes-accordion">
-                <AccordionItem itemId="user-notes" itemLabel="Meus bilhetes" accordionId="notes-accordion" open>
-
+                <AccordionItem itemId="user-notes" itemLabel={window.translate({ text: "noteboard-accordion-my-notes-label" })} accordionId="notes-accordion" open>
                   <If condition={this.props.isLoadingUserNotes}>
                     <div className="row">
                       <div className="col offset-5">
@@ -87,11 +87,11 @@ class Noteboard extends Component {
                     {
                       this.props.userNotes.length > 0 ?
                         this.renderNotes(this.props.userNotes, true) :
-                        <p className="lead mx-auto">Você não escreveu nenhum bilhete ainda</p>
+                        <p className="lead mx-auto">{window.translate({ text: "noteboard-my-notes-no-note" })}</p>
                     }
                   </div>
                 </AccordionItem>
-                <AccordionItem itemId="mates-notes" itemLabel="Bilhetes dos colegas" accordionId="notes-accordion" open>
+                <AccordionItem itemId="mates-notes" itemLabel={window.translate({ text: "noteboard-accordion-mates-notes-label" })} accordionId="notes-accordion" open>
                   <If condition={this.props.isLoadingMatesNotes}>
                     <div className="row">
                       <div className="col offset-5">
@@ -103,7 +103,7 @@ class Noteboard extends Component {
                     {
                       this.props.matesNotes.length > 0 ?
                         this.renderNotes(this.props.matesNotes) :
-                        <p className="lead mx-auto">Nenhum colega colou nada em seu quadro</p>
+                        <p className="lead mx-auto">{window.translate({ text: "noteboard-mates-notes-no-note" })}</p>
                     }
                   </div>
                 </AccordionItem>
@@ -119,6 +119,7 @@ class Noteboard extends Component {
 
 const mapStateToProps = state => ({
   uid: state.user.uid,
+  email: state.user.email,
   mates: state.user.matesUids,
   userNotes: state.notes.userNotes,
   matesNotes: state.notes.matesNotes,

@@ -14,6 +14,7 @@ import RemoveMate from './RemoveMate/'
 import Spinner from '../utils/Spinner'
 import If from '../utils/If'
 import { refreshMates, matesLoading } from '../../redux/actions/matesActions'
+import { Translate } from 'react-translated'
 
 class Mates extends Component {
 
@@ -31,30 +32,33 @@ class Mates extends Component {
         this.setState({ mateEmail: element.target.value })
     }
 
+    translateAlertTitle = () => (window.translate({ text: "mates-alert-title" }))
+    translateAlertDescription = () => (window.translate({ text: "mates-alert-description", data: { userEmail: this.props.currentUserEmail } }))
+
     notifyAddedMate = async () => {
         let mateUid = await getUserUidByEmail(this.state.mateEmail)
         if (mateUid) {
             await sendUserNotification(mateUid, {
-                title: 'Um colega lhe adicionou',
+                title: this.translateAlertTitle(),
                 receivedDate: Date.now(),
-                description: `${this.props.currentUserEmail} adicionou você! Clique para adicioná-lo também`,
+                description: this.translateAlertDescription(),
                 sender: `${this.props.currentUserEmail}`,
                 read: false,
                 href: `/colegas?addm=${this.props.currentUserUid}`
             })
-            toastr.success('Sucesso', 'Sua notificação foi enviada!')
+            toastr.success(window.translate({ text: "toastr-success-title" }), window.translate({ text: "toastr-notification-sent" }))
         }
     }
 
     callAddMateIfExists = async () => {
         try {
             let mates = await addMateIfExists(this.props.currentUserUid, this.props.currentUserEmail, this.state.mateEmail, (msg) => {
-                toastr.success('Sucesso!', msg)
+                toastr.success(window.translate({ text: "toastr-success-title" }), msg)
             })
             this.props.refreshMatesUids(this.props.currentUserUid)
             this.notifyAddedMate()
         } catch (err) {
-            toastr.error('Erro!', err.message)
+            toastr.error(window.translate({ text: "toastr-error-title" }), err.message)
         }
     }
 
@@ -71,7 +75,7 @@ class Mates extends Component {
                     />
                 )
             } catch (err) {
-                toastr.error('Erro', 'Ocorreu um erro ao tentar carregar algum colega')
+                toastr.error(window.translate({ text: "toastr-error-title" }), window.translate({ text: "toastr-error-trying-load-mates" }))
                 return ''
             }
         }))
@@ -96,7 +100,7 @@ class Mates extends Component {
                 matePreviews: this.props.mates.map(mate => this.createMatePreview(mate))
             })
         } else {
-            toastr.error('Erro', 'Não foi possível carregar os colegas')
+            toastr.error(window.translate({ text: "toastr-error-title" }), window.translate({ text: "toastr-error-trying-load-mates" }))
         }
 
     }
@@ -135,16 +139,16 @@ class Mates extends Component {
                 <section className="container-fluid">
                     <div className="row ">
                         <div className="col-sm-10 offset-sm-1 col-md-6 offset-md-3">
-                            <h1 className="h3 mt-xs-5 mt-sm-1">Colegas</h1>
+                            <h1 className="h3 mt-xs-5 mt-sm-1"><Translate text="mates-list-header-label" /></h1>
                             <Modal
                                 open={this.shouldOpenEditorForNewMate()}
                                 modalId="add-mate-modal"
-                                title="Adicionar um colega" >
+                                title={window.translate({ text: "mates-add-mate" })} >
                                 <div className="form-group">
-                                    <input tabIndex="0" type="email" className="form-control" placeholder="Digite o email de um colega aqui" value={this.state.mateEmail} onChange={this.handleEmailChange}
+                                    <input tabIndex="0" type="email" className="form-control" placeholder={window.translate({ text: "mates-new-mate-email-placeholder" })} value={this.state.mateEmail} onChange={this.handleEmailChange}
                                         onKeyUp={e => { if (e.key === 'Enter') this.callAddMateIfExists(); }} />
                                 </div>
-                                <button className="btn btn-primary" onClick={this.callAddMateIfExists}>Adicionar</button>
+                                <button className="btn btn-primary" onClick={this.callAddMateIfExists}><Translate text="mates-add-mate" /></button>
                             </Modal>
                             <RemoveMate
                                 name={this.state.mate.name}
@@ -157,7 +161,7 @@ class Mates extends Component {
                             <div className="row">
                                 <div className="col offset-2 offset-sm-0">
                                     <button type="button" className="btn btn-link text-decoration-none btn-lg" data-toggle="modal" data-target="#add-mate-modal">
-                                        Adicionar colega
+                                        <Translate text="mates-add-mate" />
                                     </button>
                                 </div>
                             </div>
@@ -172,8 +176,11 @@ class Mates extends Component {
                             <ul className="list-unstyled">
                                 {
                                     this.state.matePreviews.length === 0 && !this.props.isLoadingMates ?
-                                        <li><p className="lead">Você ainda não possui nenhum colega</p></li> :
-                                        this.state.matePreviews}
+                                        <li>
+                                            <p className="lead">{window.translate({ text: "mates-no-mates-label" })}</p>
+                                        </li> :
+                                        this.state.matePreviews
+                                }
                             </ul>
                         </div>
                     </div>

@@ -18,6 +18,7 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import { sendUserNotification } from '../../../../api/notifications'
 import { areMates } from '../../../../api/mates'
+import { Translate } from 'react-translated'
 
 var defaultChecked = []
 var shouldVerifyForDefaultChecked = true
@@ -42,16 +43,16 @@ export class EditNote extends Component {
       let userEmail = await getUserEmailByUid(this.props.uid)
       mates.forEach(async mateUid => {
         await sendUserNotification(mateUid, {
-          title: 'Um colega colou uma nota em seu quadro',
+          title: window.translate({ text: 'editnote-notify-users-title' }),
           receivedDate: Date.now(),
-          description: `Clique para ver`,
+          description: window.translate({ text: 'editnote-notify-users-description' }),
           sender: `${userEmail}`,
           read: false,
           href: `/quadro?note=${encodeURIComponent(this.props.title)}`
         })
       })
     } else {
-      console.log('não haviam colegas para serem notificados')
+      console.log('there was no mates to be notified')
     }
     return
   }
@@ -67,11 +68,11 @@ export class EditNote extends Component {
         fontSize: this.props.fontSize,
         noteMates: this.props.noteMates
       }).then(async () => {
-        toastr.success("Sucesso!", "Seu bilhete foi publicado")
+        toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: 'editnote-published' }))
         await this.notifyMates(this.props.noteMates)
       })
     } else {
-      toastr.warning('Atenção!', 'Você precisa fornecer um título e uma mensagem para publicar seu bilhete')
+      toastr.warning(window.translate({ text: 'toastr-attention-title' }), window.translate({ text: 'editnote-error-empty-inputs' }))
     }
     return false
   }
@@ -169,7 +170,7 @@ export class EditNote extends Component {
       <React.Fragment>
         <Modal
           modalId="edit-note-modal"
-          title="Personalize seu bilhete"
+          title={window.translate({ text: 'editnote-title' })}
           onClose={this.onClose}
           onOpen={this.onOpen}
           open={this.props.open}
@@ -178,23 +179,23 @@ export class EditNote extends Component {
             <form onSubmit={this.callCreate}>
               <div className="form-group ">
                 <Accordion accordionId="note-options-accordion">
-                  <AccordionItem itemId="note-color" itemLabel="Cor do bilhete" accordionId="note-options-accordion">
+                  <AccordionItem itemId="note-color" itemLabel={window.translate({ text: 'editnote-accordion-item-notecolor-label' })} accordionId="note-options-accordion">
                     <ColorPicker name="note-color" colors={backgroundColors} isNoteColorPicker={true} />
                   </AccordionItem>
-                  <AccordionItem itemId="font-color" itemLabel="Cor da fonte" accordionId="note-options-accordion">
+                  <AccordionItem itemId="font-color" itemLabel={window.translate({ text: 'editnote-accordion-item-fontcolor-label' })} accordionId="note-options-accordion">
                     <ColorPicker name="font-color" colors={fontColors} isNoteColorPicker={false} />
                   </AccordionItem>
-                  <AccordionItem itemId="font-size" itemLabel="Tamanho da fonte" accordionId="note-options-accordion">
+                  <AccordionItem itemId="font-size" itemLabel={window.translate({ text: 'editnote-accordion-item-fontsize-label' })} accordionId="note-options-accordion">
                     <p>{this.props.fontSize}</p>
                     <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
                   </AccordionItem>
-                  <AccordionItem itemId="mates-list" itemLabel="Colar bilhete no quadro destes colegas" accordionId="note-options-accordion">
-                    {this.state.matesCheckboxes.length > 0 ? this.state.matesCheckboxes : 'Você não tem nenhum colega'}
+                  <AccordionItem itemId="mates-list" itemLabel={window.translate({ text: 'editnote-accordion-item-mates-label' })} accordionId="note-options-accordion">
+                    {this.state.matesCheckboxes.length > 0 ? this.state.matesCheckboxes : window.translate({ text: 'editnote-you-have-no-mates' })}
                   </AccordionItem>
                 </Accordion>
-                <input className="my-3 form-control" type="text" name="note-title" placeholder="O título do bilhete vai aqui" value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />
-                <textarea id="ta-note-message" className="form-control note-message" placeholder="Digite sua mensagem aqui!" name="note-message" rows="10" value={this.props.message} onChange={this.props.handleMessageChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, fontSize: this.props.fontSize }}></textarea>
-                <button className="btn btn-primary btn-lg mt-3" >Criar</button>
+                <input className="my-3 form-control" type="text" name="note-title" placeholder={window.translate({ text: 'editnote-notetitle-placeholder' })} value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />
+                <textarea id="ta-note-message" className="form-control note-message" placeholder={window.translate({ text: 'editnote-message-placeholder' })} name="note-message" rows="10" value={this.props.message} onChange={this.props.handleMessageChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, fontSize: this.props.fontSize }}></textarea>
+                <button className="btn btn-primary btn-lg mt-3" >{window.translate({ text: 'editnote-btn-create' })}</button>
               </div>
             </form>
           </If>

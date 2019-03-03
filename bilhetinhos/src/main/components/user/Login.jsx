@@ -95,10 +95,6 @@ class Login extends Component {
                     <div className="row pt-5 mt-5">
                         <div className="col-10 offset-1 d-flex justify-content-center align-items-center flex-column">
                             <div id="firebaseui-auth-container"></div>
-                            <If condition={false}>
-                                <p>Ainda não tem uma conta?</p>
-                                <a href="/user/signup" className="text-decoration-none text-center text-light firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-password firebaseui-id-idp-button d-flex justify-content-center align-items-center"><span>Criar</span></a>
-                            </If>
                             <If condition={this.state.isLoadingUi}>
                                 <Spinner sr="Entrando..." />
                             </If>

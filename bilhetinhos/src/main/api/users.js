@@ -25,7 +25,7 @@ const getUserByUid = uid => {
     return new Promise((res, rej) => {
         getUserRefByUid(uid).once('value', snapshot => {
             res(snapshot.val())
-            rej(`Nenhum usuário encontrado com este Uid: ${uid}`)
+            rej(`User not found by uid: ${uid}`)
         }).catch(err => rej(err))
     })
 }
@@ -41,7 +41,7 @@ const getUserByEmail = email => {
                     })
                 }
             })
-            rej(`Nenhum usuário encontrado com este E-mail: ${email}`)
+            rej(`User not found by E-mail: ${email}`)
         }).catch(err => rej(err))
     })
 }
