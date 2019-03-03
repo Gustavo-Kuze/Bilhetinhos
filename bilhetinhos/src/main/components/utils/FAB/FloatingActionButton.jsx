@@ -1,5 +1,5 @@
-import './css/FAB.css'
 import React from 'react'
+import { Container, Button, Link } from 'react-floating-action-button'
 
 const FloatingActionButton = () => {
 
@@ -11,17 +11,22 @@ const FloatingActionButton = () => {
     }
 
     return (
-        <nav className="fab-container"  >
-            <a href={generateHrefWithSearch("quadro", "novo", "bilhete")}
+        <Container>
+            <Link href={generateHrefWithSearch("quadro", "novo", "bilhete")}
                 className="fab-item btn btn-link btn-lg text-white bg-primary text-decoration-none"
-                tooltip={window.translate({ text: 'fab-new-note' })}><i className="far fa-sticky-note"></i></a>
-            <a href={generateHrefWithSearch("colegas", "novo", "colega")}
+                tooltip={window.translate({ text: 'fab-new-note' })}
+                icon="far fa-sticky-note" />
+            <Link href={generateHrefWithSearch("colegas", "novo", "colega")}
                 className="fab-item btn btn-link btn-lg text-white bg-primary text-decoration-none"
-                tooltip={window.translate({ text: 'fab-new-mate' })}><i className="fas fa-user-plus"></i></a>
-            <button
+                tooltip={window.translate({ text: 'fab-new-mate' })}
+                icon="fas fa-user-plus" />
+            <Button
                 className="fab-item btn btn-link btn-lg text-white bg-primary text-decoration-none"
-                tooltip={window.translate({ text: 'fab-actions' })}><i className="fas fa-plus"></i></button>
-        </nav>
+                tooltip={window.translate({ text: 'fab-actions' })}
+                icon="fas fa-plus"
+                rotate={true}
+            />
+        </Container>
     )
 }
 
