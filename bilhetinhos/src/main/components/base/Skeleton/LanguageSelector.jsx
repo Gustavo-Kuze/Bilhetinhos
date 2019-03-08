@@ -18,6 +18,7 @@ const LanguageSelector = props => {
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <button className="dropdown-item" onClick={(e) => callChangeLanguage(e)}>pt</button>
                 <button className="dropdown-item" onClick={(e) => callChangeLanguage(e)}>en</button>
+                <button className="dropdown-item" onClick={(e) => callChangeLanguage(e)}>es</button>
             </div>
         </div>
     )
