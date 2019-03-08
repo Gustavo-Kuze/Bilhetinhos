@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { changeLanguage } from '../../../redux/actions/languageActions'
 
-
 const LanguageSelector = props => {
 
     const callChangeLanguage = e => {
@@ -14,13 +13,11 @@ const LanguageSelector = props => {
     return (
         <div className="dropdown ">
             <button className="btn btn-primary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select Language ({props.language})
+                <i className="fas fa-language"></i> {props.language}
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <button className="dropdown-item" onClick={(e) => callChangeLanguage(e)}>pt</button>
                 <button className="dropdown-item" onClick={(e) => callChangeLanguage(e)}>en</button>
-                {/* <a className="dropdown-item" href="#">Another action</a>
-                <a className="dropdown-item" href="#">Something else here</a> */}
             </div>
         </div>
     )
