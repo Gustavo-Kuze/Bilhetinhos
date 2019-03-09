@@ -32,16 +32,13 @@ class Mates extends Component {
         this.setState({ mateEmail: element.target.value })
     }
 
-    translateAlertTitle = () => (window.translate({ text: "mates-alert-title" }))
-    translateAlertDescription = () => (window.translate({ text: "mates-alert-description", data: { userEmail: this.props.currentUserEmail } }))
-
     notifyAddedMate = async () => {
         let mateUid = await getUserUidByEmail(this.state.mateEmail)
         if (mateUid) {
             await sendUserNotification(mateUid, {
-                title: this.translateAlertTitle(),
+                title: 'mates-alert-title',
                 receivedDate: Date.now(),
-                description: this.translateAlertDescription(),
+                description: 'mates-alert-description',
                 sender: `${this.props.currentUserEmail}`,
                 read: false,
                 href: `/colegas?addm=${this.props.currentUserUid}`

@@ -24,7 +24,7 @@ class NotificationList extends Component {
                             {
                                 this.getReversedNotifications().map((n, i) => {
                                     const translatedTitle = window.translate({ text: n.title })
-                                    const translatedDescription = window.translate({ text: n.description })
+                                    const translatedDescription = window.translate({ text: n.description, data: { userEmail: n.sender } })
                                     return (
                                         <NotificationLink
                                             key={`${translatedTitle}[${i}]`}
