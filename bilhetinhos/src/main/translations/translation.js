@@ -74,6 +74,11 @@ export default {
     pt: 'Tudo atualizado por aqui!',
     es: 'Todo actualizado por aquí!'
   },
+  'notifications-clear-all': {
+    en: 'Clear all notifications',
+    pt: 'Limpar todas as notificações',
+    es: 'Quitar todas las notificaciones'
+  },
   'user-menu-btn-profile': {
     en: 'Profile',
     pt: 'Perfil',

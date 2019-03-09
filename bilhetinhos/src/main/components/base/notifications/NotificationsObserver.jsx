@@ -5,7 +5,7 @@ import { refreshNotifications } from '../../../redux/actions/notificationsAction
 import { addMateIfExists } from '../../../api/mates'
 import { getUserEmailByUid } from '../../../api/users'
 import {
-    getNotificationsRef, getUserNotifications, markAsRead, removeUserNotification
+    getNotificationsRef, getUserNotifications, markAsRead, removeUserNotifications
 } from '../../../api/notifications'
 
 class NotificationsObserver extends Component {
@@ -28,11 +28,11 @@ class NotificationsObserver extends Component {
         }
     }
 
-    removeQueryAlert = async () => {
+    removeQueryAlerts = async () => {
         let params = new URLSearchParams(window.location.search)
         if (params.has('rem')) {
-            let alertReceivedDate = params.get('rem')
-            await removeUserNotification(this.props.uid, alertReceivedDate)
+            let alertsReceivedDates = params.getAll('rem')
+            await removeUserNotifications(this.props.uid, alertsReceivedDates)
         }
     }
 
@@ -52,7 +52,7 @@ class NotificationsObserver extends Component {
     componentDidMount = () => {
         this.startNotificationsListener(this.props.uid)
         this.markQueryAlertAsRead()
-        this.removeQueryAlert()
+        this.removeQueryAlerts()
         this.addQueryMate()
     }
 
