@@ -2,7 +2,7 @@ import './css/Main.css'
 import React, { Component, Fragment } from 'react'
 import Header from './Header';
 import Footer from './Footer'
-import NotificationsObserver from './notifications/NotificationsObserver'
+import NotificationsObserver from '../notifications/NotificationsObserver'
 import MatesObserver from '../../mates/MatesObserver'
 import NotesObserver from '../../notes/NotesObserver'
 import FloatingActionButton from '../../utils/FAB/FloatingActionButton'
