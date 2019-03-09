@@ -1,370 +1,367 @@
+import pt from './pt/'
+import es from './es/'
+import en from './en/'
+
 export default {
   'home-welcome': {
-    en: 'Welcome, click to log in and start exploring the app',
-    pt: 'Seja bem-vindo, clique para entrar com sua conta e começar a explorar o app',
-    es: 'Bienvenido, haga clic para entrar con su cuenta y empezar a explorar la aplicación',
+    en: en['home-welcome'],
+    pt: pt['home-welcome'],
+    es: es['home-welcome'],
   },
   'home-login-button': {
-    en: 'LogIn',
-    pt: 'Entrar',
-    es: 'Entrar'
+    en: en['home-login-button'],
+    pt: pt['home-login-button'],
+    es: es['home-login-button'],
   },
   'home-section-1-title': {
-    en: "Share notes with everyone!",
-    pt: 'Compartilhe bilhetes com todo mundo!',
-    es: '¡Comparta billetes con todo el mundo!',
+    en: en['home-section-1-title'],
+    pt: pt['home-section-1-title'],
+    es: es['home-section-1-title'],
   },
   'home-section-1-p': {
-    en: "Bilhetinhos is a minimalistic social network that allows You to interact with the ones You care about!",
-    pt: 'Bilhetinhos é uma rede social minimalista, que lhe permite interagir com aquelas pessoas queridas por você!',
-    es: '¡Bilhetinhos es una red social minimalista, que le permite interactuar con aquellas personas queridas por usted!'
+    en: en['home-section-1-p'],
+    pt: pt['home-section-1-p'],
+    es: es['home-section-1-p'],
   },
   'home-section-2-title': {
-    en: "Warning!",
-    pt: 'Aviso!',
-    es: '¡Aviso!'
+    en: en['home-section-2-title'],
+    pt: pt['home-section-2-title'],
+    es: es['home-section-2-title'],
   },
   'home-section-2-p': {
-    en: "This website is under construction and may suffer several changes or data lost.",
-    pt: 'Este site se encontra em construção e pode sofrer severas alterações e/ou perda de dados durante o processo.',
-    es: 'Este sitio se encuentra en construcción y puede sufrir severos cambios y / o pérdida de datos durante el proceso.'
+    en: en['home-section-2-p'],
+    pt: pt['home-section-2-p'],
+    es: es['home-section-2-p'],
   },
   'footer-by': {
-    en: 'Developed by ',
-    pt: 'Desenvolvido por ',
-    es: 'Desarrollado por '
+    en: en['footer-by'],
+    pt: pt['footer-by'],
+    es: es['footer-by'],
   },
   'fab-actions': {
-    en: 'Actions',
-    pt: 'Ações',
-    es: 'Acciones'
+    en: en['fab-actions'],
+    pt: pt['fab-actions'],
+    es: es['fab-actions'],
   },
   'fab-new-note': {
-    en: 'Create note',
-    pt: 'Novo bilhete',
-    es: 'Nuevo billete'
+    en: en['fab-new-note'],
+    pt: pt['fab-new-note'],
+    es: es['fab-new-note'],
   },
   'fab-new-mate': {
-    en: 'Add mate',
-    pt: 'Adicionar colega',
-    es: 'Añadir colega'
+    en: en['fab-new-mate'],
+    pt: pt['fab-new-mate'],
+    es: es['fab-new-mate'],
   },
   'navbar-btn-noteboard': {
-    en: 'My board',
-    pt: 'Meu quadro',
-    es: 'Mi cuadro'
+    en: en['navbar-btn-noteboard'],
+    pt: pt['navbar-btn-noteboard'],
+    es: es['navbar-btn-noteboard'],
   },
   'navbar-btn-mates': {
-    en: 'Mates',
-    pt: 'Colegas',
-    es: 'Colegas'
+    en: en['navbar-btn-mates'],
+    pt: pt['navbar-btn-mates'],
+    es: es['navbar-btn-mates'],
   },
   'navbar-usermenu-default-label': {
-    en: 'User menu',
-    pt: 'Menu do usuário',
-    es: 'Menú del usuario'
+    en: en['navbar-usermenu-default-label'],
+    pt: pt['navbar-usermenu-default-label'],
+    es: es['navbar-usermenu-default-label'],
   },
   'navbar-notifications-default-label': {
-    en: 'Notifications',
-    pt: 'Notificações',
-    es: 'Notificaciones'
+    en: en['navbar-notifications-default-label'],
+    pt: pt['navbar-notifications-default-label'],
+    es: es['navbar-notifications-default-label'],
   },
   'notifications-default-label': {
-    en: 'Everything is up to date!',
-    pt: 'Tudo atualizado por aqui!',
-    es: 'Todo actualizado por aquí!'
+    en: en['notifications-default-label'],
+    pt: pt['notifications-default-label'],
+    es: es['notifications-default-label'],
   },
   'notifications-clear-all': {
-    en: 'Clear all notifications',
-    pt: 'Limpar todas as notificações',
-    es: 'Quitar todas las notificaciones'
+    en: en['notifications-clear-all'],
+    pt: pt['notifications-clear-all'],
+    es: es['notifications-clear-all'],
   },
   'user-menu-btn-profile': {
-    en: 'Profile',
-    pt: 'Perfil',
-    es: 'Perfil'
+    en: en['user-menu-btn-profile'],
+    pt: pt['user-menu-btn-profile'],
+    es: es['user-menu-btn-profile'],
   },
   'user-menu-signout': {
-    en: 'Sign Out',
-    pt: 'Sair',
-    es: 'Salir'
+    en: en['user-menu-signout'],
+    pt: pt['user-menu-signout'],
+    es: es['user-menu-signout'],
   },
   'warning-modal-title': {
-    en: 'Are You sure?',
-    pt: 'Tem certeza?',
-    es: '¿Está seguro?'
+    en: en['warning-modal-title'],
+    pt: pt['warning-modal-title'],
+    es: es['warning-modal-title'],
   },
   'warning-modal-subtitle': {
-    en: 'ATTENTION!',
-    pt: 'ATENÇÃO!',
-    es: '¡ACCTENCIÓN!'
+    en: en['warning-modal-subtitle'],
+    pt: pt['warning-modal-subtitle'],
+    es: es['warning-modal-subtitle'],
   },
   'remove-mate-modal-question': {
-    en: "You're about to remove {mateNameOrEmail}. This action CANNOT be undone. Are you sure you want to proceed?",
-    pt: "Você está prestes a excluir o colega {mateNameOrEmail}. Esta ação NÃO PODE ser desfeita. Deseja mesmo continuar?",
-    es: "Usted está a punto de excluir al compañero {mateNameOrEmail}. Esta acción NO PUEDE ser deshecha. ¿Desea continuar?"
+    en: en['remove-mate-modal-question'],
+    pt: pt['remove-mate-modal-question'],
+    es: es['remove-mate-modal-question'],
   },
   'remove-note-modal-question': {
-    en: "You're about to remove note {noteTitle}. This action CANNOT be undone. Are you sure you want to proceed?",
-    pt: "Você está prestes a excluir o bilhete {noteTitle}. Esta ação NÃO PODE ser desfeita. Deseja mesmo continuar?",
-    es: "Usted está a punto de excluir el billete {noteTitle}. Esta acción NO PUEDE ser deshecha. ¿Desea continuar?"
+    en: en['remove-note-modal-question'],
+    pt: pt['remove-note-modal-question'],
+    es: es['remove-note-modal-question'],
   },
 
   'warning-modal-btn-yes': {
-    en: 'Yes, go on',
-    pt: 'Sim, continuar',
-    es: 'Sí, continuar'
+    en: en['warning-modal-btn-yes'],
+    pt: pt['warning-modal-btn-yes'],
+    es: es['warning-modal-btn-yes'],
   },
   'warning-modal-btn-cancel': {
-    en: 'Cancel',
-    pt: 'Cancelar',
-    es: 'Cancelar'
+    en: en['warning-modal-btn-cancel'],
+    pt: pt['warning-modal-btn-cancel'],
+    es: es['warning-modal-btn-cancel'],
   },
   'mates-alert-title': {
-    en: 'Friendship invite',
-    pt: 'Convite de amizade',
-    es: 'Invitación de amistad'
+    en: en['mates-alert-title'],
+    pt: pt['mates-alert-title'],
+    es: es['mates-alert-title'],
   },
   'mates-alert-description': {
-    en: 'Click to accept {userEmail} invitation',
-    pt: 'Clique para adicionar o {userEmail}',
-    es: 'Haga clic para agregar el {userEmail}'
+    en: en['mates-alert-description'],
+    pt: pt['mates-alert-description'],
+    es: es['mates-alert-description'],
   },
   'toastr-success-title': {
-    en: 'Success!',
-    pt: 'Successo!',
-    es: 'Éxito!'
+    en: en['toastr-success-title'],
+    pt: pt['toastr-success-title'],
+    es: es['toastr-success-title'],
   },
   'toastr-error-title': {
-    en: 'Error!',
-    pt: 'Erro!',
-    es: 'Error!'
+    en: en['toastr-error-title'],
+    pt: pt['toastr-error-title'],
+    es: es['toastr-error-title'],
   },
   'toastr-attention-title': {
-    en: 'Attention!',
-    pt: 'Atenção!',
-    es: 'Actención!'
+    en: en['toastr-attention-title'],
+    pt: pt['toastr-attention-title'],
+    es: es['toastr-attention-title'],
   },
   'toastr-error-trying-load-mates': {
-    en: "An error occured while trying to load one or more mates.",
-    pt: 'Occoreu um erro ao carregar o(s) colega(s).',
-    es: 'Se produjo un error al cargar los colegas).'
+    en: en['toastr-error-trying-load-mates'],
+    pt: pt['toastr-error-trying-load-mates'],
+    es: es['toastr-error-trying-load-mates'],
   },
   'profile-saved': {
-    en: 'Your profile data has been saved.',
-    pt: 'Os dados do perfil foram salvos.',
-    es: 'Los datos del perfil se han guardado.'
+    en: en['profile-saved'],
+    pt: pt['profile-saved'],
+    es: es['profile-saved'],
   },
   'profile-image-loading-error': {
-    en: 'Cannot load your profile image',
-    pt: 'Não foi possível carregar sua imagem de perfil',
-    es: 'No se pudo cargar la imagen de perfil'
+    en: en['profile-image-loading-error'],
+    pt: pt['profile-image-loading-error'],
+    es: es['profile-image-loading-error'],
   },
   'profile-image-updated': {
-    en: 'Your profile picture was successfully updated',
-    pt: 'Sua imagem de perfil foi atualizada com êxito!',
-    es: "Su imagen de perfil ha sido actualizada con éxito!"
+    en: en['profile-image-updated'],
+    pt: pt['profile-image-updated'],
+    es: es['profile-image-updated'],
   },
   'profile-image-error-size-or-type': {
-    en: 'The image file maximum size is 500kb. Only jpg, jpeg and png files are accepted.',
-    pt: 'O tamanho máximo dos arquivos de imagem deve ser de 500 KB. Somente arquivos nos formatos jpg, jpeg e png são aceitos.',
-    es: "El tamaño máximo de los archivos de imagen debe ser de 500 KB. Sólo se aceptan archivos en los formatos jpg, jpeg y png."
+    en: en['profile-image-error-size-or-type'],
+    pt: pt['profile-image-error-size-or-type'],
+    es: es['profile-image-error-size-or-type'],
   },
   'profile-header-title': {
-    en: 'Profile',
-    pt: 'Perfil',
-    es: "Perfil"
+    en: en['profile-header-title'],
+    pt: pt['profile-header-title'],
+    es: es['profile-header-title'],
   },
   'profile-name-placeholder': {
-    en: 'Your full name or nickname',
-    pt: 'Seu nome completo ou apelido',
-    es: "Su nombre completo o apellido"
+    en: en['profile-name-placeholder'],
+    pt: pt['profile-name-placeholder'],
+    es: es['profile-name-placeholder'],
   },
   'profile-bio-placeholder': {
-    en: 'Biography',
-    pt: 'Biografia',
-    es: "Biografía"
+    en: en['profile-bio-placeholder'],
+    pt: pt['profile-bio-placeholder'],
+    es: es['profile-bio-placeholder'],
   },
   'profile-phone-placeholder': {
-    en: 'Phone number',
-    pt: 'Número de telefone',
-    es: "Número de teléfono"
+    en: en['profile-phone-placeholder'],
+    pt: pt['profile-phone-placeholder'],
+    es: es['profile-phone-placeholder'],
   },
   'profile-btn-save': {
-    en: 'Save',
-    pt: 'Salvar',
-    es: "Guardar"
+    en: en['profile-btn-save'],
+    pt: pt['profile-btn-save'],
+    es: es['profile-btn-save'],
   },
   'mates-list-header-label': {
-    en: 'Mates',
-    pt: 'Colegas',
-    es: "Colegas"
+    en: en['mates-list-header-label'],
+    pt: pt['mates-list-header-label'],
+    es: es['mates-list-header-label'],
   },
   'mates-new-mate-email-placeholder': {
-    en: "Inform your mate's E-mail",
-    pt: 'Digite o E-mail do seu colega aqui',
-    es: "Introduzca el E-mail de su colega aquí"
+    en: en['mates-new-mate-email-placeholder'],
+    pt: pt['mates-new-mate-email-placeholder'],
+    es: es['mates-new-mate-email-placeholder'],
   },
   'mates-add-mate': {
-    en: 'Add mate',
-    pt: 'Adicionar colega',
-    es: "Añadir a un colega"
+    en: en['mates-add-mate'],
+    pt: pt['mates-add-mate'],
+    es: es['mates-add-mate'],
   },
   'mates-no-mates-label': {
-    en: "You doesn't have any mates yet",
-    pt: 'Você ainda não possui nenhum colega',
-    es: "Usted no tiene ningún colega"
+    en: en['mates-no-mates-label'],
+    pt: pt['mates-no-mates-label'],
+    es: es['mates-no-mates-label'],
   },
   'toastr-notification-sent': {
-    en: 'Your notification has been sent',
-    pt: 'Sua notificação foi enviada',
-    es: "Su notificación ha sido enviada"
+    en: en['toastr-notification-sent'],
+    pt: pt['toastr-notification-sent'],
+    es: es['toastr-notification-sent'],
   },
   'noteboard-header-label': {
-    en: 'Noteboard',
-    pt: 'Quadro',
-    es: "Cuadro"
+    en: en['noteboard-header-label'],
+    pt: pt['noteboard-header-label'],
+    es: es['noteboard-header-label'],
   },
   'noteboard-btn-new-note': {
-    en: 'New Note',
-    pt: 'Novo Bilhete',
-    es: "Nuevo Billete"
+    en: en['noteboard-btn-new-note'],
+    pt: pt['noteboard-btn-new-note'],
+    es: es['noteboard-btn-new-note'],
   },
   'noteboard-accordion-my-notes-label': {
-    en: 'My notes',
-    pt: 'Meus bilhetes',
-    es: "Mi Billetes"
+    en: en['noteboard-accordion-my-notes-label'],
+    pt: pt['noteboard-accordion-my-notes-label'],
+    es: es['noteboard-accordion-my-notes-label'],
   },
   'noteboard-accordion-mates-notes-label': {
-    en: "Mates's notes",
-    pt: 'Bilhetes dos colegas',
-    es: "Billetes de los colegas"
+    en: en['noteboard-accordion-mates-notes-label'],
+    pt: pt['noteboard-accordion-mates-notes-label'],
+    es: es['noteboard-accordion-mates-notes-label'],
   },
   'noteboard-my-notes-no-note': {
-    en: "You haven't written any notes yet",
-    pt: 'Você ainda não escreveu nenhuma nota',
-    es: "Usted no ha escrito ningún billete"
+    en: en['noteboard-my-notes-no-note'],
+    pt: pt['noteboard-my-notes-no-note'],
+    es: es['noteboard-my-notes-no-note'],
   },
   'noteboard-mates-notes-no-note': {
-    en: 'Nothing to show here',
-    pt: 'Nada para mostrar aqui',
-    es: "Nada para mostrar aquí"
+    en: en['noteboard-mates-notes-no-note'],
+    pt: pt['noteboard-mates-notes-no-note'],
+    es: es['noteboard-mates-notes-no-note'],
   },
   'signout-label': {
-    en: 'Signing out...',
-    pt: 'Saindo...',
-    es: "A salir..."
+    en: en['signout-label'],
+    pt: pt['signout-label'],
+    es: es['signout-label'],
   },
   'spinner-default-label': {
-    en: 'Loading...',
-    pt: 'Carregando...',
-    es: "Cargando..."
+    en: en['spinner-default-label'],
+    pt: pt['spinner-default-label'],
+    es: es['spinner-default-label'],
   },
   'api-mates-added-successfully': {
-    en: 'User successfully added to your mates list',
-    pt: 'Usuário adicionado à sua lista de colegas com sucesso.',
-    es: "Usuario agregado a su lista de colegas con éxito."
+    en: en['api-mates-added-successfully'],
+    pt: pt['api-mates-added-successfully'],
+    es: es['api-mates-added-successfully'],
   },
   'api-mates-error-mate-already-added': {
-    en: "E-mail's owner is already your mate",
-    pt: 'O dono deste E-mail já é seu colega!',
-    es: "¡El dueño de este E-mail ya es su compañero!"
+    en: en['api-mates-error-mate-already-added'],
+    pt: pt['api-mates-error-mate-already-added'],
+    es: es['api-mates-error-mate-already-added'],
   },
   'api-mates-error-cannot-add-yourself': {
-    en: "You cannot add yourself as a mate.",
-    pt: 'Você não pode se adicionar como colega.',
-    es: "Usted no puede agregarse como colega."
+    en: en['api-mates-error-cannot-add-yourself'],
+    pt: pt['api-mates-error-cannot-add-yourself'],
+    es: es['api-mates-error-cannot-add-yourself'],
   },
   'api-mates-error-mate-not-found': {
-    en: "The E-mail provided does not match any registered user.",
-    pt: 'O E-mail fornecido não pertence a nenhum usuário registrado.',
-    es: "El E-mail proporcionado no pertence a ningún usuario registrado"
+    en: en['api-mates-error-mate-not-found'],
+    pt: pt['api-mates-error-mate-not-found'],
+    es: es['api-mates-error-mate-not-found'],
   },
   'api-notes-error-uid-not-found': {
-    en: "No user found with this uid",
-    pt: 'Nenhum usuário encontrado com este Uid',
-    es: "Ningún usuario encontrado com este Uid"
+    en: en['api-notes-error-uid-not-found'],
+    pt: pt['api-notes-error-uid-not-found'],
+    es: es['api-notes-error-uid-not-found'],
   },
   'api-notes-error-email-not-found': {
-    en: "No user found with this E-mail",
-    pt: 'Nenhum usuário encontrado com este E-mail',
-    es: "Ningún usuario encontrado com este E-mail"
+    en: en['api-notes-error-email-not-found'],
+    pt: pt['api-notes-error-email-not-found'],
+    es: es['api-notes-error-email-not-found'],
   },
   'editnote-notify-users-title': {
-    en: "A mate has put a note on your board",
-    pt: 'Um colega colou uma nota em seu quadro',
-    es: "Un colega pegó una nota en su cuadro"
+    en: en['editnote-notify-users-title'],
+    pt: pt['editnote-notify-users-title'],
+    es: es['editnote-notify-users-title'],
   },
   'editnote-notify-users-description': {
-    en: "Click here to see",
-    pt: 'Clique aqui para ver',
-    es: "Haga clic aquí para ver"
+    en: en['editnote-notify-users-description'],
+    pt: pt['editnote-notify-users-description'],
+    es: es['editnote-notify-users-description'],
   },
   'editnote-published': {
-    en: "Your note has been published!",
-    pt: 'Seu bilhete foi publicado!',
-    es: "Sú billete ha sido publicado!"
+    en: en['editnote-published'],
+    pt: pt['editnote-published'],
+    es: es['editnote-published'],
   },
   'editnote-error-empty-inputs': {
-    en: "You have to provide a title and a message to publish your note",
-    pt: 'Você precisa fornecer um título e uma mensagem para publicar seu bilhete',
-    es: "Usted necesita proporcionar un título y un mensaje para publicar su billete"
+    en: en['editnote-error-empty-inputs'],
+    pt: pt['editnote-error-empty-inputs'],
+    es: es['editnote-error-empty-inputs'],
   },
   'editnote-accordion-item-notecolor-label': {
-    en: "Note color",
-    pt: "Cor do bilhete",
-    es: "Color del billete"
+    en: en['editnote-accordion-item-notecolor-label'],
+    pt: pt['editnote-accordion-item-notecolor-label'],
+    es: es['editnote-accordion-item-notecolor-label'],
   },
   'editnote-accordion-item-fontcolor-label': {
-    en: "Font color",
-    pt: "Cor da fonte",
-    es: "Color de la fuente"
+    en: en['editnote-accordion-item-fontcolor-label'],
+    pt: pt['editnote-accordion-item-fontcolor-label'],
+    es: es['editnote-accordion-item-fontcolor-label'],
   },
   'editnote-accordion-item-fontsize-label': {
-    en: "Font size",
-    pt: "Tamanho da fonte",
-    es: "Tamaño de fuente"
+    en: en['editnote-accordion-item-fontsize-label'],
+    pt: pt['editnote-accordion-item-fontsize-label'],
+    es: es['editnote-accordion-item-fontsize-label'],
   },
   'editnote-accordion-item-mates-label': {
-    en: "Share note with these mates",
-    pt: "Compartilhar a nota com estes colegas",
-    es: "Compartir el billete con estos colegas"
+    en: en['editnote-accordion-item-mates-label'],
+    pt: pt['editnote-accordion-item-mates-label'],
+    es: es['editnote-accordion-item-mates-label'],
   },
   'editnote-you-have-no-mates': {
-    en: "You have no mates",
-    pt: "Você não tem nenhum colega",
-    es: "Usted no tiene ningún colega"
+    en: en['editnote-you-have-no-mates'],
+    pt: pt['editnote-you-have-no-mates'],
+    es: es['editnote-you-have-no-mates'],
   },
   'editnote-notetitle-placeholder': {
-    en: "The note title goes here",
-    pt: "O título da nota vai aqui",
-    es: "El título del billete"
+    en: en['editnote-notetitle-placeholder'],
+    pt: pt['editnote-notetitle-placeholder'],
+    es: es['editnote-notetitle-placeholder'],
   },
   'editnote-message-placeholder': {
-    en: "Type your message here!",
-    pt: "Digite sua mensagem aqui!",
-    es: "Su mensaje!"
+    en: en['editnote-message-placeholder'],
+    pt: pt['editnote-message-placeholder'],
+    es: es['editnote-message-placeholder'],
   },
   'editnote-btn-create': {
-    en: "Publish",
-    pt: "Publicar",
-    es: "Publicar"
+    en: en['editnote-btn-create'],
+    pt: pt['editnote-btn-create'],
+    es: es['editnote-btn-create'],
   },
   'editnote-title': {
-    en: "Customize you note",
-    pt: "Personalize seu bilhete",
-    es: "Personalice su billete"
+    en: en['editnote-title'],
+    pt: pt['editnote-title'],
+    es: es['editnote-title'],
   },
   'notepreview-created-by': {
-    en: "Created by {owner}",
-    pt: "Criado por {owner}",
-    es: "Creado por {owner}"
-  },
-}
-
-const template = {
-  '': {
-    en: '',
-    pt: ''
+    en: en['notepreview-created-by'],
+    pt: pt['notepreview-created-by'],
+    es: es['notepreview-created-by'],
   },
 }
