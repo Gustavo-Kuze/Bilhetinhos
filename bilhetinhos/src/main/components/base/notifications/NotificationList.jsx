@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import NotificationLink from './NotificationLink'
 import NotificationContent from './NotificationContent'
-import If from '../../../utils/If'
-import {Translate} from 'react-translated'
+import If from '../../utils/If'
+import { Translate } from 'react-translated'
 
 class NotificationList extends Component {
     state = {
@@ -23,16 +23,18 @@ class NotificationList extends Component {
                         <div className="list-group">
                             {
                                 this.getReversedNotifications().map((n, i) => {
+                                    const translatedTitle = window.translate({ text: n.title })
+                                    const translatedDescription = window.translate({ text: n.description, data: { userEmail: n.sender } })
                                     return (
                                         <NotificationLink
-                                            key={`${n.title}[${i}]`}
+                                            key={`${translatedTitle}[${i}]`}
                                             href={n.href}
                                             read={n.read}
                                             date={n.receivedDate}>
                                             <NotificationContent
-                                                title={n.title}
+                                                title={translatedTitle}
                                                 receivedDate={n.receivedDate}
-                                                description={n.description}
+                                                description={translatedDescription}
                                                 sender={n.sender} />
                                         </NotificationLink>
                                     )
@@ -41,7 +43,7 @@ class NotificationList extends Component {
                         </div>
                     </If>
                     <If condition={this.state.notifications.length === 0}>
-                        <p className="text-muted mt-5"><Translate text="notifications-default-label"/></p>
+                        <p className="text-muted mt-5"><Translate text="notifications-default-label" /></p>
                     </If>
                 </div>
 

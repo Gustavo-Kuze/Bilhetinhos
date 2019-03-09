@@ -1,5 +1,6 @@
 import '../css/Note.css'
 import '../../../base/css/materialCheckbox2.css'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import React, { Component } from "react"
 import ColorPicker from "../ColorPicker/"
 import { backgroundColors, fontColors } from '../../../base/js/MaterialColors'
@@ -10,15 +11,13 @@ import { Accordion, AccordionItem } from '../../../base/Accordion.jsx'
 import { setNote } from '../../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../../api/users'
 import Modal from '../../../base/Modal'
+import ReduxToastr, { toastr } from 'react-redux-toastr'
+import { sendUserNotification } from '../../../../api/notifications'
+import { areMates } from '../../../../api/mates'
 import {
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
   handleNoteColorChanged, handleTitleChanged, refreshNoteMates, createNote
 } from '../../../../redux/actions/editNoteActions'
-import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
-import ReduxToastr, { toastr } from 'react-redux-toastr'
-import { sendUserNotification } from '../../../../api/notifications'
-import { areMates } from '../../../../api/mates'
-import { Translate } from 'react-translated'
 
 var defaultChecked = []
 var shouldVerifyForDefaultChecked = true
@@ -43,16 +42,16 @@ export class EditNote extends Component {
       let userEmail = await getUserEmailByUid(this.props.uid)
       mates.forEach(async mateUid => {
         await sendUserNotification(mateUid, {
-          title: window.translate({ text: 'editnote-notify-users-title' }),
+          title: 'editnote-notify-users-title', // window.translate({ text: 'editnote-notify-users-title' }),
           receivedDate: Date.now(),
-          description: window.translate({ text: 'editnote-notify-users-description' }),
+          description: 'editnote-notify-users-description',//window.translate({ text: 'editnote-notify-users-description' }),
           sender: `${userEmail}`,
           read: false,
           href: `/quadro?note=${encodeURIComponent(this.props.title)}`
         })
       })
     } else {
-      console.log('there was no mates to be notified')
+      console.log('there were no mates to be notified')
     }
     return
   }

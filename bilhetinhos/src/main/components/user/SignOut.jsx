@@ -6,9 +6,9 @@ import Spinner from '../utils/Spinner'
 import { resetUserState } from "../../redux/actions/userActions"
 import { resetCacheState } from "../../redux/actions/cachedActions"
 import { resetNotificationsState } from "../../redux/actions/notificationsActions"
-import {resetMates} from '../../redux/actions/matesActions'
-import {resetNotes} from '../../redux/actions/notesActions'
-import {Translate} from 'react-translated'
+import { resetMates } from '../../redux/actions/matesActions'
+import { resetNotes } from '../../redux/actions/notesActions'
+import { Translate } from 'react-translated'
 
 class SignOut extends Component {
   componentDidMount() {
@@ -27,7 +27,7 @@ class SignOut extends Component {
   render() {
     return (
       <div className="mt-5 d-flex justify-content-center align-items-center">
-        <p className="mt-3 mr-3"><Translate text="signout-label"/></p>
+        <p className="mt-3 mr-3"><Translate text="signout-label" /></p>
         <Spinner sr="Saindo..." />
       </div>
     );

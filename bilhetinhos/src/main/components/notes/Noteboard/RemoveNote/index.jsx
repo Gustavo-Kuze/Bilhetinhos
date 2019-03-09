@@ -31,6 +31,7 @@ class RemoveNote extends Component {
   componentDidMount = () => {
     this.setState({ ...this.state, uid: this.props.uid })
   }
+  
   render() {
     return (
       <Modal modalId="remove-note-modal"  title={<Translate text="warning-modal-title"/>} onClose={this.props.onClose}>

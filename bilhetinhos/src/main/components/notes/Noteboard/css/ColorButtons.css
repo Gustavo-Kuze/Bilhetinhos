@@ -28,7 +28,7 @@
     transition: all .3s ease;
 }
 
-.color-button-radio:checked + label span i {
+.color-button-radio:checked+label span i {
     opacity: 1;
 }
 

@@ -10,7 +10,7 @@ const backgroundColors = {
     yellow: "#fff9c4",
     orange: "#ffe0b2",
     brown: "#d7ccc8",
-    grey:"#e0e0e0",
+    grey: "#e0e0e0",
     darkerGrey: "#bdbdbd",
     black: "#212121",
     white: "#f5f5f5"
@@ -28,31 +28,9 @@ const fontColors = {
     yellow: "#f9a825",
     orange: "#e65100",
     brown: "#4e342e",
-    grey:"#424242",
+    grey: "#424242",
     black: "#212121",
     white: "#fafafa"
 }
 
-
-export {backgroundColors, fontColors}
-    // const materialColors = {
-    //     red: "#e57373",
-    //     pink: "#f8bbd0",
-    //     purple: "#ce93d8",
-    //     deepPurple: "#b39ddb",
-    //     indigo: "#9fa8da",
-    //     blue: "#90caf9",
-    //     lightBlue: "#81d4fa",
-    //     cyan: "#80deea",
-    //     teal: "#80cbc4",
-    //     lightGreen: "#c5e1a5",
-    //     lime: "#e6ee9c",
-    //     yellow: "#fff59d",
-    //     orange: "#ffcc80",
-    //     deepOrange: "#ffab91",
-    //     brown: "#a1887f",
-    //     grey:"#eeeeee",
-    //     blueGrey:"#b0bec5",
-    //     black: "#212121",
-    //     white: "#fafafa"
-    // }
+export { backgroundColors, fontColors }

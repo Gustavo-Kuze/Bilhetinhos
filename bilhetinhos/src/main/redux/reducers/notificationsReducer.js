@@ -1,12 +1,3 @@
-// const newNotification = {
-//     title: '',
-//     receivedDate: '',
-//     description: '',
-//     sender: '',
-//     read: true,
-//     href: '/'
-// }
-
 const INITIAL_STATE = {
     alerts: [],
     unreadAlertsCount: '',

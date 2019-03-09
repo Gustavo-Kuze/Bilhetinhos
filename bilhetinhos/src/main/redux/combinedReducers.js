@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import editNoteReducer from './reducers/editNoteReducer'
 import userReducer from './reducers/userReducer'
-import {reducer as torstrReducer} from 'react-redux-toastr'
+import { reducer as torstrReducer } from 'react-redux-toastr'
 import cachedReducer from './reducers/cachedReducer'
 import notificationsReducer from './reducers/notificationsReducer'
 import matesReducer from './reducers/matesReducer'

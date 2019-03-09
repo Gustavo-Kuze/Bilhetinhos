@@ -4,7 +4,8 @@ import If from '../../../utils/If'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setEntireNote } from '../../../../redux/actions/editNoteActions'
-import {Translate} from 'react-translated'
+import { Translate } from 'react-translated'
+
 export class NotePreview extends Component {
   renderMates = () => {
     let noteMates = this.props.noteMates
@@ -58,7 +59,7 @@ export class NotePreview extends Component {
             <div className="row">
 
               <div className="col">
-                <small className="card-title"><Translate text="notepreview-created-by" data={{owner: this.props.owner}}/></small>
+                <small className="card-title"><Translate text="notepreview-created-by" data={{ owner: this.props.owner }} /></small>
               </div>
               <div className="col">
                 <div className="float-right">
@@ -69,8 +70,8 @@ export class NotePreview extends Component {
                   <If condition={this.props.mark}>
                     <div className="col-1">
                       <img className="" src="/img/pin.png"
-                       alt="Nota marcada" 
-                       style={{ position: 'absolute', right: '-30px', top: '-20px', zIndex: '999' }} />
+                        alt="Nota marcada"
+                        style={{ position: 'absolute', right: '-30px', top: '-20px', zIndex: '999' }} />
                     </div>
                   </If>
                 </div>

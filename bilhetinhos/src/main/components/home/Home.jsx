@@ -1,7 +1,8 @@
 import './css/Home.css'
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton/Skeleton'
-import {Translate} from 'react-translated'
+import { Translate } from 'react-translated'
+
 export default class Home extends Component {
     render() {
         return (
@@ -20,12 +21,12 @@ export default class Home extends Component {
                         </div>
                         <div className="row">
                             <div className="col-md-6 offset-md-3">
-                                <h4 className="mb-4 text-muted"><Translate text="home-welcome"/></h4>
+                                <h4 className="mb-4 text-muted"><Translate text="home-welcome" /></h4>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-4 offset-md-4">
-                                <a href="/user/login" className="btn btn-primary btn-block btn-lg"><Translate text="home-login-button"/></a>
+                                <a href="/user/login" className="btn btn-primary btn-block btn-lg"><Translate text="home-login-button" /></a>
                             </div>
                         </div>
                     </div>
@@ -35,8 +36,8 @@ export default class Home extends Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-6 offset-md-3">
-                                    <h2 className="h1 mt-5 pt-md-3 text-center"><Translate text="home-section-1-title"/></h2>
-                                    <p className="lead text-center mt-4"><Translate text="home-section-1-p"/></p>
+                                    <h2 className="h1 mt-5 pt-md-3 text-center"><Translate text="home-section-1-title" /></h2>
+                                    <p className="lead text-center mt-4"><Translate text="home-section-1-p" /></p>
                                 </div>
                             </div>
                         </div>
@@ -47,8 +48,8 @@ export default class Home extends Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-6 offset-md-3">
-                                <h2 className="h1 mt-5 pt-md-3 text-center"><Translate text="home-section-2-title"/></h2>
-                                    <p className="lead text-center mt-4"><Translate text="home-section-2-p"/></p>
+                                    <h2 className="h1 mt-5 pt-md-3 text-center"><Translate text="home-section-2-title" /></h2>
+                                    <p className="lead text-center mt-4"><Translate text="home-section-2-p" /></p>
                                 </div>
                             </div>
                         </div>

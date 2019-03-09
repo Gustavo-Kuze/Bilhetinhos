@@ -1,4 +1,4 @@
-import {getMatesUidsAndReference} from '../../api/mates'
+import { getMatesUidsAndReference } from '../../api/mates'
 
 export const changeUserLogState = userCredentials => {
     return {

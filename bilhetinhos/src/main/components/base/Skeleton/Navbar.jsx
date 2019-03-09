@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PopoverButton from '../PopoverButton'
 import UserMenu from './UserMenu'
-import NotificationList from './notifications/NotificationList'
+import NotificationList from '../notifications/NotificationList'
 import LanguageSelector from './LanguageSelector'
 import { Translate } from 'react-translated'
 

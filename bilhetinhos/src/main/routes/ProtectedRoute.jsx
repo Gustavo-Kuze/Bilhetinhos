@@ -31,5 +31,5 @@ const mapStateToRest = state => ({
 })
 
 export default connect(
-    mapStateToRest
+  mapStateToRest
 )(ProtectedRoute)

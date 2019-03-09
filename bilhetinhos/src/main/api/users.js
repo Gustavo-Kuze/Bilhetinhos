@@ -85,7 +85,6 @@ const isEmailRegistered = async email => {
     return emailProviders.length > 0
 }
 
-
 export {
     getUserByEmail, getUserByUid, getUsersRef,
     registerUser, getUsersEmailsByUid, getUsersUidsByEmail,
