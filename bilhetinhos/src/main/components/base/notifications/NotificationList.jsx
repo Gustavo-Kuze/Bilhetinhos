@@ -15,11 +15,32 @@ class NotificationList extends Component {
 
     getReversedNotifications = () => ([...this.state.notifications]).reverse()
 
+    createDismissAllUrl = () => {
+        let currentUrlWithoutSearch = window.location.href.replace(window.location.search, '')
+        let tempUrl = new URL(currentUrlWithoutSearch)
+        this.state.notifications.forEach(alert => {
+            tempUrl.searchParams.append('rem', alert.receivedDate)
+        })
+        return tempUrl.toString()
+    }
+
     render() {
         return (
             <div id="popover-notification-content" >
-                <div >
+                <div>
                     <If condition={this.state.notifications.length > 0}>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-2 offset-9 offset-sm-10">
+                                    <a className="btn btn-link text-primary mb-2"
+                                        href={this.createDismissAllUrl()} title={window.translate({ text: "notifications-clear-all" })}
+                                        data-toggle="tooltip" data-placement="top"
+                                    >
+                                        <i className="fas fa-times-circle"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <div className="list-group">
                             {
                                 this.getReversedNotifications().map((n, i) => {

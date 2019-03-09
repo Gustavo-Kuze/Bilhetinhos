@@ -15,13 +15,13 @@ const sendUserNotification = async (uid, notification) => {
     getNotificationsRef().child(uid).set(notifications)
 }
 
-const removeUserNotification = async (uid, receivedDate) => {
+const removeUserNotifications = async (uid, receivedDates) => {
     let notifications = (await getUserNotifications(uid)) || []
     if (notifications.length > 0) {
         notifications = notifications.filter(notif => {
-            return `${notif.receivedDate}` !== receivedDate
+            return !receivedDates.includes(`${notif.receivedDate}`)
         })
-        getNotificationsRef().child(uid).set(notifications)
+        await getNotificationsRef().child(uid).set(notifications)
     }
 }
 
@@ -49,5 +49,5 @@ const getUnreadNotifications = async uid => {
 
 export {
     getNotificationsRef, getUserNotifications, sendUserNotification,
-    removeUserNotification, markAsRead, getUnreadNotifications
+    removeUserNotifications, markAsRead, getUnreadNotifications
 }
