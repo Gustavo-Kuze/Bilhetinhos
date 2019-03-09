@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { getUserNotesRef, getNotesRef } from '../../api/notes'
 import {
     refreshUserNotes, loadingUserNotes,
     refreshMatesNotes, loadingMatesNotes
 } from '../../redux/actions/notesActions'
-import { getUserNotesRef, getNotesRef } from '../../api/notes'
 
 export class NotesObserver extends Component {
 
@@ -19,10 +19,19 @@ export class NotesObserver extends Component {
     startMatesNotesListener = async (uid, matesUids) => {
         matesUids.forEach(mUid => {
             getNotesRef().child(mUid).on('value', async () => {
-                this.props.loadingMatesNotes()      
+                this.props.loadingMatesNotes()
                 this.props.refreshMatesNotes(uid, matesUids)
             })
         })
+    }
+
+    componentDidUpdate(props, state, snapshot) { }
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        if (prevProps.matesUids.length !== this.props.matesUids.length) {
+            this.props.loadingMatesNotes()
+            this.props.refreshMatesNotes(this.props.uid, this.props.matesUids)
+        }
+        return null
     }
 
     componentDidMount = () => {
@@ -30,7 +39,7 @@ export class NotesObserver extends Component {
             this.startUserNotesListener(this.props.uid)
         }
         if (this.props.uid && this.props.matesUids) {
-            
+
             this.startMatesNotesListener(this.props.uid, this.props.matesUids)
         }
     }
