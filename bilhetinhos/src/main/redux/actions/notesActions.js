@@ -24,7 +24,7 @@ export const refreshMatesNotes = (uid, matesUids) => {
                     type: "REFRESH_MATES_NOTES",
                     payload: allMatesNotes
                 })
-            }else{
+            } else {
                 dispatch({
                     type: "MATES_NOTES_LOADED"
                 })

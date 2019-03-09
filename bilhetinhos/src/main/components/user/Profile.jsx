@@ -9,7 +9,7 @@ import If from '../utils/If'
 import Spinner from '../utils/Spinner'
 import { registerUser } from '../../api/users'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
-import {Translate} from 'react-translated'
+import { Translate } from 'react-translated'
 
 class Profile extends Component {
 
@@ -39,7 +39,7 @@ class Profile extends Component {
             this.props.updateUserProfile({
                 ...this.state.user
             })
-            toastr.success(window.translate({text: 'toastr-success-title'}), window.translate({text: 'profile-saved'}))
+            toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: 'profile-saved' }))
         })
     }
 
@@ -56,7 +56,7 @@ class Profile extends Component {
                 this.props.changePictureDownloadUrl(url)
                 this.setState({ ...this.state, isLoadingProfilePic: false })
             }).catch(err => {
-                toastr.error(window.translate({text: 'toastr-error-title'}), window.translate({text: 'profile-image-loading-error'}))
+                toastr.error(window.translate({ text: 'toastr-error-title' }), window.translate({ text: 'profile-image-loading-error' }))
                 console.log(err)
                 this.setState({ ...this.state, isLoadingProfilePic: false })
             })
@@ -76,12 +76,12 @@ class Profile extends Component {
                     }, () => {
                         this.saveProfileChanges()
                         this.loadProfilePic(this.state.user.profilePic || `${this.state.user.uid}/profile`)
-                        toastr.success(window.translate({text: 'toastr-success-title'}), window.translate({text: 'profile-image-updated'}))
+                        toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: 'profile-image-updated' }))
                     })
 
                 })
         } else {
-            toastr.warning(window.translate({text: 'toastr-attention-title'}), window.translate({text: 'profile-image-error-size-or-type'}))
+            toastr.warning(window.translate({ text: 'toastr-attention-title' }), window.translate({ text: 'profile-image-error-size-or-type' }))
         }
     }
 
@@ -99,7 +99,7 @@ class Profile extends Component {
                 <section className="container-fluid">
                     <div className="row ">
                         <div className="col-md-6 col-sm-10 offset-sm-1 offset-md-3 ">
-                            <h1 className="h3"><Translate text="profile-header-title"/></h1>
+                            <h1 className="h3"><Translate text="profile-header-title" /></h1>
                             <If condition={this.state.isLoadingProfilePic}>
                                 <Spinner extraClasses="py-5" />
                             </If>
@@ -110,15 +110,15 @@ class Profile extends Component {
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
                             <form onSubmit={this.callSaveProfileChanges}>
                                 <div className="form-group">
-                                    <input name="name" id="inp-user-name" className="form-control" value={this.state.user.name} onChange={this.handleInputChange} placeholder={window.translate({text: 'profile-name-placeholder'})}/>
+                                    <input name="name" id="inp-user-name" className="form-control" value={this.state.user.name} onChange={this.handleInputChange} placeholder={window.translate({ text: 'profile-name-placeholder' })} />
                                 </div>
                                 <div className="form-group">
-                                    <textarea name="bio" id="ta-user-bio" className="form-control" cols="30" rows="10" value={this.state.user.bio} onChange={this.handleInputChange} placeholder={window.translate({text: 'profile-bio-placeholder'})}></textarea>
+                                    <textarea name="bio" id="ta-user-bio" className="form-control" cols="30" rows="10" value={this.state.user.bio} onChange={this.handleInputChange} placeholder={window.translate({ text: 'profile-bio-placeholder' })}></textarea>
                                 </div>
                                 <div className="form-group">
-                                    <input name="phone" id="inp-user-phone" className="form-control phone-mask" value={this.state.user.phone} onChange={this.handleInputChange} placeholder={window.translate({text: 'profile-phone-placeholder'})} />
+                                    <input name="phone" id="inp-user-phone" className="form-control phone-mask" value={this.state.user.phone} onChange={this.handleInputChange} placeholder={window.translate({ text: 'profile-phone-placeholder' })} />
                                 </div>
-                                <button className="btn btn-primary"><Translate text="profile-btn-save"/></button>
+                                <button className="btn btn-primary"><Translate text="profile-btn-save" /></button>
                             </form>
                         </div>
                     </div>
@@ -150,6 +150,3 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({ updateUserProfile, updateUserPicture, changePictureDownloadUrl, resetCacheState }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)
-
-
-// https://profiles.utdallas.edu/img/default.png

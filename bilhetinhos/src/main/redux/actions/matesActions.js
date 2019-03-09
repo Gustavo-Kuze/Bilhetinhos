@@ -7,7 +7,7 @@ export const refreshMates = (uid, callback = null) => {
                 type: "REFRESH_MATES",
                 payload: mates
             })
-            if(callback) callback()
+            if (callback) callback()
         })
     }
 }

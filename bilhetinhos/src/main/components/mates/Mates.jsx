@@ -211,4 +211,5 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     refreshMates,
     matesLoading
 }, dispatch)
+
 export default connect(mapStateToProps, mapDispatchToProps)(Mates)

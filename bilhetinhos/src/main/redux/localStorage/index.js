@@ -27,4 +27,3 @@ export const deleteState = () => {
         console.log(err)
     }
 }
-

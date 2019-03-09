@@ -1,4 +1,3 @@
-
 export const handleFontSizeChanged = event => ({
     type: "CHANGE_FONT_SIZE",
     payload: parseInt(event.target.value)
@@ -6,15 +5,17 @@ export const handleFontSizeChanged = event => ({
 
 export const handleMessageChanged = event => {
     return {
-    type: "CHANGE_MESSAGE",
-    payload: event.target.value
-}}
+        type: "CHANGE_MESSAGE",
+        payload: event.target.value
+    }
+}
 
 export const handleTitleChanged = event => {
     return {
-    type: "CHANGE_TITLE",
-    payload: event.target.value
-}}
+        type: "CHANGE_TITLE",
+        payload: event.target.value
+    }
+}
 
 export const handleNoteColorChanged = color => ({
     type: "CHANGE_NOTE_COLOR",
@@ -38,13 +39,12 @@ export const setEntireNote = note => ({
 
 export const createNote = () => {
     return {
-    type: "CREATE_NOTE"
-}}
+        type: "CREATE_NOTE"
+    }
+}
 
 export const deleteNote = () => {
     return {
-    type: "DELETE_NOTE"
-}}
-
-
-
+        type: "DELETE_NOTE"
+    }
+}

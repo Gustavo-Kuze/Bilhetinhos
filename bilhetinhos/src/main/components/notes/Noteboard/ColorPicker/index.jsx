@@ -2,11 +2,10 @@ import '../css/ColorButtons.css'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import ColorButton from './ColorButton'
 import {
     handleFontColorChanged, handleNoteColorChanged
 } from '../../../../redux/actions/editNoteActions'
-
-import ColorButton from './ColorButton'
 
 class ColorPicker extends Component {
 

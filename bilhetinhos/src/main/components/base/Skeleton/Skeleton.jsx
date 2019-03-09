@@ -6,6 +6,7 @@ import NotificationsObserver from './notifications/NotificationsObserver'
 import MatesObserver from '../../mates/MatesObserver'
 import NotesObserver from '../../notes/NotesObserver'
 import FloatingActionButton from '../../utils/FAB/FloatingActionButton'
+
 export default class Skeleton extends Component {
 
     render() {

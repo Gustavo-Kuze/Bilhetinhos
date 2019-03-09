@@ -355,32 +355,6 @@ export default {
     pt: "Criado por {owner}",
     es: "Creado por {owner}"
   },
-
-
-  // '': {
-  //   en: '',
-  //   pt: ''
-  // },
-  // '': {
-  //   en: '',
-  //   pt: ''
-  // },
-  // '': {
-  //   en: '',
-  //   pt: ''
-  // },
-  // '': {
-  //   en: '',
-  //   pt: ''
-  // },
-  // '': {
-  //   en: '',
-  //   pt: ''
-  // },
-  // '': {
-  //   en: '',
-  //   pt: ''
-  // },
 }
 
 const template = {

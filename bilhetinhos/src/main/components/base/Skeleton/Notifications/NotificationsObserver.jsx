@@ -2,12 +2,11 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshNotifications } from '../../../../redux/actions/notificationsActions'
-import {
-    getNotificationsRef, getUserNotifications, markAsRead, removeUserNotification
-}
-    from '../../../../api/notifications'
 import { addMateIfExists } from '../../../../api/mates'
 import { getUserEmailByUid } from '../../../../api/users'
+import {
+    getNotificationsRef, getUserNotifications, markAsRead, removeUserNotification
+} from '../../../../api/notifications'
 
 class NotificationsObserver extends Component {
 
