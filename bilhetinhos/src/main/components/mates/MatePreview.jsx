@@ -1,4 +1,5 @@
 import React from 'react'
+import If from '../utils/If'
 
 const MatePreview = props => {
     return (
@@ -27,6 +28,13 @@ const MatePreview = props => {
                                     }}><i className="fas fa-trash"></i></button>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-3 px-md-3 col-12 d-flex flex-column flex-md-row justify-content-center align-items-center">
+                        <If condition={props.pendingInvite}>
+                            <span className="badge badge-info mt-3">{window.translate({text: 'mates-pending-invite'})}</span>
+                        </If>
                     </div>
                 </div>
             </div>

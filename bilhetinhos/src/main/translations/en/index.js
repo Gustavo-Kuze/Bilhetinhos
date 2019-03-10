@@ -25,6 +25,7 @@ const en = {
   'warning-modal-btn-cancel': 'Cancel',
   'mates-alert-title': 'Friendship invite',
   'mates-alert-description': 'Click to accept {userEmail} invitation',
+  'mates-pending-invite': 'Pending invitation',
   'toastr-success-title': 'Success!',
   'toastr-error-title': 'Error!',
   'toastr-attention-title': 'Attention!',
