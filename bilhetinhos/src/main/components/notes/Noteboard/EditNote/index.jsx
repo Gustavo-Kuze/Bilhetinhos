@@ -42,9 +42,9 @@ export class EditNote extends Component {
       let userEmail = await getUserEmailByUid(this.props.uid)
       mates.forEach(async mateUid => {
         await sendUserNotification(mateUid, {
-          title: 'editnote-notify-users-title', // window.translate({ text: 'editnote-notify-users-title' }),
+          title: 'editnote-notify-users-title',
           receivedDate: Date.now(),
-          description: 'editnote-notify-users-description',//window.translate({ text: 'editnote-notify-users-description' }),
+          description: 'editnote-notify-users-description',
           sender: `${userEmail}`,
           read: false,
           href: `/quadro?note=${encodeURIComponent(this.props.title)}`

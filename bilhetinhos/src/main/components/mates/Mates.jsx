@@ -116,7 +116,8 @@ class Mates extends Component {
     }
 
     removeMateAndRefresh = async (uid, mateUid) => {
-        let newMates = await removeMate(uid, mateUid)
+        let removedMateListOfMates = await removeMate(uid, mateUid)
+        let removedUserListOfMates = await removeMate(mateUid, uid) //remove user from mate's list
         this.props.refreshMatesUids(uid)
     }
 
