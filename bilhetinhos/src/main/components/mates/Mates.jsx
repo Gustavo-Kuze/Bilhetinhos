@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshMatesUids } from '../../redux/actions/userActions'
 import { getUserByUid, getUsersRef, getUserUidByEmail } from '../../api/users'
-import { removeMate, addMateIfExists } from '../../api/mates'
+import { removeMate, addMateIfExists, areMates } from '../../api/mates'
 import { sendUserNotification } from '../../api/notifications'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import MatePreview from './MatePreview'
@@ -79,27 +79,31 @@ class Mates extends Component {
         return matePreviews
     }
 
-    createMatePreview = mate => (
-        <MatePreview
-            key={mate.uid}
-            uid={mate.uid}
-            email={mate.email}
-            profilePic={mate.profilePic}
-            name={mate.name}
-            setMateOnState={this.setMateOnState}
-        />
-    )
+    createMatePreview = async mate => {
+        let areMatesResult = await areMates(this.props.currentUserUid, mate.uid)
+        let isPendingInvite = !areMatesResult
+        return (
+            <MatePreview
+                key={mate.uid}
+                uid={mate.uid}
+                email={mate.email}
+                profilePic={mate.profilePic}
+                name={mate.name}
+                setMateOnState={this.setMateOnState}
+                pendingInvite={isPendingInvite}
+            />
+        )
+    }
 
-    loadMatePreviews = () => {
+    loadMatePreviews = async () => {
         if (this.props.mates) {
             this.setState({
                 ...this.state,
-                matePreviews: this.props.mates.map(mate => this.createMatePreview(mate))
+                matePreviews: await Promise.all(this.props.mates.map(async mate => await this.createMatePreview(mate)))
             })
         } else {
             toastr.error(window.translate({ text: "toastr-error-title" }), window.translate({ text: "toastr-error-trying-load-mates" }))
         }
-
     }
 
     setMateOnState = (mate) => {

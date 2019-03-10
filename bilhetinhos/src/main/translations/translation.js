@@ -219,6 +219,11 @@ export default {
     pt: pt['mates-no-mates-label'],
     es: es['mates-no-mates-label'],
   },
+  'mates-pending-invite': {
+    en: en['mates-pending-invite'],
+    pt: pt['mates-pending-invite'],
+    es: es['mates-pending-invite'],
+  },
   'toastr-notification-sent': {
     en: en['toastr-notification-sent'],
     pt: pt['toastr-notification-sent'],

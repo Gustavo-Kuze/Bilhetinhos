@@ -42,6 +42,7 @@ const pt = {
     'mates-new-mate-email-placeholder': 'Digite o E-mail do seu colega aqui',
     'mates-add-mate': 'Adicionar colega',
     'mates-no-mates-label': 'Você ainda não possui nenhum colega',
+    'mates-pending-invite': 'Convite pendente',
     'toastr-notification-sent': 'Sua notificação foi enviada',
     'noteboard-header-label': 'Quadro',
     'noteboard-btn-new-note': 'Novo Bilhete',

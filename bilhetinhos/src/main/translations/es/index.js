@@ -42,6 +42,7 @@ const es = {
     'mates-new-mate-email-placeholder': "Introduzca el E-mail de su colega aquí",
     'mates-add-mate': "Añadir a un colega",
     'mates-no-mates-label': "Usted no tiene ningún colega",
+    'mates-pending-invite': 'Invitación pendiente',
     'toastr-notification-sent': "Su notificación ha sido enviada",
     'noteboard-header-label': "Cuadro",
     'noteboard-btn-new-note': "Nuevo Billete",
