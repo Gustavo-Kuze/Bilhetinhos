@@ -25,7 +25,7 @@ const MatePreview = props => {
                                             email: props.email,
                                             uid: props.uid
                                         })
-                                    }}><i className="fas fa-trash"></i></button>
+                                    }}><i className="fas fa-user-times"></i></button>
                             </div>
                         </div>
                     </div>
