@@ -35,8 +35,7 @@ const removeUserNotifications = async (uid, receivedDates) => {
 
 const declineMateInvitation = async (userUid, mateEmail) => {
     let mateUid = await getUserUidByEmail(mateEmail)
-    console.log(mateUid)
-    return await removeMate(userUid, mateUid)
+    return await removeMate(mateUid, userUid)
 }
 
 const markAsRead = async (uid, receivedDate) => {
