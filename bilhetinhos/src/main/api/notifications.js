@@ -1,6 +1,6 @@
 import firebase from './firebase'
 import { getUserUidByEmail } from './users'
-import { removeMate } from './mates'
+import { removeMate, areMates } from './mates'
 
 const _getUserNotificationsSnapshot = async uid => await getNotificationsRef().child(uid).once('value')
 
@@ -39,7 +39,10 @@ const removeUserNotifications = async (uid, receivedDates) => {
 
 const declineMateInvitation = async (userUid, mateEmail) => {
     let mateUid = await getUserUidByEmail(mateEmail)
-    return await removeMate(mateUid, userUid)
+    let areMatesAlready = await areMates(mateUid, userUid)
+    if (!areMatesAlready) {
+        await removeMate(mateUid, userUid)
+    }
 }
 
 const markAsRead = async (uid, receivedDate) => {
