@@ -18,7 +18,7 @@ const removeMate = async (uid, mateUid) => {
     if (getMatesResponse.mates.length > 0) {
         let mates = []
         mates = (getMatesResponse.mates.filter(mate => mate !== mateUid))
-        getMatesResponse.matesRef.set(mates)
+        await getMatesResponse.matesRef.set(mates)
         return mates
     }
 }

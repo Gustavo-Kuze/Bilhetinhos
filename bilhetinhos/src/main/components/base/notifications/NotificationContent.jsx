@@ -17,7 +17,7 @@ const NotificationContent = props => {
             <div className="d-flex justify-content-between">
                 <small>{props.sender}</small>
                 <object>
-                    <a href={`${createDismissUrl()}`}><i className="fas fa-trash"></i></a>
+                    <a href={`${createDismissUrl()}`} className={`${props.read ? 'text-primary' : 'text-light'}`}><i className="fas fa-trash"></i></a>
                 </object>
             </div>
 

@@ -56,6 +56,7 @@ class NotificationList extends Component {
                                                 title={translatedTitle}
                                                 receivedDate={n.receivedDate}
                                                 description={translatedDescription}
+                                                read={n.read}
                                                 sender={n.sender} />
                                         </NotificationLink>
                                     )
