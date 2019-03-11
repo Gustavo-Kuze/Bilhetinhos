@@ -1,4 +1,6 @@
 import firebase from './firebase'
+import {getUserUidByEmail} from './users'
+import {removeMate} from './mates'
 
 const _getUserNotificationsSnapshot = async uid => await getNotificationsRef().child(uid).once('value')
 
@@ -18,11 +20,23 @@ const sendUserNotification = async (uid, notification) => {
 const removeUserNotifications = async (uid, receivedDates) => {
     let notifications = (await getUserNotifications(uid)) || []
     if (notifications.length > 0) {
-        notifications = notifications.filter(notif => {
-            return !receivedDates.includes(`${notif.receivedDate}`)
-        })
+        notifications = await Promise.all(notifications.filter(async notif => {
+            let returnCondition = receivedDates.includes(`${notif.receivedDate}`)
+            if(returnCondition){
+                if(notif.title === "mates-alert-title"){
+                   await declineMateInvitation(uid, notif.sender)
+                }
+            }
+            return !returnCondition
+        }))
         await getNotificationsRef().child(uid).set(notifications)
     }
+}
+
+const declineMateInvitation = async (userUid, mateEmail) => {
+    let mateUid = await getUserUidByEmail(mateEmail)
+    console.log(mateUid)
+    return await removeMate(userUid, mateUid)
 }
 
 const markAsRead = async (uid, receivedDate) => {
