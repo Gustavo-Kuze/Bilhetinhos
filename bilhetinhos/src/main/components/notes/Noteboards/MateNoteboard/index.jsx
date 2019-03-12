@@ -1,3 +1,4 @@
+import './css/MateNoteboard.css'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -6,6 +7,7 @@ import { setIsLoaded, setIsLoading, refreshMateNoteboardNotes, refreshMateNotebo
 import NoteboardContainer from '../Noteboard/NoteboardContainer'
 import NoteboardSection from '../Noteboard/NoteboardSection'
 import MateNoteboardObserver from './MateNoteboardObserver'
+import UserPresentation from './UserPresentation'
 
 export class MateNoteboard extends Component {
 
@@ -14,9 +16,9 @@ export class MateNoteboard extends Component {
             <Skeleton>
                 <MateNoteboardObserver />
                 <section className="container-fluid">
+                    <UserPresentation />
                     <div className="row ">
                         <div className="col-10 offset-1">
-                            <h1 className="h3">Quadro do colega</h1>
                             <NoteboardContainer containerId="matenoteboard-notes-accordion">
                                 <NoteboardSection
                                     sectionId="matenoteboard-notes"

@@ -33,10 +33,6 @@ export class MateNoteboardObserver extends Component {
     render = () => <Fragment />
 }
 
-// const mapStateToProps = state => ({
-//     mateNoteboardUid: state.mateNoteboard.user.uid
-// })
-
 const mapDispatchToProps = dispatch => bindActionCreators({
     setIsLoaded, setIsLoading, refreshMateNoteboardNotes, refreshMateNoteboardUser
 }, dispatch)
