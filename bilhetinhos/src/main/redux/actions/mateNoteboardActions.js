@@ -1,9 +1,14 @@
 import { getUserNotes } from '../../api/notes'
+import { getUserByUid } from '../../api/users'
 
-export const setMateNoteboardUser = user => {
-    return {
-        type: "SET_USER",
-        payload: user
+export const refreshMateNoteboardUser = uid => {
+    return dispatch => {
+        getUserByUid(uid).then(user => {
+            dispatch({
+                type: "SET_USER",
+                payload: user
+            })
+        })
     }
 }
 

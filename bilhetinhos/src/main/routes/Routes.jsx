@@ -2,13 +2,13 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
 import Home from '../components/home/Home'
-import Noteboard from '../components/notes/Noteboard'
+import Noteboard from '../components/notes/Noteboards/UserNoteboard/'
 import Profile from '../components/user/Profile'
 import Login from '../components/user/Login'
 import SignOut from '../components/user/SignOut'
 import ProtectedRoute from './ProtectedRoute'
 import Mates from '../components/mates/Mates'
-import MateNoteboard from '../components/notes/Noteboard/MateNoteboard/'
+import MateNoteboard from '../components/notes/Noteboards/MateNoteboard'
 
 export default () =>
     <BrowserRouter>

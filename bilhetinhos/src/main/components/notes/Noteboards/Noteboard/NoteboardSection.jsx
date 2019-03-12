@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { AccordionItem } from '../../base/Accordion'
-import Spinner from '../../utils/Spinner'
-import If from '../../utils/If'
-import NotePreview from './NotePreview/'
-import { markNoteIfQuery } from '../../../helpers/notes'
+import { AccordionItem } from '../../../base/Accordion'
+import Spinner from '../../../utils/Spinner'
+import If from '../../../utils/If'
+import NotePreview from '../NotePreview'
+import { markNoteIfQuery } from '../../../../helpers/notes'
 
 export default class NoteboardSection extends Component {
 

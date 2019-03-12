@@ -2,15 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Skeleton from '../../../base/Skeleton/Skeleton'
-import { setIsLoaded, setIsLoading, refreshMateNoteboardNotes, setMateNoteboardUser } from '../../../../redux/actions/mateNoteboardActions'
-import NoteboardContainer from '../../Noteboard/NoteboardContainer'
-import NoteboardSection from '../../Noteboard/NoteboardSection'
+import { setIsLoaded, setIsLoading, refreshMateNoteboardNotes, refreshMateNoteboardUser } from '../../../../redux/actions/mateNoteboardActions'
+import NoteboardContainer from '../Noteboard/NoteboardContainer'
+import NoteboardSection from '../Noteboard/NoteboardSection'
+import MateNoteboardObserver from './MateNoteboardObserver'
 
 export class MateNoteboard extends Component {
 
     render() {
         return (
             <Skeleton>
+                <MateNoteboardObserver />
                 <section className="container-fluid">
                     <div className="row ">
                         <div className="col-10 offset-1">
@@ -41,7 +43,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    setIsLoaded, setIsLoading, refreshMateNoteboardNotes, setMateNoteboardUser
+    setIsLoaded, setIsLoading, refreshMateNoteboardNotes, refreshMateNoteboardUser
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(MateNoteboard)

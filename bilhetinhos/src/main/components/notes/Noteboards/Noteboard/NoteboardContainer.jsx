@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Accordion } from '../../base/Accordion'
+import { Accordion } from '../../../base/Accordion'
 
 class NoteboardContainer extends Component {
   render() {

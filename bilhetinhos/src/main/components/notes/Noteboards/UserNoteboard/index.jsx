@@ -1,13 +1,13 @@
 import React, { Component } from "react"
-import Skeleton from "../../base/Skeleton/Skeleton"
+import Skeleton from "../../../base/Skeleton/Skeleton"
 import { connect } from "react-redux"
 import { bindActionCreators } from 'redux'
-import EditNote from './EditNote'
-import RemoveNote from './RemoveNote'
-import { setEntireNote } from '../../../redux/actions/editNoteActions'
+import EditNote from '../EditNote'
+import RemoveNote from '../RemoveNote'
+import { setEntireNote } from '../../../../redux/actions/editNoteActions'
 import { Translate } from 'react-translated'
-import NoteboardContainer from './NoteboardContainer'
-import NoteboardSection from './NoteboardSection'
+import NoteboardContainer from '../Noteboard/NoteboardContainer'
+import NoteboardSection from '../Noteboard/NoteboardSection'
 
 class Noteboard extends Component {
 
