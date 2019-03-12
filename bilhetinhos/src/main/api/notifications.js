@@ -1,5 +1,5 @@
 import firebase from './firebase'
-import { getUserUidByEmail } from './users'
+import { getUserUidByEmail, getUserEmailByUid } from './users'
 import { removeMate, areMates } from './mates'
 
 const _getUserNotificationsSnapshot = async uid => await getNotificationsRef().child(uid).once('value')
@@ -42,6 +42,15 @@ const declineMateInvitation = async (userUid, mateEmail) => {
     let areMatesAlready = await areMates(mateUid, userUid)
     if (!areMatesAlready) {
         await removeMate(mateUid, userUid)
+        let userEmail = await getUserEmailByUid(userUid)
+        await sendUserNotification(mateUid, {
+            title: 'mates-decline-invitation-title',
+            receivedDate: Date.now(),
+            description: 'mates-decline-invitation-description',
+            sender: `${userEmail}`,
+            read: false,
+            href: `/colegas`
+        })
     }
 }
 

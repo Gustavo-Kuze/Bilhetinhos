@@ -5,7 +5,7 @@ import { refreshNotifications } from '../../../redux/actions/notificationsAction
 import { addMateIfExists } from '../../../api/mates'
 import { getUserEmailByUid } from '../../../api/users'
 import {
-    getNotificationsRef, getUserNotifications, markAsRead, removeUserNotifications
+    getNotificationsRef, getUserNotifications, markAsRead, removeUserNotifications, sendUserNotification
 } from '../../../api/notifications'
 
 class NotificationsObserver extends Component {
@@ -41,8 +41,15 @@ class NotificationsObserver extends Component {
         if (params.has('addm')) {
             let queryMateUid = params.get('addm')
             let mateEmail = await getUserEmailByUid(queryMateUid)
-            await addMateIfExists(this.props.uid, this.props.email, mateEmail, (msg) => {
-                window.location.search = ''
+            await addMateIfExists(this.props.uid, this.props.email, mateEmail, async (msg) => {
+                await sendUserNotification(queryMateUid, {
+                    title: 'mates-accept-invitation-title',
+                    receivedDate: Date.now(),
+                    description: 'mates-accept-invitation-description',
+                    sender: `${this.props.email}`,
+                    read: false,
+                    href: `/colegas`
+                })
             }).catch(err => {
                 console.log(err.message)
             })

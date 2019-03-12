@@ -224,6 +224,26 @@ export default {
     pt: pt['mates-pending-invite'],
     es: es['mates-pending-invite'],
   },
+  'mates-decline-invitation-title': {
+    en: en['mates-decline-invitation-title'],
+    pt: pt['mates-decline-invitation-title'],
+    es: es['mates-decline-invitation-title'],
+  },
+  'mates-decline-invitation-description': {
+    en: en['mates-decline-invitation-description'],
+    pt: pt['mates-decline-invitation-description'],
+    es: es['mates-decline-invitation-description'],
+  },
+  'mates-accept-invitation-title': {
+    en: en['mates-accept-invitation-title'],
+    pt: pt['mates-accept-invitation-title'],
+    es: es['mates-accept-invitation-title'],
+  },
+  'mates-accept-invitation-description': {
+    en: en['mates-accept-invitation-description'],
+    pt: pt['mates-accept-invitation-description'],
+    es: es['mates-accept-invitation-description'],
+  },
   'toastr-notification-sent': {
     en: en['toastr-notification-sent'],
     pt: pt['toastr-notification-sent'],
