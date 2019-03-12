@@ -8,6 +8,7 @@ import Login from '../components/user/Login'
 import SignOut from '../components/user/SignOut'
 import ProtectedRoute from './ProtectedRoute'
 import Mates from '../components/mates/Mates'
+import MateNoteboard from '../components/notes/Noteboard/MateNoteboard/'
 
 export default () =>
     <BrowserRouter>
@@ -18,6 +19,7 @@ export default () =>
             <ProtectedRoute exact path='/user/profile' component={Profile} />
             <ProtectedRoute exact path='/colegas' component={Mates} />
             <ProtectedRoute exact path='/quadro' component={Noteboard} />
+            <ProtectedRoute exact path='/colega/quadro' component={MateNoteboard} />
             <Redirect from='*' to='/' />
         </Switch>
     </BrowserRouter>
