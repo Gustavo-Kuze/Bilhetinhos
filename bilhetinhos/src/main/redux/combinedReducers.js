@@ -7,6 +7,7 @@ import notificationsReducer from './reducers/notificationsReducer'
 import matesReducer from './reducers/matesReducer'
 import notesReducer from './reducers/notesReducer'
 import languageReducer from './reducers/languageReducer'
+import mateNoteboardReducer from './reducers/mateNoteboardReducer'
 
 const combinedReducers = combineReducers({
     editNote: editNoteReducer,
@@ -16,7 +17,8 @@ const combinedReducers = combineReducers({
     notifications: notificationsReducer,
     mates: matesReducer,
     notes: notesReducer,
-    language: languageReducer
+    language: languageReducer,
+    mateNoteboard: mateNoteboardReducer
 })
 
 export default combinedReducers

@@ -3,8 +3,23 @@ import { AccordionItem } from '../../base/Accordion'
 import Spinner from '../../utils/Spinner'
 import If from '../../utils/If'
 import NotePreview from './NotePreview/'
+import { markNoteIfQuery } from '../../../helpers/notes'
 
 export default class NoteboardSection extends Component {
+
+    callMarkNoteIfQuery = title => {
+        let result = markNoteIfQuery(title)
+        window.markedNoteId = result.id ? result.id : window.markedNoteId
+        return result.mark
+    }
+
+    componentDidUpdate = () => {
+        if (window.markedNoteId) {
+            try {
+                document.getElementById(window.markedNoteId).scrollIntoView()
+            } catch (err) { }
+        }
+    }
 
     renderNotes = (notes, areEditable = false) => {
         if (notes.length > 0) {
@@ -12,7 +27,7 @@ export default class NoteboardSection extends Component {
                 <NotePreview key={note.title} title={note.title} message={note.message}
                     noteMates={note.noteMates} fontColor={note.fontColor} noteColor={note.noteColor}
                     owner={note.owner} editable={areEditable} fontSize={note.fontSize}
-                    mark={this.props.markNoteIfQuery(note.title)} />
+                    mark={this.callMarkNoteIfQuery(note.title)} />
             ))
         }
         return ''

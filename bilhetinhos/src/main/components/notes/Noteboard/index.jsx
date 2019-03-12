@@ -9,31 +9,7 @@ import { Translate } from 'react-translated'
 import NoteboardContainer from './NoteboardContainer'
 import NoteboardSection from './NoteboardSection'
 
-var markedNoteId = ''
-
 class Noteboard extends Component {
-
-  markNoteIfQuery = (title) => {
-    let params = new URLSearchParams(window.location.search)
-    if (params.has('note')) {
-      let note = params.get('note')
-      let isEqual = title === note
-      if (isEqual) {
-        markedNoteId = `note-${params.get('note').replace(/ /g, '')}`
-      }
-      return isEqual
-    }
-    return false
-  }
-
-  componentDidUpdate = () => {
-    if (markedNoteId) {
-      try {
-        document.getElementById(markedNoteId).scrollIntoView()
-      } catch (err) {
-      }
-    }
-  }
 
   onModalClose = () => {
     this.props.setEntireNote({
@@ -69,7 +45,6 @@ class Noteboard extends Component {
                   notes={this.props.userNotes}
                   areNotesEditable={true}
                   emptyLabel={window.translate({ text: "noteboard-my-notes-no-note" })}
-                  markNoteIfQuery={this.markNoteIfQuery}
                 />
                 <NoteboardSection
                   sectionId="mates-notes"
@@ -79,7 +54,6 @@ class Noteboard extends Component {
                   notes={this.props.matesNotes}
                   areNotesEditable={false}
                   emptyLabel={window.translate({ text: "noteboard-mates-notes-no-note" })}
-                  markNoteIfQuery={this.markNoteIfQuery}
                 />
               </NoteboardContainer>
               <EditNote onClose={this.onModalClose} onOpen={() => { }} open={this.shouldOpenEditorForNewNote()} />
