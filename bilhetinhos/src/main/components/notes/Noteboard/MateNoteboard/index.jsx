@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Skeleton from '../../../base/Skeleton/Skeleton'
-import { setIsLoaded, setIsLoading, setMateNoteboardNotes, setMateNoteboardUser } from '../../../../redux/actions/mateNoteboardActions'
+import { setIsLoaded, setIsLoading, refreshMateNoteboardNotes, setMateNoteboardUser } from '../../../../redux/actions/mateNoteboardActions'
 import NoteboardContainer from '../../Noteboard/NoteboardContainer'
 import NoteboardSection from '../../Noteboard/NoteboardSection'
 
@@ -41,7 +41,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    setIsLoaded, setIsLoading, setMateNoteboardNotes, setMateNoteboardUser
+    setIsLoaded, setIsLoading, refreshMateNoteboardNotes, setMateNoteboardUser
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(MateNoteboard)

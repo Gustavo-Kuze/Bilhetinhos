@@ -16,7 +16,7 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case "SET_USER":
             return { ...state, user: action.payload }
-        case "SET_NOTES":
+        case "REFRESH_NOTES":
             return { ...state, notes: action.payload }
         case "IS_LOADING":
             return { ...state, isLoading: true }

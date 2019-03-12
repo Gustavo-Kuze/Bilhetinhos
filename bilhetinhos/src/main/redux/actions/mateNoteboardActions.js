@@ -1,3 +1,5 @@
+import { getUserNotes } from '../../api/notes'
+
 export const setMateNoteboardUser = user => {
     return {
         type: "SET_USER",
@@ -5,11 +7,16 @@ export const setMateNoteboardUser = user => {
     }
 }
 
-export const setMateNoteboardNotes = notes => {
-    return {
-        type: "SET_NOTES",
-        payload: notes
+export const refreshMateNoteboardNotes = uid => {
+    return dispatch => {
+        getUserNotes(uid).then(notes => {
+            dispatch({
+                type: "REFRESH_NOTES",
+                payload: notes
+            })
+        })
     }
+
 }
 
 export const setIsLoading = () => {
