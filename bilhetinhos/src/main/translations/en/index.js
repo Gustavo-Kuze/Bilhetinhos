@@ -78,6 +78,7 @@ const en = {
   'notepreview-created-by': "Created by {owner}",
   'userpresentation-contact-info-label': 'Contact Information',
   'userpresentation-email-label': 'E-mail',
+  'matenoteboard-notes-no-note': "This user doesn't have any notes",
 }
 
 export default en

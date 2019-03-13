@@ -29,13 +29,10 @@ export class MateNoteboard extends Component {
                             <NoteboardContainer containerId="matenoteboard-notes-accordion" notAccordionContainer={true}>
                                 <NoteboardSection
                                     notAccordionItem={true}
-                                    sectionId="matenoteboard-notes"
-                                    containerId="matenoteboard-notes-accordion"
-                                    sectionTitle={window.translate({ text: "noteboard-accordion-matenoteboard-notes-label" })}
                                     isLoading={this.props.isLoading}
                                     notes={this.props.notes}
                                     areNotesEditable={false}
-                                    emptyLabel={window.translate({ text: "noteboard-matenoteboard-notes-no-note" })}
+                                    emptyLabel={window.translate({ text: "matenoteboard-notes-no-note" })}
                                 />
                             </NoteboardContainer>
                         </div>

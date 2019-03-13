@@ -398,5 +398,10 @@ export default {
     en: en['userpresentation-email-label'],
     pt: pt['userpresentation-email-label'],
     es: es['userpresentation-email-label'],
+  },
+  'matenoteboard-notes-no-note': {
+    en: en['matenoteboard-notes-no-note'],
+    pt: pt['matenoteboard-notes-no-note'],
+    es: es['matenoteboard-notes-no-note'],
   }
 }

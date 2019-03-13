@@ -78,6 +78,7 @@ const es = {
     'notepreview-created-by': "Creado por {owner}",
     'userpresentation-contact-info-label': 'Información de contacto',
     'userpresentation-email-label': 'E-mail',
+    'matenoteboard-notes-no-note': 'El usuario no tiene ningún billete',
   }
 
   export default es
