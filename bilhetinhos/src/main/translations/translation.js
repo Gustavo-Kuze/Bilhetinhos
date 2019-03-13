@@ -88,6 +88,11 @@ export default {
     pt: pt['user-menu-btn-profile'],
     es: es['user-menu-btn-profile'],
   },
+  'user-menu-btn-settings': {
+    en: en['user-menu-btn-settings'],
+    pt: pt['user-menu-btn-settings'],
+    es: es['user-menu-btn-settings'],
+  },
   'user-menu-signout': {
     en: en['user-menu-signout'],
     pt: pt['user-menu-signout'],

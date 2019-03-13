@@ -16,6 +16,7 @@ const pt = {
     'notifications-default-label': 'Tudo atualizado por aqui!',
     'notifications-clear-all': 'Limpar todas as notificações',
     'user-menu-btn-profile': 'Perfil',
+    'user-menu-btn-settings': 'Configurações',
     'user-menu-signout': 'Sair',
     'warning-modal-title': 'Tem certeza?',
     'warning-modal-subtitle': 'ATENÇÃO!',

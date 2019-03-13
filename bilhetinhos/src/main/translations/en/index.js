@@ -16,6 +16,7 @@ const en = {
   'notifications-default-label': 'Everything is up to date!',
   'notifications-clear-all': 'Clear all notifications',
   'user-menu-btn-profile': 'Profile',
+  'user-menu-btn-settings': 'Settings',
   'user-menu-signout': 'Sign Out',
   'warning-modal-title': 'Are You sure?',
   'warning-modal-subtitle': 'ATTENTION!',

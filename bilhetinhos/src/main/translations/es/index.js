@@ -16,6 +16,7 @@ const es = {
     'notifications-default-label': 'Todo actualizado por aquí!',
     'notifications-clear-all': 'Quitar todas las notificaciones',
     'user-menu-btn-profile': 'Perfil',
+    'user-menu-btn-settings': 'Ajustes',
     'user-menu-signout': 'Salir',
     'warning-modal-title': '¿Está seguro?',
     'warning-modal-subtitle': '¡ACCTENCIÓN!',
