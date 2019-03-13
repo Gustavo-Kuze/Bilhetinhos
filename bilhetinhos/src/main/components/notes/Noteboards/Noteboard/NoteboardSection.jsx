@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { AccordionItem } from '../../../base/Accordion'
 import Spinner from '../../../utils/Spinner'
 import If from '../../../utils/If'
@@ -33,26 +33,42 @@ export default class NoteboardSection extends Component {
         return ''
     }
 
+    renderContainer = () => {
+        if (this.props.notAccordionItem) {
+            return (
+                <div>{this.renderContent()}</div>
+            )
+        } else {
+            return (
+                <AccordionItem itemId={this.props.sectionId} itemLabel={this.props.sectionTitle} accordionId={this.props.containerId} open>
+                    {this.renderContent()}
+                </AccordionItem>
+            )
+        }
+    }
+
+    renderContent = () => (
+        <Fragment>
+            <If condition={this.props.isLoading}>
+                <div className="row">
+                    <div className="col offset-5">
+                        <Spinner extraClasses="py-5 pl-3" />
+                    </div>
+                </div>
+            </If>
+            <If condition={!this.props.isLoading}>
+                <div className="notes-container row ">
+                    {
+                        this.props.notes.length > 0 ?
+                            this.renderNotes(this.props.notes, this.props.areNotesEditable) :
+                            <p className="lead mx-auto">{this.props.emptyLabel}</p>
+                    }
+                </div>
+            </If>
+        </Fragment>
+    )
+
     render() {
-        return (
-            <AccordionItem itemId={this.props.sectionId} itemLabel={this.props.sectionTitle} accordionId={this.props.containerId} open>
-                <If condition={this.props.isLoading}>
-                    <div className="row">
-                        <div className="col offset-5">
-                            <Spinner extraClasses="py-5 pl-3" />
-                        </div>
-                    </div>
-                </If>
-                <If condition={!this.props.isLoading}>
-                    <div className="notes-container row ">
-                        {
-                            this.props.notes.length > 0 ?
-                                this.renderNotes(this.props.notes, this.props.areNotesEditable) :
-                                <p className="lead mx-auto">{this.props.emptyLabel}</p>
-                        }
-                    </div>
-                </If>
-            </AccordionItem>
-        )
+        return this.renderContainer()
     }
 }

@@ -17,10 +17,12 @@ export class MateNoteboard extends Component {
                 <MateNoteboardObserver />
                 <section className="container-fluid">
                     <UserPresentation />
+                    <hr className="mb-5" />
                     <div className="row ">
                         <div className="col-10 offset-1">
-                            <NoteboardContainer containerId="matenoteboard-notes-accordion">
+                            <NoteboardContainer containerId="matenoteboard-notes-accordion" notAccordionContainer={true}>
                                 <NoteboardSection
+                                    notAccordionItem={true}
                                     sectionId="matenoteboard-notes"
                                     containerId="matenoteboard-notes-accordion"
                                     sectionTitle={window.translate({ text: "noteboard-accordion-matenoteboard-notes-label" })}
