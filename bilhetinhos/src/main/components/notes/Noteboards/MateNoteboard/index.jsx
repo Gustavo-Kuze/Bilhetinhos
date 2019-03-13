@@ -13,7 +13,7 @@ export class MateNoteboard extends Component {
 
     render() {
         return (
-            <Skeleton>
+            <Skeleton noMarginTop={true}>
                 <MateNoteboardObserver />
                 <section className="container-fluid">
                     <UserPresentation 
