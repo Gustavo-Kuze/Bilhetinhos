@@ -133,7 +133,7 @@ class Mates extends Component {
         })
     }
 
-    shouldOpenEditorForNewMate = () => window.location.search.includes('novo=colega')
+    shouldOpenEditorForNewMate = () => window.location.search.includes('new=mate')
 
     render() {
         return (

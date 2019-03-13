@@ -22,7 +22,7 @@ class Noteboard extends Component {
     })
   }
 
-  shouldOpenEditorForNewNote = () => window.location.search.includes('novo=bilhete')
+  shouldOpenEditorForNewNote = () => window.location.search.includes('new=note')
 
   render() {
     return (
