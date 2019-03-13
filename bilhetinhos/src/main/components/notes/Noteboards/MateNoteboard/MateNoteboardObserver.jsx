@@ -13,13 +13,11 @@ export class MateNoteboardObserver extends Component {
         getNotesRef().child(uid).on('value', async () => {
             this.props.setIsLoading()
             this.props.refreshMateNoteboardNotes(uid)
-            this.props.setIsLoaded()
         })
 
         getUsersRef().child(uid).on('value', async () => {
             this.props.setIsLoading()
             this.props.refreshMateNoteboardUser(uid)
-            this.props.setIsLoaded()
         })
     }
 

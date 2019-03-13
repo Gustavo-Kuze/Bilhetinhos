@@ -9,15 +9,15 @@ const INITIAL_STATE = {
         matesUids: []
     },
     notes: [],
-    isLoading: false
+    isLoading: true
 }
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case "SET_USER":
-            return { ...state, user: action.payload }
+            return { ...state, user: action.payload, isLoading: false }
         case "REFRESH_NOTES":
-            return { ...state, notes: action.payload }
+            return { ...state, notes: action.payload, isLoading: false }
         case "IS_LOADING":
             return { ...state, isLoading: true }
         case "IS_LOADED":

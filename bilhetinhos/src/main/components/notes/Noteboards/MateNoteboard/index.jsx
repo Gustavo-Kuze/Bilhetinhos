@@ -8,6 +8,8 @@ import NoteboardContainer from '../Noteboard/NoteboardContainer'
 import NoteboardSection from '../Noteboard/NoteboardSection'
 import MateNoteboardObserver from './MateNoteboardObserver'
 import UserPresentation from './UserPresentation'
+import If from '../../../utils/If'
+import Spinner from '../../../utils/Spinner'
 
 export class MateNoteboard extends Component {
 
@@ -15,29 +17,40 @@ export class MateNoteboard extends Component {
         return (
             <Skeleton noMarginTop={true}>
                 <MateNoteboardObserver />
-                <section className="container-fluid">
-                    <UserPresentation 
-                        name={this.props.user.name}
-                        email={this.props.user.email}
-                        bio={this.props.user.bio}
-                        phone={this.props.user.phone}
-                        profilePic={this.props.user.profilePic}
-                    />
-                    <hr className="mb-5" />
-                    <div className="row ">
-                        <div className="col-10 offset-1">
-                            <NoteboardContainer containerId="matenoteboard-notes-accordion" notAccordionContainer={true}>
-                                <NoteboardSection
-                                    notAccordionItem={true}
-                                    isLoading={this.props.isLoading}
-                                    notes={this.props.notes}
-                                    areNotesEditable={false}
-                                    emptyLabel={window.translate({ text: "matenoteboard-notes-no-note" })}
-                                />
-                            </NoteboardContainer>
+                <If condition={this.props.isLoading}>
+                    <div className="container-fluid d-flex justify-content-center align-items-center" style={{ height: '300px' }}>
+                        <div className="row">
+                            <div className="col-2 offset-4">
+                                <Spinner />
+                            </div>
                         </div>
                     </div>
-                </section>
+                </If>
+                <If condition={!this.props.isLoading}>
+                    <section className="container-fluid">
+                        <UserPresentation
+                            name={this.props.user.name}
+                            email={this.props.user.email}
+                            bio={this.props.user.bio}
+                            phone={this.props.user.phone}
+                            profilePic={this.props.user.profilePic}
+                        />
+                        <hr className="mb-5" />
+                        <div className="row ">
+                            <div className="col-10 offset-1">
+                                <NoteboardContainer containerId="matenoteboard-notes-accordion" notAccordionContainer={true}>
+                                    <NoteboardSection
+                                        notAccordionItem={true}
+                                        isLoading={this.props.isLoading}
+                                        notes={this.props.notes}
+                                        areNotesEditable={false}
+                                        emptyLabel={window.translate({ text: "matenoteboard-notes-no-note" })}
+                                    />
+                                </NoteboardContainer>
+                            </div>
+                        </div>
+                    </section>
+                </If>
             </Skeleton>
         )
     }
