@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import If from '../../../utils/If'
 
 const UserPresentation = props => {
     return (
@@ -25,8 +26,16 @@ const UserPresentation = props => {
                             </div>
                         </div>
                         <div className="col-sm-7 offset-sm-1 ml-sm-5 pl-sm-5 ml-lg-1 pl-lg-1 mt-5">
+                            <If condition={!props.isLoggedUser && !props.areMates}>
+                                <If condition={props.pendingInvite}>
+                                    <span className="badge badge-info mb-5">{window.translate({ text: 'mates-pending-invite' })}</span>
+                                </If>
+                                <If condition={!props.pendingInvite}>
+                                    <button className="btn btn-success mb-5" onClick={props.callAddMateIfExists}>{window.translate({ text: "mates-add-mate" })}</button>
+                                </If>
+                            </If>
                             <p className="text-dark ">{window.translate({ text: "profile-bio-placeholder" })}</p>
-                            <p className="text-muted">{props.bio}</p>
+                            <p className="text-muted">{props.bio || 'lkasjdlaksjdlakjsldjalkjhaslkjdf'}</p>
                         </div>
                     </div>
                     <div className="row mt-5">

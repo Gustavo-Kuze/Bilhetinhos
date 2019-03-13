@@ -41,7 +41,7 @@ const es = {
     'mates-alert-description': 'Haga clic para agregar el {userEmail}',
     'mates-list-header-label': "Colegas",
     'mates-new-mate-email-placeholder': "Introduzca el E-mail de su colega aquí",
-    'mates-add-mate': "Añadir a un colega",
+    'mates-add-mate': "Añadir colega",
     'mates-no-mates-label': "Usted no tiene ningún colega",
     'mates-pending-invite': 'Invitación pendiente',
     'mates-decline-invitation-title': 'Invitación cancelada',
