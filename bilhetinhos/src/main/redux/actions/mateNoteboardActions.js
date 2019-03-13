@@ -8,13 +8,13 @@ export const refreshMateNoteboardUser = uid => {
             if(user.profilePic){
                 firebase.storage().ref(user.profilePic).getDownloadURL().then(url => {
                     dispatch({
-                        type: "SET_USER",
+                        type: "REFRESH_USER",
                         payload: {...user, profilePic: url}
                     })
                 })
             }else{
                 dispatch({
-                    type: "SET_USER",
+                    type: "REFRESH_USER",
                     payload: user
                 })
             }
@@ -43,5 +43,19 @@ export const setIsLoading = () => {
 export const setIsLoaded = () => {
     return {
         type: "IS_LOADED"
+    }
+}
+
+export const setMateNoteboardUser = user => {
+    return {
+        type: "SET_USER",
+        payload: user
+    }
+}
+
+export const setMateNoteboardNotes = notes => {
+    return {
+        type: "SET_NOTES",
+        payload: notes
     }
 }

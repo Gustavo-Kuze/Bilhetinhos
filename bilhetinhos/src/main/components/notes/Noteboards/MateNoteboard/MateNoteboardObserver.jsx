@@ -5,8 +5,9 @@ import { getNotesRef } from '../../../../api/notes'
 import { getUsersRef } from '../../../../api/users'
 import { areMates } from '../../../../api/mates'
 import {
-    setIsLoaded, setIsLoading,
-    refreshMateNoteboardNotes, refreshMateNoteboardUser
+    setIsLoading,
+    refreshMateNoteboardNotes, refreshMateNoteboardUser,
+    setMateNoteboardNotes, setMateNoteboardUser
 } from "../../../../redux/actions/mateNoteboardActions";
 
 export class MateNoteboardObserver extends Component {
@@ -34,6 +35,21 @@ export class MateNoteboardObserver extends Component {
                 areMates: (mateHasUser && userHasMate)
             })
         }
+
+        window.onbeforeunload = () => {
+            this.props.setIsLoading()
+            this.props.setMateNoteboardUser({
+                email: '',
+                uid: '',
+                name: '',
+                profilePic: '',
+                bio: '',
+                phone: '',
+                matesUids: []
+            })
+            this.props.setIsLoading()
+            this.props.setMateNoteboardNotes([])
+        }
     }
 
     render = () => <Fragment />
@@ -44,7 +60,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    setIsLoaded, setIsLoading, refreshMateNoteboardNotes, refreshMateNoteboardUser
+    setIsLoading, refreshMateNoteboardNotes,
+    refreshMateNoteboardUser, setMateNoteboardNotes, setMateNoteboardUser
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(MateNoteboardObserver)

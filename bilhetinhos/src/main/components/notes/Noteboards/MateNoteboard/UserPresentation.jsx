@@ -26,7 +26,7 @@ const UserPresentation = props => {
                             </div>
                         </div>
                         <div className="col-sm-7 offset-sm-1 ml-sm-5 pl-sm-5 ml-lg-1 pl-lg-1 mt-5">
-                            <If condition={!props.isLoggedUser && !props.areMates}>
+                            <If condition={props.email && !props.isLoggedUser && !props.areMates}>
                                 <If condition={props.pendingInvite}>
                                     <span className="badge badge-info mb-5">{window.translate({ text: 'mates-pending-invite' })}</span>
                                 </If>
@@ -35,7 +35,7 @@ const UserPresentation = props => {
                                 </If>
                             </If>
                             <p className="text-dark ">{window.translate({ text: "profile-bio-placeholder" })}</p>
-                            <p className="text-muted">{props.bio || 'lkasjdlaksjdlakjsldjalkjhaslkjdf'}</p>
+                            <p className="text-muted">{props.bio}</p>
                         </div>
                     </div>
                     <div className="row mt-5">

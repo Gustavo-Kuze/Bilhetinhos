@@ -34,6 +34,7 @@ export class MateNoteboard extends Component {
                 href: `/mates?addm=${this.props.currentUserUid}`
             })
             toastr.success(window.translate({ text: "toastr-success-title" }), window.translate({ text: "toastr-notification-sent" }))
+            window.location.reload()
         }
     }
 
@@ -58,7 +59,7 @@ export class MateNoteboard extends Component {
         return (
             <Skeleton noMarginTop={true}>
                 <MateNoteboardObserver sendFriendshipInfoToParent={this.friendshiptInfoFromObserver} />
-                <If condition={this.props.isLoading}>
+                <If condition={!this.props.user.email && this.props.isLoading}>
                     <div className="container-fluid d-flex justify-content-center align-items-center" style={{ height: '300px' }}>
                         <div className="row">
                             <div className="col-2 offset-4">
