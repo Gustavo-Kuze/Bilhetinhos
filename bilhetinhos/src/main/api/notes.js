@@ -27,7 +27,12 @@ const getUserNotes = async uid => {
     notesSnapshot.forEach(note => {
         notes.push(note.val())
     })
-    notes = await notes.map(async userNote => await getNoteWithMatesEmails(userNote))
+    notes = await notes.map(async userNote => {
+        let ownerEmail = await getUserEmailByUid(uid)
+        let noteWithMatesEmails = await getNoteWithMatesEmails(userNote)
+        let noteWithOwnerEmail = {...noteWithMatesEmails, owner: ownerEmail}
+        return noteWithOwnerEmail
+    })
     let userNotes = await Promise.all(notes)
     return userNotes
 }
@@ -58,11 +63,11 @@ const generateMateNotesWithOwnerEmail = async (mate, mateNotes) => {
 const getAllMatesNotes = async (uid, matesUids) => {
     let matesNotes = []
     let matesNotesPromise = await Promise.all(matesUids.map(async mate => {
-      let mateNotes = await getMateNotes(uid, mate)
-      mateNotes = await generateMateNotesWithOwnerEmail(mate, mateNotes)
-      return matesNotes.concat(mateNotes)
+        let mateNotes = await getMateNotes(uid, mate)
+        mateNotes = await generateMateNotesWithOwnerEmail(mate, mateNotes)
+        return matesNotes.concat(mateNotes)
     }))
     return matesNotesPromise.filter(note => note.length > 0)
-  }
+}
 
 export { getUserNotesRef, getMateNotes, setNote, removeNote, getUserNotes, getAllMatesNotes, getNotesRef }

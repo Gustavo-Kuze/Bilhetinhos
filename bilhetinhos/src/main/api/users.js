@@ -75,7 +75,8 @@ const registerUser = async user => {
         profilePic: user.profilePic || '',
         bio: user.bio || '',
         phone: user.phone || '',
-        mates: user.mates || []
+        mates: user.mates || [],
+        boardPrivacy: user.boardPrivacy || 'public'
     })
 
 }
@@ -85,8 +86,17 @@ const isEmailRegistered = async email => {
     return emailProviders.length > 0
 }
 
+const changeBoardPrivacy = async (uid, privacy) => {
+    let userRef = getUserRefByUid(uid)
+    let snapshot = await userRef.once('value')
+    let user = snapshot.val()
+    user.boardPrivacy = privacy
+    await userRef.update(user)
+}
+
 export {
     getUserByEmail, getUserByUid, getUsersRef,
     registerUser, getUsersEmailsByUid, getUsersUidsByEmail,
-    getUserUidByEmail, getUserEmailByUid, getUserRefByUid, isEmailRegistered
+    getUserUidByEmail, getUserEmailByUid, getUserRefByUid,
+    isEmailRegistered, changeBoardPrivacy
 }

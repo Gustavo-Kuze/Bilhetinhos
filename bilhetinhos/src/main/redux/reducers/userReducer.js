@@ -5,7 +5,8 @@ const INITIAL_STATE = {
     profilePic: '',
     bio: '',
     phone: '',
-    matesUids: []
+    matesUids: [],
+    boardPrivacy: 'public'
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -19,7 +20,8 @@ export default (state = INITIAL_STATE, action) => {
                 profilePic: action.payload.profilePic || '',
                 bio: action.payload.bio || '',
                 phone: action.payload.phone || '',
-                matesUids: action.payload.matesUids || []
+                matesUids: action.payload.matesUids || [],
+                boardPrivacy: action.payload.boardPrivacy || 'public'
             }
         case 'RESET_USER_STATE':
             return INITIAL_STATE
@@ -44,6 +46,11 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 matesUids: action.payload
+            }
+        case 'SET_BOARD_PRIVACY':
+            return {
+                ...state,
+                boardPrivacy: action.payload
             }
         default:
             return state
