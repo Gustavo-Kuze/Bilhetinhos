@@ -15,17 +15,17 @@ const UserPresentation = props => {
                         <div className="col col-sm-3">
                             <div className="row">
                                 <div className="col">
-                                    <img src={`${props.profilePic || "/img/default_user_profile.png"}`} className="matenoteboard-profile-pic" alt="User profile picture" style={{ position: 'absolute', top: '-70px' }} />
+                                    <img src={`${props.profilePic || "/img/default_user_profile.png"}`} className="matenoteboard-profile-pic bg-light border border-secondary" alt="User profile picture" style={{ position: 'absolute', top: '-70px' }} />
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col">
-                                    <h5 className="mt-2">{props.name}</h5>
+                            <div className="row mt-5">
+                                <div className="col mt-5">
+                                    <h5 className="mt-5">{props.name}</h5>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-7 offset-sm-1 ml-sm-5 pl-sm-5 ml-lg-1 pl-lg-1 mt-5 py-5 py-sm-1">
-                            <p className="text-dark pt-5 pt-sm-1">{window.translate({ text: "profile-bio-placeholder" })}</p>
+                        <div className="col-sm-7 offset-sm-1 ml-sm-5 pl-sm-5 ml-lg-1 pl-lg-1 mt-5">
+                            <p className="text-dark ">{window.translate({ text: "profile-bio-placeholder" })}</p>
                             <p className="text-muted">{props.bio}</p>
                         </div>
                     </div>

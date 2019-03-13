@@ -16,7 +16,7 @@ export default class Skeleton extends Component {
                 <MatesObserver />
                 <NotesObserver />
                 <Header />
-                <main className={`${this.props.noMarginTop ? "" : "main-mt"}`}>
+                <main className={`${this.props.noMarginTop ? "main-mb" : "main-mt main-mb"}`}>
                     {this.props.children}
                 </main>
                 <FloatingActionButton />
