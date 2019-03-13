@@ -41,8 +41,12 @@ const UserPresentation = props => {
                     <div className="row mt-5">
                         <div className="col">
                             <p className="text-dark">{window.translate({ text: "userpresentation-contact-info-label" })}</p>
-                            <p><span className="text-info">{window.translate({ text: "profile-phone-placeholder" })}</span>: <span>{props.phone}</span></p>
-                            <p><span className="text-info">{window.translate({ text: "userpresentation-email-label" })}</span>: <span>{props.email}</span></p>
+                            <If condition={props.phone}>
+                                <p><span className="text-info">{window.translate({ text: "profile-phone-placeholder" })}</span>: <span>{props.phone}</span></p>
+                            </If>
+                            <If condition={props.email}>
+                                <p><span className="text-info">{window.translate({ text: "userpresentation-email-label" })}</span>: <span>{props.email}</span></p>
+                            </If>
                         </div>
                     </div>
                 </div>

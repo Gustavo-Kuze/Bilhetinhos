@@ -39,7 +39,7 @@ class PopoverButton extends React.Component {
                             style={{ backgroundColor: fontColors.white, border: `1px solid ${backgroundColors.darkerGrey}`, ...this.props.extraStyle }}
                             onClick={() => { this.setState({ isPopoverOpen: !this.state.isPopoverOpen }) }} >
                             <div style={{ backgroundColor: backgroundColors.white, paddingLeft: '5px', paddingTop: '8px', paddingBottom: '5px' }}>
-                                <h6>{this.props.popoverTitle}</h6>
+                                <h6 className="p-2">{this.props.popoverTitle}</h6>
                             </div>
                             <div style={{ padding: '8px' }}>
                                 {this.props.children}
