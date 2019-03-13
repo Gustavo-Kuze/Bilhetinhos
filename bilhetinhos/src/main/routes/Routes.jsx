@@ -17,9 +17,9 @@ export default () =>
             <Route exact path='/user/login' component={Login} />
             <ProtectedRoute exact path='/user/signout' component={SignOut} />
             <ProtectedRoute exact path='/user/profile' component={Profile} />
-            <ProtectedRoute exact path='/colegas' component={Mates} />
-            <ProtectedRoute exact path='/quadro' component={Noteboard} />
-            <ProtectedRoute exact path='/colega/quadro' component={MateNoteboard} />
+            <ProtectedRoute exact path='/mates' component={Mates} />
+            <ProtectedRoute exact path='/noteboard' component={Noteboard} />
+            <ProtectedRoute exact path='/mates/noteboard' component={MateNoteboard} />
             <Redirect from='*' to='/' />
         </Switch>
     </BrowserRouter>

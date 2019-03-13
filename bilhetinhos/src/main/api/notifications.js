@@ -49,7 +49,7 @@ const declineMateInvitation = async (userUid, mateEmail) => {
             description: 'mates-decline-invitation-description',
             sender: `${userEmail}`,
             read: false,
-            href: `/colegas`
+            href: `/mates`
         })
     }
 }

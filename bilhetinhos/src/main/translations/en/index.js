@@ -76,6 +76,8 @@ const en = {
   'editnote-btn-create': "Publish",
   'editnote-title': "Customize you note",
   'notepreview-created-by': "Created by {owner}",
+  'userpresentation-contact-info-label': 'Contact Information',
+  'userpresentation-email-label': 'E-mail',
 }
 
 export default en

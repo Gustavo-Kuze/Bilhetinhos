@@ -28,10 +28,10 @@ class Navbar extends React.Component {
                 <div className="collapse navbar-collapse mx-3" id="navbarCollapse">
                     <ul className="navbar-nav mr-auto text-center">
                         <li className="nav-item">
-                            <a className="nav-link btn btn-lg btn-primary" href="/quadro"><Translate text="navbar-btn-noteboard" /></a>
+                            <a className="nav-link btn btn-lg btn-primary" href="/noteboard"><Translate text="navbar-btn-noteboard" /></a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link btn btn-lg btn-primary" href="/colegas"><Translate text="navbar-btn-mates" /></a>
+                            <a className="nav-link btn btn-lg btn-primary" href="/mates"><Translate text="navbar-btn-mates" /></a>
                         </li>
                         <li>
                             <LanguageSelector />

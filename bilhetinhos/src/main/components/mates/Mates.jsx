@@ -41,7 +41,7 @@ class Mates extends Component {
                 description: 'mates-alert-description',
                 sender: `${this.props.currentUserEmail}`,
                 read: false,
-                href: `/colegas?addm=${this.props.currentUserUid}`
+                href: `/mates?addm=${this.props.currentUserUid}`
             })
             toastr.success(window.translate({ text: "toastr-success-title" }), window.translate({ text: "toastr-notification-sent" }))
         }

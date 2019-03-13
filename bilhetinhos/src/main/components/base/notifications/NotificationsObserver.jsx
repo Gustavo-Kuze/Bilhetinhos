@@ -48,7 +48,7 @@ class NotificationsObserver extends Component {
                     description: 'mates-accept-invitation-description',
                     sender: `${this.props.email}`,
                     read: false,
-                    href: `/colegas`
+                    href: `/mates`
                 })
             }).catch(err => {
                 console.log(err.message)

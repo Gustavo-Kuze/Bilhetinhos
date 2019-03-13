@@ -16,7 +16,13 @@ export class MateNoteboard extends Component {
             <Skeleton>
                 <MateNoteboardObserver />
                 <section className="container-fluid">
-                    <UserPresentation />
+                    <UserPresentation 
+                        name={this.props.user.name}
+                        email={this.props.user.email}
+                        bio={this.props.user.bio}
+                        phone={this.props.user.phone}
+                        profilePic={this.props.user.profilePic}
+                    />
                     <hr className="mb-5" />
                     <div className="row ">
                         <div className="col-10 offset-1">

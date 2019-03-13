@@ -76,6 +76,8 @@ const es = {
     'editnote-btn-create': "Publicar",
     'editnote-title': "Personalice su billete",
     'notepreview-created-by': "Creado por {owner}",
+    'userpresentation-contact-info-label': 'Información de contacto',
+    'userpresentation-email-label': 'E-mail',
   }
 
   export default es

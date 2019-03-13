@@ -25,8 +25,8 @@ export class MateNoteboardObserver extends Component {
 
     componentDidMount = () => {
         let locationUrl = new URL(window.location)
-        if (locationUrl.searchParams.has('noteboard')) {
-            this.startMateNoteboardListener(locationUrl.searchParams.get('noteboard'))
+        if (locationUrl.searchParams.has('uid')) {
+            this.startMateNoteboardListener(locationUrl.searchParams.get('uid'))
         }
     }
 

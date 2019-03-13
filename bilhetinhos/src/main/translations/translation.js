@@ -389,4 +389,14 @@ export default {
     pt: pt['notepreview-created-by'],
     es: es['notepreview-created-by'],
   },
+  'userpresentation-contact-info-label': {
+    en: en['userpresentation-contact-info-label'],
+    pt: pt['userpresentation-contact-info-label'],
+    es: es['userpresentation-contact-info-label'],
+  },
+  'userpresentation-email-label': {
+    en: en['userpresentation-email-label'],
+    pt: pt['userpresentation-email-label'],
+    es: es['userpresentation-email-label'],
+  }
 }
