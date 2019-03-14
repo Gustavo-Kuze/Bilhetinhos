@@ -6,6 +6,10 @@ import {
     refreshUserNotes, loadingUserNotes,
     refreshMatesNotes, loadingMatesNotes
 } from '../../redux/actions/notesActions'
+import {
+    setIsLoaded, setIsLoading,
+    refreshMateNoteboardNotes
+} from "../../redux/actions/mateNoteboardActions";
 
 export class NotesObserver extends Component {
 
@@ -22,6 +26,14 @@ export class NotesObserver extends Component {
                 this.props.loadingMatesNotes()
                 this.props.refreshMatesNotes(uid, matesUids)
             })
+        })
+    }
+
+    startMateNoteboardListener = async (uid) => {
+        getNotesRef().child(uid).on('value', async () => {
+            this.props.setIsLoading()
+            this.props.refreshMateNoteboardNotes(uid)
+            this.props.setIsLoaded()
         })
     }
 
@@ -42,6 +54,9 @@ export class NotesObserver extends Component {
 
             this.startMatesNotesListener(this.props.uid, this.props.matesUids)
         }
+        if (this.props.mateNoteboardUid) {
+            this.startMateNoteboardListener(this.props.mateNoteboardUid)
+        }
     }
 
     render = () => <Fragment />
@@ -49,11 +64,13 @@ export class NotesObserver extends Component {
 
 const mapStateToProps = state => ({
     uid: state.user.uid,
-    matesUids: state.user.matesUids
+    matesUids: state.user.matesUids,
+    mateNoteboardUid: state.mateNoteboard.user.uid
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    refreshUserNotes, loadingUserNotes, refreshMatesNotes, loadingMatesNotes
+    refreshUserNotes, loadingUserNotes, refreshMatesNotes, loadingMatesNotes,
+    setIsLoaded, setIsLoading, refreshMateNoteboardNotes
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotesObserver)

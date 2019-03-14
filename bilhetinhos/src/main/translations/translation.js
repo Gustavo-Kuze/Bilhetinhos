@@ -88,6 +88,11 @@ export default {
     pt: pt['user-menu-btn-profile'],
     es: es['user-menu-btn-profile'],
   },
+  'user-menu-btn-settings': {
+    en: en['user-menu-btn-settings'],
+    pt: pt['user-menu-btn-settings'],
+    es: es['user-menu-btn-settings'],
+  },
   'user-menu-signout': {
     en: en['user-menu-signout'],
     pt: pt['user-menu-signout'],
@@ -389,4 +394,44 @@ export default {
     pt: pt['notepreview-created-by'],
     es: es['notepreview-created-by'],
   },
+  'userpresentation-contact-info-label': {
+    en: en['userpresentation-contact-info-label'],
+    pt: pt['userpresentation-contact-info-label'],
+    es: es['userpresentation-contact-info-label'],
+  },
+  'userpresentation-email-label': {
+    en: en['userpresentation-email-label'],
+    pt: pt['userpresentation-email-label'],
+    es: es['userpresentation-email-label'],
+  },
+  'matenoteboard-notes-no-note': {
+    en: en['matenoteboard-notes-no-note'],
+    pt: pt['matenoteboard-notes-no-note'],
+    es: es['matenoteboard-notes-no-note'],
+  },
+  'matenoteboard-user-not-allowed': {
+    en: en['matenoteboard-user-not-allowed'],
+    pt: pt['matenoteboard-user-not-allowed'],
+    es: es['matenoteboard-user-not-allowed'],
+  },
+  'settings-board-privacy-label': {
+    en: en['settings-board-privacy-label'],
+    pt: pt['settings-board-privacy-label'],
+    es: es['settings-board-privacy-label'],
+  },
+  'settings-board-privacy-select-public': {
+    en: en['settings-board-privacy-select-public'],
+    pt: pt['settings-board-privacy-select-public'],
+    es: es['settings-board-privacy-select-public'],
+  },
+  'settings-board-privacy-select-mates': {
+    en: en['settings-board-privacy-select-mates'],
+    pt: pt['settings-board-privacy-select-mates'],
+    es: es['settings-board-privacy-select-mates'],
+  },
+  'settings-board-privacy-select-private': {
+    en: en['settings-board-privacy-select-private'],
+    pt: pt['settings-board-privacy-select-private'],
+    es: es['settings-board-privacy-select-private'],
+  }
 }

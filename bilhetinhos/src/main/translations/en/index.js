@@ -16,6 +16,7 @@ const en = {
   'notifications-default-label': 'Everything is up to date!',
   'notifications-clear-all': 'Clear all notifications',
   'user-menu-btn-profile': 'Profile',
+  'user-menu-btn-settings': 'Settings',
   'user-menu-signout': 'Sign Out',
   'warning-modal-title': 'Are You sure?',
   'warning-modal-subtitle': 'ATTENTION!',
@@ -76,6 +77,14 @@ const en = {
   'editnote-btn-create': "Publish",
   'editnote-title': "Customize you note",
   'notepreview-created-by': "Created by {owner}",
+  'userpresentation-contact-info-label': 'Contact Information',
+  'userpresentation-email-label': 'E-mail',
+  'matenoteboard-notes-no-note': "This user doesn't have any notes",
+  'matenoteboard-user-not-allowed': "You don't have permission to see this content",
+  'settings-board-privacy-label': 'Change board privacy',
+  'settings-board-privacy-select-public': 'Public (visible to anyone)',
+  'settings-board-privacy-select-mates': 'Mates (only your mates can see)',
+  'settings-board-privacy-select-private': 'Private (only you can see)'
 }
 
 export default en

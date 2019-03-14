@@ -10,10 +10,10 @@ export class MatesObserver extends Component {
 
     startMatesListener = uid => {
         if (uid) {
-            getUsersRef().child(this.props.uid).child('mates').on('value', () => {
+            getUsersRef().child(uid).child('mates').on('value', () => {
                 this.props.matesLoading()
-                this.props.refreshMates(this.props.uid)
-                this.props.refreshMatesUids(this.props.uid)
+                this.props.refreshMates(uid)
+                this.props.refreshMatesUids(uid)
             })
         }
     }

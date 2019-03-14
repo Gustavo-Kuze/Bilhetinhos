@@ -16,6 +16,7 @@ const es = {
     'notifications-default-label': 'Todo actualizado por aquí!',
     'notifications-clear-all': 'Quitar todas las notificaciones',
     'user-menu-btn-profile': 'Perfil',
+    'user-menu-btn-settings': 'Ajustes',
     'user-menu-signout': 'Salir',
     'warning-modal-title': '¿Está seguro?',
     'warning-modal-subtitle': '¡ACCTENCIÓN!',
@@ -41,7 +42,7 @@ const es = {
     'mates-alert-description': 'Haga clic para agregar el {userEmail}',
     'mates-list-header-label': "Colegas",
     'mates-new-mate-email-placeholder': "Introduzca el E-mail de su colega aquí",
-    'mates-add-mate': "Añadir a un colega",
+    'mates-add-mate': "Añadir colega",
     'mates-no-mates-label': "Usted no tiene ningún colega",
     'mates-pending-invite': 'Invitación pendiente',
     'mates-decline-invitation-title': 'Invitación cancelada',
@@ -76,6 +77,14 @@ const es = {
     'editnote-btn-create': "Publicar",
     'editnote-title': "Personalice su billete",
     'notepreview-created-by': "Creado por {owner}",
+    'userpresentation-contact-info-label': 'Información de contacto',
+    'userpresentation-email-label': 'E-mail',
+    'matenoteboard-notes-no-note': 'El usuario no tiene ningún billete',
+    'matenoteboard-user-not-allowed': 'Usted no tiene permiso para ver este contenido',
+    'settings-board-privacy-label': 'Cambiar la privacidad del cuadro',
+    'settings-board-privacy-select-public': 'Público (visible a todos)',
+    'settings-board-privacy-select-mates': 'Colegas (Sólo sus colegas pueden ver)',
+    'settings-board-privacy-select-private': 'Privado (sólo tú puedes ver)'
   }
 
   export default es

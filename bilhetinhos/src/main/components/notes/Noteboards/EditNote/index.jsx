@@ -47,7 +47,7 @@ export class EditNote extends Component {
           description: 'editnote-notify-users-description',
           sender: `${userEmail}`,
           read: false,
-          href: `/quadro?note=${encodeURIComponent(this.props.title)}`
+          href: `/noteboard?note=${encodeURIComponent(this.props.title)}`
         })
       })
     } else {

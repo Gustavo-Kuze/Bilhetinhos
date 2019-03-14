@@ -17,7 +17,8 @@ store.subscribe(() => {
         notes: store.getState().notes,
         mates: store.getState().mates,
         editNote: store.getState().editNote,
-        language: store.getState().language
+        language: store.getState().language,
+        mateNoteboard: store.getState().mateNoteboard
     })
 })
 

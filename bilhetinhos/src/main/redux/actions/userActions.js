@@ -1,4 +1,5 @@
 import { getMatesUidsAndReference } from '../../api/mates'
+import { changeBoardPrivacy } from '../../api/users'
 
 export const changeUserLogState = userCredentials => {
     return {
@@ -33,6 +34,17 @@ export const refreshMatesUids = uid => {
             dispatch({
                 type: "REFRESH_MATES_UIDS",
                 payload: uidsAndRef.mates
+            })
+        })
+    }
+}
+
+export const setBoardPrivacy = (uid, privacy) => {
+    return dispatch => {
+        changeBoardPrivacy(uid, privacy).then(res => {
+            dispatch({
+                type: "SET_BOARD_PRIVACY",
+                payload: privacy
             })
         })
     }

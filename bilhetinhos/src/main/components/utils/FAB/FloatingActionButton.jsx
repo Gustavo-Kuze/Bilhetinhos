@@ -11,12 +11,12 @@ const FloatingActionButton = () => {
     }
 
     return (
-        <Container>
-            <Link href={generateHrefWithSearch("quadro", "novo", "bilhete")}
+        <Container styles={{right: '1vw', bottom: '8vh'}}>
+            <Link href={generateHrefWithSearch("noteboard", "new", "note")}
                 className="fab-item btn btn-link btn-lg text-white bg-primary text-decoration-none"
                 tooltip={window.translate({ text: 'fab-new-note' })}
                 icon="far fa-sticky-note" />
-            <Link href={generateHrefWithSearch("colegas", "novo", "colega")}
+            <Link href={generateHrefWithSearch("mates", "new", "mate")}
                 className="fab-item btn btn-link btn-lg text-white bg-primary text-decoration-none"
                 tooltip={window.translate({ text: 'fab-new-mate' })}
                 icon="fas fa-user-plus" />
