@@ -28,12 +28,19 @@ export class MateNoteboardObserver extends Component {
         if (locationUrl.searchParams.has('uid')) {
             let mateUid = locationUrl.searchParams.get('uid')
             this.startMateNoteboardListener(mateUid)
-            let mateHasUser = await areMates(this.props.currentUserUid, mateUid)
-            let userHasMate = await areMates(mateUid, this.props.currentUserUid)
-            this.props.sendFriendshipInfoToParent({
-                pendingInvite: (userHasMate && !mateHasUser),
-                areMates: (mateHasUser && userHasMate)
-            })
+            if (mateUid !== this.props.currentUserUid) {
+                let mateHasUser = await areMates(this.props.currentUserUid, mateUid)
+                let userHasMate = await areMates(mateUid, this.props.currentUserUid)
+                this.props.sendFriendshipInfoToParent({
+                    pendingInvite: (userHasMate && !mateHasUser),
+                    areMates: (mateHasUser && userHasMate)
+                })
+            } else {
+                this.props.sendFriendshipInfoToParent({
+                    pendingInvite: false,
+                    areMates: true
+                })
+            }
         }
 
         window.onbeforeunload = () => {

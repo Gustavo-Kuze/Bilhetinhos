@@ -64,9 +64,12 @@ export class MateNoteboard extends Component {
     }
 
     componentDidMount = async () => {
-        await this.callGetUserBoardPrivacy()
-        let isUserAllowedByPrivacy = await this.checkIfUserIsAllowedByPrivacy()
-        this.setState({ ...this.state, isUserAllowedByPrivacy })
+        let url = new URL(window.location)
+        if (url.searchParams.has('uid')) {
+            await this.callGetUserBoardPrivacy()
+            let isUserAllowedByPrivacy = await this.checkIfUserIsAllowedByPrivacy()
+            this.setState({ ...this.state, isUserAllowedByPrivacy })
+        }
     }
 
     checkIfUserIsAllowedByPrivacy = async () => {

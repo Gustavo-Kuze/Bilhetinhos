@@ -24,6 +24,13 @@ class Noteboard extends Component {
 
   shouldOpenEditorForNewNote = () => window.location.search.includes('new=note')
 
+  generateShowAsVisitorLink = () => {
+    let url = new URL(window.location)
+    url.pathname = 'mates/noteboard'
+    url.searchParams.set('uid', this.props.uid)
+    return url
+  }
+
   render() {
     return (
       <Skeleton>
@@ -34,12 +41,14 @@ class Noteboard extends Component {
               <button type="button" className="btn btn-link text-decoration-none btn-lg" data-toggle="modal" data-target="#edit-note-modal">
                 <Translate text="noteboard-btn-new-note" />
               </button>
+              <a href={this.generateShowAsVisitorLink()} className="btn btn-lg btn-link text-decoration-none">
+                <Translate text="noteboard-btn-show-board-as-visitor" />
+              </a>
               <hr />
               <RemoveNote onClose={this.onModalClose} />
               <NoteboardContainer containerId="notes-accordion">
                 <NoteboardSection
                   sectionId="user-notes"
-                  containerId="notes-accordion"
                   sectionTitle={window.translate({ text: "noteboard-accordion-my-notes-label" })}
                   isLoading={this.props.isLoadingUserNotes}
                   notes={this.props.userNotes}

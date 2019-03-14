@@ -20,7 +20,7 @@ const AccordionItem = props => {
                     </button>
                 </h2>
             </div>
-            <div id={`collapse-${props.itemId}`} className={`collapse ${props.open ? 'show' : ''}`} aria-labelledby={`accordion-heading-${props.itemId}`} data-parent={`#${props.accordionId}`}>
+            <div id={`collapse-${props.itemId}`} className={`collapse ${props.open ? 'show' : ''}`} aria-labelledby={`accordion-heading-${props.itemId}`} data-parent={props.accordionId ? `#${props.accordionId}` : ''}>
                 <div className="card-body">
                     {props.children}
                 </div>
