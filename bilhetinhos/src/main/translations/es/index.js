@@ -80,6 +80,11 @@ const es = {
     'userpresentation-contact-info-label': 'Información de contacto',
     'userpresentation-email-label': 'E-mail',
     'matenoteboard-notes-no-note': 'El usuario no tiene ningún billete',
+    'matenoteboard-user-not-allowed': 'Usted no tiene permiso para ver este contenido',
+    'settings-board-privacy-label': 'Cambiar la privacidad del cuadro',
+    'settings-board-privacy-select-public': 'Público (visible a todos)',
+    'settings-board-privacy-select-mates': 'Colegas (Sólo sus colegas pueden ver)',
+    'settings-board-privacy-select-private': 'Privado (sólo tú puedes ver)'
   }
 
   export default es

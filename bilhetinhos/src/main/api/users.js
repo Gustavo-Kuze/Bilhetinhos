@@ -94,9 +94,16 @@ const changeBoardPrivacy = async (uid, privacy) => {
     await userRef.update(user)
 }
 
+const getUserBoardPrivacy = async uid => {
+    let userRef = getUserRefByUid(uid)
+    let snapshot = await userRef.once('value')
+    let user = snapshot.val()
+    return user.boardPrivacy
+}
+
 export {
     getUserByEmail, getUserByUid, getUsersRef,
     registerUser, getUsersEmailsByUid, getUsersUidsByEmail,
     getUserUidByEmail, getUserEmailByUid, getUserRefByUid,
-    isEmailRegistered, changeBoardPrivacy
+    isEmailRegistered, changeBoardPrivacy, getUserBoardPrivacy
 }

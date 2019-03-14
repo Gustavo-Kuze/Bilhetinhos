@@ -80,6 +80,11 @@ const en = {
   'userpresentation-contact-info-label': 'Contact Information',
   'userpresentation-email-label': 'E-mail',
   'matenoteboard-notes-no-note': "This user doesn't have any notes",
+  'matenoteboard-user-not-allowed': "You don't have permission to see this content",
+  'settings-board-privacy-label': 'Change board privacy',
+  'settings-board-privacy-select-public': 'Public (visible to anyone)',
+  'settings-board-privacy-select-mates': 'Mates (only your mates can see)',
+  'settings-board-privacy-select-private': 'Private (only you can see)'
 }
 
 export default en

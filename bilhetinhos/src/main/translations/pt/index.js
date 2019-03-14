@@ -80,6 +80,11 @@ const pt = {
     'userpresentation-contact-info-label': 'Informações de Contato',
     'userpresentation-email-label': 'E-mail',
     'matenoteboard-notes-no-note': 'O usuário não possui nenhuma nota',
+    'matenoteboard-user-not-allowed': 'Você não tem permissão para ver este conteúdo',
+    'settings-board-privacy-label': 'Alterar a privacidade do quadro',
+    'settings-board-privacy-select-public': 'Público (visível a todos)',
+    'settings-board-privacy-select-mates': 'Colegas (Apenas seus colegas podem ver)',
+    'settings-board-privacy-select-private': 'Privado (Apenas você pode ver)'
 }
 
 export default pt

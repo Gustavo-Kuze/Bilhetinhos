@@ -10,7 +10,8 @@ import MateNoteboardObserver from './MateNoteboardObserver'
 import UserPresentation from './UserPresentation'
 import If from '../../../utils/If'
 import Spinner from '../../../utils/Spinner'
-import { addMateIfExists } from '../../../../api/mates'
+import { addMateIfExists, areMates } from '../../../../api/mates'
+import { getUserBoardPrivacy } from '../../../../api/users'
 import { refreshMatesUids } from '../../../../redux/actions/userActions'
 import { sendUserNotification } from '../../../../api/notifications'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
@@ -19,7 +20,9 @@ export class MateNoteboard extends Component {
 
     state = {
         pendingInvite: false,
-        areMates: false
+        areMates: false,
+        isUserAllowedByPrivacy: true,
+        boardPrivacy: ''
     }
 
     notifyAddedMate = async () => {
@@ -55,6 +58,28 @@ export class MateNoteboard extends Component {
         this.setState({ ...this.state, pendingInvite, areMates })
     }
 
+    callGetUserBoardPrivacy = async () => {
+        let boardPrivacy = await getUserBoardPrivacy(new URL(window.location).searchParams.get('uid'))
+        this.setState({ ...this.state, boardPrivacy })
+    }
+
+    componentDidMount = async () => {
+        await this.callGetUserBoardPrivacy()
+        let isUserAllowedByPrivacy = await this.checkIfUserIsAllowedByPrivacy()
+        this.setState({ ...this.state, isUserAllowedByPrivacy })
+    }
+
+    checkIfUserIsAllowedByPrivacy = async () => {
+        if (this.state.boardPrivacy) {
+            if (this.state.boardPrivacy === 'public') return true
+            if (this.state.boardPrivacy === 'private') return false
+            if (this.state.boardPrivacy === 'mates') {
+                return await areMates(this.props.currentUserUid, new URL(window.location).searchParams.get('uid'))
+            }
+        }
+        return true
+    }
+
     render() {
         return (
             <Skeleton noMarginTop={true}>
@@ -81,19 +106,29 @@ export class MateNoteboard extends Component {
                             areMates={this.state.areMates}
                         />
                         <hr className="mb-5" />
-                        <div className="row ">
-                            <div className="col-10 offset-1">
-                                <NoteboardContainer containerId="matenoteboard-notes-accordion" notAccordionContainer={true}>
-                                    <NoteboardSection
-                                        notAccordionItem={true}
-                                        isLoading={this.props.isLoading}
-                                        notes={this.props.notes}
-                                        areNotesEditable={false}
-                                        emptyLabel={window.translate({ text: "matenoteboard-notes-no-note" })}
-                                    />
-                                </NoteboardContainer>
+                        <If condition={!this.state.isUserAllowedByPrivacy}>
+                            <div className="row">
+                                <div className="col offset-sm-4">
+                                    <h5 className="text-primary">{window.translate({ text: "matenoteboard-user-not-allowed" })}</h5>
+                                </div>
                             </div>
-                        </div>
+                        </If>
+                        <If condition={this.state.isUserAllowedByPrivacy}>
+                            <div className="row ">
+                                <div className="col-10 offset-1">
+                                    <NoteboardContainer containerId="matenoteboard-notes-accordion" notAccordionContainer={true}>
+                                        <NoteboardSection
+                                            notAccordionItem={true}
+                                            isLoading={this.props.isLoading}
+                                            notes={this.props.notes}
+                                            areNotesEditable={false}
+                                            emptyLabel={window.translate({ text: "matenoteboard-notes-no-note" })}
+                                            boardPrivacy={this.state.boardPrivacy}
+                                        />
+                                    </NoteboardContainer>
+                                </div>
+                            </div>
+                        </If>
                     </section>
                 </If>
                 <ReduxToastr
