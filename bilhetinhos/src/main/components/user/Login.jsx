@@ -51,7 +51,7 @@ class Login extends Component {
         firebase.database().ref('users').once('value').then(userSnapshot => {
             if (!userSnapshot.hasChild(authResult.user.uid)) {
                 this.registerUserAndSaveState(authResult).then(() => {
-                    window.location.pathname = redirectUrl
+                    window.location = this.generateSignInSuccessUrl()
                 })
             } else {
                 const userFromFirebase = userSnapshot.child(`${authResult.user.uid}`).val()
@@ -59,13 +59,20 @@ class Login extends Component {
                 try {
                     firebase.storage().ref(userFromFirebase.profilePic).getDownloadURL().then(imageUrl => {
                         this.props.changePictureDownloadUrl(imageUrl)
-                        window.location = redirectUrl
+                        window.location = this.generateSignInSuccessUrl()
                     })
                 } catch (err) {
-                    window.location = redirectUrl
+                    window.location = this.generateSignInSuccessUrl()
                 }
             }
         })
+    }
+
+    generateSignInSuccessUrl = () => {
+        let url = new URL(window.location)
+        url.search = ''
+        url.pathname = '/noteboard'
+        return url
     }
 
     initializeFirebaseUi = () => {

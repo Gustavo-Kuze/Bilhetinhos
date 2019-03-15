@@ -55,6 +55,7 @@ const es = {
     'noteboard-accordion-mates-notes-label': "Billetes de los colegas",
     'noteboard-my-notes-no-note': "Usted no ha escrito ningún billete",
     'noteboard-mates-notes-no-note': "Nada para mostrar aquí",
+    'noteboard-btn-show-as-visitor': 'Ver como visitante',
     'signout-label': "A salir...",
     'spinner-default-label': "Cargando...",
     'api-mates-added-successfully': "Usuario agregado a su lista de colegas con éxito.",

@@ -26,7 +26,7 @@ export default class Home extends Component {
                         </div>
                         <div className="row">
                             <div className="col-md-4 offset-md-4">
-                                <a href="/user/login" className="btn btn-primary btn-block btn-lg"><Translate text="home-login-button" /></a>
+                                <a href="/noteboard" className="btn btn-primary btn-block btn-lg"><Translate text="home-login-button" /></a>
                             </div>
                         </div>
                     </div>

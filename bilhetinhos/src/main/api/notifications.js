@@ -33,7 +33,10 @@ const removeUserNotifications = async (uid, receivedDates) => {
             let returnCondition = receivedDates.includes(`${notif.receivedDate}`)
             return !returnCondition
         })
-        await getNotificationsRef().child(uid).set(notifications)
+        await getNotificationsRef().child(uid).set(notifications, () => {
+            if (window.location.pathname === '/mates/noteboard')
+                window.location = '/'
+        })
     }
 }
 

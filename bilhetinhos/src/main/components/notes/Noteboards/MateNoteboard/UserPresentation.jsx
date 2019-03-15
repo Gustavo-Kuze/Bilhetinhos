@@ -16,7 +16,7 @@ const UserPresentation = props => {
                         <div className="col col-sm-3">
                             <div className="row">
                                 <div className="col">
-                                    <img src={`${props.profilePic || "/img/default_user_profile.png"}`} className="matenoteboard-profile-pic bg-light border border-secondary" alt="User profile picture" style={{ position: 'absolute', top: '-70px' }} />
+                                    <img src={`${props.profilePic || "/img/default_user_profile.png"}`} className="matenoteboard-profile-pic bg-light border border-secondary" alt="User profile picture" style={{ position: 'absolute', top: '-70px', width: '180px', height: '180px' }} />
                                 </div>
                             </div>
                             <div className="row mt-5">
