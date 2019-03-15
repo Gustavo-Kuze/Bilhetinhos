@@ -42,7 +42,7 @@ class Noteboard extends Component {
                 <Translate text="noteboard-btn-new-note" />
               </button>
               <a href={this.generateShowAsVisitorLink()} className="btn btn-lg btn-link text-decoration-none">
-                <Translate text="noteboard-btn-show-board-as-visitor" />
+                <Translate text="noteboard-btn-show-as-visitor" />
               </a>
               <hr />
               <RemoveNote onClose={this.onModalClose} />

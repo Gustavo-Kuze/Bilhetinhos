@@ -284,6 +284,11 @@ export default {
     pt: pt['noteboard-mates-notes-no-note'],
     es: es['noteboard-mates-notes-no-note'],
   },
+  'noteboard-btn-show-as-visitor': {
+    en: en['noteboard-btn-show-as-visitor'],
+    pt: pt['noteboard-btn-show-as-visitor'],
+    es: es['noteboard-btn-show-as-visitor'],
+  },
   'signout-label': {
     en: en['signout-label'],
     pt: pt['signout-label'],

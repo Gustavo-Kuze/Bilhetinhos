@@ -55,6 +55,7 @@ const en = {
   'noteboard-accordion-mates-notes-label': "Mates's notes",
   'noteboard-my-notes-no-note': "You haven't written any notes yet",
   'noteboard-mates-notes-no-note': 'Nothing to show here',
+  'noteboard-btn-show-as-visitor': 'View as visitor',
   'signout-label': 'Signing out...',
   'spinner-default-label': 'Loading...',
   'api-mates-added-successfully': 'User successfully added to your mates list',
