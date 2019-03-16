@@ -22,7 +22,8 @@ export class MateNoteboard extends Component {
         pendingInvite: false,
         areMates: false,
         isUserAllowedByPrivacy: true,
-        boardPrivacy: ''
+        boardPrivacy: '',
+        isLoading: true
     }
 
     notifyAddedMate = async () => {
@@ -68,7 +69,9 @@ export class MateNoteboard extends Component {
         if (url.searchParams.has('uid')) {
             await this.callGetUserBoardPrivacy()
             let isUserAllowedByPrivacy = await this.checkIfUserIsAllowedByPrivacy()
-            this.setState({ ...this.state, isUserAllowedByPrivacy })
+            this.setState({ ...this.state, isUserAllowedByPrivacy, isLoading: false })
+        } else {
+            window.location.pathname = 'mates'
         }
     }
 
@@ -87,7 +90,7 @@ export class MateNoteboard extends Component {
         return (
             <Skeleton noMarginTop={true}>
                 <MateNoteboardObserver sendFriendshipInfoToParent={this.friendshiptInfoFromObserver} />
-                <If condition={!this.props.user.email && this.props.isLoading}>
+                <If condition={!this.props.user.email && (this.props.isLoading || this.state.isLoading)}>
                     <div className="container-fluid d-flex justify-content-center align-items-center" style={{ height: '300px' }}>
                         <div className="row">
                             <div className="col-2 offset-4">
@@ -96,7 +99,7 @@ export class MateNoteboard extends Component {
                         </div>
                     </div>
                 </If>
-                <If condition={!this.props.isLoading}>
+                <If condition={!this.props.isLoading && !this.state.isLoading}>
                     <section className="container-fluid">
                         <UserPresentation
                             name={this.props.user.name}

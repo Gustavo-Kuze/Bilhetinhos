@@ -56,14 +56,8 @@ class Login extends Component {
             } else {
                 const userFromFirebase = userSnapshot.child(`${authResult.user.uid}`).val()
                 this.LogInAndChangeState({ ...userFromFirebase, uid: authResult.user.uid })
-                try {
-                    firebase.storage().ref(userFromFirebase.profilePic).getDownloadURL().then(imageUrl => {
-                        this.props.changePictureDownloadUrl(imageUrl)
-                        window.location = this.generateSignInSuccessUrl()
-                    })
-                } catch (err) {
-                    window.location = this.generateSignInSuccessUrl()
-                }
+                this.props.changePictureDownloadUrl(userFromFirebase.profilePic)
+                window.location = this.generateSignInSuccessUrl()
             }
         })
     }

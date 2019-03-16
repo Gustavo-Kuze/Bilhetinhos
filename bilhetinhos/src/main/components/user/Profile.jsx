@@ -71,21 +71,21 @@ class Profile extends Component {
                 .put(imageFile)
                 .then(() => {
                     storageRef
-                    .child(imageDatabasePath)
-                    .getDownloadURL()
-                    .then(profilePicDownloadUrl => {
-                        this.setState({
-                            ...this.state,
-                            user: {
-                                ...this.state.user,
-                                profilePic: profilePicDownloadUrl
-                            }
-                        }, () => {
-                            this.saveProfileChanges()
-                            this.loadProfilePic(profilePicDownloadUrl)
-                            toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: 'profile-image-updated' }))
+                        .child(imageDatabasePath)
+                        .getDownloadURL()
+                        .then(profilePicDownloadUrl => {
+                            this.setState({
+                                ...this.state,
+                                user: {
+                                    ...this.state.user,
+                                    profilePic: profilePicDownloadUrl
+                                }
+                            }, () => {
+                                this.saveProfileChanges()
+                                this.loadProfilePic(profilePicDownloadUrl)
+                                toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: 'profile-image-updated' }))
+                            })
                         })
-                    })
                 })
         } else {
             toastr.warning(window.translate({ text: 'toastr-attention-title' }), window.translate({ text: 'profile-image-error-size-or-type' }))
