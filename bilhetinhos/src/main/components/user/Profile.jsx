@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Skeleton from '../base/Skeleton/Skeleton'
 import { updateUserProfile, updateUserPicture, updateCoverPicture } from '../../redux/actions/userActions'
-import { changeProfilePictureDownloadUrl, resetCacheState } from '../../redux/actions/cachedActions'
+import { changeProfilePictureDownloadUrl, changeCoverPictureDownloadUrl, resetCacheState } from '../../redux/actions/cachedActions'
 import firebase from '../../api/firebase'
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
@@ -16,11 +16,13 @@ class Profile extends Component {
 
     state = {
         isLoadingProfilePic: false,
+        isLoadingCoverPic: false,
         user: {
             email: this.props.email,
             uid: this.props.uid,
             name: this.props.name,
             profilePic: this.props.profilePic,
+            coverPic: this.props.coverPic,
             bio: this.props.bio,
             phone: this.props.phone,
             mates: this.props.mates
@@ -48,22 +50,34 @@ class Profile extends Component {
         return (img.size / 1024 < 1025 && (img.name.includes('.jpg') || img.name.includes('.png') || img.name.includes('.jpeg')))
     }
 
-    loadProfilePic = (imgDownloadUrl) => {
-        this.props.resetCacheState()
-        this.setState({ ...this.state, isLoadingProfilePic: true })
+    loadPic = (imgDownloadUrl, isCover = false) => {
+        let isLoadingProfilePic = isCover ? this.state.isLoadingProfilePic : true
+        let isLoadingCoverPic = isCover ? true : this.state.isLoadingCoverPic
+
+        // this.props.resetCacheState()
+        this.setState({
+            ...this.state,
+            isLoadingProfilePic,
+            isLoadingCoverPic
+        })
 
         try {
-            this.props.changeProfilePictureDownloadUrl(imgDownloadUrl)
-            this.setState({ ...this.state, isLoadingProfilePic: false })
+            if (isCover) {
+                this.props.changeCoverPictureDownloadUrl(imgDownloadUrl)
+                this.setState({ ...this.state, isLoadingProfilePic: false })
+            } else {
+                this.props.changeProfilePictureDownloadUrl(imgDownloadUrl)
+                this.setState({ ...this.state, isLoadingCoverPic: false })
+            }
         } catch (err) {
             toastr.error(window.translate({ text: 'toastr-error-title' }), window.translate({ text: 'profile-image-loading-error' }))
             console.log(err)
-            this.setState({ ...this.state, isLoadingProfilePic: false })
+            this.setState({ ...this.state, isLoadingProfilePic: false, isLoadingCoverPic: false })
         }
     }
 
-    handleProfilePicChange = element => {
-        let imageDatabasePath = `${this.state.user.uid}/profile`
+    handlePicChange = (element, isCoverImg) => {
+        let imageDatabasePath = isCoverImg ? `${this.state.user.uid}/cover` : `${this.state.user.uid}/profile`
         let imageFile = element.target.files[0]
         if (this.isValidImage(imageFile)) {
             let storageRef = firebase.storage().ref()
@@ -74,17 +88,18 @@ class Profile extends Component {
                     storageRef
                         .child(imageDatabasePath)
                         .getDownloadURL()
-                        .then(profilePicDownloadUrl => {
+                        .then(pictureDownloadUrl => {
                             this.setState({
                                 ...this.state,
                                 user: {
                                     ...this.state.user,
-                                    profilePic: profilePicDownloadUrl
+                                    profilePic: isCoverImg ? this.state.user.profilePic : pictureDownloadUrl,
+                                    coverPic: !isCoverImg ? this.state.user.coverPic : pictureDownloadUrl,
                                 }
                             }, () => {
                                 this.saveProfileChanges()
-                                this.loadProfilePic(profilePicDownloadUrl)
-                                toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: 'profile-image-updated' }))
+                                this.loadPic(pictureDownloadUrl, isCoverImg)
+                                toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: isCoverImg ? 'profile-cover-image-updated' : 'profile-image-updated' }))
                             })
                         })
                 })
@@ -111,21 +126,24 @@ class Profile extends Component {
                             <If condition={this.state.isLoadingProfilePic}>
                                 <Spinner extraClasses="py-5" />
                             </If>
-                            <p className="text-muted">Imagem do perfil</p>
+                            <p className="text-muted">{window.translate({ text: 'profile-picture-label' })}</p>
                             <ImgPicker
                                 id="profile-pic"
                                 imgClassName="profile-picture"
                                 src={`${this.props.profilePictureDownloadUrl || "/img/default_user_profile.png"}`}
                                 imgAlt="Profile"
-                                onChange={this.handleProfilePicChange}
+                                onChange={this.handlePicChange}
                             />
-                            <p className="text-muted">Imagem da capa</p>
+                            <If condition={this.state.isLoadingCoverPic}>
+                                <Spinner extraClasses="py-5" />
+                            </If>
+                            <p className="text-muted">{window.translate({ text: 'profile-cover-image-label' })}</p>
                             <ImgPicker
                                 id="cover-pic"
                                 imgClassName="cover-picture img-fluid"
                                 src={`${this.props.coverPictureDownloadUrl || "/img/default_cover.png"}`}
                                 imgAlt="Cover"
-                                onChange={() => alert('D:')}
+                                onChange={(e) => this.handlePicChange(e, true)}
                             />
                             <form onSubmit={this.callSaveProfileChanges}>
                                 <div className="form-group">
@@ -160,6 +178,7 @@ const mapStateToProps = state => ({
     uid: state.user.uid,
     name: state.user.name,
     profilePic: state.user.profilePic,
+    coverPic: state.user.coverPic,
     bio: state.user.bio,
     phone: state.user.phone,
     mates: state.user.matesUids,
@@ -169,7 +188,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     updateUserProfile, updateUserPicture, updateCoverPicture,
-    changeProfilePictureDownloadUrl, resetCacheState
+    changeProfilePictureDownloadUrl, changeCoverPictureDownloadUrl, resetCacheState
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)
