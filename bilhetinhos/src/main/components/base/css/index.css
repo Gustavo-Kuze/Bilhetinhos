@@ -18,3 +18,11 @@ code {
 .drop-material-shadow:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.23);
 }
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+}
+
+.cover-picture {
+}

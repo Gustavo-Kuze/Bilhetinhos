@@ -189,6 +189,11 @@ export default {
     pt: pt['profile-image-updated'],
     es: es['profile-image-updated'],
   },
+  'profile-cover-image-updated': {
+    en: en['profile-cover-image-updated'],
+    pt: pt['profile-cover-image-updated'],
+    es: es['profile-cover-image-updated'],
+  },
   'profile-image-error-size-or-type': {
     en: en['profile-image-error-size-or-type'],
     pt: pt['profile-image-error-size-or-type'],
@@ -218,6 +223,16 @@ export default {
     en: en['profile-btn-save'],
     pt: pt['profile-btn-save'],
     es: es['profile-btn-save'],
+  },
+  'profile-picture-label': {
+    en: en['profile-picture-label'],
+    pt: pt['profile-picture-label'],
+    es: es['profile-picture-label'],
+  },
+  'profile-cover-image-label': {
+    en: en['profile-cover-image-label'],
+    pt: pt['profile-cover-image-label'],
+    es: es['profile-cover-image-label'],
   },
   'mates-list-header-label': {
     en: en['mates-list-header-label'],

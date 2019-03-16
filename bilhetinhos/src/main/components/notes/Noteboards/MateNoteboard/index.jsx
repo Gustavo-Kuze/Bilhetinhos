@@ -76,11 +76,13 @@ export class MateNoteboard extends Component {
     }
 
     checkIfUserIsAllowedByPrivacy = async () => {
-        if (this.state.boardPrivacy) {
+        let uid = this.props.currentUserUid
+        let urlUid = new URL(window.location).searchParams.get('uid')
+        if (this.state.boardPrivacy && uid !== urlUid) {
             if (this.state.boardPrivacy === 'public') return true
             if (this.state.boardPrivacy === 'private') return false
             if (this.state.boardPrivacy === 'mates') {
-                return await areMates(this.props.currentUserUid, new URL(window.location).searchParams.get('uid'))
+                return await areMates(uid, urlUid)
             }
         }
         return true
@@ -107,6 +109,7 @@ export class MateNoteboard extends Component {
                             bio={this.props.user.bio}
                             phone={this.props.user.phone}
                             profilePic={this.props.user.profilePic}
+                            coverPic={this.props.user.coverPic}
                             callAddMateIfExists={this.callAddMateIfExists}
                             pendingInvite={this.state.pendingInvite}
                             areMates={this.state.areMates}

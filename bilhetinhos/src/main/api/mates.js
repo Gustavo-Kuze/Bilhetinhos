@@ -58,7 +58,8 @@ const getMates = async uid => {
                     uid: user[0],
                     email: user[1].email,
                     name: user[1].name,
-                    profilePic: user[1].profilePic
+                    profilePic: user[1].profilePic,
+                    coverPic: user[1].coverPic
                 }
 
                 return mate

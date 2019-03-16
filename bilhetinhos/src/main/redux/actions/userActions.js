@@ -28,6 +28,13 @@ export const updateUserPicture = profilePic => {
     }
 }
 
+export const updateCoverPicture = coverPic => {
+    return {
+        type: "UPDATE_COVER_PICTURE",
+        payload: coverPic
+    }
+}
+
 export const refreshMatesUids = uid => {
     return dispatch => {
         getMatesUidsAndReference(uid).then(uidsAndRef => {
