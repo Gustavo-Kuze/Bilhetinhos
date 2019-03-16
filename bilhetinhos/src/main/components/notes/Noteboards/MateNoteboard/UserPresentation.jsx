@@ -9,8 +9,6 @@ const UserPresentation = props => {
                     height: '300px',
                     background: props.coverPic ? `url(${props.coverPic})` : 'url(/img/default_cover.png)',
                     backgroundSize: 'cover',
-                    backgroundRepeat: 'repeat-y',
-                    backgroundPositionY: '-150px',
                     backgroundAttachment: 'fixed'
                 }}></div>
             </div>
