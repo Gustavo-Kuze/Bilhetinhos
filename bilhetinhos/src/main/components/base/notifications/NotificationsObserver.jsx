@@ -4,9 +4,11 @@ import { bindActionCreators } from 'redux'
 import { refreshNotifications } from '../../../redux/actions/notificationsActions'
 import { addMateIfExists } from '../../../api/mates'
 import { getUserEmailByUid } from '../../../api/users'
+import ReduxToastr, { toastr } from 'react-redux-toastr'
 import {
     getNotificationsRef, getUserNotifications, markAsRead, removeUserNotifications, sendUserNotification
 } from '../../../api/notifications'
+import firebase from '../../../api/firebase'
 
 class NotificationsObserver extends Component {
 
@@ -18,6 +20,13 @@ class NotificationsObserver extends Component {
                 })
             })
         }
+    }
+
+    startMaintenanceWarningListener = () => {
+        firebase.database().ref().child('maintenance').on('value', snapshot => {
+            if (snapshot.val() === true)
+                toastr.message(window.translate({ text: 'toastr-maintenance-title' }), window.translate({ text: 'toastr-maintenance-message' }))
+        })
     }
 
     markQueryAlertAsRead = async () => {
@@ -58,13 +67,21 @@ class NotificationsObserver extends Component {
 
     componentDidMount = () => {
         this.startNotificationsListener(this.props.uid)
+        this.startMaintenanceWarningListener()
         this.markQueryAlertAsRead()
         this.removeQueryAlerts()
         this.addQueryMate()
     }
 
     render() {
-        return <Fragment />
+        return <Fragment>
+            <ReduxToastr
+                newestOnTop={false}
+                preventDuplicates
+                position="top-right"
+                transitionIn="fadeIn"
+                transitionOut="fadeOut" />
+        </Fragment>
     }
 }
 

@@ -53,6 +53,11 @@ export default {
     pt: pt['fab-new-mate'],
     es: es['fab-new-mate'],
   },
+  'fab-scroll-to-top': {
+    en: en['fab-scroll-to-top'],
+    pt: pt['fab-scroll-to-top'],
+    es: es['fab-scroll-to-top'],
+  },
   'navbar-btn-noteboard': {
     en: en['navbar-btn-noteboard'],
     pt: pt['navbar-btn-noteboard'],
@@ -158,6 +163,16 @@ export default {
     en: en['toastr-error-trying-load-mates'],
     pt: pt['toastr-error-trying-load-mates'],
     es: es['toastr-error-trying-load-mates'],
+  },
+  'toastr-maintenance-title': {
+    en: en['toastr-maintenance-title'],
+    pt: pt['toastr-maintenance-title'],
+    es: es['toastr-maintenance-title'],
+  },
+  'toastr-maintenance-message': {
+    en: en['toastr-maintenance-message'],
+    pt: pt['toastr-maintenance-message'],
+    es: es['toastr-maintenance-message'],
   },
   'profile-saved': {
     en: en['profile-saved'],
