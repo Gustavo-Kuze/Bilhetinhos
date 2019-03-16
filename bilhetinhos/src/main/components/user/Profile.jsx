@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Skeleton from '../base/Skeleton/Skeleton'
-import { updateUserProfile, updateUserPicture } from '../../redux/actions/userActions'
-import { changePictureDownloadUrl, resetCacheState } from '../../redux/actions/cachedActions'
+import { updateUserProfile, updateUserPicture, updateCoverPicture } from '../../redux/actions/userActions'
+import { changeProfilePictureDownloadUrl, resetCacheState } from '../../redux/actions/cachedActions'
 import firebase from '../../api/firebase'
 import If from '../utils/If'
 import Spinner from '../utils/Spinner'
@@ -53,7 +53,7 @@ class Profile extends Component {
         this.setState({ ...this.state, isLoadingProfilePic: true })
 
         try {
-            this.props.changePictureDownloadUrl(imgDownloadUrl)
+            this.props.changeProfilePictureDownloadUrl(imgDownloadUrl)
             this.setState({ ...this.state, isLoadingProfilePic: false })
         } catch (err) {
             toastr.error(window.translate({ text: 'toastr-error-title' }), window.translate({ text: 'profile-image-loading-error' }))
@@ -62,7 +62,7 @@ class Profile extends Component {
         }
     }
 
-    handlePicChange = element => {
+    handleProfilePicChange = element => {
         let imageDatabasePath = `${this.state.user.uid}/profile`
         let imageFile = element.target.files[0]
         if (this.isValidImage(imageFile)) {
@@ -112,15 +112,15 @@ class Profile extends Component {
                                 <Spinner extraClasses="py-5" />
                             </If>
                             <p className="text-muted">Imagem do perfil</p>
-                            <ImgPicker 
+                            <ImgPicker
                                 id="profile-pic"
                                 imgClassName="profile-picture"
                                 src={`${this.props.profilePictureDownloadUrl || "/img/default_user_profile.png"}`}
                                 imgAlt="Profile"
-                                onChange={this.handlePicChange}
+                                onChange={this.handleProfilePicChange}
                             />
                             <p className="text-muted">Imagem da capa</p>
-                            <ImgPicker 
+                            <ImgPicker
                                 id="cover-pic"
                                 imgClassName="cover-picture img-fluid"
                                 src={`${this.props.coverPictureDownloadUrl || "/img/default_cover.png"}`}
@@ -163,9 +163,13 @@ const mapStateToProps = state => ({
     bio: state.user.bio,
     phone: state.user.phone,
     mates: state.user.matesUids,
-    profilePictureDownloadUrl: state.cached.profilePictureDownloadUrl
+    profilePictureDownloadUrl: state.cached.profilePictureDownloadUrl,
+    coverPictureDownloadUrl: state.cached.coverPictureDownloadUrl
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ updateUserProfile, updateUserPicture, changePictureDownloadUrl, resetCacheState }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+    updateUserProfile, updateUserPicture, updateCoverPicture,
+    changeProfilePictureDownloadUrl, resetCacheState
+}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

@@ -4,6 +4,7 @@ const INITIAL_STATE = {
         uid: '',
         name: '',
         profilePic: '',
+        coverPic: '',
         bio: '',
         phone: '',
         matesUids: []

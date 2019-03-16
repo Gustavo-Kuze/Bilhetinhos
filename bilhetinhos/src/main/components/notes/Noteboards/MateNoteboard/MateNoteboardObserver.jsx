@@ -49,6 +49,7 @@ export class MateNoteboardObserver extends Component {
                 uid: '',
                 name: '',
                 profilePic: '',
+                coverPic: '',
                 bio: '',
                 phone: '',
                 matesUids: []

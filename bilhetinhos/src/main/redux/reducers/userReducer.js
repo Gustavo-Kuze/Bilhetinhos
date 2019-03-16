@@ -3,6 +3,7 @@ const INITIAL_STATE = {
     uid: '',
     name: '',
     profilePic: '',
+    coverPic: '',
     bio: '',
     phone: '',
     matesUids: [],
@@ -18,6 +19,7 @@ export default (state = INITIAL_STATE, action) => {
                 uid: action.payload.uid || '',
                 name: action.payload.name || '',
                 profilePic: action.payload.profilePic || '',
+                coverPic: action.payload.coverPic || '',
                 bio: action.payload.bio || '',
                 phone: action.payload.phone || '',
                 matesUids: action.payload.matesUids || [],
@@ -36,6 +38,11 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 profilePic: action.payload
+            }
+        case 'UPDATE_COVER_PICTURE':
+            return {
+                ...state,
+                coverPic: action.payload
             }
         case 'ADD_MATE':
             return {

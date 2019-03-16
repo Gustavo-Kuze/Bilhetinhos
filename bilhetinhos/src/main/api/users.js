@@ -73,6 +73,7 @@ const registerUser = async user => {
         email: user.email || '',
         name: user.name || '',
         profilePic: user.profilePic || '',
+        coverPic: user.coverPic || '',
         bio: user.bio || '',
         phone: user.phone || '',
         mates: user.mates || [],

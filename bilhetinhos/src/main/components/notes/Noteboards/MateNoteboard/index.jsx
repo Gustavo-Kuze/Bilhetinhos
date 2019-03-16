@@ -109,6 +109,7 @@ export class MateNoteboard extends Component {
                             bio={this.props.user.bio}
                             phone={this.props.user.phone}
                             profilePic={this.props.user.profilePic}
+                            coverPic={this.props.user.coverPic}
                             callAddMateIfExists={this.callAddMateIfExists}
                             pendingInvite={this.state.pendingInvite}
                             areMates={this.state.areMates}

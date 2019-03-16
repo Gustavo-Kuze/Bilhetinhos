@@ -4,7 +4,7 @@ import * as firebaseui from 'firebaseui'
 import React, { Component } from 'react'
 import Skeleton from '../base/Skeleton/Skeleton'
 import { changeUserLogState } from "../../redux/actions/userActions"
-import { changePictureDownloadUrl } from '../../redux/actions/cachedActions'
+import { changeProfilePictureDownloadUrl, changeCoverPictureDownloadUrl } from '../../redux/actions/cachedActions'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import If from '../utils/If'
@@ -31,6 +31,7 @@ class Login extends Component {
             uid: user.uid,
             name: user.name,
             profilePic: user.profilePic,
+            coverPic: user.coverPic,
             bio: user.bio,
             phone: user.phone,
             matesUids: user.mates ? user.mates.filter(m => m !== null) : [],
@@ -56,7 +57,8 @@ class Login extends Component {
             } else {
                 const userFromFirebase = userSnapshot.child(`${authResult.user.uid}`).val()
                 this.LogInAndChangeState({ ...userFromFirebase, uid: authResult.user.uid })
-                this.props.changePictureDownloadUrl(userFromFirebase.profilePic)
+                this.props.changeProfilePictureDownloadUrl(userFromFirebase.profilePic)
+                this.props.changeCoverPictureDownloadUrl(userFromFirebase.coverPic)
                 window.location = this.generateSignInSuccessUrl()
             }
         })
@@ -109,7 +111,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    changeUserLogState, changePictureDownloadUrl
+    changeUserLogState, changeProfilePictureDownloadUrl, changeCoverPictureDownloadUrl
 }, dispatch)
 
 export default connect(

@@ -22,6 +22,7 @@ const registerUser = (req, resp) => {
            name: req.body.user.name || "",
            phone: req.body.user.phone || "",
            profilePic: req.body.user.profilePic || "",
+           coverPic: req.body.user.coverPic || "",
            mates: req.body.user.mates || []
        })
        .then(data => {
