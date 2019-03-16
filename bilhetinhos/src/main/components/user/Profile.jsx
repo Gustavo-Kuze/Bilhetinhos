@@ -9,6 +9,7 @@ import If from '../utils/If'
 import Spinner from '../utils/Spinner'
 import { registerUser } from '../../api/users'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
+import ImgPicker from '../utils/ImgPicker/'
 import { Translate } from 'react-translated'
 
 class Profile extends Component {
@@ -110,11 +111,22 @@ class Profile extends Component {
                             <If condition={this.state.isLoadingProfilePic}>
                                 <Spinner extraClasses="py-5" />
                             </If>
-                            <label htmlFor="inp-user-pic" className={`${this.state.isLoadingProfilePic ? 'invisible' : ''}`}>
-                                <img className={`profile-picture ${this.state.isLoadingProfilePic ? 'invisible' : ''}`} id="profile-pic-preview"
-                                    src={`${this.props.profilePictureDownloadUrl || "/img/default_user_profile.png"}`} alt="Perfil" />
-                            </label>
-                            <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
+                            <p className="text-muted">Imagem do perfil</p>
+                            <ImgPicker 
+                                id="profile-pic"
+                                imgClassName="profile-picture"
+                                src={`${this.props.profilePictureDownloadUrl || "/img/default_user_profile.png"}`}
+                                imgAlt="Profile"
+                                onChange={this.handlePicChange}
+                            />
+                            <p className="text-muted">Imagem da capa</p>
+                            <ImgPicker 
+                                id="cover-pic"
+                                imgClassName="cover-picture img-fluid"
+                                src={`${this.props.coverPictureDownloadUrl || "/img/default_cover.png"}`}
+                                imgAlt="Cover"
+                                onChange={() => alert('D:')}
+                            />
                             <form onSubmit={this.callSaveProfileChanges}>
                                 <div className="form-group">
                                     <input name="name" id="inp-user-name" className="form-control" value={this.state.user.name} onChange={this.handleInputChange} placeholder={window.translate({ text: 'profile-name-placeholder' })} />
