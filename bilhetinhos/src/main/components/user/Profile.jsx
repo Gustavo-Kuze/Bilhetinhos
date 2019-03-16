@@ -44,41 +44,48 @@ class Profile extends Component {
     }
 
     isValidImage = img => {
-        return (img.size / 1024 < 500 && (img.name.includes('.jpg') || img.name.includes('.png') || img.name.includes('.jpeg')))
+        return (img.size / 1024 < 1025 && (img.name.includes('.jpg') || img.name.includes('.png') || img.name.includes('.jpeg')))
     }
 
-    loadProfilePic = (imgPath = `${this.state.user.uid}/profile` || 'profile') => {
+    loadProfilePic = (imgDownloadUrl) => {
         this.props.resetCacheState()
         this.setState({ ...this.state, isLoadingProfilePic: true })
-        firebase.storage().ref(imgPath)
-            .getDownloadURL()
-            .then((url) => {
-                this.props.changePictureDownloadUrl(url)
-                this.setState({ ...this.state, isLoadingProfilePic: false })
-            }).catch(err => {
-                toastr.error(window.translate({ text: 'toastr-error-title' }), window.translate({ text: 'profile-image-loading-error' }))
-                console.log(err)
-                this.setState({ ...this.state, isLoadingProfilePic: false })
-            })
+
+        try {
+            this.props.changePictureDownloadUrl(imgDownloadUrl)
+            this.setState({ ...this.state, isLoadingProfilePic: false })
+        } catch (err) {
+            toastr.error(window.translate({ text: 'toastr-error-title' }), window.translate({ text: 'profile-image-loading-error' }))
+            console.log(err)
+            this.setState({ ...this.state, isLoadingProfilePic: false })
+        }
     }
 
     handlePicChange = element => {
+        let imageDatabasePath = `${this.state.user.uid}/profile`
         let imageFile = element.target.files[0]
         if (this.isValidImage(imageFile)) {
-            firebase.storage().ref().child(this.state.user.profilePic || `${this.state.user.uid}/profile`).put(imageFile)
+            let storageRef = firebase.storage().ref()
+            storageRef
+                .child(imageDatabasePath)
+                .put(imageFile)
                 .then(() => {
-                    this.setState({
-                        ...this.state,
-                        user: {
-                            ...this.state.user,
-                            profilePic: this.state.user.profilePic || `${this.state.user.uid}/profile`
-                        }
-                    }, () => {
-                        this.saveProfileChanges()
-                        this.loadProfilePic(this.state.user.profilePic || `${this.state.user.uid}/profile`)
-                        toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: 'profile-image-updated' }))
-                    })
-
+                    storageRef
+                        .child(imageDatabasePath)
+                        .getDownloadURL()
+                        .then(profilePicDownloadUrl => {
+                            this.setState({
+                                ...this.state,
+                                user: {
+                                    ...this.state.user,
+                                    profilePic: profilePicDownloadUrl
+                                }
+                            }, () => {
+                                this.saveProfileChanges()
+                                this.loadProfilePic(profilePicDownloadUrl)
+                                toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: 'profile-image-updated' }))
+                            })
+                        })
                 })
         } else {
             toastr.warning(window.translate({ text: 'toastr-attention-title' }), window.translate({ text: 'profile-image-error-size-or-type' }))

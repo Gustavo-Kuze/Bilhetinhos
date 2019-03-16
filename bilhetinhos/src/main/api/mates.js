@@ -1,5 +1,4 @@
 import { getUserRefByUid, isEmailRegistered, getUserByEmail, getUsersRef } from './users'
-import firebase from './firebase'
 
 const getMatesUidsAndReference = async uid => {
     try {
@@ -32,17 +31,17 @@ const addMateIfExists = async (uid, email, mateEmail, successCallback = null) =>
             if (!getMatesRes.mates.includes(userByEmail.uid)) {
                 getMatesRes.mates.push(userByEmail.uid)
                 await getMatesRes.matesRef.set(getMatesRes.mates)
-                let successMsg = window.translate({text: 'api-mates-added-successfully'})
+                let successMsg = window.translate({ text: 'api-mates-added-successfully' })
                 if (successCallback) successCallback(successMsg);
                 return getMatesRes.mates
             } else {
-                throw new Error(window.translate({text: 'api-mates-error-mate-already-added'}))
+                throw new Error(window.translate({ text: 'api-mates-error-mate-already-added' }))
             }
         } else {
-            throw new Error(window.translate({text: 'api-mates-error-cannot-add-yourself'}))
+            throw new Error(window.translate({ text: 'api-mates-error-cannot-add-yourself' }))
         }
     } else {
-        throw new Error(window.translate({text: 'api-mates-error-mate-not-found'}))
+        throw new Error(window.translate({ text: 'api-mates-error-mate-not-found' }))
     }
 }
 
@@ -61,9 +60,6 @@ const getMates = async uid => {
                     name: user[1].name,
                     profilePic: user[1].profilePic
                 }
-
-                if (mate.profilePic)
-                    mate.profilePic = await firebase.storage().ref(mate.profilePic).getDownloadURL()
 
                 return mate
             }))

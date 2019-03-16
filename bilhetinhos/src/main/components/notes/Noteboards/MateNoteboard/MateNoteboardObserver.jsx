@@ -44,7 +44,6 @@ export class MateNoteboardObserver extends Component {
         }
 
         window.onbeforeunload = () => {
-            this.props.setIsLoading()
             this.props.setMateNoteboardUser({
                 email: '',
                 uid: '',
@@ -54,8 +53,8 @@ export class MateNoteboardObserver extends Component {
                 phone: '',
                 matesUids: []
             })
-            this.props.setIsLoading()
             this.props.setMateNoteboardNotes([])
+            this.props.setIsLoading()
         }
     }
 
