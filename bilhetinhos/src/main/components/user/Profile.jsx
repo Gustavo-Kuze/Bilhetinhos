@@ -111,7 +111,7 @@ class Profile extends Component {
                                 <Spinner extraClasses="py-5" />
                             </If>
                             <label htmlFor="inp-user-pic" className={`${this.state.isLoadingProfilePic ? 'invisible' : ''}`}>
-                                <img className={`thumbnail ${this.state.isLoadingProfilePic ? 'invisible' : ''}`} id="profile-pic-preview" style={{ height: '100px' }}
+                                <img className={`profile-picture ${this.state.isLoadingProfilePic ? 'invisible' : ''}`} id="profile-pic-preview"
                                     src={`${this.props.profilePictureDownloadUrl || "/img/default_user_profile.png"}`} alt="Perfil" />
                             </label>
                             <input name="user-pic" id="inp-user-pic" className="form-control invisible" onChange={this.handlePicChange} type="file" accept=".png, .jpg, .jpeg" />
