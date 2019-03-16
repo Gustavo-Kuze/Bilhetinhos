@@ -3,6 +3,14 @@ import { Container, Button, Link } from 'react-floating-action-button'
 
 const FloatingActionButton = () => {
 
+    const scrollToTop = () => {
+        const c = document.documentElement.scrollTop || document.body.scrollTop;
+        if (c > 0) {
+          window.requestAnimationFrame(scrollToTop);
+          window.scrollTo(0, c - c / 8);
+        }
+      };
+
     const generateHrefWithSearch = (path, searchKey, searchValue) => {
         let url = new URL(window.location)
         url.pathname = path
@@ -22,10 +30,15 @@ const FloatingActionButton = () => {
                 icon="fas fa-user-plus" />
             <Button
                 className="fab-item btn btn-link btn-lg text-white bg-primary text-decoration-none"
+                tooltip={window.translate({ text: 'fab-scroll-to-top' })}
+                icon="fas fa-arrow-up"
+                onClick={scrollToTop}
+                />
+            <Button
+                className="fab-item btn btn-link btn-lg text-white bg-primary text-decoration-none"
                 tooltip={window.translate({ text: 'fab-actions' })}
                 icon="fas fa-plus"
-                rotate={true}
-            />
+                rotate={true} />
         </Container>
     )
 }
