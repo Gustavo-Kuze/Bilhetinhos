@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getNotesRef } from '../../../../api/notes'
-import { getUsersRef } from '../../../../api/users'
+import { getUsersRef, getUserByUid } from '../../../../api/users'
 import { areMates } from '../../../../api/mates'
 import {
     setIsLoading,
@@ -11,10 +11,10 @@ import {
 } from "../../../../redux/actions/mateNoteboardActions";
 
 export class MateNoteboardObserver extends Component {
-    startMateNoteboardListener = async (uid) => {
+    startMateNoteboardListener = async (uid, mateUids) => {
         getNotesRef().child(uid).on('value', async () => {
             this.props.setIsLoading()
-            this.props.refreshMateNoteboardNotes(uid)
+            this.props.refreshMateNoteboardNotes(uid, mateUids)
         })
 
         getUsersRef().child(uid).on('value', async () => {
@@ -26,11 +26,12 @@ export class MateNoteboardObserver extends Component {
     componentDidMount = async () => {
         let locationUrl = new URL(window.location)
         if (locationUrl.searchParams.has('uid')) {
-            let mateUid = locationUrl.searchParams.get('uid')
-            this.startMateNoteboardListener(mateUid)
-            if (mateUid !== this.props.currentUserUid) {
-                let mateHasUser = await areMates(this.props.currentUserUid, mateUid)
-                let userHasMate = await areMates(mateUid, this.props.currentUserUid)
+            let queryUid = locationUrl.searchParams.get('uid')
+            let mateUser = await getUserByUid(queryUid)
+            this.startMateNoteboardListener(queryUid, mateUser.mates)
+            if (queryUid !== this.props.uid) {
+                let mateHasUser = await areMates(this.props.uid, queryUid)
+                let userHasMate = await areMates(queryUid, this.props.uid)
                 this.props.sendFriendshipInfoToParent({
                     pendingInvite: (userHasMate && !mateHasUser),
                     areMates: (mateHasUser && userHasMate)
@@ -63,7 +64,7 @@ export class MateNoteboardObserver extends Component {
 }
 
 const mapStateToProps = state => ({
-    currentUserUid: state.user.uid
+    uid: state.user.uid
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
