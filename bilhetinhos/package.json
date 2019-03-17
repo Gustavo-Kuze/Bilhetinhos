@@ -28,9 +28,11 @@
     "funcs": "firebase deploy --only functions",
     "debf": "firebase functions:log",
     "net": "netlify deploy --dir=build",
-    "net-prod": "netlify deploy --prod --dir=build",
-    "build-net": "npm run build && netlify deploy --dir=build",
-    "net-init": "netlify init"
+    "netp": "netlify deploy --prod --dir=build",
+    "netb": "npm run build && netlify deploy --dir=build",
+    "net-init": "netlify init",
+    "serve": "npm run build && serve -s build",
+    "serve-only": "npm run build && serve -s build"
   },
   "eslintConfig": {
     "extends": "react-app"
