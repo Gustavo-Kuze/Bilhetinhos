@@ -7,6 +7,7 @@ import { setEntireNote } from '../../../../redux/actions/editNoteActions'
 import { Translate } from 'react-translated'
 
 export class NotePreview extends Component {
+
   renderMates = () => {
     let noteMates = this.props.noteMates
     if (noteMates) {
@@ -41,6 +42,20 @@ export class NotePreview extends Component {
   openRemoveDialog = () => {
     this.callSetEntireNote()
     window.$('#remove-note-modal').modal('show')
+  }
+
+  refMessageParagraph = (p) => {
+    this.messageParagraph = p
+  }
+
+  setFontSize = (p) => {
+    if (p) {
+      p.style.setProperty('font-size', `${this.props.fontSize || '20px'}`, 'important');
+    }
+  }
+
+  componentDidMount = () => {
+    this.setFontSize(this.messageParagraph)
   }
 
   render() {
@@ -80,7 +95,9 @@ export class NotePreview extends Component {
           </div>
           <div className="card-body">
             <p className="h5 card-title" >{this.props.title || ''}</p>
-            <p className="note-message" style={{ fontSize: `${this.props.fontSize || '20px'}` }}>{this.props.message || ''}</p>
+            <p className="note-message"
+              ref={this.refMessageParagraph}
+            >{this.props.message || ''}</p>
             <ul className="list-inline">
               {this.renderMates()}
             </ul>

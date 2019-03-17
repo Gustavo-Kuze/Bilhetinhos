@@ -23,9 +23,9 @@ export const refreshMateNoteboardNotes = (uid, matesUids) => {
 
         if (allMatesNotes) {
             allMatesNotes = allMatesNotes.length > 0 ? allMatesNotes.reduce((prev, cur) => prev.concat(cur)) : []
-            notes = notes.concat(notes, allMatesNotes)
+            notes = [...notes, ...allMatesNotes]
         }
-        
+
         dispatch({
             type: "REFRESH_NOTES",
             payload: notes
