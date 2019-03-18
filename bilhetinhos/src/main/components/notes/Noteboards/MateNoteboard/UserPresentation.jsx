@@ -40,17 +40,19 @@ const UserPresentation = props => {
                             <p className="text-muted">{props.bio}</p>
                         </div>
                     </div>
-                    <div className="row mt-5">
-                        <div className="col">
-                            <p className="text-dark">{window.translate({ text: "userpresentation-contact-info-label" })}</p>
-                            <If condition={props.phone}>
-                                <p><span className="text-info">{window.translate({ text: "profile-phone-placeholder" })}</span>: <span>{props.phone}</span></p>
-                            </If>
-                            <If condition={props.email}>
-                                <p><span className="text-info">{window.translate({ text: "userpresentation-email-label" })}</span>: <span>{props.email}</span></p>
-                            </If>
+                    <If condition={props.isUserAllowedByPrivacy}>
+                        <div className="row mt-5">
+                            <div className="col">
+                                <p className="text-dark">{window.translate({ text: "userpresentation-contact-info-label" })}</p>
+                                <If condition={props.phone}>
+                                    <p><span className="text-info">{window.translate({ text: "profile-phone-placeholder" })}</span>: <span>{props.phone}</span></p>
+                                </If>
+                                <If condition={props.email}>
+                                    <p><span className="text-info">{window.translate({ text: "userpresentation-email-label" })}</span>: <span>{props.email}</span></p>
+                                </If>
+                            </div>
                         </div>
-                    </div>
+                    </If>
                 </div>
             </div>
         </Fragment>

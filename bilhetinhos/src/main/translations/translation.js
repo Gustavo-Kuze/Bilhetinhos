@@ -234,6 +234,16 @@ export default {
     pt: pt['profile-cover-image-label'],
     es: es['profile-cover-image-label'],
   },
+  'profile-pic-input-placeholder': {
+    en: en['profile-pic-input-placeholder'],
+    pt: pt['profile-pic-input-placeholder'],
+    es: es['profile-pic-input-placeholder'],
+  },
+  'profile-picture-upload-tip': {
+    en: en['profile-picture-upload-tip'],
+    pt: pt['profile-picture-upload-tip'],
+    es: es['profile-picture-upload-tip'],
+  },
   'mates-list-header-label': {
     en: en['mates-list-header-label'],
     pt: pt['mates-list-header-label'],
