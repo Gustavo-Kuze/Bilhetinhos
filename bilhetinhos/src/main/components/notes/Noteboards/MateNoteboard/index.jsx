@@ -113,6 +113,7 @@ export class MateNoteboard extends Component {
                             callAddMateIfExists={this.callAddMateIfExists}
                             pendingInvite={this.state.pendingInvite}
                             areMates={this.state.areMates}
+                            isUserAllowedByPrivacy={this.state.isUserAllowedByPrivacy}
                         />
                         <hr className="mb-5" />
                         <If condition={!this.state.isUserAllowedByPrivacy}>
