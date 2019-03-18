@@ -44,6 +44,8 @@ const pt = {
     'profile-btn-save': 'Salvar',
     'profile-picture-label': 'Imagem de perfil',
     'profile-cover-image-label': 'Imagem de capa',
+    'profile-pic-input-placeholder': 'Cole a URL da imagem aqui e dê enter',
+    'profile-picture-upload-tip': 'ou clique na imagem abaixo e faça upload',
     'mates-alert-title': 'Convite de amizade',
     'mates-alert-description': 'Clique para adicionar o {userEmail}',
     'mates-list-header-label': 'Colegas',

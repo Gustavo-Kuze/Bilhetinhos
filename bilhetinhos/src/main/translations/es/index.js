@@ -44,6 +44,8 @@ const es = {
     'profile-btn-save': "Guardar",
     'profile-picture-label': 'Imagen de perfil',
     'profile-cover-image-label': 'Imagen de portada',
+    'profile-pic-input-placeholder': 'Pegue la URL de la imagen aquí y dar enter',
+    'profile-picture-upload-tip': 'o haga clic en la imagen de abajo y suba',
     'mates-alert-title': 'Invitación de amistad',
     'mates-alert-description': 'Haga clic para agregar el {userEmail}',
     'mates-list-header-label': "Colegas",

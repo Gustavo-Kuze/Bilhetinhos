@@ -6,4 +6,4 @@ import thunk from 'redux-thunk'
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__
     && window.__REDUX_DEVTOOLS_EXTENSION__()
 
-export default applyMiddleware(thunk)(createStore)(combinedReducers, loadState())
+export default applyMiddleware(thunk)(createStore)(combinedReducers, loadState(), devTools)

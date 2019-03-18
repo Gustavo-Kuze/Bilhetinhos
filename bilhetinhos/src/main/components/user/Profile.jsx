@@ -26,7 +26,9 @@ class Profile extends Component {
             bio: this.props.bio,
             phone: this.props.phone,
             mates: this.props.mates
-        }
+        },
+        profilePicInputUrl: '',
+        coverPicInputUrl: ''
     }
 
     callSaveProfileChanges = element => {
@@ -97,9 +99,7 @@ class Profile extends Component {
                                     coverPic: !isCoverImg ? this.state.user.coverPic : pictureDownloadUrl,
                                 }
                             }, () => {
-                                this.saveProfileChanges()
-                                this.loadPic(pictureDownloadUrl, isCoverImg)
-                                toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: isCoverImg ? 'profile-cover-image-updated' : 'profile-image-updated' }))
+                                this.saveImgChanges(pictureDownloadUrl, isCoverImg)
                             })
                         })
                 })
@@ -108,11 +108,37 @@ class Profile extends Component {
         }
     }
 
-    handleInputChange = element => {
-        this.setState({
-            ...this.state, user: {
-                ...this.state.user, [`${element.target.name}`]: element.target.value
-            }
+    saveImgChanges = (downloadUrl, isCoverImg) => {
+        this.saveProfileChanges()
+        this.loadPic(downloadUrl, isCoverImg)
+        toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: isCoverImg ? 'profile-cover-image-updated' : 'profile-image-updated' }))
+    }
+
+    handleInputChange = (element, isPictureInput) => {
+        if (isPictureInput) {
+            this.setState({
+                ...this.state, [`${element.target.name}`]: element.target.value
+            })
+        } else {
+            this.setState({
+                ...this.state, user: {
+                    ...this.state.user, [`${element.target.name}`]: element.target.value
+                }
+            })
+        }
+    }
+
+    handleInputKeyUp = (e, isCoverImg) => {
+        let value = e.target.value
+        if (e.key === 'Enter') {
+            this.setUserPicturesOnStateAndSave(value, isCoverImg)
+        }
+    }
+
+    setUserPicturesOnStateAndSave = (value, isCoverImg) => {
+        let key = isCoverImg ? 'coverPic' : 'profilePic'
+        this.setState({ ...this.state, user: { ...this.state.user, [`${key}`]: value } }, () => {
+            this.saveImgChanges(value, isCoverImg)
         })
     }
 
@@ -126,7 +152,25 @@ class Profile extends Component {
                             <If condition={this.state.isLoadingProfilePic}>
                                 <Spinner extraClasses="py-5" />
                             </If>
-                            <p className="text-muted">{window.translate({ text: 'profile-picture-label' })}</p>
+                            <p className="text-muted mt-5">{window.translate({ text: 'profile-picture-label' })}</p>
+                            <div className="row">
+                                <div className="col">
+                                    <div className="form-group">
+                                        <input name="profilePicInputUrl"
+                                            id="input-text-profile-pic"
+                                            className="form-control"
+                                            value={this.state.profilePicInputUrl}
+                                            onChange={e => this.handleInputChange(e, true)}
+                                            onKeyUp={(e) => this.handleInputKeyUp(e)}
+                                            placeholder={window.translate({ text: 'profile-pic-input-placeholder' })} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row py-3">
+                                <div className="col">
+                                    <small className="text-muted">{window.translate({text: 'profile-picture-upload-tip'})}</small>
+                                </div>
+                            </div>
                             <ImgPicker
                                 id="profile-pic"
                                 imgClassName="profile-picture"
@@ -138,6 +182,24 @@ class Profile extends Component {
                                 <Spinner extraClasses="py-5" />
                             </If>
                             <p className="text-muted">{window.translate({ text: 'profile-cover-image-label' })}</p>
+                            <div className="row">
+                                <div className="col">
+                                    <div className="form-group">
+                                        <input name="coverPicInputUrl"
+                                            id="input-text-cover-pic"
+                                            className="form-control"
+                                            value={this.state.coverPicInputUrl}
+                                            onChange={e => this.handleInputChange(e, true)}
+                                            onKeyUp={(e) => this.handleInputKeyUp(e, true)}
+                                            placeholder={window.translate({ text: 'profile-pic-input-placeholder' })} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row py-3">
+                                <div className="col">
+                                    <small className="text-muted">{window.translate({text: 'profile-picture-upload-tip'})}</small>
+                                </div>
+                            </div>
                             <ImgPicker
                                 id="cover-pic"
                                 imgClassName="cover-picture img-fluid"
