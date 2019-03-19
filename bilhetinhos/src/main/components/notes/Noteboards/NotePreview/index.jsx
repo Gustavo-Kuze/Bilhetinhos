@@ -4,6 +4,7 @@ import If from '../../../utils/If'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setEntireNote } from '../../../../redux/actions/editNoteActions'
+import Slider from 'react-slick'
 import { Translate } from 'react-translated'
 
 export class NotePreview extends Component {
@@ -64,6 +65,13 @@ export class NotePreview extends Component {
   }
 
   render() {
+    const sliderSettings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+    }
     return (
       <div className="col-md-6 col-lg-4 d-flex align-items-stretch">
         <div className="card my-3 w-100 drop-material-shadow" id={`note-${this.props.title.replace(/ /g, '')}`}
@@ -77,7 +85,6 @@ export class NotePreview extends Component {
           }}>
           <div className="card-header">
             <div className="row">
-
               <div className="col">
                 <small className="card-title"><Translate text="notepreview-created-by" data={{ owner: this.props.owner }} /></small>
               </div>
@@ -107,6 +114,22 @@ export class NotePreview extends Component {
             <ul className="list-inline">
               {this.renderMates()}
             </ul>
+            <div className="border border-secondary p-3">
+              <Slider {...sliderSettings}>
+                <div className="d-flex justify-content-center align-items-center">
+                  <img className="slick-img" src="/img/default_cover.png" alt="" style={{ height: '110px', width: '110px' }} />
+                </div>
+                <div className="d-flex justify-content-center align-items-center">
+                  <img className="slick-img" src="/img/default_user_profile.png" alt="" style={{ height: '110px', width: '110px' }} />
+                </div>
+                <div className="d-flex justify-content-center align-items-center">
+                  <img className="slick-img" src="/img/default_user_profile.png" alt="" style={{ height: '110px', width: '110px' }} />
+                </div>
+                <div className="d-flex justify-content-center align-items-center">
+                  <img className="slick-img" src="/img/default_user_profile.png" alt="" style={{ height: '110px', width: '110px' }} />
+                </div>
+              </Slider>
+            </div>
           </div>
         </div>
       </div>
