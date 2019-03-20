@@ -1,4 +1,4 @@
-import '.././css/Note.css'
+import '../css/Note.css'
 import React, { Component } from 'react'
 import If from '../../../utils/If'
 import { connect } from 'react-redux'
@@ -62,6 +62,8 @@ export class NotePreview extends Component {
 
   componentDidMount = () => {
     this.setFontSize(this.messageParagraph)
+
+
   }
 
   render() {
@@ -114,22 +116,37 @@ export class NotePreview extends Component {
             <ul className="list-inline">
               {this.renderMates()}
             </ul>
-            <div className="border border-secondary p-3">
-              <Slider {...sliderSettings}>
-                <div className="d-flex justify-content-center align-items-center">
-                  <img className="slick-img" src="/img/default_cover.png" alt="" style={{ height: '110px', width: '110px' }} />
+          </div>
+          <div className="card-footer">
+            <div className="container">
+              <div className="row">
+                <div className="col">
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <i className="fas fa-times"></i>
+                  </button>
                 </div>
-                <div className="d-flex justify-content-center align-items-center">
-                  <img className="slick-img" src="/img/default_user_profile.png" alt="" style={{ height: '110px', width: '110px' }} />
+                <div className="col">
+                  <div className="p-3">
+                    <Slider {...sliderSettings}>
+                      <div className="d-flex justify-content-center align-items-center">
+                        <img className="slick-img" src="/img/default_cover.png" alt="" style={{ height: '55px', width: '55px' }} />
+                      </div>
+                      <div className="d-flex justify-content-center align-items-center">
+                        <img className="slick-img" src="/img/default_user_profile.png" alt="" style={{ height: '55px', width: '55px' }} />
+                      </div>
+                      <div className="d-flex justify-content-center align-items-center">
+                        <img className="slick-img" src="/img/default_user_profile.png" alt="" style={{ height: '55px', width: '55px' }} />
+                      </div>
+                      <div className="d-flex justify-content-center align-items-center">
+                        <img className="slick-img" src="/img/default_user_profile.png" alt="" style={{ height: '55px', width: '55px' }} />
+                      </div>
+                    </Slider>
+                  </div>
                 </div>
-                <div className="d-flex justify-content-center align-items-center">
-                  <img className="slick-img" src="/img/default_user_profile.png" alt="" style={{ height: '110px', width: '110px' }} />
-                </div>
-                <div className="d-flex justify-content-center align-items-center">
-                  <img className="slick-img" src="/img/default_user_profile.png" alt="" style={{ height: '110px', width: '110px' }} />
-                </div>
-              </Slider>
+              </div>
             </div>
+
+
           </div>
         </div>
       </div>

@@ -3,5 +3,19 @@
 }
 
 .slick-slide {
-    height: 20% !important;
+    height: 8% !important;
+}
+
+ul.slick-dots>li>button::before, ul.slick-dots>li.slick-active>button:before {
+    color: #222;
+    font-size: 0.7rem;
+}
+
+button.slick-arrow {
+    border-radius: 50%;
+}
+
+.slick-prev:before, .slick-next:before {
+    color: #222222DD !important;
+    border-radius: 50%;
 }
