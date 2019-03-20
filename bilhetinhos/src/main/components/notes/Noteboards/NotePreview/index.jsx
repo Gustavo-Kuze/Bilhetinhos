@@ -1,4 +1,5 @@
 import '../css/Note.css'
+import '../css/NoteAttachments.css'
 import React, { Component } from 'react'
 import If from '../../../utils/If'
 import { connect } from 'react-redux'
@@ -145,8 +146,6 @@ export class NotePreview extends Component {
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
