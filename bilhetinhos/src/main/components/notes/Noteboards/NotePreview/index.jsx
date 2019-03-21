@@ -112,8 +112,33 @@ export class NotePreview extends Component {
               {this.renderMates()}
             </ul>
           </div>
-          <NoteFooter label="Ver Anexos">
-            <NoteAttachments />
+          <NoteFooter
+            label={window.translate({ text: "notepreview-attachments-label" })}
+          // hideFooter={!this.props.attachments || this.props.attachments.length === 0} 
+          >
+            <NoteAttachments attachments={
+              [
+                {
+                  src: '/img/default_user_profile.png',
+                  date: '29982389712'
+                },
+                {
+                  src: '/img/default_user_profile.png',
+                  date: '29982389712'
+                },
+                {
+                  src: '/img/default_user_profile.png',
+                  date: '29982389712'
+                },
+                {
+                  src: '/img/default_user_profile.png',
+                  date: '29982389712'
+                },
+                {
+                  src: '/img/default_user_profile.png',
+                  date: '29982389712'
+                },
+              ]} />
           </NoteFooter>
         </div>
       </div>

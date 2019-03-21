@@ -86,6 +86,7 @@ const en = {
   'editnote-btn-create': "Publish",
   'editnote-title': "Customize you note",
   'notepreview-created-by': "Created by {owner}",
+  'notepreview-attachments-label': "View attachments",
   'userpresentation-contact-info-label': 'Contact Information',
   'userpresentation-email-label': 'E-mail',
   'matenoteboard-notes-no-note': "This user doesn't have any notes",

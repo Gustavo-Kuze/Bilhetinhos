@@ -86,6 +86,7 @@ const pt = {
     'editnote-btn-create': "Publicar",
     'editnote-title': "Personalize seu bilhete",
     'notepreview-created-by': "Criado por {owner}",
+    'notepreview-attachments-label': "Ver Anexos",
     'userpresentation-contact-info-label': 'Informações de Contato',
     'userpresentation-email-label': 'E-mail',
     'matenoteboard-notes-no-note': 'O usuário não possui nenhuma nota',

@@ -439,6 +439,11 @@ export default {
     pt: pt['notepreview-created-by'],
     es: es['notepreview-created-by'],
   },
+  'notepreview-attachments-label': {
+    en: en['notepreview-attachments-label'],
+    pt: pt['notepreview-attachments-label'],
+    es: es['notepreview-attachments-label'],
+  },
   'userpresentation-contact-info-label': {
     en: en['userpresentation-contact-info-label'],
     pt: pt['userpresentation-contact-info-label'],
