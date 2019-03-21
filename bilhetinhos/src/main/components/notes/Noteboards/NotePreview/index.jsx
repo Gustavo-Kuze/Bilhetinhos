@@ -112,7 +112,7 @@ export class NotePreview extends Component {
               {this.renderMates()}
             </ul>
           </div>
-          <NoteFooter>
+          <NoteFooter label="Ver Anexos">
             <NoteAttachments />
           </NoteFooter>
         </div>
