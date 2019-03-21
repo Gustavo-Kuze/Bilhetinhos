@@ -1,5 +1,4 @@
 import '../css/Note.css'
-import '../css/NoteAttachments.css'
 import React, { Component } from 'react'
 import If from '../../../utils/If'
 import { connect } from 'react-redux'
@@ -7,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import { setEntireNote } from '../../../../redux/actions/editNoteActions'
 import NoteAttachments from '../NoteAttachments/'
 import { Translate } from 'react-translated'
+import NoteFooter from './NoteFooter'
 
 export class NotePreview extends Component {
 
@@ -68,7 +68,7 @@ export class NotePreview extends Component {
   }
 
   render() {
-    
+
     return (
       <div className="col-md-6 col-lg-4 d-flex align-items-stretch">
         <div className="card my-3 w-100 drop-material-shadow" id={`note-${this.props.title.replace(/ /g, '')}`}
@@ -112,9 +112,9 @@ export class NotePreview extends Component {
               {this.renderMates()}
             </ul>
           </div>
-          <div className="card-footer">
+          <NoteFooter>
             <NoteAttachments />
-          </div>
+          </NoteFooter>
         </div>
       </div>
     )
