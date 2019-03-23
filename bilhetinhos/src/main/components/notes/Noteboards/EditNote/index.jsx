@@ -11,6 +11,7 @@ import { Accordion, AccordionItem } from '../../../base/Accordion.jsx'
 import { setNote } from '../../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../../api/users'
 import Modal from '../../../base/Modal'
+import ImgPicker from '../../../utils/ImgPicker/'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import { sendUserNotification } from '../../../../api/notifications'
 import { areMates } from '../../../../api/mates'
@@ -188,6 +189,41 @@ export class EditNote extends Component {
                   <AccordionItem itemId="font-size" itemLabel={window.translate({ text: 'editnote-accordion-item-fontsize-label' })} accordionId="note-options-accordion">
                     <p>{this.props.fontSize}</p>
                     <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
+                  </AccordionItem>
+                  <AccordionItem itemId="note-attachments" itemLabel={window.translate({ text: 'editnote-accordion-item-note-attachments' })} accordionId="note-options-accordion">
+                    <div className="container">
+                      <div className="row mb-2">
+                        <div className="col">
+                          <small className="text-secondary">{window.translate({ text: 'editnote-accordion-item-attachments-picker-label' })}:</small>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <div className="form-group">
+                            <input name="coverPicInputUrl"
+                              id="input-text-cover-pic"
+                              className="form-control"
+                              value={this.state.coverPicInputUrl}
+                              onChange={e => this.handleInputChange(e, true)}
+                              onKeyUp={(e) => this.handleInputKeyUp(e, true)}
+                              placeholder={window.translate({ text: 'profile-pic-input-placeholder' })} />
+                          </div>
+                          <ImgPicker
+                            id="note-attachments-picker"
+                            imgClassName="attachment-picker-picture img-fluid"
+                            src={`/img/upload_icon.png`}
+                            imgAlt="attachment-picker"
+                            multiple
+                          />
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><span className="text-danger mr-2" style={{ cursor: 'pointer' }}><i className="fas fa-times"></i></span>Cras justo odio </li>
+                            <li class="list-group-item"><span className="text-danger mr-2" style={{ cursor: 'pointer' }}><i className="fas fa-times"></i></span>Cras justo odio </li>
+                            <li class="list-group-item"><span className="text-danger mr-2" style={{ cursor: 'pointer' }}><i className="fas fa-times"></i></span>Cras justo odio </li>
+                            <li class="list-group-item"><span className="text-danger mr-2" style={{ cursor: 'pointer' }}><i className="fas fa-times"></i></span>Cras justo odio </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </AccordionItem>
                   <AccordionItem itemId="mates-list" itemLabel={window.translate({ text: 'editnote-accordion-item-mates-label' })} accordionId="note-options-accordion">
                     {this.state.matesCheckboxes.length > 0 ? this.state.matesCheckboxes : window.translate({ text: 'editnote-you-have-no-mates' })}

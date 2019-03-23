@@ -2,18 +2,17 @@ import React, { Component } from 'react'
 import Modal from '../../../base/Modal'
 
 export default class AttachmentsViewer extends Component {
-    
+
     getFileNameFromSrc = () => {
         return ''
     }
-    
+
     render() {
         return (
             <Modal
                 modalId="attachment-viewer-modal"
                 title={window.translate({ text: 'attachment-viewer-title' })}
                 extraClasses="modal-lg modal-dialog-centered"
-                open
             >
                 <div className="row">
                     <div className="col-5 offset-1">
