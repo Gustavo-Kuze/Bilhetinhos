@@ -173,6 +173,7 @@ export class EditNote extends Component {
           onClose={this.onClose}
           onOpen={this.onOpen}
           open={this.props.open}
+          extraClasses="modal-lg"
         >
           <If condition={this.state.shouldRenderChildren}>
             <form onSubmit={this.callCreate}>
@@ -198,7 +199,6 @@ export class EditNote extends Component {
               </div>
             </form>
           </If>
-
         </Modal>
         <ReduxToastr
           timeOut={4000}

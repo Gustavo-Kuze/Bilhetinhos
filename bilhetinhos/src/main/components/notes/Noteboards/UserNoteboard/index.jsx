@@ -8,6 +8,7 @@ import { setEntireNote } from '../../../../redux/actions/editNoteActions'
 import { Translate } from 'react-translated'
 import NoteboardContainer from '../Noteboard/NoteboardContainer'
 import NoteboardSection from '../Noteboard/NoteboardSection'
+import AttachmentsViewer from '../NoteAttachments/AttachmentsViewer'
 
 class Noteboard extends Component {
 
@@ -66,6 +67,11 @@ class Noteboard extends Component {
                 />
               </NoteboardContainer>
               <EditNote onClose={this.onModalClose} onOpen={() => { }} open={this.shouldOpenEditorForNewNote()} />
+              <AttachmentsViewer 
+                src="/img/default_user_profile.png" alt={window.translate({text: 'attachments-viewer-image-alt'})}
+                date=""
+                description=""
+              />
             </div>
           </div>
         </section>
