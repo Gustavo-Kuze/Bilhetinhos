@@ -94,7 +94,11 @@ const en = {
   'settings-board-privacy-label': 'Change board privacy',
   'settings-board-privacy-select-public': 'Public (visible to anyone)',
   'settings-board-privacy-select-mates': 'Mates (only your mates can see)',
-  'settings-board-privacy-select-private': 'Private (only you can see)'
+  'settings-board-privacy-select-private': 'Private (only you can see)',
+  'attachment-viewer-title': 'Attachment view',
+  'attachment-viewer-filename-label': 'File name',
+  'attachment-viewer-date-label': 'Posted at',
+  'attachment-viewer-description-label': 'Description',
 }
 
 export default en

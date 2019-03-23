@@ -94,7 +94,11 @@ const pt = {
     'settings-board-privacy-label': 'Alterar a privacidade do quadro',
     'settings-board-privacy-select-public': 'Público (visível a todos)',
     'settings-board-privacy-select-mates': 'Colegas (Apenas seus colegas podem ver)',
-    'settings-board-privacy-select-private': 'Privado (Apenas você pode ver)'
+    'settings-board-privacy-select-private': 'Privado (Apenas você pode ver)',
+    'attachment-viewer-title': 'Visualização de anexo',
+    'attachment-viewer-filename-label': 'Nome do arquivo',
+    'attachment-viewer-date-label': 'Postado em',
+    'attachment-viewer-description-label': 'Descrição',
 }
 
 export default pt

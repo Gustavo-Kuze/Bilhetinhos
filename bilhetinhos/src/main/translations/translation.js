@@ -483,5 +483,25 @@ export default {
     en: en['settings-board-privacy-select-private'],
     pt: pt['settings-board-privacy-select-private'],
     es: es['settings-board-privacy-select-private'],
-  }
+  },
+  'attachment-viewer-title': {
+    en: en['attachment-viewer-title'],
+    pt: pt['attachment-viewer-title'],
+    es: es['attachment-viewer-title'],
+  },
+  'attachment-viewer-filename-label': {
+    en: en['attachment-viewer-filename-label'],
+    pt: pt['attachment-viewer-filename-label'],
+    es: es['attachment-viewer-filename-label'],
+  },
+  'attachment-viewer-date-label': {
+    en: en['attachment-viewer-date-label'],
+    pt: pt['attachment-viewer-date-label'],
+    es: es['attachment-viewer-date-label'],
+  },
+  'attachment-viewer-description-label': {
+    en: en['attachment-viewer-description-label'],
+    pt: pt['attachment-viewer-description-label'],
+    es: es['attachment-viewer-description-label'],
+  },
 }

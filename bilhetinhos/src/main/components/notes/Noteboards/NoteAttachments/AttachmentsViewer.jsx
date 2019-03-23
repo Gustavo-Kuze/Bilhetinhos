@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import Modal from '../../../base/Modal'
 
 export default class AttachmentsViewer extends Component {
+    
     getFileNameFromSrc = () => {
         return ''
     }
+    
     render() {
         return (
             <Modal
