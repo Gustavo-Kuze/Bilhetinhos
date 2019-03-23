@@ -36,6 +36,7 @@ export class EditNote extends Component {
     }
 
     this.attInput = React.createRef()
+    this.attDescInput = React.createRef()
   }
 
   getCheckedMateBoxes = () => {
@@ -175,20 +176,27 @@ export class EditNote extends Component {
 
   callAddAttachment = () => {
     if (this.attInput.value) {
-      this.props.addAttachments([{ src: this.attInput.value, date: new Date(), description: '' }])
+      if (this.props.attachments) {
+        if (this.props.attachments.map(att => att.src).includes(this.attInput.value)) {
+          toastr.warning('toastr-attention-title', 'editnote-attachment-already-added-warning')
+          return
+        }
+        this.props.addAttachments([{ src: this.attInput.value, date: Date.now(), description: this.attDescInput.value }])
+      }
     }
   }
 
   addAttachments = srcs => {
-    let atts = [...srcs].map(src => ({ src, date: new Date(), description: '' }))
+    let atts = [...srcs].map(src => ({ src, date: Date.now(), description: '' }))
     this.props.addAttachments(atts)
   }
 
-  assignAttInputRef = (ref) => this.attInput = ref
+  assignAttInputRef = ref => this.attInput = ref
+  assignAttDescInputRef = ref => this.attDescInput = ref
 
-  handleAttachmentsUpload = e => {
-    this.addAttachments([...e.target.files].map(f => f.name))
-  }
+  // handleAttachmentsUpload = e => {
+  //   this.addAttachments([...e.target.files].map(f => f.name))
+  // }
 
   render() {
     return (
@@ -227,12 +235,15 @@ export class EditNote extends Component {
                           <div className="row">
                             <div className="col-10">
                               <div className="form-group">
-                                <input name="coverPicInputUrl"
-                                  id="input-text-cover-pic"
+                                <input name="attachmentUrlInput"
+                                  id="attachment-url-input"
                                   className="form-control"
-                                  value={this.state.coverPicInputUrl}
-                                  ref={this.assignAttInputRef}
+                                  ref={ref => this.assignAttInputRef(ref)}
                                   placeholder={window.translate({ text: 'editnote-add-attachment-url-placeholder' })} />
+                                <textarea name="attachmentDescriptionInput" id="attachment-description-input"
+                                  ref={ref => this.assignAttDescInputRef(ref)}
+                                  className="form-control mt-1"
+                                  placeholder={window.translate({ text: 'editnote-add-attachment-description-placeholder' })}></textarea>
                               </div>
                             </div>
                             <div className="col-2">
@@ -241,7 +252,7 @@ export class EditNote extends Component {
                                 onClick={this.callAddAttachment}><i className="fas fa-plus"></i></span>
                             </div>
                           </div>
-                          <div className="row">
+                          {/* <div className="row">
                             <div className="col">
                               <ImgPicker
                                 id="note-attachments-picker"
@@ -252,19 +263,19 @@ export class EditNote extends Component {
                                 onChange={this.handleAttachmentsUpload}
                                 />
                             </div>
-                          </div>
+                          </div> */}
                           <div className="row">
                             <div className="col">
-                              <ul class="list-group list-group-flush">
+                              <ul className="list-group list-group-flush">
                                 {this.props.attachments ? this.props.attachments.map((att, index) => (
                                   <li
                                     key={`${att.src}--${index}`}
-                                    class="list-group-item">
+                                    className="list-group-item">
                                     <span className="text-danger mr-2" style={{ cursor: 'pointer' }}
                                       onClick={() => this.props.removeAttachment(att)}
                                     >
                                       <i className="fas fa-times"></i>
-                                    </span>{att.src}</li>
+                                    </span><span>{att.src}</span><br /><small className="text-muted">{att.description}</small ></li>
                                 )) : ''}
                               </ul>
                             </div>
