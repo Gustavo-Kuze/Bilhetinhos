@@ -33,10 +33,10 @@ export default (state = INITIAL_STATE, action) => {
                 noteMates: action.payload.noteMates,
                 attachments: action.payload.attachments
             }
-        case "ADD_ATTACHMENT":
+        case "ADD_ATTACHMENTS":
             let attsAdd = []
             if (state.attachments) attsAdd = [...state.attachments]
-            attsAdd.push(action.payload)
+            attsAdd = [...attsAdd, ...action.payload]
             return { ...state, attachments: attsAdd }
         case "REMOVE_ATTACHMENT":
             let attsRem = []

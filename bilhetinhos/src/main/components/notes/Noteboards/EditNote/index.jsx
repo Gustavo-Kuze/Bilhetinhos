@@ -18,7 +18,7 @@ import { areMates } from '../../../../api/mates'
 import {
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
   handleNoteColorChanged, handleTitleChanged, refreshNoteMates,
-  createNote, addAttachment, removeAttachment
+  createNote, addAttachments, removeAttachment
 } from '../../../../redux/actions/editNoteActions'
 
 var defaultChecked = []
@@ -175,12 +175,19 @@ export class EditNote extends Component {
 
   callAddAttachment = () => {
     if (this.attInput.value) {
-      this.props.addAttachment({ src: this.attInput.value, date: new Date(), description: '' })
+      this.props.addAttachments([{ src: this.attInput.value, date: new Date(), description: '' }])
     }
   }
 
-  assignAttInputRef = (ref) => {
-    this.attInput = ref
+  addAttachments = srcs => {
+    let atts = [...srcs].map(src => ({ src, date: new Date(), description: '' }))
+    this.props.addAttachments(atts)
+  }
+
+  assignAttInputRef = (ref) => this.attInput = ref
+
+  handleAttachmentsUpload = e => {
+    this.addAttachments([...e.target.files].map(f => f.name))
   }
 
   render() {
@@ -241,7 +248,9 @@ export class EditNote extends Component {
                                 imgClassName="attachment-picker-picture img-fluid"
                                 src={`/img/upload_icon.png`}
                                 imgAlt="attachment-picker"
-                                multiple />
+                                multiple
+                                onChange={this.handleAttachmentsUpload}
+                                />
                             </div>
                           </div>
                           <div className="row">
@@ -303,7 +312,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
   handleNoteColorChanged, handleTitleChanged, refreshNoteMates,
-  createNote, addAttachment, removeAttachment
+  createNote, addAttachments, removeAttachment
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote)
