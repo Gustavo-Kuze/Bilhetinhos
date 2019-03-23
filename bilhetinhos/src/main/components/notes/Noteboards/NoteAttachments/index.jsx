@@ -21,7 +21,7 @@ export default class NoteAttachments extends Component {
         return (
             <Fragment>
                 <Slider {...sliderSettings}>
-                    {this.props.attachments.map((att, i) => this.createAttachment(att, i))}
+                    {this.props.attachments ? this.props.attachments.map((att, i) => this.createAttachment(att, i)) : ''}
                 </Slider>
                
             </Fragment>

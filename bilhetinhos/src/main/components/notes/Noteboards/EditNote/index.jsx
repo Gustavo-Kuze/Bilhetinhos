@@ -17,17 +17,25 @@ import { sendUserNotification } from '../../../../api/notifications'
 import { areMates } from '../../../../api/mates'
 import {
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
-  handleNoteColorChanged, handleTitleChanged, refreshNoteMates, createNote
+  handleNoteColorChanged, handleTitleChanged, refreshNoteMates,
+  createNote, addAttachment, removeAttachment
 } from '../../../../redux/actions/editNoteActions'
 
 var defaultChecked = []
 var shouldVerifyForDefaultChecked = true
 
 export class EditNote extends Component {
-  state = {
-    shouldRenderChildren: false,
-    matesEmailsAndUids: [],
-    matesCheckboxes: []
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      shouldRenderChildren: false,
+      matesEmailsAndUids: [],
+      matesCheckboxes: []
+    }
+
+    this.attInput = React.createRef()
   }
 
   getCheckedMateBoxes = () => {
@@ -66,7 +74,8 @@ export class EditNote extends Component {
         noteColor: this.props.noteColor,
         fontColor: this.props.fontColor,
         fontSize: this.props.fontSize,
-        noteMates: this.props.noteMates
+        noteMates: this.props.noteMates,
+        attachments: this.props.attachments
       }).then(async () => {
         toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: 'editnote-published' }))
         await this.notifyMates(this.props.noteMates)
@@ -106,28 +115,6 @@ export class EditNote extends Component {
     return ''
   }
 
-  componentDidUpdate = async () => {
-    if (this.state.matesCheckboxes.length === 0 && this.state.matesEmailsAndUids.length > 0) {
-      await this.renderMatesCheckboxes()
-      await this.props.refreshNoteMates(defaultChecked)
-    }
-    if (shouldVerifyForDefaultChecked) {
-      this.visuallyCheckDefault()
-    }
-  }
-
-  componentDidMount = async () => {
-    if (this.props.matesUids) {
-      let matesUids = this.props.matesUids
-      let matesEmailsAndUidsPromise = await getUsersEmailsByUid(matesUids)
-      let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
-      this.setState({
-        ...this.state, matesEmailsAndUids
-      })
-    }
-
-  }
-
   visuallyCheckDefault = () => {
     let didCheckOnOpen = false
     if (this.props.noteMates) {
@@ -165,6 +152,37 @@ export class EditNote extends Component {
     this.setState({ ...this.state, matesCheckboxes: checkboxes })
   }
 
+  componentDidUpdate = async () => {
+    if (this.state.matesCheckboxes.length === 0 && this.state.matesEmailsAndUids.length > 0) {
+      await this.renderMatesCheckboxes()
+      await this.props.refreshNoteMates(defaultChecked)
+    }
+    if (shouldVerifyForDefaultChecked) {
+      this.visuallyCheckDefault()
+    }
+  }
+
+  componentDidMount = async () => {
+    if (this.props.matesUids) {
+      let matesUids = this.props.matesUids
+      let matesEmailsAndUidsPromise = await getUsersEmailsByUid(matesUids)
+      let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
+      this.setState({
+        ...this.state, matesEmailsAndUids
+      })
+    }
+  }
+
+  callAddAttachment = () => {
+    if (this.attInput.value) {
+      this.props.addAttachment({ src: this.attInput.value, date: new Date(), description: '' })
+    }
+  }
+
+  assignAttInputRef = (ref) => {
+    this.attInput = ref
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -199,28 +217,49 @@ export class EditNote extends Component {
                       </div>
                       <div className="row">
                         <div className="col">
-                          <div className="form-group">
-                            <input name="coverPicInputUrl"
-                              id="input-text-cover-pic"
-                              className="form-control"
-                              value={this.state.coverPicInputUrl}
-                              onChange={e => this.handleInputChange(e, true)}
-                              onKeyUp={(e) => this.handleInputKeyUp(e, true)}
-                              placeholder={window.translate({ text: 'profile-pic-input-placeholder' })} />
+                          <div className="row">
+                            <div className="col-10">
+                              <div className="form-group">
+                                <input name="coverPicInputUrl"
+                                  id="input-text-cover-pic"
+                                  className="form-control"
+                                  value={this.state.coverPicInputUrl}
+                                  ref={this.assignAttInputRef}
+                                  placeholder={window.translate({ text: 'editnote-add-attachment-url-placeholder' })} />
+                              </div>
+                            </div>
+                            <div className="col-2">
+                              <span
+                                className="btn btn-lg btn-primary"
+                                onClick={this.callAddAttachment}><i className="fas fa-plus"></i></span>
+                            </div>
                           </div>
-                          <ImgPicker
-                            id="note-attachments-picker"
-                            imgClassName="attachment-picker-picture img-fluid"
-                            src={`/img/upload_icon.png`}
-                            imgAlt="attachment-picker"
-                            multiple
-                          />
-                          <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><span className="text-danger mr-2" style={{ cursor: 'pointer' }}><i className="fas fa-times"></i></span>Cras justo odio </li>
-                            <li class="list-group-item"><span className="text-danger mr-2" style={{ cursor: 'pointer' }}><i className="fas fa-times"></i></span>Cras justo odio </li>
-                            <li class="list-group-item"><span className="text-danger mr-2" style={{ cursor: 'pointer' }}><i className="fas fa-times"></i></span>Cras justo odio </li>
-                            <li class="list-group-item"><span className="text-danger mr-2" style={{ cursor: 'pointer' }}><i className="fas fa-times"></i></span>Cras justo odio </li>
-                          </ul>
+                          <div className="row">
+                            <div className="col">
+                              <ImgPicker
+                                id="note-attachments-picker"
+                                imgClassName="attachment-picker-picture img-fluid"
+                                src={`/img/upload_icon.png`}
+                                imgAlt="attachment-picker"
+                                multiple />
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col">
+                              <ul class="list-group list-group-flush">
+                                {this.props.attachments ? this.props.attachments.map((att, index) => (
+                                  <li
+                                    key={`${att.src}--${index}`}
+                                    class="list-group-item">
+                                    <span className="text-danger mr-2" style={{ cursor: 'pointer' }}
+                                      onClick={() => this.props.removeAttachment(att)}
+                                    >
+                                      <i className="fas fa-times"></i>
+                                    </span>{att.src}</li>
+                                )) : ''}
+                              </ul>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -256,13 +295,15 @@ const mapStateToProps = (state) => ({
   message: state.editNote.message,
   title: state.editNote.title,
   noteMates: state.editNote.noteMates,
+  attachments: state.editNote.attachments,
   uid: state.user.uid,
   matesUids: state.user.matesUids
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
-  handleNoteColorChanged, handleTitleChanged, refreshNoteMates, createNote
+  handleNoteColorChanged, handleTitleChanged, refreshNoteMates,
+  createNote, addAttachment, removeAttachment
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote)

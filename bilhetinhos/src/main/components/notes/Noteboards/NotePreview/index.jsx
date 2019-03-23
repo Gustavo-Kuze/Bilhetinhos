@@ -31,7 +31,8 @@ export class NotePreview extends Component {
       fontSize: this.props.fontSize,
       message: this.props.message,
       title: this.props.title,
-      noteMates: this.props.noteMates
+      noteMates: this.props.noteMates,
+      attachments: this.props.attachments
     }
     this.props.setEntireNote(note)
   }
@@ -116,29 +117,7 @@ export class NotePreview extends Component {
             label={window.translate({ text: "notepreview-attachments-label" })}
           // hideFooter={!this.props.attachments || this.props.attachments.length === 0} 
           >
-            <NoteAttachments attachments={
-              [
-                {
-                  src: '/img/default_user_profile.png',
-                  date: '29982389712'
-                },
-                {
-                  src: '/img/default_user_profile.png',
-                  date: '29982389712'
-                },
-                {
-                  src: '/img/default_user_profile.png',
-                  date: '29982389712'
-                },
-                {
-                  src: '/img/default_user_profile.png',
-                  date: '29982389712'
-                },
-                {
-                  src: '/img/default_user_profile.png',
-                  date: '29982389712'
-                },
-              ]} />
+            <NoteAttachments attachments={this.props.attachments} />
           </NoteFooter>
         </div>
       </div>

@@ -19,7 +19,8 @@ class Noteboard extends Component {
       fontSize: 20,
       message: "",
       title: '',
-      noteMates: []
+      noteMates: [],
+      attachments: []
     })
   }
 
@@ -86,6 +87,7 @@ const mapStateToProps = state => ({
   mates: state.user.matesUids,
   userNotes: state.notes.userNotes,
   matesNotes: state.notes.matesNotes,
+  attachments: state.notes.attachments,
   isLoadingUserNotes: state.notes.isLoadingUserNotes,
   isLoadingMatesNotes: state.notes.isLoadingMatesNotes
 })
