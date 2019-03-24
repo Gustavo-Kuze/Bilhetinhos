@@ -55,8 +55,7 @@ class Noteboard extends Component {
                   isLoading={this.props.isLoadingUserNotes}
                   notes={this.props.userNotes}
                   areNotesEditable={true}
-                  emptyLabel={window.translate({ text: "noteboard-my-notes-no-note" })}
-                />
+                  emptyLabel={window.translate({ text: "noteboard-my-notes-no-note" })} />
                 <NoteboardSection
                   sectionId="mates-notes"
                   containerId="notes-accordion"
@@ -64,15 +63,14 @@ class Noteboard extends Component {
                   isLoading={this.props.isLoadingMatesNotes}
                   notes={this.props.matesNotes}
                   areNotesEditable={false}
-                  emptyLabel={window.translate({ text: "noteboard-mates-notes-no-note" })}
-                />
+                  emptyLabel={window.translate({ text: "noteboard-mates-notes-no-note" })} />
               </NoteboardContainer>
               <EditNote onClose={this.onModalClose} onOpen={() => { }} open={this.shouldOpenEditorForNewNote()} />
-              <AttachmentsViewer 
-                src="/img/default_user_profile.png" alt={window.translate({text: 'attachments-viewer-image-alt'})}
+              <AttachmentsViewer
+                src="/img/default_user_profile.png"
+                alt={window.translate({ text: 'attachments-viewer-image-alt' })}
                 date=""
-                description=""
-              />
+                description="" />
             </div>
           </div>
         </section>

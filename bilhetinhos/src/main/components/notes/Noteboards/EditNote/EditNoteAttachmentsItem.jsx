@@ -15,9 +15,11 @@ export class EditNoteAttachmentsItem extends Component {
             window.translate({ text: 'toastr-attention-title' }),
             window.translate({ text: 'editnote-attachment-already-added-warning' })
           )
+          this.clearUrlInputOnly()
           return
         }
         this.props.addAttachments([{ src: this.attInput.value, date: Date.now(), description: this.attDescInput.value }])
+        this.clearInputs()
       }
     } else {
       this.props.toastr.warning(
@@ -32,6 +34,9 @@ export class EditNoteAttachmentsItem extends Component {
     let atts = [...srcs].map(src => ({ src, date: Date.now(), description: '' }))
     this.props.addAttachments(atts)
   }
+
+  clearUrlInputOnly = () => this.attInput.value =''
+  clearInputs = () => this.attInput.value = this.attDescInput.value = ''
 
   assignAttInputRef = ref => this.attInput = ref
   assignAttDescInputRef = ref => this.attDescInput = ref

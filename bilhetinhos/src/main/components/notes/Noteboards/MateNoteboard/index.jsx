@@ -15,6 +15,7 @@ import { getUserBoardPrivacy } from '../../../../api/users'
 import { refreshMatesUids } from '../../../../redux/actions/userActions'
 import { sendUserNotification } from '../../../../api/notifications'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
+import AttachmentsViewer from '../NoteAttachments/AttachmentsViewer'
 
 export class MateNoteboard extends Component {
 
@@ -141,6 +142,11 @@ export class MateNoteboard extends Component {
                         </If>
                     </section>
                 </If>
+                <AttachmentsViewer 
+                src="/img/default_user_profile.png"
+                alt={window.translate({text: 'attachments-viewer-image-alt'})}
+                date=""
+                description="" />
                 <ReduxToastr
                     timeOut={4000}
                     newestOnTop={false}

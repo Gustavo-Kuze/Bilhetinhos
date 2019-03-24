@@ -6,6 +6,12 @@
     height: 8% !important;
 }
 
+@-moz-document url-prefix() {
+    .slick-slide {
+        height: auto !important;
+    }
+}
+
 ul.slick-dots>li>button::before, ul.slick-dots>li.slick-active>button:before {
     color: #222;
     font-size: 0.7rem;
@@ -54,4 +60,6 @@ button.slick-arrow {
     animation-fill-mode: both;
 }
 
-button.close:focus {outline:0;}
+button.close:focus {
+    outline: 0;
+}

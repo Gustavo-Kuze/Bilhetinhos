@@ -101,7 +101,7 @@ const es = {
   'settings-board-privacy-select-public': 'Público (visible a todos)',
   'settings-board-privacy-select-mates': 'Colegas (Sólo sus colegas pueden ver)',
   'settings-board-privacy-select-private': 'Privado (sólo tú puedes ver)',
-  'attachment-viewer-title': 'Visualización de archivos adjuntos',
+  'attachment-viewer-title': 'Visualización de imagen',
   'attachment-viewer-filename-label': 'Nombre de archivo',
   'attachment-viewer-date-label': 'Publicado en',
   'attachment-viewer-description-label': 'Descripción',

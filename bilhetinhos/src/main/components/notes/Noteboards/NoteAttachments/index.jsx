@@ -6,7 +6,7 @@ import { setAttachmentView } from '../../../../redux/actions/attachmentViewActio
 
 class NoteAttachments extends Component {
 
-    createAttachment = (att, i) =>
+    createAttachment = (att, i) => (
         <div key={`${att.date}-${i}`} className="d-flex justify-content-center align-items-center">
             <img className="slick-img" src={att.src} alt="attachment"
                 style={{ height: '55px', width: '55px', cursor: 'pointer' }}
@@ -14,6 +14,20 @@ class NoteAttachments extends Component {
                 onClick={() => this.props.setAttachmentView(att)}
             />
         </div>
+    )
+
+    addProperMarginToSlickTrack = () => {
+        if (this.props.attachments) {
+            const margin = 22
+            let quantifier = Math.abs((this.props.attachments.length / 5) * margin)
+            Array.from(document.querySelectorAll(".slick-track"))
+                .map(dot => dot.style.marginBottom = `${quantifier}px`)
+        }
+    }
+
+    componentDidMount() {
+        this.addProperMarginToSlickTrack()
+    }
 
     render() {
         const sliderSettings = {
