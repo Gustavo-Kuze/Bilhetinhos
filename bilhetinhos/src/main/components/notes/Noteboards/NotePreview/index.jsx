@@ -66,11 +66,13 @@ export class NotePreview extends Component {
     this.setFontSize(this.messageParagraph)
   }
 
+  generateNoteId = () => `note-${this.props.title.replace(/ /g, '')}`
+
   render() {
 
     return (
       <div className="col-md-6 col-lg-4 d-flex align-items-stretch">
-        <div className="card my-3 w-100 drop-material-shadow" id={`note-${this.props.title.replace(/ /g, '')}`}
+        <div className="card my-3 w-100 drop-material-shadow" id={this.generateNoteId()}
           style={{
             backgroundColor: this.props.noteColor || '#fff9c4',
             color: this.props.fontColor || '#424242', borderBottomWidth: '1px',
@@ -115,7 +117,7 @@ export class NotePreview extends Component {
             label={window.translate({ text: "notepreview-attachments-label" })}
           hideFooter={!this.props.attachments || this.props.attachments.length === 0} 
           >
-            <NoteAttachments attachments={this.props.attachments} />
+            <NoteAttachments attachments={this.props.attachments} noteId={this.generateNoteId()}/>
           </NoteFooter>
         </div>
       </div>

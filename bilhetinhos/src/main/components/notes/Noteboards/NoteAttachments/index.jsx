@@ -18,10 +18,13 @@ class NoteAttachments extends Component {
 
     addProperMarginToSlickTrack = () => {
         if (this.props.attachments) {
-            const margin = 22
-            let quantifier = Math.abs((this.props.attachments.length / 5) * margin)
-            Array.from(document.querySelectorAll(".slick-track"))
-                .map(dot => dot.style.marginBottom = `${quantifier}px`)
+            const note = document.getElementById(this.props.noteId)
+            if (note) {
+                const margin = 22
+                let quantifier = Math.abs((this.props.attachments.length / 5) * margin)
+                Array.from(note.querySelectorAll(`.slick-track`))
+                    .map(dot => dot.style.marginBottom = `${quantifier}px`)
+            }
         }
     }
 
