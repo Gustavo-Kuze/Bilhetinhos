@@ -32,7 +32,7 @@ export class NotePreview extends Component {
       message: this.props.message,
       title: this.props.title,
       noteMates: this.props.noteMates,
-      attachments: this.props.attachments
+      attachments: this.props.attachments || []
     }
     this.props.setEntireNote(note)
   }

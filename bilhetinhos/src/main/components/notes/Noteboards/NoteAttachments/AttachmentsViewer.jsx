@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import Modal from '../../../base/Modal'
+import { connect } from 'react-redux'
 
-export default class AttachmentsViewer extends Component {
-
-    getFileNameFromSrc = () => {
-        return ''
-    }
+class AttachmentsViewer extends Component {
 
     render() {
         return (
@@ -17,11 +14,11 @@ export default class AttachmentsViewer extends Component {
                 <div className="row">
                     <div className="col-5 offset-1">
                         <small className="text-secondary">{window.translate({ text: 'attachment-viewer-filename-label' })}:</small>
-                        <p>{this.getFileNameFromSrc()}</p>
+                        <p style={{ wordWrap: 'break-word' }}>{this.props.src}</p>
                     </div>
                     <div className="col-5 offset-1">
                         <small className="text-secondary">{window.translate({ text: 'attachment-viewer-date-label' })}:</small>
-                        <p>{this.props.date}</p>
+                        <p>{new Date(this.props.date).toLocaleString("pt-br")}</p>
                     </div>
                 </div>
                 <div className="row my-5">
@@ -39,3 +36,11 @@ export default class AttachmentsViewer extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    src: state.attachmentView.src,
+    date: state.attachmentView.date,
+    description: state.attachmentView.description
+})
+
+export default connect(mapStateToProps)(AttachmentsViewer)

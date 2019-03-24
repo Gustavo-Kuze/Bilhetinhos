@@ -11,7 +11,7 @@ import { Accordion, AccordionItem } from '../../../base/Accordion.jsx'
 import { setNote } from '../../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../../api/users'
 import Modal from '../../../base/Modal'
-import ImgPicker from '../../../utils/ImgPicker/'
+// import ImgPicker from '../../../utils/ImgPicker/'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import { sendUserNotification } from '../../../../api/notifications'
 import { areMates } from '../../../../api/mates'
@@ -183,6 +183,9 @@ export class EditNote extends Component {
         }
         this.props.addAttachments([{ src: this.attInput.value, date: Date.now(), description: this.attDescInput.value }])
       }
+    } else {
+      toastr.warning('toastr-attention-title', 'editnote-attachment-empty-input-warning')
+      return
     }
   }
 

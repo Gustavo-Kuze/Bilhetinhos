@@ -1,12 +1,18 @@
 import React, { Component, Fragment } from 'react'
 import Slider from 'react-slick'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { setAttachmentView } from '../../../../redux/actions/attachmentViewActions'
 
-export default class NoteAttachments extends Component {
-
+class NoteAttachments extends Component {
 
     createAttachment = (att, i) =>
         <div key={`${att.date}-${i}`} className="d-flex justify-content-center align-items-center">
-            <img className="slick-img" src={att.src} alt="attachment" style={{ height: '55px', width: '55px', cursor: 'pointer' }} data-toggle="modal" data-target="#attachment-viewer-modal"/>
+            <img className="slick-img" src={att.src} alt="attachment"
+                style={{ height: '55px', width: '55px', cursor: 'pointer' }}
+                data-toggle="modal" data-target="#attachment-viewer-modal"
+                onClick={() => this.props.setAttachmentView(att)}
+            />
         </div>
 
     render() {
@@ -23,8 +29,13 @@ export default class NoteAttachments extends Component {
                 <Slider {...sliderSettings}>
                     {this.props.attachments ? this.props.attachments.map((att, i) => this.createAttachment(att, i)) : ''}
                 </Slider>
-               
             </Fragment>
         )
     }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    setAttachmentView
+}, dispatch)
+
+export default connect(null, mapDispatchToProps)(NoteAttachments)
