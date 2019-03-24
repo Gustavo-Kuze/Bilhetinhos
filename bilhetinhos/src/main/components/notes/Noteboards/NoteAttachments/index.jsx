@@ -20,7 +20,7 @@ class NoteAttachments extends Component {
         if (this.props.attachments) {
             const note = document.getElementById(this.props.noteId)
             if (note) {
-                const margin = 22
+                const margin = 25
                 let quantifier = Math.abs((this.props.attachments.length / 5) * margin)
                 Array.from(note.querySelectorAll(`.slick-track`))
                     .map(dot => dot.style.marginBottom = `${quantifier}px`)

@@ -52,7 +52,7 @@ export class EditNoteAttachmentsItem extends Component {
         <div className="row">
           <div className="col">
             <div className="row">
-              <div className="col-10">
+              <div className="col-9">
                 <div className="form-group">
                   <input name="attachmentUrlInput"
                     id="attachment-url-input"
@@ -65,7 +65,7 @@ export class EditNoteAttachmentsItem extends Component {
                     placeholder={window.translate({ text: 'editnote-add-attachment-description-placeholder' })}></textarea>
                 </div>
               </div>
-              <div className="col-2">
+              <div className="col-1">
                 <span tabIndex="0"
                   className="btn btn-lg btn-primary"
                   onClick={this.callAddAttachment}><i className="fas fa-plus"></i></span>
