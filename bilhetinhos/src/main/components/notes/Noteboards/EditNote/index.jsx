@@ -11,31 +11,37 @@ import { Accordion, AccordionItem } from '../../../base/Accordion.jsx'
 import { setNote } from '../../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../../api/users'
 import Modal from '../../../base/Modal'
+import EditNoteAttachmentsItem from './EditNoteAttachmentsItem'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import { sendUserNotification } from '../../../../api/notifications'
 import { areMates } from '../../../../api/mates'
 import {
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
-  handleNoteColorChanged, handleTitleChanged, refreshNoteMates, createNote
+  handleNoteColorChanged, handleTitleChanged, refreshNoteMates,
+  createNote
 } from '../../../../redux/actions/editNoteActions'
 
 var defaultChecked = []
 var shouldVerifyForDefaultChecked = true
 
 export class EditNote extends Component {
-  state = {
-    shouldRenderChildren: false,
-    matesEmailsAndUids: [],
-    matesCheckboxes: []
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      shouldRenderChildren: false,
+      matesEmailsAndUids: [],
+      matesCheckboxes: []
+    }
+
+    this.attInput = React.createRef()
+    this.attDescInput = React.createRef()
   }
 
-  getCheckedMateBoxes = () => {
-    return Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
-  }
+  getCheckedMateBoxes = () => Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
 
-  getCheckedMateBoxesValues = () => {
-    return this.getCheckedMateBoxes().map(c => c.value)
-  }
+  getCheckedMateBoxesValues = () => this.getCheckedMateBoxes().map(c => c.value)
 
   notifyMates = async (mates) => {
     if (mates) {
@@ -65,7 +71,8 @@ export class EditNote extends Component {
         noteColor: this.props.noteColor,
         fontColor: this.props.fontColor,
         fontSize: this.props.fontSize,
-        noteMates: this.props.noteMates
+        noteMates: this.props.noteMates,
+        attachments: this.props.attachments
       }).then(async () => {
         toastr.success(window.translate({ text: 'toastr-success-title' }), window.translate({ text: 'editnote-published' }))
         await this.notifyMates(this.props.noteMates)
@@ -105,28 +112,6 @@ export class EditNote extends Component {
     return ''
   }
 
-  componentDidUpdate = async () => {
-    if (this.state.matesCheckboxes.length === 0 && this.state.matesEmailsAndUids.length > 0) {
-      await this.renderMatesCheckboxes()
-      await this.props.refreshNoteMates(defaultChecked)
-    }
-    if (shouldVerifyForDefaultChecked) {
-      this.visuallyCheckDefault()
-    }
-  }
-
-  componentDidMount = async () => {
-    if (this.props.matesUids) {
-      let matesUids = this.props.matesUids
-      let matesEmailsAndUidsPromise = await getUsersEmailsByUid(matesUids)
-      let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
-      this.setState({
-        ...this.state, matesEmailsAndUids
-      })
-    }
-
-  }
-
   visuallyCheckDefault = () => {
     let didCheckOnOpen = false
     if (this.props.noteMates) {
@@ -164,6 +149,27 @@ export class EditNote extends Component {
     this.setState({ ...this.state, matesCheckboxes: checkboxes })
   }
 
+  componentDidUpdate = async () => {
+    if (this.state.matesCheckboxes.length === 0 && this.state.matesEmailsAndUids.length > 0) {
+      await this.renderMatesCheckboxes()
+      await this.props.refreshNoteMates(defaultChecked)
+    }
+    if (shouldVerifyForDefaultChecked) {
+      this.visuallyCheckDefault()
+    }
+  }
+
+  componentDidMount = async () => {
+    if (this.props.matesUids) {
+      let matesUids = this.props.matesUids
+      let matesEmailsAndUidsPromise = await getUsersEmailsByUid(matesUids)
+      let matesEmailsAndUids = await Promise.all(matesEmailsAndUidsPromise)
+      this.setState({
+        ...this.state, matesEmailsAndUids
+      })
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -173,6 +179,7 @@ export class EditNote extends Component {
           onClose={this.onClose}
           onOpen={this.onOpen}
           open={this.props.open}
+          extraClasses="modal-lg"
         >
           <If condition={this.state.shouldRenderChildren}>
             <form onSubmit={this.callCreate}>
@@ -188,6 +195,9 @@ export class EditNote extends Component {
                     <p>{this.props.fontSize}</p>
                     <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
                   </AccordionItem>
+                  <AccordionItem itemId="note-attachments" itemLabel={window.translate({ text: 'editnote-accordion-item-note-attachments-label' })} accordionId="note-options-accordion">
+                    <EditNoteAttachmentsItem toastr={toastr} />
+                  </AccordionItem>
                   <AccordionItem itemId="mates-list" itemLabel={window.translate({ text: 'editnote-accordion-item-mates-label' })} accordionId="note-options-accordion">
                     {this.state.matesCheckboxes.length > 0 ? this.state.matesCheckboxes : window.translate({ text: 'editnote-you-have-no-mates' })}
                   </AccordionItem>
@@ -198,7 +208,6 @@ export class EditNote extends Component {
               </div>
             </form>
           </If>
-
         </Modal>
         <ReduxToastr
           timeOut={4000}
@@ -220,13 +229,15 @@ const mapStateToProps = (state) => ({
   message: state.editNote.message,
   title: state.editNote.title,
   noteMates: state.editNote.noteMates,
+  attachments: state.editNote.attachments,
   uid: state.user.uid,
   matesUids: state.user.matesUids
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
-  handleNoteColorChanged, handleTitleChanged, refreshNoteMates, createNote
+  handleNoteColorChanged, handleTitleChanged, refreshNoteMates,
+  createNote
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote)

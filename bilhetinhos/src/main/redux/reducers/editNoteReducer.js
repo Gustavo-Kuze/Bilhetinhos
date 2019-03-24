@@ -4,7 +4,8 @@ const INITIAL_STATE = {
     fontSize: 20,
     message: "",
     title: '',
-    noteMates: []
+    noteMates: [],
+    attachments: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -29,8 +30,19 @@ export default (state = INITIAL_STATE, action) => {
                 fontSize: action.payload.fontSize,
                 message: action.payload.message,
                 title: action.payload.title,
-                noteMates: action.payload.noteMates
+                noteMates: action.payload.noteMates,
+                attachments: action.payload.attachments
             }
+        case "ADD_ATTACHMENTS":
+            let attsAdd = []
+            if (state.attachments) attsAdd = [...state.attachments]
+            attsAdd = [...attsAdd, ...action.payload]
+            return { ...state, attachments: attsAdd }
+        case "REMOVE_ATTACHMENT":
+            let attsRem = []
+            if (state.attachments) attsRem = [...state.attachments]
+            attsRem.splice(attsRem.indexOf(action.payload), 1)
+            return { ...state, attachments: attsRem }
         default:
             return state
     }

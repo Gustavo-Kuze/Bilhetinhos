@@ -85,7 +85,14 @@ const en = {
   'editnote-message-placeholder': "Type your message here!",
   'editnote-btn-create': "Publish",
   'editnote-title': "Customize you note",
+  'editnote-accordion-item-note-attachments-label': 'Photo album',
+  'editnote-attachment-already-added-warning': 'This URL has is already added',
+  'editnote-attachment-empty-input-warning': 'You need to inform an URL to add an image',
+  'editnote-accordion-item-attachments-picker-label': 'Insert an URL and a description to your image',
+  'editnote-add-attachment-url-placeholder': 'Paste the URL here',
+  'editnote-add-attachment-description-placeholder': 'Say something about this image',
   'notepreview-created-by': "Created by {owner}",
+  'notepreview-attachments-label': "View attachments",
   'userpresentation-contact-info-label': 'Contact Information',
   'userpresentation-email-label': 'E-mail',
   'matenoteboard-notes-no-note': "This user doesn't have any notes",
@@ -93,7 +100,11 @@ const en = {
   'settings-board-privacy-label': 'Change board privacy',
   'settings-board-privacy-select-public': 'Public (visible to anyone)',
   'settings-board-privacy-select-mates': 'Mates (only your mates can see)',
-  'settings-board-privacy-select-private': 'Private (only you can see)'
+  'settings-board-privacy-select-private': 'Private (only you can see)',
+  'attachment-viewer-title': 'Image view',
+  'attachment-viewer-filename-label': 'File name',
+  'attachment-viewer-date-label': 'Posted at',
+  'attachment-viewer-description-label': 'Description',
 }
 
 export default en

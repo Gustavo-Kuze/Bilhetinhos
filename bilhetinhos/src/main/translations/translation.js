@@ -434,10 +434,45 @@ export default {
     pt: pt['editnote-title'],
     es: es['editnote-title'],
   },
+  'editnote-accordion-item-note-attachments-label': {
+    en: en['editnote-accordion-item-note-attachments-label'],
+    pt: pt['editnote-accordion-item-note-attachments-label'],
+    es: es['editnote-accordion-item-note-attachments-label'],
+  },
+  'editnote-attachment-already-added-warning': {
+    en: en['editnote-attachment-already-added-warning'],
+    pt: pt['editnote-attachment-already-added-warning'],
+    es: es['editnote-attachment-already-added-warning'],
+  },
+  'editnote-attachment-empty-input-warning': {
+    en: en['editnote-attachment-empty-input-warning'],
+    pt: pt['editnote-attachment-empty-input-warning'],
+    es: es['editnote-attachment-empty-input-warning'],
+  },
+  'editnote-accordion-item-attachments-picker-label': {
+    en: en['editnote-accordion-item-attachments-picker-label'],
+    pt: pt['editnote-accordion-item-attachments-picker-label'],
+    es: es['editnote-accordion-item-attachments-picker-label'],
+  },
+  'editnote-add-attachment-url-placeholder': {
+    en: en['editnote-add-attachment-url-placeholder'],
+    pt: pt['editnote-add-attachment-url-placeholder'],
+    es: es['editnote-add-attachment-url-placeholder'],
+  },
+  'editnote-add-attachment-description-placeholder': {
+    en: en['editnote-add-attachment-description-placeholder'],
+    pt: pt['editnote-add-attachment-description-placeholder'],
+    es: es['editnote-add-attachment-description-placeholder'],
+  },
   'notepreview-created-by': {
     en: en['notepreview-created-by'],
     pt: pt['notepreview-created-by'],
     es: es['notepreview-created-by'],
+  },
+  'notepreview-attachments-label': {
+    en: en['notepreview-attachments-label'],
+    pt: pt['notepreview-attachments-label'],
+    es: es['notepreview-attachments-label'],
   },
   'userpresentation-contact-info-label': {
     en: en['userpresentation-contact-info-label'],
@@ -478,5 +513,25 @@ export default {
     en: en['settings-board-privacy-select-private'],
     pt: pt['settings-board-privacy-select-private'],
     es: es['settings-board-privacy-select-private'],
-  }
+  },
+  'attachment-viewer-title': {
+    en: en['attachment-viewer-title'],
+    pt: pt['attachment-viewer-title'],
+    es: es['attachment-viewer-title'],
+  },
+  'attachment-viewer-filename-label': {
+    en: en['attachment-viewer-filename-label'],
+    pt: pt['attachment-viewer-filename-label'],
+    es: es['attachment-viewer-filename-label'],
+  },
+  'attachment-viewer-date-label': {
+    en: en['attachment-viewer-date-label'],
+    pt: pt['attachment-viewer-date-label'],
+    es: es['attachment-viewer-date-label'],
+  },
+  'attachment-viewer-description-label': {
+    en: en['attachment-viewer-description-label'],
+    pt: pt['attachment-viewer-description-label'],
+    es: es['attachment-viewer-description-label'],
+  },
 }

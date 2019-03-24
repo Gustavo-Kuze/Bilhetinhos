@@ -85,7 +85,14 @@ const pt = {
     'editnote-message-placeholder': "Digite sua mensagem aqui!",
     'editnote-btn-create': "Publicar",
     'editnote-title': "Personalize seu bilhete",
+    'editnote-accordion-item-note-attachments-label': 'Album de fotos',
+    'editnote-attachment-already-added-warning': 'Esta URL já foi adicionada!',
+    'editnote-attachment-empty-input-warning': 'Você precisa fornecer uma URL para adicionar uma imagem',
+    'editnote-accordion-item-attachments-picker-label': 'Informe uma URL e uma descrição para a imagem',
+    'editnote-add-attachment-url-placeholder': 'Cole aqui a URL',
+    'editnote-add-attachment-description-placeholder': 'Diga algo sobre esta imagem',
     'notepreview-created-by': "Criado por {owner}",
+    'notepreview-attachments-label': "Ver anexos",
     'userpresentation-contact-info-label': 'Informações de Contato',
     'userpresentation-email-label': 'E-mail',
     'matenoteboard-notes-no-note': 'O usuário não possui nenhuma nota',
@@ -93,7 +100,11 @@ const pt = {
     'settings-board-privacy-label': 'Alterar a privacidade do quadro',
     'settings-board-privacy-select-public': 'Público (visível a todos)',
     'settings-board-privacy-select-mates': 'Colegas (Apenas seus colegas podem ver)',
-    'settings-board-privacy-select-private': 'Privado (Apenas você pode ver)'
+    'settings-board-privacy-select-private': 'Privado (Apenas você pode ver)',
+    'attachment-viewer-title': 'Visualização de imagem',
+    'attachment-viewer-filename-label': 'Nome do arquivo',
+    'attachment-viewer-date-label': 'Postado em',
+    'attachment-viewer-description-label': 'Descrição',
 }
 
 export default pt

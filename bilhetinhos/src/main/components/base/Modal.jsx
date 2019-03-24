@@ -23,7 +23,7 @@ export default class Modal extends Component {
     render() {
         return (
             <div className="modal fade" id={this.props.modalId} tabIndex="-1" role="dialog" aria-labelledby={`${this.props.modalId}-title`} aria-hidden="true">
-                <div className="modal-dialog" role="document">
+                <div className={`modal-dialog ${this.props.extraClasses}`} role="document">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id={`${this.props.modalId}-title`}>{this.props.title}</h5>

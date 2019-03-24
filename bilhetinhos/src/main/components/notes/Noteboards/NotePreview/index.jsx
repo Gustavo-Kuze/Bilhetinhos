@@ -1,10 +1,12 @@
-import '.././css/Note.css'
+import '../css/Note.css'
 import React, { Component } from 'react'
 import If from '../../../utils/If'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setEntireNote } from '../../../../redux/actions/editNoteActions'
+import NoteAttachments from '../NoteAttachments/'
 import { Translate } from 'react-translated'
+import NoteFooter from './NoteFooter'
 
 export class NotePreview extends Component {
 
@@ -29,7 +31,8 @@ export class NotePreview extends Component {
       fontSize: this.props.fontSize,
       message: this.props.message,
       title: this.props.title,
-      noteMates: this.props.noteMates
+      noteMates: this.props.noteMates,
+      attachments: this.props.attachments || []
     }
     this.props.setEntireNote(note)
   }
@@ -63,10 +66,13 @@ export class NotePreview extends Component {
     this.setFontSize(this.messageParagraph)
   }
 
+  generateNoteId = () => `note-${this.props.title.replace(/ /g, '')}`
+
   render() {
+
     return (
       <div className="col-md-6 col-lg-4 d-flex align-items-stretch">
-        <div className="card my-3 w-100 drop-material-shadow" id={`note-${this.props.title.replace(/ /g, '')}`}
+        <div className="card my-3 w-100 drop-material-shadow" id={this.generateNoteId()}
           style={{
             backgroundColor: this.props.noteColor || '#fff9c4',
             color: this.props.fontColor || '#424242', borderBottomWidth: '1px',
@@ -77,7 +83,6 @@ export class NotePreview extends Component {
           }}>
           <div className="card-header">
             <div className="row">
-
               <div className="col">
                 <small className="card-title"><Translate text="notepreview-created-by" data={{ owner: this.props.owner }} /></small>
               </div>
@@ -108,6 +113,12 @@ export class NotePreview extends Component {
               {this.renderMates()}
             </ul>
           </div>
+          <NoteFooter
+            label={window.translate({ text: "notepreview-attachments-label" })}
+          hideFooter={!this.props.attachments || this.props.attachments.length === 0} 
+          >
+            <NoteAttachments attachments={this.props.attachments} noteId={this.generateNoteId()}/>
+          </NoteFooter>
         </div>
       </div>
     )

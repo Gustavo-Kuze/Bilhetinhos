@@ -37,6 +37,16 @@ export const setEntireNote = note => ({
     payload: note
 })
 
+export const addAttachments = attachments => ({
+    type: "ADD_ATTACHMENTS",
+    payload: attachments
+})
+
+export const removeAttachment = attachment => ({
+    type: "REMOVE_ATTACHMENT",
+    payload: attachment
+})
+
 export const createNote = () => {
     return {
         type: "CREATE_NOTE"

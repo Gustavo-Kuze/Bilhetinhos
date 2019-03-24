@@ -26,7 +26,7 @@ export default class NoteboardSection extends Component {
             return notes.map(note => (
                 <NotePreview key={note.title} title={note.title} message={note.message}
                     noteMates={note.noteMates} fontColor={note.fontColor} noteColor={note.noteColor}
-                    owner={note.owner} editable={areEditable} fontSize={note.fontSize}
+                    owner={note.owner} editable={areEditable} fontSize={note.fontSize} attachments={note.attachments}
                     mark={this.callMarkNoteIfQuery(note.title)} />
             ))
         }

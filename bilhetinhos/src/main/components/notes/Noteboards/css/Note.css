@@ -1,3 +1,65 @@
 .note-message {
     font-family: 'Pangolin', cursive;
 }
+
+.slick-slide {
+    height: 8% !important;
+}
+
+@-moz-document url-prefix() {
+    .slick-slide {
+        height: auto !important;
+    }
+}
+
+ul.slick-dots>li>button::before, ul.slick-dots>li.slick-active>button:before {
+    color: #222;
+    font-size: 0.7rem;
+}
+
+button.slick-arrow {
+    border-radius: 50%;
+}
+
+.slick-prev:before, .slick-next:before {
+    color: #222222DD !important;
+    border-radius: 50%;
+}
+
+@keyframes hide {
+    from {
+        height: auto;
+    }
+    to {
+        height: 0;
+    }
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.note-footer-hide {
+    animation-name: hide;
+    animation-duration: .3s;
+    animation-delay: .05s;
+    animation-fill-mode: both;
+    opacity: 0;
+}
+
+.note-footer-show {
+    height: auto;
+    animation-name: show;
+    animation-duration: .3s;
+    animation-delay: .05s;
+    animation-fill-mode: both;
+}
+
+button.close:focus {
+    outline: 0;
+}
