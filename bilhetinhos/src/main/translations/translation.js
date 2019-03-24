@@ -434,6 +434,36 @@ export default {
     pt: pt['editnote-title'],
     es: es['editnote-title'],
   },
+  'editnote-accordion-item-note-attachments-label': {
+    en: en['editnote-accordion-item-note-attachments-label'],
+    pt: pt['editnote-accordion-item-note-attachments-label'],
+    es: es['editnote-accordion-item-note-attachments-label'],
+  },
+  'editnote-attachment-already-added-warning': {
+    en: en['editnote-attachment-already-added-warning'],
+    pt: pt['editnote-attachment-already-added-warning'],
+    es: es['editnote-attachment-already-added-warning'],
+  },
+  'editnote-attachment-empty-input-warning': {
+    en: en['editnote-attachment-empty-input-warning'],
+    pt: pt['editnote-attachment-empty-input-warning'],
+    es: es['editnote-attachment-empty-input-warning'],
+  },
+  'editnote-accordion-item-attachments-picker-label': {
+    en: en['editnote-accordion-item-attachments-picker-label'],
+    pt: pt['editnote-accordion-item-attachments-picker-label'],
+    es: es['editnote-accordion-item-attachments-picker-label'],
+  },
+  'editnote-add-attachment-url-placeholder': {
+    en: en['editnote-add-attachment-url-placeholder'],
+    pt: pt['editnote-add-attachment-url-placeholder'],
+    es: es['editnote-add-attachment-url-placeholder'],
+  },
+  'editnote-add-attachment-description-placeholder': {
+    en: en['editnote-add-attachment-description-placeholder'],
+    pt: pt['editnote-add-attachment-description-placeholder'],
+    es: es['editnote-add-attachment-description-placeholder'],
+  },
   'notepreview-created-by': {
     en: en['notepreview-created-by'],
     pt: pt['notepreview-created-by'],

@@ -11,14 +11,14 @@ import { Accordion, AccordionItem } from '../../../base/Accordion.jsx'
 import { setNote } from '../../../../api/notes'
 import { getUsersEmailsByUid, getUserEmailByUid } from '../../../../api/users'
 import Modal from '../../../base/Modal'
-// import ImgPicker from '../../../utils/ImgPicker/'
+import EditNoteAttachmentsItem from './EditNoteAttachmentsItem'
 import ReduxToastr, { toastr } from 'react-redux-toastr'
 import { sendUserNotification } from '../../../../api/notifications'
 import { areMates } from '../../../../api/mates'
 import {
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
   handleNoteColorChanged, handleTitleChanged, refreshNoteMates,
-  createNote, addAttachments, removeAttachment
+  createNote
 } from '../../../../redux/actions/editNoteActions'
 
 var defaultChecked = []
@@ -39,13 +39,9 @@ export class EditNote extends Component {
     this.attDescInput = React.createRef()
   }
 
-  getCheckedMateBoxes = () => {
-    return Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
-  }
+  getCheckedMateBoxes = () => Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
 
-  getCheckedMateBoxesValues = () => {
-    return this.getCheckedMateBoxes().map(c => c.value)
-  }
+  getCheckedMateBoxesValues = () => this.getCheckedMateBoxes().map(c => c.value)
 
   notifyMates = async (mates) => {
     if (mates) {
@@ -174,33 +170,6 @@ export class EditNote extends Component {
     }
   }
 
-  callAddAttachment = () => {
-    if (this.attInput.value) {
-      if (this.props.attachments) {
-        if (this.props.attachments.map(att => att.src).includes(this.attInput.value)) {
-          toastr.warning('toastr-attention-title', 'editnote-attachment-already-added-warning')
-          return
-        }
-        this.props.addAttachments([{ src: this.attInput.value, date: Date.now(), description: this.attDescInput.value }])
-      }
-    } else {
-      toastr.warning('toastr-attention-title', 'editnote-attachment-empty-input-warning')
-      return
-    }
-  }
-
-  addAttachments = srcs => {
-    let atts = [...srcs].map(src => ({ src, date: Date.now(), description: '' }))
-    this.props.addAttachments(atts)
-  }
-
-  assignAttInputRef = ref => this.attInput = ref
-  assignAttDescInputRef = ref => this.attDescInput = ref
-
-  // handleAttachmentsUpload = e => {
-  //   this.addAttachments([...e.target.files].map(f => f.name))
-  // }
-
   render() {
     return (
       <React.Fragment>
@@ -226,66 +195,8 @@ export class EditNote extends Component {
                     <p>{this.props.fontSize}</p>
                     <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
                   </AccordionItem>
-                  <AccordionItem itemId="note-attachments" itemLabel={window.translate({ text: 'editnote-accordion-item-note-attachments' })} accordionId="note-options-accordion">
-                    <div className="container">
-                      <div className="row mb-2">
-                        <div className="col">
-                          <small className="text-secondary">{window.translate({ text: 'editnote-accordion-item-attachments-picker-label' })}:</small>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col">
-                          <div className="row">
-                            <div className="col-10">
-                              <div className="form-group">
-                                <input name="attachmentUrlInput"
-                                  id="attachment-url-input"
-                                  className="form-control"
-                                  ref={ref => this.assignAttInputRef(ref)}
-                                  placeholder={window.translate({ text: 'editnote-add-attachment-url-placeholder' })} />
-                                <textarea name="attachmentDescriptionInput" id="attachment-description-input"
-                                  ref={ref => this.assignAttDescInputRef(ref)}
-                                  className="form-control mt-1"
-                                  placeholder={window.translate({ text: 'editnote-add-attachment-description-placeholder' })}></textarea>
-                              </div>
-                            </div>
-                            <div className="col-2">
-                              <span
-                                className="btn btn-lg btn-primary"
-                                onClick={this.callAddAttachment}><i className="fas fa-plus"></i></span>
-                            </div>
-                          </div>
-                          {/* <div className="row">
-                            <div className="col">
-                              <ImgPicker
-                                id="note-attachments-picker"
-                                imgClassName="attachment-picker-picture img-fluid"
-                                src={`/img/upload_icon.png`}
-                                imgAlt="attachment-picker"
-                                multiple
-                                onChange={this.handleAttachmentsUpload}
-                                />
-                            </div>
-                          </div> */}
-                          <div className="row">
-                            <div className="col">
-                              <ul className="list-group list-group-flush">
-                                {this.props.attachments ? this.props.attachments.map((att, index) => (
-                                  <li
-                                    key={`${att.src}--${index}`}
-                                    className="list-group-item">
-                                    <span className="text-danger mr-2" style={{ cursor: 'pointer' }}
-                                      onClick={() => this.props.removeAttachment(att)}
-                                    >
-                                      <i className="fas fa-times"></i>
-                                    </span><span>{att.src}</span><br /><small className="text-muted">{att.description}</small ></li>
-                                )) : ''}
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <AccordionItem itemId="note-attachments" itemLabel={window.translate({ text: 'editnote-accordion-item-note-attachments-label' })} accordionId="note-options-accordion">
+                    <EditNoteAttachmentsItem toastr={toastr} />
                   </AccordionItem>
                   <AccordionItem itemId="mates-list" itemLabel={window.translate({ text: 'editnote-accordion-item-mates-label' })} accordionId="note-options-accordion">
                     {this.state.matesCheckboxes.length > 0 ? this.state.matesCheckboxes : window.translate({ text: 'editnote-you-have-no-mates' })}
@@ -326,7 +237,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   handleFontColorChanged, handleFontSizeChanged, handleMessageChanged,
   handleNoteColorChanged, handleTitleChanged, refreshNoteMates,
-  createNote, addAttachments, removeAttachment
+  createNote
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote)
