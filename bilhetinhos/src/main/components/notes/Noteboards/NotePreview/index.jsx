@@ -89,8 +89,10 @@ export class NotePreview extends Component {
               <div className="col">
                 <div className="float-right">
                   <If condition={this.props.editable}>
-                    <button className="btn btn-sm btn-warning mr-1" onClick={this.openNoteEditor}><i className="fas fa-pencil-alt"></i></button>
-                    <button className="btn btn-sm btn-danger" onClick={this.openRemoveDialog}><i className="fas fa-trash"></i></button>
+                    <div className="d-flex justify-content-center flex-row">
+                      <button className="btn btn-sm btn-warning mr-1" onClick={this.openNoteEditor}><i className="fas fa-pencil-alt"></i></button>
+                      <button className="btn btn-sm btn-danger" onClick={this.openRemoveDialog}><i className="fas fa-trash"></i></button>
+                    </div>
                   </If>
                   <If condition={this.props.mark}>
                     <div className="col-1">
@@ -115,9 +117,9 @@ export class NotePreview extends Component {
           </div>
           <NoteFooter
             label={window.translate({ text: "notepreview-attachments-label" })}
-          hideFooter={!this.props.attachments || this.props.attachments.length === 0} 
+            hideFooter={!this.props.attachments || this.props.attachments.length === 0}
           >
-            <NoteAttachments attachments={this.props.attachments} noteId={this.generateNoteId()}/>
+            <NoteAttachments attachments={this.props.attachments} noteId={this.generateNoteId()} />
           </NoteFooter>
         </div>
       </div>
