@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Slider from 'react-slick'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -41,13 +41,11 @@ class NoteAttachments extends Component {
             slidesToScroll: 1,
         }
 
-        return (
-            <Fragment>
-                <Slider {...sliderSettings}>
-                    {this.props.attachments ? this.props.attachments.map((att, i) => this.createAttachment(att, i)) : ''}
-                </Slider>
-            </Fragment>
-        )
+        return <>
+            <Slider {...sliderSettings}>
+                {this.props.attachments ? this.props.attachments.map((att, i) => this.createAttachment(att, i)) : ''}
+            </Slider>
+        </>
     }
 }
 

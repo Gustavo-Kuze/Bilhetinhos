@@ -171,54 +171,52 @@ export class EditNote extends Component {
   }
 
   render() {
-    return (
-      <React.Fragment>
-        <Modal
-          modalId="edit-note-modal"
-          title={window.translate({ text: 'editnote-title' })}
-          onClose={this.onClose}
-          onOpen={this.onOpen}
-          open={this.props.open}
-          extraClasses="modal-lg"
-        >
-          <If condition={this.state.shouldRenderChildren}>
-            <form onSubmit={this.callCreate}>
-              <div className="form-group ">
-                <Accordion accordionId="note-options-accordion">
-                  <AccordionItem itemId="note-color" itemLabel={window.translate({ text: 'editnote-accordion-item-notecolor-label' })} accordionId="note-options-accordion">
-                    <ColorPicker name="note-color" colors={backgroundColors} isNoteColorPicker={true} />
-                  </AccordionItem>
-                  <AccordionItem itemId="font-color" itemLabel={window.translate({ text: 'editnote-accordion-item-fontcolor-label' })} accordionId="note-options-accordion">
-                    <ColorPicker name="font-color" colors={fontColors} isNoteColorPicker={false} />
-                  </AccordionItem>
-                  <AccordionItem itemId="font-size" itemLabel={window.translate({ text: 'editnote-accordion-item-fontsize-label' })} accordionId="note-options-accordion">
-                    <p>{this.props.fontSize}</p>
-                    <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
-                  </AccordionItem>
-                  <AccordionItem itemId="note-attachments" itemLabel={window.translate({ text: 'editnote-accordion-item-note-attachments-label' })} accordionId="note-options-accordion">
-                    <EditNoteAttachmentsItem toastr={toastr} />
-                  </AccordionItem>
-                  <AccordionItem itemId="mates-list" itemLabel={window.translate({ text: 'editnote-accordion-item-mates-label' })} accordionId="note-options-accordion">
-                    {this.state.matesCheckboxes.length > 0 ? this.state.matesCheckboxes : window.translate({ text: 'editnote-you-have-no-mates' })}
-                  </AccordionItem>
-                </Accordion>
-                <input className="my-3 form-control" type="text" name="note-title" placeholder={window.translate({ text: 'editnote-notetitle-placeholder' })} value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />
-                <textarea id="ta-note-message" className="form-control note-message" placeholder={window.translate({ text: 'editnote-message-placeholder' })} name="note-message" rows="10" value={this.props.message} onChange={this.props.handleMessageChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, fontSize: this.props.fontSize }}></textarea>
-                <button className="btn btn-primary btn-lg mt-3" >{window.translate({ text: 'editnote-btn-create' })}</button>
-              </div>
-            </form>
-          </If>
-        </Modal>
-        <ReduxToastr
-          timeOut={4000}
-          newestOnTop={false}
-          preventDuplicates
-          position="top-right"
-          transitionIn="fadeIn"
-          transitionOut="fadeOut"
-          progressBar />
-      </React.Fragment>
-    )
+    return <>
+      <Modal
+        modalId="edit-note-modal"
+        title={window.translate({ text: 'editnote-title' })}
+        onClose={this.onClose}
+        onOpen={this.onOpen}
+        open={this.props.open}
+        extraClasses="modal-lg"
+      >
+        <If condition={this.state.shouldRenderChildren}>
+          <form onSubmit={this.callCreate}>
+            <div className="form-group ">
+              <Accordion accordionId="note-options-accordion">
+                <AccordionItem itemId="note-color" itemLabel={window.translate({ text: 'editnote-accordion-item-notecolor-label' })} accordionId="note-options-accordion">
+                  <ColorPicker name="note-color" colors={backgroundColors} isNoteColorPicker={true} />
+                </AccordionItem>
+                <AccordionItem itemId="font-color" itemLabel={window.translate({ text: 'editnote-accordion-item-fontcolor-label' })} accordionId="note-options-accordion">
+                  <ColorPicker name="font-color" colors={fontColors} isNoteColorPicker={false} />
+                </AccordionItem>
+                <AccordionItem itemId="font-size" itemLabel={window.translate({ text: 'editnote-accordion-item-fontsize-label' })} accordionId="note-options-accordion">
+                  <p>{this.props.fontSize}</p>
+                  <input className="custom-range" type="range" min="20" max="40" value={this.props.fontSize} onChange={this.props.handleFontSizeChanged} />
+                </AccordionItem>
+                <AccordionItem itemId="note-attachments" itemLabel={window.translate({ text: 'editnote-accordion-item-note-attachments-label' })} accordionId="note-options-accordion">
+                  <EditNoteAttachmentsItem toastr={toastr} />
+                </AccordionItem>
+                <AccordionItem itemId="mates-list" itemLabel={window.translate({ text: 'editnote-accordion-item-mates-label' })} accordionId="note-options-accordion">
+                  {this.state.matesCheckboxes.length > 0 ? this.state.matesCheckboxes : window.translate({ text: 'editnote-you-have-no-mates' })}
+                </AccordionItem>
+              </Accordion>
+              <input className="my-3 form-control" type="text" name="note-title" placeholder={window.translate({ text: 'editnote-notetitle-placeholder' })} value={this.props.title} onChange={this.props.handleTitleChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor }} />
+              <textarea id="ta-note-message" className="form-control note-message" placeholder={window.translate({ text: 'editnote-message-placeholder' })} name="note-message" rows="10" value={this.props.message} onChange={this.props.handleMessageChanged} style={{ backgroundColor: this.props.noteColor, color: this.props.fontColor, fontSize: this.props.fontSize }}></textarea>
+              <button className="btn btn-primary btn-lg mt-3" >{window.translate({ text: 'editnote-btn-create' })}</button>
+            </div>
+          </form>
+        </If>
+      </Modal>
+      <ReduxToastr
+        timeOut={4000}
+        newestOnTop={false}
+        preventDuplicates
+        position="top-right"
+        transitionIn="fadeIn"
+        transitionOut="fadeOut"
+        progressBar />
+    </>
   }
 }
 

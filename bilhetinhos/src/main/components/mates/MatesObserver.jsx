@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getUsersRef } from '../../api/users'
@@ -22,7 +22,7 @@ export class MatesObserver extends Component {
         this.startMatesListener(this.props.uid)
     }
 
-    render = () => <Fragment />
+    render = () => <></>
 }
 
 const mapStateToProps = state => ({

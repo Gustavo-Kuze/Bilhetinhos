@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { refreshNotifications } from '../../../redux/actions/notificationsActions'
@@ -74,14 +74,14 @@ class NotificationsObserver extends Component {
     }
 
     render() {
-        return <Fragment>
+        return <>
             <ReduxToastr
                 newestOnTop={false}
                 preventDuplicates
                 position="top-right"
                 transitionIn="fadeIn"
                 transitionOut="fadeOut" />
-        </Fragment>
+        </>
     }
 }
 

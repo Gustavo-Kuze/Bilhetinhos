@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { AccordionItem } from '../../../base/Accordion'
 import Spinner from '../../../utils/Spinner'
 import If from '../../../utils/If'
@@ -47,26 +47,24 @@ export default class NoteboardSection extends Component {
         }
     }
 
-    renderContent = () => (
-        <Fragment>
-            <If condition={this.props.isLoading}>
-                <div className="row">
-                    <div className="col offset-5">
-                        <Spinner extraClasses="py-5 pl-3" />
-                    </div>
+    renderContent = () => <>
+        <If condition={this.props.isLoading}>
+            <div className="row">
+                <div className="col offset-5">
+                    <Spinner extraClasses="py-5 pl-3" />
                 </div>
-            </If>
-            <If condition={!this.props.isLoading}>
-                <div className="notes-container row ">
-                    {
-                        this.props.notes.length > 0 ?
-                            this.renderNotes(this.props.notes, this.props.areNotesEditable) :
-                            <p className="lead mx-auto">{this.props.emptyLabel}</p>
-                    }
-                </div>
-            </If>
-        </Fragment>
-    )
+            </div>
+        </If>
+        <If condition={!this.props.isLoading}>
+            <div className="notes-container row ">
+                {
+                    this.props.notes.length > 0 ?
+                        this.renderNotes(this.props.notes, this.props.areNotesEditable) :
+                        <p className="lead mx-auto">{this.props.emptyLabel}</p>
+                }
+            </div>
+        </If>
+    </>
 
     render() {
         return this.renderContainer()

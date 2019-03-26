@@ -1,5 +1,5 @@
 import './css/Main.css'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Header from './Header';
 import Footer from './Footer'
 import NotificationsObserver from '../notifications/NotificationsObserver'
@@ -10,18 +10,16 @@ import FloatingActionButton from '../../utils/FAB/FloatingActionButton'
 export default class Skeleton extends Component {
 
     render() {
-        return (
-            <Fragment>
-                <NotificationsObserver />
-                <MatesObserver />
-                <NotesObserver />
-                <Header />
-                <main className={`${this.props.noMarginTop ? "main-mb" : "main-mt main-mb"}`}>
-                    {this.props.children}
-                </main>
-                <FloatingActionButton />
-                <Footer />
-            </Fragment>
-        )
+        return <>
+            <NotificationsObserver />
+            <MatesObserver />
+            <NotesObserver />
+            <Header />
+            <main className={`${this.props.noMarginTop ? "main-mb" : "main-mt main-mb"}`}>
+                {this.props.children}
+            </main>
+            <FloatingActionButton />
+            <Footer />
+        </>
     }
 }
