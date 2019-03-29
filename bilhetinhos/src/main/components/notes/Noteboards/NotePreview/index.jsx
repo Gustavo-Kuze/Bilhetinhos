@@ -7,6 +7,7 @@ import { setEntireNote } from '../../../../redux/actions/editNoteActions'
 import NoteAttachments from '../NoteAttachments/'
 import { Translate } from 'react-translated'
 import NoteFooter from './NoteFooter'
+import Like from './Like'
 
 export class NotePreview extends Component {
 
@@ -100,6 +101,9 @@ export class NotePreview extends Component {
                         alt="Nota marcada"
                         style={{ position: 'absolute', right: '-30px', top: '-20px', zIndex: '999' }} />
                     </div>
+                  </If>
+                  <If condition={!this.props.editable && !this.props.mark}>
+                   <Like />
                   </If>
                 </div>
               </div>
