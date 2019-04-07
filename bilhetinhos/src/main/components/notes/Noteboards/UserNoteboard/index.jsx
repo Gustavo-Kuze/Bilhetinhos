@@ -9,6 +9,7 @@ import { Translate } from 'react-translated'
 import NoteboardContainer from '../Noteboard/NoteboardContainer'
 import NoteboardSection from '../Noteboard/NoteboardSection'
 import AttachmentsViewer from '../NoteAttachments/AttachmentsViewer'
+import { likeToggle } from '../../../../api/notes'
 
 class Noteboard extends Component {
 
@@ -32,6 +33,11 @@ class Noteboard extends Component {
     url.searchParams.set('uid', this.props.uid)
     return url
   }
+
+  // componentDidMount() {
+
+  //   likeToggle('Do seu amigo', 'ZyJbJucGKIR4djIsj2eR2ui6zE63', this.props.uid)
+  // }
 
   render() {
     return (

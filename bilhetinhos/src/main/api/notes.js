@@ -30,7 +30,7 @@ const getUserNotes = async uid => {
     notes = await notes.map(async userNote => {
         let ownerEmail = await getUserEmailByUid(uid)
         let noteWithMatesEmails = await getNoteWithMatesEmails(userNote)
-        let noteWithOwnerEmail = {...noteWithMatesEmails, owner: ownerEmail}
+        let noteWithOwnerEmail = { ...noteWithMatesEmails, owner: ownerEmail }
         return noteWithOwnerEmail
     })
     let userNotes = await Promise.all(notes)
@@ -70,4 +70,26 @@ const getAllMatesNotes = async (uid, matesUids) => {
     return matesNotesPromise.filter(note => note.length > 0)
 }
 
-export { getUserNotesRef, getMateNotes, setNote, removeNote, getUserNotes, getAllMatesNotes, getNotesRef }
+const likeToggle = async (noteTitle, uid, mateUid) => {
+    let notes = await firebase.database().ref(`notes/${uid}`).once('value')
+    let note = notes.val()[noteTitle]
+    note.likes = note.likes ?
+        { count: note.likes.count || 0, uids: note.likes.uids || [] } :
+        { count: 0, uids: [] }
+        
+    if (note.likes.uids.includes(mateUid)) {
+        note.likes.uids = note.likes.uids.filter(u => u !== mateUid)
+    } else {
+        note.likes.uids = [...note.likes.uids, mateUid]
+    }
+
+    note.likes.count = note.likes.uids.length
+
+    setNote(uid, { ...note, likes: note.likes })
+}
+
+export {
+    getUserNotesRef, getMateNotes, setNote,
+    removeNote, getUserNotes, getAllMatesNotes,
+    getNotesRef, likeToggle
+}
