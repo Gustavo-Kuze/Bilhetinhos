@@ -84,28 +84,32 @@ export class NotePreview extends Component {
           }}>
           <div className="card-header">
             <div className="row">
-              <div className="col">
+              <div className="col-5">
                 <small className="card-title"><Translate text="notepreview-created-by" data={{ owner: this.props.owner }} /></small>
               </div>
-              <div className="col">
-                <div className="float-right">
-                  <If condition={this.props.editable}>
-                    <div className="d-flex justify-content-center flex-row">
-                      <button className="btn btn-sm btn-warning mr-1" onClick={this.openNoteEditor}><i className="fas fa-pencil-alt"></i></button>
-                      <button className="btn btn-sm btn-danger" onClick={this.openRemoveDialog}><i className="fas fa-trash"></i></button>
-                    </div>
-                  </If>
-                  <If condition={this.props.mark}>
-                    <div className="col-1">
-                      <img className="" src="/img/pin.png"
-                        alt="Nota marcada"
-                        style={{ position: 'absolute', right: '-30px', top: '-20px', zIndex: '999' }} />
-                    </div>
-                  </If>
-                  <If condition={!this.props.editable && !this.props.mark}>
-                   <Like />
-                  </If>
-                </div>
+              <div className="col-3">
+                <If condition={this.props.mark}>
+                  <div className="d-flex justify-content-center flex-row">
+                    <img className="" src="/img/pin.png"
+                      alt="Nota marcada"
+                      style={{ position: 'relative', right: '-30px', top: '-20px', zIndex: '999' }}
+                    />
+                  </div>
+                </If>
+              </div>
+              <div className="col-4">
+                <If condition={this.props.editable}>
+                  <div className="d-flex justify-content-center flex-row">
+                    <button className="btn btn-sm btn-warning mr-1" onClick={this.openNoteEditor}><i className="fas fa-pencil-alt"></i></button>
+                    <button className="btn btn-sm btn-danger" onClick={this.openRemoveDialog}><i className="fas fa-trash"></i></button>
+                  </div>
+                </If>
+
+                <If condition={!this.props.editable}>
+                  <div className="d-flex align-items-center justify-content-center flex-row">
+                    <Like />
+                  </div>
+                </If>
               </div>
             </div>
           </div>

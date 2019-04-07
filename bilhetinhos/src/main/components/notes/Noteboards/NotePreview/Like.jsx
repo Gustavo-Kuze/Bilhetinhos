@@ -6,10 +6,10 @@ export class Like extends Component {
 
     render() {
         return (
-            <div className="d-flex align-items-center justify-content-center flex-row">
+            <>
                 <button className="btn btn-link"><i className="far fa-heart"></i></button>
                 <small className="text-primary">3</small>
-            </div>
+            </>
         )
     }
 }
